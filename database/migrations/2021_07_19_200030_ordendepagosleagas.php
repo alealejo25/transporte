@@ -1,0 +1,44 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Ordendepagosleagas extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('ordendepagosleagas', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('numero');
+            $table->decimal('montoacumulado',8,2)->nullable();
+            $table->decimal('montofinal',8,2)->nullable();
+            $table->date('fecha');
+            $table->string('tipo',20);
+            $table->string('estado',15);
+            $table->integer('proveedor_id')->unsigned()->nullable();
+            $table->integer('chofer_id')->unsigned()->nullable();
+            $table->integer('empresa_id')->unsigned()->nullable();
+
+            $table->foreign('proveedor_id')->references('id')->on('proveedores');
+            $table->foreign('chofer_id')->references('id')->on('choferes');
+            $table->foreign('empresa_id')->references('id')->on('empresas');
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('ordendepagosleagas');
+    }
+}

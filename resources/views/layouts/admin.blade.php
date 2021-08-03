@@ -489,7 +489,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                         $('#listas').append('<div id="tabs" >\
                                                 <div class="Form-group col-lg-6 col-lg-6">\
                                                   <label for="fecha">Dia</label>\
-                                                  <input type="date" name="fecha[]" id="fecha" class="form-control" placeholder="Fecha Inicio...">\
+                                                  <input type="date" name="fecha[]" id="fecha" class="form-control" placeholder="Fecha Inicio..." required>\
                                                 </div>\
                                                 <div class="Form-group col-lg-12">\
                                                   <div><label for="pv">ABONOS 122 POR PLANCA (10 UNIDADES)</label></div>\
@@ -499,12 +499,12 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                                                   <input type="number" step=0.01 name="totalarendirp[]" id="totalarendirp" class="form-control" placeholder="Total a Rendir...">\
                                                 </div>\
                                                 <div class="col-lg-4 col-lg-4">\
-                                                  <label for="abonosdesdep">Abonos Desde</label>\
-                                                  <input type="number" name="abonosdesdep[]" id="abonosdesdep" class="form-control" placeholder="Abonos desde...">\
+                                                  <label for="abonodesdep">Abonos Desde</label>\
+                                                  <input type="number" name="abonodesdep[]" id="abonodesdep" class="form-control" placeholder="Abonos desde...">\
                                                 </div>\
                                                 <div class="col-lg-4 col-lg-4">\
-                                                  <label for="abonoshastap">Abonos Hasta</label>\
-                                                  <input type="number" name="abonoshastap[]" id="abonoshastap" class="form-control" placeholder="Abonos hasta...">\
+                                                  <label for="abonohastap">Abonos Hasta</label>\
+                                                  <input type="number" name="abonohastap[]" id="abonohastap" class="form-control" placeholder="Abonos hasta...">\
                                                   <br>\
                                                 </div>\
                                                 <div class="Form-group col-lg-12">\
@@ -515,12 +515,12 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                                                   <input type="number" step=0.01 name="totalarendiru[]" id="totalarendiru" class="form-control" placeholder="Total a Rendir...">\
                                                 </div>\
                                                 <div class="col-lg-4 col-lg-4">\
-                                                  <label for="abonosdesdeu">Abonos Desde</label>\
-                                                  <input type="number" name="abonosdesdeu[]" id="abonosdesdeu" class="form-control" placeholder="Abonos desde...">\
+                                                  <label for="abonodesdeu">Abonos Desde</label>\
+                                                  <input type="number" name="abonodesdeu[]" id="abonodesdeu" class="form-control" placeholder="Abonos desde...">\
                                                 </div>\
                                                 <div class="col-lg-4 col-lg-4">\
-                                                  <label for="abonoshastau">Abonos Hasta</label>\
-                                                  <input type="number" name="abonoshastau[]" id="abonoshastau" class="form-control" placeholder="Abonos hasta...">\
+                                                  <label for="abonohastau">Abonos Hasta</label>\
+                                                  <input type="number" name="abonohastau[]" id="abonohastau" class="form-control" placeholder="Abonos hasta...">\
                                                   <br>\
                                                 </div>\
                                                  <div class="Form-group col-lg-12">\

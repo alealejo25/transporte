@@ -27,19 +27,14 @@ class MovimientoArticuloController extends Controller
 
     public function store(Request $request)
     {
+    	
 
     	$date = new \DateTime();
-    
- 		$campos=[
+  		$campos=[
             'nro_comprobante'=>'required|string|max:60'
-             
-        ];
-
-
+         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-
-
 
     	$datos=$request->all();
     	// dd($datos['articulo_id']);

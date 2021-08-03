@@ -29,7 +29,7 @@ class Boleteria122Detalle extends Model
 
     public function Boleteria122()
     {
-        return $this->belongsTo('App\Boleteria');
+        return $this->belongsTo('App\Boleteria122');
     }
 
     public function scopeSearch($query,$name)

@@ -8,6 +8,8 @@ use App\Caja;
 use App\MovimientoCaja;
 use App\ChequePropio;
 use App\User;
+use App\Boleteria122Detalle;
+use App\Boleteria122;
 use App\PagoWorldline;
 use Carbon\Carbon;
 
@@ -356,52 +358,70 @@ public function ingresarpagoworldline(Request $request){
 
 
   public function ingresar122(Request $request){
-        dd($request);
+
         $date = new \DateTime();
-        $cajas=Caja::orderBy('denominacion','DESC')->pluck('denominacion','id');
- 
-        /*VALIDACION -----------------------------------------*/
-        $campos=[
-            'nrocomprobante'=>'required',
-            'fechainicio'=>'required',
-            'fechafin'=>'required',
-            'importe'=>'required',
-            'servmetro'=>'required',
-            'fondo'=>'required',
-            'iibb'=>'required',
-            'totaldeducciones'=>'required',
-            'netoapagar'=>'required',
-            'caja_id'=>'required'
+    $datos=$request->all();
+    $total=0;
+    $totalp=0;
+    $totalu=0;
+    $totalm=0;
+
+
+
+    $boleteria122=Boleteria122::create([
+        "puntodeventa"=>$datos["pv"],
+        "responsable"=>$datos["responsable"],
+        "observacion"=>$datos["observacion"],
+        "fecha"=>$datos["fechapresentacion"],
+        "total"=>$total
+            ]);
+           
+        foreach($datos['totalarendirm'] as $key => $value){
+        Boleteria122Detalle::create([
+                    "dia"=>$datos["fecha"][$key],
+                    "totalarendirp"=>$datos["totalarendirp"][$key],
+                    "abonodesdep"=>$datos["abonodesdep"][$key],
+                    "abonohastap"=>$datos["abonohastap"][$key],
+                    "totalarendiru"=>$datos["totalarendiru"][$key],
+                    "abonodesdeu"=>$datos["abonodesdeu"][$key],
+                    "abonohastau"=>$datos["abonohastau"][$key],
+                    "totalarendirm"=>$datos["totalarendirm"][$key],
+                    "cierrelote"=>$datos["cierrelote"][$key],
+                    "boleteria122_id"=>$boleteria122->id
+                ]);
+
+                $totalp=$datos["totalarendirp"][$key]+$totalp;
+                $totalm=$datos["totalarendirm"][$key]+$totalm;
+                $totalu=$datos["totalarendiru"][$key]+$totalu;
+
+           }
       
-        ];
-        $Mensaje=["required"=>'El :attribute es requerido'];
-        $this->validate($request,$campos,$Mensaje);
-
-
-        $datospagometropolitana= new PagoMetropolitana(request()->except('_token'));
-        $datospagometropolitana->user_id=auth()->user()->id;
-        $datospagometropolitana->save();
+        $totalfinal=$totalp+$totalu+$totalm;
+        $id=$boleteria122->id;
+        $editartotal=Boleteria122::where('id',$id)
+                                 ->update([
+                            'total'=>$totalfinal
+                              ]);
+                
        
-        
-        
-        $datosmovimientoscajas=new MovimientoCaja();
-        $datosmovimientoscajas->tipo='pagometropolitana';
+         $datosmovimientoscajas=new MovimientoCaja();
+        $datosmovimientoscajas->tipo='boleteria122';
         $datosmovimientoscajas->tipo_movimiento='INGRESO';
-        $datosmovimientoscajas->descripcion='PAGO DE METROPOLITANA SA';
+        $datosmovimientoscajas->descripcion='INGRESO LINEA 122';
         $datosmovimientoscajas->fecha=$date;
-        $datosmovimientoscajas->caja_id=$request->caja_id;
-        $datosmovimientoscajas->importe=$request->netoapagar;
+        $datosmovimientoscajas->caja_id=1; // CAJA LA NUEVA FOUNIER
+        $datosmovimientoscajas->importe=$totalfinal;
         $importe_final_anterior=0;
-        $consultamovimientos=MovimientoCaja::where('caja_id', $request->caja_id)->orderBy('id','DESC')->limit(1)->get();
+        $consultamovimientos=MovimientoCaja::where('caja_id', $datosmovimientoscajas->caja_id)->orderBy('id','DESC')->limit(1)->get();
         if($consultamovimientos <> null){
-        foreach ($consultamovimientos as $consultamovimiento) {
-          $importe_final_anterior=$consultamovimiento->importe_final;
-        }
-      }  
-      $datosmovimientoscajas->importe_final=$importe_final_anterior+$datosmovimientoscajas->importe;
-      $datosmovimientoscajas->save();
-         flash::success('Se ingreso con exito');
-         return Redirect('pagos/cliente/pagometropolitana');
+            foreach ($consultamovimientos as $consultamovimiento) {
+              $importe_final_anterior=$consultamovimiento->importe_final;
+            }
+        }  
+        $datosmovimientoscajas->importe_final=$importe_final_anterior+$datosmovimientoscajas->importe;
+        $datosmovimientoscajas->save();
+         flash::success('Se ingreso con exito, y se actualizo la caja');
+         return Redirect('pagos/cliente/pagoboleteria122');
  
   }
   

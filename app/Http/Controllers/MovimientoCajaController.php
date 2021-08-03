@@ -248,6 +248,16 @@ public function pagoworldline()
         
      }
 
+public function pagoboleteria122()
+    {
+
+        $cajas=Caja::orderBy('denominacion','ASC')->pluck('denominacion','id');
+        return view('pagos.cliente.boleteria122')
+                ->with('cajas',$cajas);
+        
+     }
+
+
 public function ingresarpagometropolitana(Request $request){
 
         $date = new \DateTime();
@@ -341,6 +351,57 @@ public function ingresarpagoworldline(Request $request){
         $datosmovimientoscajas->save();
         flash::success('Se ingreso el pago con exito');
         return Redirect('pagos/cliente/pagoworldline');
+ 
+  }
+
+
+  public function ingresar122(Request $request){
+        dd($request);
+        $date = new \DateTime();
+        $cajas=Caja::orderBy('denominacion','DESC')->pluck('denominacion','id');
+ 
+        /*VALIDACION -----------------------------------------*/
+        $campos=[
+            'nrocomprobante'=>'required',
+            'fechainicio'=>'required',
+            'fechafin'=>'required',
+            'importe'=>'required',
+            'servmetro'=>'required',
+            'fondo'=>'required',
+            'iibb'=>'required',
+            'totaldeducciones'=>'required',
+            'netoapagar'=>'required',
+            'caja_id'=>'required'
+      
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+
+
+        $datospagometropolitana= new PagoMetropolitana(request()->except('_token'));
+        $datospagometropolitana->user_id=auth()->user()->id;
+        $datospagometropolitana->save();
+       
+        
+        
+        $datosmovimientoscajas=new MovimientoCaja();
+        $datosmovimientoscajas->tipo='pagometropolitana';
+        $datosmovimientoscajas->tipo_movimiento='INGRESO';
+        $datosmovimientoscajas->descripcion='PAGO DE METROPOLITANA SA';
+        $datosmovimientoscajas->fecha=$date;
+        $datosmovimientoscajas->caja_id=$request->caja_id;
+        $datosmovimientoscajas->importe=$request->netoapagar;
+        $importe_final_anterior=0;
+        $consultamovimientos=MovimientoCaja::where('caja_id', $request->caja_id)->orderBy('id','DESC')->limit(1)->get();
+        if($consultamovimientos <> null){
+        foreach ($consultamovimientos as $consultamovimiento) {
+          $importe_final_anterior=$consultamovimiento->importe_final;
+        }
+      }  
+      $datosmovimientoscajas->importe_final=$importe_final_anterior+$datosmovimientoscajas->importe;
+      $datosmovimientoscajas->save();
+         flash::success('Se ingreso con exito');
+         return Redirect('pagos/cliente/pagometropolitana');
  
   }
   

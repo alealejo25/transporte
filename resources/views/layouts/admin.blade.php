@@ -82,8 +82,18 @@ a:active {
 }
 
 
+{ font-family:Arial; }
+h2 { padding:0 0 5px 5px; }
+h2 a { color: #224f99; }
+a { color:#999; text-decoration: none; }
+a:hover { color:#802727; }
+p { padding:0 0 5px 0; }
+
+input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radius:4px; -web-kit-border-radius:4px; -khtml-border-radius:4px; }
+
 
     </style>
+
 
   <!--  ------->
 
@@ -323,6 +333,20 @@ a:active {
             </li>
             <li class="treeview">
               <a href="#">
+                <i class="fa fa-bus"></i> <span>Ingreso de bolerias</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                @can('opproveedores')
+                <li><a href="/pagos/cliente/pagoboleteria122"><i class="fa fa-circle-o"></i> Boleteria 122</a></li>
+                @endcan
+                @can('op')
+                <li><a href="/pagos/cliente/pagoworldline"><i class="fa fa-circle-o"></i> x</a></li>
+                @endcan
+               </ul>
+            </li>
+            <li class="treeview">
+              <a href="#">
                 <i class="fa fa-flag"></i> <span>Consultas</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
@@ -454,8 +478,86 @@ a:active {
       });
     </script>
 
+    <script>
+      
+    var campos_max=10;   //max de 10 campos
+    var x = 0;
+    $('#add_field').click (function(e) {
+                e.preventDefault();     //prevenir novos clicks
+
+                if (x < campos_max) {
+                        $('#listas').append('<div id="tabs" >\
+                                                <div class="Form-group col-lg-6 col-lg-6">\
+                                                  <label for="fecha">Dia</label>\
+                                                  <input type="date" name="fecha[]" id="fecha" class="form-control" placeholder="Fecha Inicio...">\
+                                                </div>\
+                                                <div class="Form-group col-lg-12">\
+                                                  <div><label for="pv">ABONOS 122 POR PLANCA (10 UNIDADES)</label></div>\
+                                                </div>\
+                                                <div class="Form-group col-lg-4 col-lg-4">\
+                                                  <label for="totalarendirp">Total a Rendir</label>\
+                                                  <input type="number" step=0.01 name="totalarendirp[]" id="totalarendirp" class="form-control" placeholder="Total a Rendir...">\
+                                                </div>\
+                                                <div class="col-lg-4 col-lg-4">\
+                                                  <label for="abonosdesdep">Abonos Desde</label>\
+                                                  <input type="number" name="abonosdesdep[]" id="abonosdesdep" class="form-control" placeholder="Abonos desde...">\
+                                                </div>\
+                                                <div class="col-lg-4 col-lg-4">\
+                                                  <label for="abonoshastap">Abonos Hasta</label>\
+                                                  <input type="number" name="abonoshastap[]" id="abonoshastap" class="form-control" placeholder="Abonos hasta...">\
+                                                  <br>\
+                                                </div>\
+                                                <div class="Form-group col-lg-12">\
+                                                   <div><label for="pv">ABONOS POR UNIDAD</label></div>\
+                                                </div>\
+                                                <div class="Form-group col-lg-4 col-lg-4">\
+                                                  <label for="totalarendiru">Total a Rendir</label>\
+                                                  <input type="number" step=0.01 name="totalarendiru[]" id="totalarendiru" class="form-control" placeholder="Total a Rendir...">\
+                                                </div>\
+                                                <div class="col-lg-4 col-lg-4">\
+                                                  <label for="abonosdesdeu">Abonos Desde</label>\
+                                                  <input type="number" name="abonosdesdeu[]" id="abonosdesdeu" class="form-control" placeholder="Abonos desde...">\
+                                                </div>\
+                                                <div class="col-lg-4 col-lg-4">\
+                                                  <label for="abonoshastau">Abonos Hasta</label>\
+                                                  <input type="number" name="abonoshastau[]" id="abonoshastau" class="form-control" placeholder="Abonos hasta...">\
+                                                  <br>\
+                                                </div>\
+                                                 <div class="Form-group col-lg-12">\
+                                                   <div><label for="pv">CIERRE DE VTAS METROPOLITANA</label></div>\
+                                                </div>\
+                                                <div class="Form-group col-lg-4 col-lg-4">\
+                                                  <label for="totalarendirm">Total a Rendir</label>\
+                                                  <input type="number" step=0.01 name="totalarendirm[]" id="totalarendirm" class="form-control" placeholder="Total a Rendir...">\
+                                                </div>\
+                                                <div class="col-lg-4 col-lg-4">\
+                                                  <label for="cierrelote">Cierre de lote</label>\
+                                                  <input type="number" name="cierrelote[]" id="cierrelote" class="form-control" placeholder="Cierre de Lote...">\
+                                                </div>\
+                                                <div class="Form-group col-lg-4 col-lg-4">\
+                                                   <button class="btn btn-primary remover_campo" id="tabs1" >Remover</button>\
+                                                </div>\
+                                                 <label for="fecha">_______________________________________________________________________________________</label>\
+                                            </div>\
+                                            ');
+                    
+                x++;
+
+                                              $('#tabs').attr('id', 'tr'+x);   
+                                              $('#tabs1').attr('id', 'tr'+x); 
+                }
+        });
+        // Remover o div anterior
+        $('#listas').on("click",".remover_campo",function(e) {
+                e.preventDefault();
+                hola=$(this).get(0).id;
+                $("#"+hola).remove();
+                x--;
+        });
+    </script>
 
     @yield("script")
 
   </body>
 </html>
+

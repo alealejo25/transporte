@@ -205,6 +205,8 @@ Route::post('pagos/cliente/ingresarpagometropolitana','MovimientoCajaController@
 Route::get('pagos/cliente/pagoworldline','MovimientoCajaController@pagoworldline')->name('pagoworldline');
 Route::post('pagos/cliente/ingresarpagoworldline','MovimientoCajaController@ingresarpagoworldline')->name('ingresarpagoworldline');
 
+Route::get('pagos/cliente/pagoboleteria122','MovimientoCajaController@pagoboleteria122')->name('pagoboleteria122');
+Route::post('pagos/cliente/ingresar122','MovimientoCajaController@ingresar122')->name('ingresar122');
 
 Route::get('pagos/opproveedores','PagoController@opproveedores'); 
 Route::post('pagos/generaropproveedor','PagoController@generaropproveedor')->name('generaropproveedor');

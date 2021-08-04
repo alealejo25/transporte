@@ -309,6 +309,10 @@ Route::post('reportes/reportemovimientosarticulos/','ReporteController@reportemo
 Route::get('reportes/cierresdecaja/','ReporteController@cierresdecaja');
 Route::post('reportes/reportecierresdecaja/','ReporteController@reportecierresdecaja')->name('reportecierresdecaja');
 
+//BOLETERIA 122 POR FECHAS
+Route::get('reportes/boleteria122/','ReporteController@boleteria122');
+Route::post('reportes/reporteboleteria122/','ReporteController@reporteboleteria122')->name('reporteboleteria122');
+
 //************************************************************************************************************
 
 

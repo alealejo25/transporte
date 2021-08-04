@@ -19,6 +19,9 @@ use App\CtaCteCho;
 use App\CierreCaja;
 use App\Caja;
 use App\CtaCtePLeagas;
+use App\Boleteria122;
+use App\Boleteria122Detalle;
+use  DB;
 
 use Dompdf\Dompdf;
 
@@ -104,6 +107,57 @@ public function reportectasctesp(Request $request)
 
     }
 // FIN reporte de ctas ctes por fecha de proveedores ---------------------------------------------------
+
+// REPORTE PARA LOS INGRESOS POR BOLETERIA 122
+public function boleteria122(Request $request)
+    {
+       return view('reportes.boleteria122');
+    }
+
+
+public function reporteboleteria122(Request $request)
+{
+
+    $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+    $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+    
+    if(isset($request->detalle)){
+
+    $consulta=DB::table('boleteria122')
+                          ->join('boleteria122detalle','boleteria122.id','=','boleteria122detalle.boleteria122_id')
+                          ->whereBetween('fecha',[$fi, $ff])
+                          ->get();
+
+    $consultasuma=DB::table('boleteria122')
+                          ->join('boleteria122detalle','boleteria122.id','=','boleteria122detalle.boleteria122_id')
+                          ->whereBetween('fecha',[$fi, $ff])
+                          ->sum('total');
+    $consultasumarendirp=DB::table('boleteria122')
+                          ->join('boleteria122detalle','boleteria122.id','=','boleteria122detalle.boleteria122_id')
+                          ->whereBetween('fecha',[$fi, $ff])
+                          ->sum('totalarendirp');
+    $consultasumarendiru=DB::table('boleteria122')
+                          ->join('boleteria122detalle','boleteria122.id','=','boleteria122detalle.boleteria122_id')
+                          ->whereBetween('fecha',[$fi, $ff])
+                          ->sum('totalarendiru');
+    $consultasumarendirm=DB::table('boleteria122')
+                          ->join('boleteria122detalle','boleteria122.id','=','boleteria122detalle.boleteria122_id')
+                          ->whereBetween('fecha',[$fi, $ff])
+                          ->sum('totalarendirm');
+    $consultasuma=$consultasumarendirm+$consultasumarendiru+$consultasumarendirp;
+      $pdf=\PDF::loadView('pdf.reporteboleteria122detalle',['consulta'=>$consulta,'consultasuma'=>$consultasuma,'consultasumarendirp'=>$consultasumarendirp,'consultasumarendiru'=>$consultasumarendiru,'consultasumarendirm'=>$consultasumarendirm])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reporteboleteria122detalle.pdf');
+    }
+    else {
+        $consulta=Boleteria122::whereBetween('fecha',[$fi, $ff])->get();
+        $consultasuma=Boleteria122::whereBetween('fecha',[$fi, $ff])->sum('total');
+        $pdf=\PDF::loadView('pdf.reporteboleteria122',['consulta'=>$consulta,'consultasuma'=>$consultasuma])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reporteboleteria122.pdf');
+    }
+}
+
 //reporte de ctas ctes por fecha de choferes
  public function ctasctescho(Request $request)
     {

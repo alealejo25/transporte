@@ -372,7 +372,9 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 <li><a href="configuracion/usuario"><i class="fa fa-circle-o"></i> Pagos</a></li>
                 @endcan
       
-               
+                @can('pdfcierrescajas')
+                <li><a href="/reportes/boleteria122"><i class="fa fa-circle-o"></i> Ingreso Boleteria 122</a></li>
+                @endcan
                 @can('pdfctasctesproveedores')
                 <li><a href="/reportes/ctasctesp"><i class="fa fa-circle-o"></i> Ctas Ctes. Prov. LNF</a></li>
                 @endcan

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Proveedor;
 use App\CtaCteP;
-use App\CtaCtePleagas;
+use App\CtaCtePLeagas;
 use App\Empresa;
 
 use Laracasts\Flash\Flash;
@@ -38,8 +38,6 @@ class CtaCtePController extends Controller
 		 	->with('proveedores',$proveedores)
             ->with('empresas',$empresas)
   			->with('id',$id);
-
-
     }
 
  public function guardarcomprobantep(Request $request,$id)

@@ -4,59 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0a0082936362c803dee29906bb197571",
+    "content-hash": "1560a8086cd91a852e9ff367f09869bd",
     "packages": [
-        {
-            "name": "afipsdk/afip.php",
-            "version": "v0.7.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/AfipSDK/afip.php.git",
-                "reference": "e64d0b567130fd298150990530b2b70e70d2e2df"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/AfipSDK/afip.php/zipball/e64d0b567130fd298150990530b2b70e70d2e2df",
-                "reference": "e64d0b567130fd298150990530b2b70e70d2e2df",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/Afip.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Afip SDK",
-                    "email": "afipsdk@gmail.com"
-                }
-            ],
-            "description": "Libreria para usar los Web Services de AFIP (Argentina) ",
-            "homepage": "https://github.com/afipsdk/afip.php",
-            "keywords": [
-                "afip",
-                "cae",
-                "contribuyente",
-                "facturacion-electronica",
-                "gratis",
-                "libreria",
-                "padron",
-                "soap"
-            ],
-            "support": {
-                "issues": "https://github.com/AfipSDK/afip.php/issues",
-                "source": "https://github.com/AfipSDK/afip.php/tree/v0.7.1"
-            },
-            "time": "2021-05-01T03:21:34+00:00"
-        },
         {
             "name": "asm89/stack-cors",
             "version": "1.3.0",
@@ -112,72 +61,6 @@
                 "source": "https://github.com/asm89/stack-cors/tree/1.3.0"
             },
             "time": "2019-12-24T22:41:47+00:00"
-        },
-        {
-            "name": "barryvdh/laravel-dompdf",
-            "version": "v0.8.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/barryvdh/laravel-dompdf.git",
-                "reference": "30310e0a675462bf2aa9d448c8dcbf57fbcc517d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-dompdf/zipball/30310e0a675462bf2aa9d448c8dcbf57fbcc517d",
-                "reference": "30310e0a675462bf2aa9d448c8dcbf57fbcc517d",
-                "shasum": ""
-            },
-            "require": {
-                "dompdf/dompdf": "^0.8",
-                "illuminate/support": "^5.5|^6|^7|^8",
-                "php": ">=7"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.8-dev"
-                },
-                "laravel": {
-                    "providers": [
-                        "Barryvdh\\DomPDF\\ServiceProvider"
-                    ],
-                    "aliases": {
-                        "PDF": "Barryvdh\\DomPDF\\Facade"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Barryvdh\\DomPDF\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Barry vd. Heuvel",
-                    "email": "barryvdh@gmail.com"
-                }
-            ],
-            "description": "A DOMPDF Wrapper for Laravel",
-            "keywords": [
-                "dompdf",
-                "laravel",
-                "pdf"
-            ],
-            "support": {
-                "issues": "https://github.com/barryvdh/laravel-dompdf/issues",
-                "source": "https://github.com/barryvdh/laravel-dompdf/tree/master"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/barryvdh",
-                    "type": "github"
-                }
-            ],
-            "time": "2020-09-07T11:50:18+00:00"
         },
         {
             "name": "brick/math",
@@ -409,78 +292,6 @@
                 }
             ],
             "time": "2020-05-25T17:44:05+00:00"
-        },
-        {
-            "name": "dompdf/dompdf",
-            "version": "v0.8.6",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "db91d81866c69a42dad1d2926f61515a1e3f42c5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/db91d81866c69a42dad1d2926f61515a1e3f42c5",
-                "reference": "db91d81866c69a42dad1d2926f61515a1e3f42c5",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-mbstring": "*",
-                "phenx/php-font-lib": "^0.5.2",
-                "phenx/php-svg-lib": "^0.3.3",
-                "php": "^7.1"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.3",
-                "phpunit/phpunit": "^7.5",
-                "squizlabs/php_codesniffer": "^3.5"
-            },
-            "suggest": {
-                "ext-gd": "Needed to process images",
-                "ext-gmagick": "Improves image processing performance",
-                "ext-imagick": "Improves image processing performance",
-                "ext-zlib": "Needed for pdf stream compression"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.7-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Dompdf\\": "src/"
-                },
-                "classmap": [
-                    "lib/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-2.1"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Ménager",
-                    "email": "fabien.menager@gmail.com"
-                },
-                {
-                    "name": "Brian Sweeney",
-                    "email": "eclecticgeek@gmail.com"
-                },
-                {
-                    "name": "Gabriel Bull",
-                    "email": "me@gabrielbull.com"
-                }
-            ],
-            "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
-            "homepage": "https://github.com/dompdf/dompdf",
-            "support": {
-                "issues": "https://github.com/dompdf/dompdf/issues",
-                "source": "https://github.com/dompdf/dompdf/tree/master"
-            },
-            "time": "2020-08-30T22:54:22+00:00"
         },
         {
             "name": "dragonmantank/cron-expression",
@@ -1618,78 +1429,6 @@
             "time": "2021-01-18T20:58:21+00:00"
         },
         {
-            "name": "livewire/livewire",
-            "version": "v2.5.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/livewire/livewire.git",
-                "reference": "de192292d68276d831e5fd9824c80c3b78a21ddf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/livewire/livewire/zipball/de192292d68276d831e5fd9824c80c3b78a21ddf",
-                "reference": "de192292d68276d831e5fd9824c80c3b78a21ddf",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/database": "^7.0|^8.0",
-                "illuminate/support": "^7.0|^8.0",
-                "illuminate/validation": "^7.0|^8.0",
-                "php": "^7.2.5|^8.0",
-                "symfony/http-kernel": "^5.0"
-            },
-            "require-dev": {
-                "calebporzio/sushi": "^2.1",
-                "laravel/framework": "^7.0|^8.0",
-                "mockery/mockery": "^1.3.1",
-                "orchestra/testbench": "^5.0|^6.0",
-                "orchestra/testbench-dusk": "^5.2|^6.0",
-                "phpunit/phpunit": "^8.4|^9.0",
-                "psy/psysh": "@stable"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "Livewire\\LivewireServiceProvider"
-                    ],
-                    "aliases": {
-                        "Livewire": "Livewire\\Livewire"
-                    }
-                }
-            },
-            "autoload": {
-                "files": [
-                    "src/helpers.php"
-                ],
-                "psr-4": {
-                    "Livewire\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Caleb Porzio",
-                    "email": "calebporzio@gmail.com"
-                }
-            ],
-            "description": "A front-end framework for Laravel.",
-            "support": {
-                "issues": "https://github.com/livewire/livewire/issues",
-                "source": "https://github.com/livewire/livewire/tree/v2.5.5"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/calebporzio",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-07-13T05:03:28+00:00"
-        },
-        {
             "name": "luecano/numero-a-letras",
             "version": "v2.2.0",
             "source": {
@@ -1741,6 +1480,112 @@
                 "source": "https://github.com/lecano/php-numero-a-letras/tree/v2.2.0"
             },
             "time": "2020-10-03T21:37:44+00:00"
+        },
+        {
+            "name": "mike42/escpos-php",
+            "version": "v4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mike42/escpos-php.git",
+                "reference": "74fd89a3384135c90a8c6dc4b724e03df7c0e4f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mike42/escpos-php/zipball/74fd89a3384135c90a8c6dc4b724e03df7c0e4f9",
+                "reference": "74fd89a3384135c90a8c6dc4b724e03df7c0e4f9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-intl": "*",
+                "ext-json": "*",
+                "ext-zlib": "*",
+                "mike42/gfx-php": "^0.6",
+                "php": ">=7.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9",
+                "squizlabs/php_codesniffer": "^3.3"
+            },
+            "suggest": {
+                "ext-gd": "Used for image printing if present.",
+                "ext-imagick": "Will be used for image printing if present. Required for PDF printing or use of custom fonts."
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mike42\\": "src/Mike42"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Billington",
+                    "email": "michael.billington@gmail.com"
+                }
+            ],
+            "description": "PHP receipt printer library for use with ESC/POS-compatible thermal and impact printers",
+            "homepage": "https://github.com/mike42/escpos-php",
+            "keywords": [
+                "Epson",
+                "barcode",
+                "escpos",
+                "printer",
+                "receipt-printer"
+            ],
+            "support": {
+                "issues": "https://github.com/mike42/escpos-php/issues",
+                "source": "https://github.com/mike42/escpos-php/tree/v4.0"
+            },
+            "time": "2022-05-23T11:05:09+00:00"
+        },
+        {
+            "name": "mike42/gfx-php",
+            "version": "v0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mike42/gfx-php.git",
+                "reference": "ed9ded2a9298e4084a9c557ab74a89b71e43dbdb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mike42/gfx-php/zipball/ed9ded2a9298e4084a9c557ab74a89b71e43dbdb",
+                "reference": "ed9ded2a9298e4084a9c557ab74a89b71e43dbdb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0.0"
+            },
+            "require-dev": {
+                "phpbench/phpbench": "@dev",
+                "phpunit/phpunit": "^6.5",
+                "squizlabs/php_codesniffer": "^3.3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mike42\\": "src/Mike42"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Billington",
+                    "email": "michael.billington@gmail.com"
+                }
+            ],
+            "description": "The pure PHP graphics library",
+            "homepage": "https://github.com/mike42/gfx-php",
+            "support": {
+                "issues": "https://github.com/mike42/gfx-php/issues",
+                "source": "https://github.com/mike42/gfx-php/tree/v0.6"
+            },
+            "time": "2019-10-05T02:44:33+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2053,91 +1898,6 @@
             "time": "2021-04-09T13:42:10+00:00"
         },
         {
-            "name": "phenx/php-font-lib",
-            "version": "0.5.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PhenX/php-font-lib.git",
-                "reference": "ca6ad461f032145fff5971b5985e5af9e7fa88d8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PhenX/php-font-lib/zipball/ca6ad461f032145fff5971b5985e5af9e7fa88d8",
-                "reference": "ca6ad461f032145fff5971b5985e5af9e7fa88d8",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^4.8.35 || ^5 || ^6 || ^7"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "FontLib\\": "src/FontLib"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Ménager",
-                    "email": "fabien.menager@gmail.com"
-                }
-            ],
-            "description": "A library to read, parse, export and make subsets of different types of font files.",
-            "homepage": "https://github.com/PhenX/php-font-lib",
-            "support": {
-                "issues": "https://github.com/PhenX/php-font-lib/issues",
-                "source": "https://github.com/PhenX/php-font-lib/tree/0.5.2"
-            },
-            "time": "2020-03-08T15:31:32+00:00"
-        },
-        {
-            "name": "phenx/php-svg-lib",
-            "version": "v0.3.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PhenX/php-svg-lib.git",
-                "reference": "5fa61b65e612ce1ae15f69b3d223cb14ecc60e32"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PhenX/php-svg-lib/zipball/5fa61b65e612ce1ae15f69b3d223cb14ecc60e32",
-                "reference": "5fa61b65e612ce1ae15f69b3d223cb14ecc60e32",
-                "shasum": ""
-            },
-            "require": {
-                "sabberworm/php-css-parser": "^8.3"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^5.5|^6.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Svg\\": "src/Svg"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "LGPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Ménager",
-                    "email": "fabien.menager@gmail.com"
-                }
-            ],
-            "description": "A library to read, parse and export to PDF SVG files.",
-            "homepage": "https://github.com/PhenX/php-svg-lib",
-            "support": {
-                "issues": "https://github.com/PhenX/php-svg-lib/issues",
-                "source": "https://github.com/PhenX/php-svg-lib/tree/master"
-            },
-            "time": "2019-09-11T20:02:13+00:00"
-        },
-        {
             "name": "phpoption/phpoption",
             "version": "1.7.5",
             "source": {
@@ -2205,102 +1965,6 @@
                 }
             ],
             "time": "2020-07-20T17:29:33+00:00"
-        },
-        {
-            "name": "phpro/soap-client",
-            "version": "v1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpro/soap-client.git",
-                "reference": "c0985c4946c42e0af386179f6f56a5ccfe04c196"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpro/soap-client/zipball/c0985c4946c42e0af386179f6f56a5ccfe04c196",
-                "reference": "c0985c4946c42e0af386179f6f56a5ccfe04c196",
-                "shasum": ""
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-xml": "*",
-                "php": "^7.3 || ^8.0",
-                "psr/event-dispatcher": "^1.0",
-                "psr/log": "^1.0",
-                "symfony/console": "~4.0 || ~5.0",
-                "symfony/event-dispatcher": "~4.0 || ~5.0",
-                "symfony/filesystem": "~4.0 || ~5.0",
-                "symfony/options-resolver": "~4.0 || ~5.0"
-            },
-            "require-dev": {
-                "ext-soap": "*",
-                "guzzlehttp/guzzle": "^7.2.0",
-                "guzzlehttp/promises": "^1.4.0",
-                "guzzlehttp/psr7": "^1.7.0",
-                "laminas/laminas-code": "^3.5.0",
-                "nyholm/psr7": "^1.3",
-                "php-http/client-common": "^2.1",
-                "php-http/discovery": "^1.7",
-                "php-http/httplug": "^2.1",
-                "php-http/message": "^1.8",
-                "php-http/message-factory": "^1.0",
-                "php-http/mock-client": "^1.3",
-                "php-parallel-lint/php-parallel-lint": "^1.2",
-                "php-vcr/php-vcr": "1.4.5",
-                "phpdocumentor/reflection-docblock": "^5.2.2",
-                "phpro/grumphp-shim": "~1.2.0",
-                "phpspec/phpspec": "~7.0",
-                "phpspec/prophecy-phpunit": "^2.0.1",
-                "phpstan/phpstan": "^0.12.57",
-                "phpunit/phpunit": "~9.4",
-                "psr/http-factory": "^1.0",
-                "psr/http-message": "^1.0.1",
-                "robrichards/wse-php": "^2.0.3",
-                "robrichards/xmlseclibs": "^3.0",
-                "squizlabs/php_codesniffer": "~3.5",
-                "symfony/validator": "~4.0 || ~5.0"
-            },
-            "suggest": {
-                "ext-soap": "If you want to use PHP's ext-soap driver.",
-                "php-http/client-common": "For gaining control over the HTTP layer",
-                "php-http/client-implementation": "For gaining control over the HTTP layer",
-                "php-http/discovery": "For gaining control over the HTTP layer",
-                "php-http/httplug": "For gaining control over the HTTP layer",
-                "php-http/message": "For gaining control over the HTTP layer",
-                "php-http/message-factory": "For gaining control over the HTTP layer",
-                "phpro/annotated-cache": "For caching SOAP responses",
-                "psr/http-message": "For gaining control over the HTTP layer",
-                "psr/log-implementation": "For logging SOAP requests, responses and errors",
-                "robrichards/wse-php": "If you want to use the WSA or WSSE middleware",
-                "symfony/validator": "If you easily want to validate SOAP requests / responses manually"
-            },
-            "bin": [
-                "bin/soap-client"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Phpro\\SoapClient\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Toon Verwerft",
-                    "email": "toon.verwerft@phpro.be"
-                }
-            ],
-            "description": "A general purpose SoapClient library",
-            "keywords": [
-                "soap"
-            ],
-            "support": {
-                "issues": "https://github.com/phpro/soap-client/issues",
-                "source": "https://github.com/phpro/soap-client/tree/v1.4.1"
-            },
-            "time": "2020-12-18T13:48:49+00:00"
         },
         {
             "name": "psr/container",
@@ -2841,55 +2505,6 @@
                 }
             ],
             "time": "2020-08-18T17:17:46+00:00"
-        },
-        {
-            "name": "sabberworm/php-css-parser",
-            "version": "8.3.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/sabberworm/PHP-CSS-Parser.git",
-                "reference": "d217848e1396ef962fb1997cf3e2421acba7f796"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/d217848e1396ef962fb1997cf3e2421acba7f796",
-                "reference": "d217848e1396ef962fb1997cf3e2421acba7f796",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "codacy/coverage": "^1.4",
-                "phpunit/phpunit": "~4.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Sabberworm\\CSS": "lib/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Raphael Schweikert"
-                }
-            ],
-            "description": "Parser for CSS Files written in PHP",
-            "homepage": "http://www.sabberworm.com/blog/2010/6/10/php-css-parser",
-            "keywords": [
-                "css",
-                "parser",
-                "stylesheet"
-            ],
-            "support": {
-                "issues": "https://github.com/sabberworm/PHP-CSS-Parser/issues",
-                "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.3.1"
-            },
-            "time": "2020-06-01T09:10:00+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -3508,68 +3123,6 @@
             "time": "2021-03-23T23:28:01+00:00"
         },
         {
-            "name": "symfony/filesystem",
-            "version": "v5.3.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/filesystem.git",
-                "reference": "19b71c8f313b411172dd5f470fd61f24466d79a9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/19b71c8f313b411172dd5f470fd61f24466d79a9",
-                "reference": "19b71c8f313b411172dd5f470fd61f24466d79a9",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "symfony/polyfill-ctype": "~1.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Filesystem\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Provides basic utilities for the filesystem",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/filesystem/tree/v5.3.3"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-06-30T07:27:52+00:00"
-        },
-        {
             "name": "symfony/finder",
             "version": "v5.3.0",
             "source": {
@@ -3975,75 +3528,6 @@
                 }
             ],
             "time": "2021-06-09T10:58:01+00:00"
-        },
-        {
-            "name": "symfony/options-resolver",
-            "version": "v5.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/options-resolver.git",
-                "reference": "162e886ca035869866d233a2bfef70cc28f9bbe5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/options-resolver/zipball/162e886ca035869866d233a2bfef70cc28f9bbe5",
-                "reference": "162e886ca035869866d233a2bfef70cc28f9bbe5",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2.5",
-                "symfony/deprecation-contracts": "^2.1",
-                "symfony/polyfill-php73": "~1.0",
-                "symfony/polyfill-php80": "^1.15"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\OptionsResolver\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Provides an improved replacement for the array_replace PHP function",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "config",
-                "configuration",
-                "options"
-            ],
-            "support": {
-                "source": "https://github.com/symfony/options-resolver/tree/v5.3.0"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2021-05-26T17:43:10+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -6042,5 +5526,5 @@
         "php": "^7.2.5"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }

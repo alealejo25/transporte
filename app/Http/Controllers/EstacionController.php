@@ -45,13 +45,9 @@ class EstacionController extends Controller
     {
         /*VALIDACION -----------------------------------------*/
         $campos=[
-            'nombre'=>'required|string|max:50',
-            'direccion'=>'required|string|max:50',
-            'telefono'=>'required',
-            'contacto'=>'required|string|max:50',
-            'telefono_contacto'=>'required',
-            'cuit'=>'required|integer',
-            'saldo'=>'required|integer'            
+            'nombre'=>'required|string|max:40',
+            'numero'=>'required|integer'
+            
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);

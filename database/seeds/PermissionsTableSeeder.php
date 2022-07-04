@@ -39,9 +39,11 @@ class PermissionsTableSeeder extends Seeder
         'cuit'  => '30-60388612-3',
         'condicion'     => '0',
     ]);
+	
+
 	DB::table('users')->insert([
         'name'  => 'Veronica',
-        'Tipo'  => 'Admin',
+        'Tipo'  => 'Administracion',
         'email'     => 'vero@transporte.com',
         'password'  => bcrypt('12345678'),
     ]);
@@ -56,6 +58,33 @@ class PermissionsTableSeeder extends Seeder
         'Tipo'  => 'Consulta',
         'email'     => 'consulta@transporte.com',
         'password'  => bcrypt('consulta'),
+    ]);
+
+    DB::table('users')->insert([
+        'name'  => 'Florencia',
+        'Tipo'  => 'BolTafi',
+        'email'     => 'florencia@transporte.com',
+        'password'  => bcrypt('12345678'),
+    ]);
+	DB::table('users')->insert([
+        'name'  => 'Mauricio',
+        'Tipo'  => 'BolTerminal',
+        'email'     => 'mauricio@transporte.com',
+        'password'  => bcrypt('12345678'),
+    ]);
+
+    DB::table('users')->insert([
+        'name'  => 'Susana',
+        'Tipo'  => 'BolTerminal',
+        'email'     => 'susana@transporte.com',
+        'password'  => bcrypt('12345678'),
+    ]);
+
+    DB::table('users')->insert([
+        'name'  => 'Fernanda',
+        'Tipo'  => 'SupervisorBol',
+        'email'     => 'fernanda@transporte.com',
+        'password'  => bcrypt('12345678'),
     ]);
 
 
@@ -211,18 +240,35 @@ class PermissionsTableSeeder extends Seeder
 		Permission::Create(['name' =>'pagos']);
 		Permission::Create(['name' =>'fletes']);
 		Permission::Create(['name' =>'consultas']);
+		Permission::Create(['name' =>'boltafi']);
 
 
-
+		//Boleteria TAFI
+		Permission::Create(['name' =>'abonadostafi']);
+		Permission::Create(['name' =>'ventatafi']);
+		Permission::Create(['name' =>'gastostafi']);
+		Permission::Create(['name' =>'cargaplanchatafi']);
+		Permission::Create(['name' =>'tipoabonotafi']);
+		Permission::Create(['name' =>'cajatafi']);
+		Permission::Create(['name' =>'reportestafi']);
+		
 		//---------------------------------------------------------
 		$admin=Role::create(['name'=>'Admin']);
-		$logistica=Role::create(['name'=>'Logistica']);
 		$administracion=Role::create(['name'=>'Administracion']);
-		$taller=Role::create(['name'=>'Taller']);
+		$boltafi=Role::create(['name'=>'BolTafi']);
 		$consulta=Role::create(['name'=>'Consulta']);
-
+		$bolterminal=Role::create(['name'=>'BolTerminal']);
+		$supervisorbol=Role::create(['name'=>'SupervisorBol']);
+		$logistica=Role::create(['name'=>'Logistica']);
+		$taller=Role::create(['name'=>'Taller']);
 
 		$admin->givePermissionTo([
+			'abonadostafi',
+			'ventatafi',
+			'gastostafi',
+			'cargaplanchatafi',
+			'tipoabonotafi',
+			'cajatafi',
 			'acoplados_index',
 			'acoplados_create',
 			'acoplados_edit',
@@ -430,11 +476,32 @@ class PermissionsTableSeeder extends Seeder
 			'pdffletes'
 		]);
 
+		$boltafi->givePermissionTo([
+			'abonadostafi',
+			'ventatafi',
+			'gastostafi',
+			'tipoabonotafi',
+			'cajatafi',
+		]);
+
+		$supervisorbol->givePermissionTo([
+			'abonadostafi',
+			'cargaplanchatafi',
+			'tipoabonotafi',
+			'reportestafi',
+		]);
+
 		$user=User::find(1);//Vero
 		$user->assignRole('Admin');
 		$user=User::find(2);//Ale
 		$user->assignRole('Admin');
 		$user=User::find(3);//CONSULTA
 		$user->assignRole('Consulta');
+		$user=User::find(4);//CONSULTA
+		$user->assignRole('BolTafi');
+		$user=User::find(7);//CONSULTA
+		$user->assignRole('SupervisorBol');
+		
+
 	}
 }

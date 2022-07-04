@@ -22,6 +22,8 @@ use App\CtaCtePLeagas;
 use App\Boleteria122;
 use App\Boleteria122Detalle;
 use  DB;
+use Afip;
+
 
 use Dompdf\Dompdf;
 
@@ -349,31 +351,30 @@ public function articulos(Request $request)
  public function prueba(Request $request)
     {
 
-
  
     $data = array(
     'CantReg'       => 1, // Cantidad de comprobantes a registrar
-    'PtoVta'        => 1, // Punto de venta
+    'PtoVta'        => 3, // Punto de venta
     'CbteTipo'      => 11, // Tipo de comprobante (ver tipos disponibles) 
-    'Concepto'      => 1, // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
-    'DocTipo'       => 80, // Tipo de documento del comprador (ver tipos disponibles)
-    'DocNro'        => 20111111112, // Numero de documento del comprador
-    'CbteDesde'     => 4, // Numero de comprobante o numero del primer comprobante en caso de ser mas de uno
-    'CbteHasta'     => 4, // Numero de comprobante o numero del ultimo comprobante en caso de ser mas de uno
+    'Concepto'      => 2, // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
+    'DocTipo'       => 96, // Tipo de documento del comprador (ver tipos disponibles)
+    'DocNro'        => 8082703, // Numero de documento del comprador
+    'CbteDesde'     => 3, // Numero de comprobante o numero del primer comprobante en caso de ser mas de uno
+    'CbteHasta'     => 3, // Numero de comprobante o numero del ultimo comprobante en caso de ser mas de uno
     'CbteFch'       => intval(date('Ymd')), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
-    'ImpTotal'      => 150, // Importe total del comprobante
+    'ImpTotal'      => 2, // Importe total del comprobante
     'ImpTotConc'    => 0, // Importe neto no gravado
-    'ImpNeto'       => 150, // Importe neto gravado
+    'ImpNeto'       => 2, // Importe neto gravado
     'ImpOpEx'       => 0, // Importe exento de IVA
     'ImpIVA'        => 0, //Importe total de IVA
     'ImpTrib'       => 0, //Importe total de tributos
-    'FchServDesde'  => NULL, // (Opcional) Fecha de inicio del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-    'FchServHasta'  => NULL, // (Opcional) Fecha de fin del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-    'FchVtoPago'    => NULL, // (Opcional) Fecha de vencimiento del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+    'FchServDesde'  => 20220501, // (Opcional) Fecha de inicio del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+    'FchServHasta'  => 20220510, // (Opcional) Fecha de fin del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
+    'FchVtoPago'    => 20220711, // (Opcional) Fecha de vencimiento del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
     'MonId'         => 'PES', //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos) 
     'MonCotiz'      => 1, // Cotización de la moneda usada (1 para pesos argentinos)  
    
-    'Tributos'      => array( // (Opcional) Tributos asociados al comprobante
+  /*  'Tributos'      => array( // (Opcional) Tributos asociados al comprobante
         array(
             'Id'        =>  99, // Id del tipo de tributo (ver tipos disponibles) 
             'Desc'      => 'Ingresos Brutos', // (Opcional) Descripcion
@@ -388,26 +389,60 @@ public function articulos(Request $request)
             'Id'        => 17, // Codigo de tipo de opcion (ver tipos disponibles) 
             'Valor'     => 2 // Valor 
         )
-    ), 
+    ), */
     
 );
 
-$afip = new Afip(array('CUIT' => 23273645039));
 
-//$ultimo=$afip->ElectronicBilling->CreateVoucher($data);
+//$afip = new Afip(array('CUIT' => 23273645039));
+
+
+$afip = new Afip([
+'CUIT'=> '23273645039', //<-- ojo ahi!
+'production' => true
+]);
+
+
+
+
+
+$res = $afip->ElectronicBilling->CreateNextVoucher($data);
+$last_voucher = $afip->ElectronicBilling->GetLastVoucher(3,11);
+
+$voucher_info = $afip->ElectronicBilling->GetVoucherInfo($last_voucher,3,11);
+dd($voucher_info);
+$last_voucher = $afip->ElectronicBilling->GetLastVoucher(3,11);
+dd($last_voucher);
+
+$res = $afip->ElectronicBilling->CreateVoucher($data);
 //$res = $afip->ElectronicBilling->CreateNextVoucher($data);
+
+$last_voucher = $afip->ElectronicBilling->GetLastVoucher(1,11);
+dd($last_voucher);
+//dd($last_voucher);
 //$server_status = $afip->RegisterScopeThirteen->GetServerStatus();
 //$taxpayer_details = $afip->RegisterScopeThirteen->GetTaxpayerDetails($request->cuit);
+$voucher_info = $afip->ElectronicBilling->GetVoucherInfo(1,2,11); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
+dd($voucher_info);
 
-
+if($voucher_info === NULL){
+    echo 'El comprobante no existe';
+}
+else{
+    echo 'Esta es la información del comprobante:';
+    echo '<pre>';
+//    print_r($voucher_info);
+    echo '</pre>';
+}
+//dd($res);
 $voucher_info = $afip->ElectronicBilling->GetVoucherInfo(1,1,6); //Devuelve la información del comprobante 1 para el punto de venta 1 y el tipo de comprobante 6 (Factura B)
-$concept_types = $afip->ElectronicBilling->GetOptionsTypes();
-
-
+//$concept_types = $afip->ElectronicBilling->GetOptionsTypes();
+//$cuit=2327364503;
 
 echo 'Este es el estado del servidor:';
 echo '<pre>';
-print_r($concept_types);
+print_r($taxpayer_details);
+//print_r($concept_types);
 echo '</pre>';
 
      //dd($concept_types);

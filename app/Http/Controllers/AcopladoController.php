@@ -56,7 +56,6 @@ class AcopladoController extends Controller
     public function store(Request $request)
     {
 
-
         if (is_null($request->camion_id))
         {
         /*VALIDACION -----------------------------------------*/

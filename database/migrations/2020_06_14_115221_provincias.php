@@ -11,6 +11,7 @@ class Provincias extends Migration
      *
      * @return void
      */
+    
     public function up()
     {
         Schema::create('provincias', function (Blueprint $table) {

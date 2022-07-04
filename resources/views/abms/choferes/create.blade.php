@@ -52,15 +52,6 @@
 				<input type="text" name="nrocelular" id="nrocelular" class="form-control {{$errors->has('nrocelular')?'is-invalid':''}}" placeholder="Numero de Telefono..." value="{{old('nrocelular')}}">
 				{!! $errors->first('nrocelular','<div class="invalid-feedback">:message</div>')!!}
 			</div>
-			<div class="Form-group">
-				<label for="saldo">Saldo</label>
-				<input type="text" name="saldo" id="saldo" class="form-control" placeholder="Saldo..." value="{{old('saldo')}}">
-				{!! $errors->first('saldo','<div class="invalid-feedback">:message</div>')!!}
-			</div>
-			<div class="Form-group">
-				<label for="camion_id">Dominio Camion</label>
-				{!!Form::select('camion_id',$camiones,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion para asociar un camion al chofer','requerid' ])!!}
-			</div>
 			<br>
 			<div class="Form-group">
 				<button class="btn btn-primary" type="submit">Guardar</button>

@@ -38,7 +38,7 @@ class ProveedorController extends Controller
             'telefono_contacto'=>'required',
             'cuit'=>'required|integer',
             'saldolnf'=>'required|numeric',
-            'saldolnf'=>'required|numeric'
+            'saldol'=>'required|numeric'
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);

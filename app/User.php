@@ -54,5 +54,22 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\ComprasVarias');
     }
+    public function VentaTafi()
+    {
+        return $this->hasMany('App\VentaTafi');
+    }
+    public function CierreDiaTafi()
+    {
+        return $this->hasMany('App\CierreDiaTafi');
+    }
+
+    public function MovimentoCajaTafi()
+    {
+        return $this->hasMany('App\MovimentoCajaTafi');
+    }
+     public function PlanchaTafi()
+    {
+        return $this->hasMany('App\PlanchaTafi');
+    }
     
 }

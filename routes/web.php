@@ -72,7 +72,9 @@ Route::resource('abms/usuarios','UserController')->middleware('permission:usuari
 Route::resource('abms/roles','RoleController');
 Route::resource('abms/camiones','CamionController')->middleware('permission:camiones_index'); 
 
-Route::resource('abms/choferes','ChoferController')->middleware('permission:choferes_index'); 
+Route::resource('abms/choferes','ChoferController')->middleware('permission:choferes_index');
+Route::resource('abms/puntos','PuntoController')->middleware('permission:choferes_index');
+Route::resource('abms/servicios','ServicioController')->middleware('permission:choferes_index');
 Route::resource('abms/tarifas','TarifaController');
 Route::resource('abms/estaciones','EstacionController');
 Route::resource('abms/categorias','CategoriaController');
@@ -133,9 +135,48 @@ Route::resource('movimientos/pallets','MovimientoPalletController');
 Route::get('finanzas/movimientoscajas/iniciar','MovimientoCajaController@iniciar')->name('finanzas.movimientos.iniciar');
 
 
+//**************************************************************
+//***BOLETERIA TAFI VIEJO***************************************
+//**************************************************************
 
+//ABONADOS
+Route::get('boltafi/abonados','AbonadoController@index')->name('boltafi.abonados');
+Route::get('boltafi/abonados/create','AbonadoController@create')->name('create');
+Route::post('boltafi/abonados/store','AbonadoController@store')->name('store');
+//FIN ABONADOS
 
+//TIPOS DE ABONOS
+Route::get('boltafi/tiposdeabonos','TipoAbonoController@index')->name('index');
+Route::get('boltafi/tiposdeabonos/create','TipoAbonoController@create')->name('create');
+Route::post('boltafi/tiposdeabonos/store','TipoAbonoController@store')->name('store');
+//FIN TIPOS DE ABONOS
 
+//PLANCHAS
+Route::get('boltafi/planchastafi/create','PlanchaTafiController@create')->name('create');
+Route::post('boltafi/planchastafi/store','PlanchaTafiController@store')->name('store');
+Route::get('boltafi/planchastafi/mostraranularplancha','PlanchaTafiController@mostraranularplancha')->name('mostraranularplancha');
+Route::post('boltafi/planchastafi/anularplancha','PlanchaTafiController@anularplancha')->name('anularplancha');
+Route::get('boltafi/planchastafi','PlanchaTafiController@index')->name('boltafi.planchastafi');
+//FIN PLANCHAS
+
+//VENTAS
+Route::get('boltafi/ventasdeabonos/venta','PlanchaTafiController@venta')->name('venta');
+Route::post('boltafi/ventasdeabonos/guardarventa','PlanchaTafiController@guardarventa')->name('guardarventa');
+Route::post('boltafi/ventasdeabonos/buscarabonado', 'PlanchaTafiController@buscarabonado')->name('buscarabonado');
+
+Route::get('boltafi/ventasdeabonos/impresion','PlanchaTafiController@impresion')->name('impresion');
+//FIN VENTAS
+
+//CAJAS
+Route::get('boltafi/cajas/movimiento','CajaTafiController@movimiento')->name('movimiento');
+Route::post('boltafi/cajas/guardarmovimiento','CajaTafiController@guardarmovimiento')->name('guardarmovimiento');
+Route::get('boltafi/cajas/cierrecajatafi','CajaTafiController@cierrecajatafi')->name('cierrecajatafi');
+Route::post('boltafi/cajas/guardarcierrecajatafi','CajaTafiController@guardarcierrecajatafi')->name('guardarcierrecajatafi');
+//FIN CAJAS
+
+//**************************************************************
+//***FIN BOLETERIA TAFI VIEJO***********************************
+//**************************************************************
 
 Route::get('finanzas/movimientoscajas/ingresartransferencia','MovimientoCajaController@ingresartransferencia');
 Route::post('finanzas/movimientoscajas/guardartransferencia','MovimientoCajaController@guardartransferencia')->name('guardartransferencia');

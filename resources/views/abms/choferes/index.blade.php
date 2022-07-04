@@ -26,8 +26,6 @@
 					<th>Direccion</th>
 					<th>Fecha de Nac.</th>
 					<th>Nro. Telefono</th>
-					<th>Saldo</th>
-					<th>Dominio Camion</th>
 					<th>Opciones</th>
 				</thead>
                @foreach ($choferes as $chofer)
@@ -37,19 +35,9 @@
 					<td>{{ $chofer->apellido}}</td>
 					<td>{{ $chofer->dni}}</td>
 					<td>{{ $chofer->direccion}}</td>
-					<td>{{ $chofer->fechanac}}</td>
+					<td>{{ date("d/m/Y",strtotime($chofer->fechanac))}}</td>
 					<td>{{ $chofer->nrocelular}}</td>
-					<td>{{ $chofer->saldo}}</td>
-					@if($chofer->camion_id===NULL)
-						<td><p>SIN ASOCIAR</p></td>
-					@else
-						<td>{{ $chofer->camion->dominio}}</td>
-					@endif
-					
 					<td>
-
-
-
 						<form method="post" action="{{url('abms/choferes/'.$chofer->id) }}">
 							<a href="{{url('abms/choferes/'.$chofer->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>
 							{{csrf_field()}}

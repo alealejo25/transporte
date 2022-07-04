@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
-    <!-- daterange picker -->
-  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">
+    <!-- daterange picker 
+  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">-->
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
@@ -24,11 +24,11 @@
 
 
 <!-- agregado para probar fullcalendar
- jQuery -->
+ jQuery 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-
-<!-- custom scripts --> 
-<script type="text/javascript" src="js/script.js"></script> 
+-->
+<!-- custom scripts 
+<script type="text/javascript" src="js/script.js"></script> --> 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
@@ -36,11 +36,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
 
-<!-- fullcalendar -->
+<!-- fullcalendar 
 <link href="css/fullcalendar.css" rel="stylesheet" />
 <link href="css/fullcalendar.print.css" rel="stylesheet" media="print" />
 <script src="js/moment.min.js"></script>
-<script src="js/fullcalendar.js"></script>
+<script src="js/fullcalendar.js"></script>-->
 
 
 
@@ -220,21 +220,27 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('cajas_index')
                 <li><a href="/abms/cajas"><i class="fa fa-circle-o"></i> Cajas</a></li>
                 @endcan
+                @can('choferes_index')
+                <li><a href="/abms/choferes"><i class="fa fa-circle-o"></i> Choferes</a></li>
+                @endcan 
                
                 @can('cuentasbancariaspropias_index')
-                <li><a href="/abms/cuentasbancariaspropias"><i class="fa fa-circle-o"></i> Cuentas Bancarias 
-                Propias</a></li>
+                <li><a href="/abms/cuentasbancariaspropias"><i class="fa fa-circle-o"></i> Cuentas Bancarias Propias</a></li>
                 @endcan
                 @can('cuentasbancariasproveedores_index')
                 <li><a href="/abms/cuentasbancariasproveedores"><i class="fa fa-circle-o"></i> Cuentas Bancarias Proveedores</a></li>
-                @endcan
-                @can('estaciones_index')
-                <li><a href="/abms/estaciones"><i class="fa fa-circle-o"></i> Esaciones de Servicio</a></li>
+
+                
                 @endcan
                 @can('proveedores_index')
                 <li><a href="/abms/proveedores"><i class="fa fa-circle-o"></i> Proveedores</a></li>
                 @endcan
-                
+                @can('bancos_index')
+                <li><a href="/abms/puntos"><i class="fa fa-circle-o"></i> Puntos</a></li>
+                @endcan
+                @can('bancos_index')
+                <li><a href="/abms/servicios"><i class="fa fa-circle-o"></i> Servicios </a></li>
+                @endcan
               </ul>
             </li>
              <li class="treeview">
@@ -300,10 +306,12 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
               </ul>
             </li>
             <li class="treeview">
+              @can('opproveedores')
               <a href="#">
                 <i class="fa fa-users"></i> <span>Pagos a Proveedores</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
+               @endcan
               <ul class="treeview-menu">
                 @can('opproveedores')
                 <li><a href="/pagos/opproveedores"><i class="fa fa-circle-o"></i> Generar OP P/Proveedores </a></li>
@@ -313,6 +321,42 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
                 @can('op')
                 <li><a href="/pagos/ordenesdepagosleagas"><i class="fa fa-circle-o"></i> OP's Leagas</a></li>
+                @endcan
+               </ul>
+            </li>
+
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-users"></i> <span>Boleteria Tafi</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                @can('abonadostafi')
+                <li><a href="/boltafi/abonados"><i class="fa fa-circle-o"></i> Abonados
+                @endcan
+                @can('ventatafi')
+                <li><a href="/boltafi/ventasdeabonos/venta"><i class="fa fa-circle-o"></i> Venta de abonos</a></li>
+                @endcan
+                @can('gastostafi')
+                <li><a href="/boltafi/cajas/movimiento"><i class="fa fa-circle-o"></i> Gastos Varios </a></li>
+                @endcan
+                @can('cargaplanchatafi')
+                <li><a href="/boltafi/planchastafi/create"><i class="fa fa-circle-o"></i> Carga de Planchas </a></li>
+                @endcan
+                @can('tipoabonotafi')
+                <li><a href="/boltafi/tiposdeabonos"><i class="fa fa-circle-o"></i> Tipos de Abonos </a></li>
+                @endcan
+                @can('cajatafi')
+                <li><a href="/boltafi/cajas/cierrecajatafi"><i class="fa fa-circle-o"></i> Cierre de Caja </a></li>
+                @endcan
+                @can('cajatafi')
+                <li><a href="/boltafi/planchastafi/mostraranularplancha"><i class="fa fa-circle-o"></i> Anular Plancha </a></li>
+                @endcan
+                @can('cajatafi')
+                <li><a href="/boltafi/planchastafi/"><i class="fa fa-circle-o"></i> Planchas </a></li>
+                @endcan
+                @can('reportestafi')
+                <li><a href="/"><i class="fa fa-circle-o"></i> Caja </a></li>
                 @endcan
                </ul>
             </li>

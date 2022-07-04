@@ -49,20 +49,7 @@
 				<input type="text" name="nrocelular" id="nrocelular" class="form-control {{$errors->has('nrocelular')?'is-invalid':''}}" placeholder="Numero de Telefono..." value="{{$choferes->nrocelular}}">
 				{!! $errors->first('nrocelular','<div class="invalid-feedback">:message</div>')!!}
 			</div>
-			<div class="Form-group">
-				<label for="saldo">Saldo</label>
-				<input type="text" name="saldo" id="saldo" class="form-control" placeholder="Saldo..." value="{{$choferes->saldo}}">
-				{!! $errors->first('saldo','<div class="invalid-feedback">:message</div>')!!}
-			</div>
-			<div class="Form-group">
-				<label for="camion_id">Dominio Camion</label>
-									
-				@if($choferes->id_camion===NULL)
-					{!!Form::select('camion_id',$camiones,null,['class' => 'form-control','placeholder'=>'Sin asociar camion','requerid' ])!!}
-				@else
-					{!!Form::select('camion_id',$camiones,$acoplados->camion->id,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
-				@endif
-			</div>
+			
 			<br>
 			<div class="Form-group">
 				<button class="btn btn-primary" type="submit">Guardar</button>

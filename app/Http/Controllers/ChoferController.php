@@ -66,8 +66,6 @@ class ChoferController extends Controller
     public function store(Request $request)
     {
                 /*VALIDACION -----------------------------------------*/
-        if (is_null($request->camion_id))
-        {
         /*VALIDACION -----------------------------------------*/
         $campos=[
             'nombre'=>'required|string|max:60',
@@ -75,28 +73,9 @@ class ChoferController extends Controller
             'dni'=>'required|max:8',
             'direccion'=>'required|string|max:100',
             'fechanac'=>'required',
-            'saldo'=>'required|integer',
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-        }
-        else
-        {
-            $campos=[
-                'nombre'=>'required|string|max:60',
-                'apellido'=>'required|string|max:60',
-                'dni'=>'required|max:8',
-                'direccion'=>'required|string|max:100',
-                'fechanac'=>'required',
-                'saldo'=>'required|integer',
-                'camion_id'=> 'unique:acoplados,camion_id'
-                            ];
-                        $Mensaje=["required"=>'El :attribute es requerido',
-                                  "unique"=>'El dominio de camion, ya se encuentra asociado a otro acoplado'
-                                ];
-                        $this->validate($request,$campos,$Mensaje);   
-        }
-
 
         /* forma de grabar los datos en una variable */
         $datosChofer=new Chofer(request()->except('_token'));
@@ -133,10 +112,9 @@ class ChoferController extends Controller
     {
 
         $choferes=Chofer::find($id);
-        $camiones= Camion::orderBy('id','DESC')->pluck('dominio','id');
+        
         return view('abms.choferes.edit')
-            ->with('camiones',$camiones)
-            ->with('choferes',$choferes);
+                ->with('choferes',$choferes);
     }
 
 
@@ -152,62 +130,21 @@ class ChoferController extends Controller
     public function update(Request $request, $id)
     {
 
- if (is_null($request->camion_id))
-        {
-
             $campos=[
             'nombre'=>'required|string|max:60',
             'apellido'=>'required|string|max:60',
             'dni'=>'required|max:8',
             'direccion'=>'required|string|max:100',
             'fechanac'=>'required',
-            'saldo'=>'required|integer',
         ];
             $Mensaje=["required"=>'El :attribute es requerido'];
             $this->validate($request,$campos,$Mensaje);
-        }
-        else
-        {
-            $consulta=Chofer::where('id',$id)->get();
-
-                if($request->camion_id==$consulta[0]->camion_id){
-                 
-                    $campos=[
-                        'nombre'=>'required|string|max:60',
-                        'apellido'=>'required|string|max:60',
-                        'dni'=>'required|max:8',
-                        'direccion'=>'required|string|max:100',
-                        'fechanac'=>'required',
-                        'saldo'=>'required|integer',
-                    ];
-                    $Mensaje=["required"=>'El :attribute es requerido'];
-                    $this->validate($request,$campos,$Mensaje); 
-                }
-                else
-                {
-                $campos=[
-                        'nombre'=>'required|string|max:60',
-                        'apellido'=>'required|string|max:60',
-                        'dni'=>'required|max:8',
-                        'direccion'=>'required|string|max:100',
-                        'fechanac'=>'required',
-                        'saldo'=>'required|integer',
-                        'camion_id'=> 'unique:choferes,camion_id'
-                                    ];
-                        $Mensaje=["required"=>'El :attribute es requerido',
-                                  "unique"=>'El dominio de camion, ya se encuentra asociado a otro acoplado'
-                                ];
-                        $this->validate($request,$campos,$Mensaje);   
-                        }
-        }
-
+ 
 
         $datosChoferes=request()->except(['_token','_method']);
         Chofer::where('id','=',$id)->update($datosChoferes);
-
-
-      
-        return Redirect('abms/choferes')->with('Mensaje','Chofer Modificado con éxito!!!!!');
+        flash::success('Se a modificado el Chofer'); 
+        return Redirect('abms/choferes');
     }
 
     /**
@@ -216,6 +153,8 @@ class ChoferController extends Controller
      * @param  \App\Chofer  $chofer
      * @return \Illuminate\Http\Response
      */
+
+    
     public function destroy($id)
     {
         Chofer::destroy($id);

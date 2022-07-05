@@ -205,14 +205,13 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 <i class="fa fa-home"></i> <span>Inicio</span>
               </a>
             </li>
-
+                @can('abms')
             <li class="treeview">
               <a href="#">
-                @can('abms')
+
                 <i class="fa fa-laptop"></i>
                 <span>ABM's</span>
                 <i class="fa fa-angle-left pull-right"></i>
-                @endcan
               </a>
               <ul class="treeview-menu">
                 @can('bancos_index')
@@ -245,13 +244,15 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
               </ul>
             </li>
+            @endcan
+                            @can('comprasvarias')
              <li class="treeview">
               <a href="#">
-                @can('comprasvarias')
+
                 <i class="fa fa-shopping-cart"></i>
                 <span>Compras Varias</span>
                  <i class="fa fa-angle-left pull-right"></i>
-                 @endcan
+
               </a>
               <ul class="treeview-menu">
                 @can('proveedores_index')
@@ -276,13 +277,13 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
               <ul class="treeview-menu">
                 @can('ctasctesproveedores')
                 <li><a href="/cuentascorrientes/proveedores"><i class="fa fa-circle-o"></i> Proveedores</a></li>
-                @endcan
+
                 
               </ul>
             </li>
-                       
+                            @endcan           
 
-                @can('finanzas')            
+            @can('finanzas')            
             <li class="treeview">
               <a href="#">
 
@@ -413,12 +414,13 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                </ul>
             </li>
             @endcan
+                             @can('consultas')
             <li class="treeview">
               <a href="#">
-                 @can('consultas')
+
                 <i class="fa fa-flag"></i> <span>Consultas</span>
                 <i class="fa fa-angle-left pull-right"></i>
-                 @endcan
+                 
               </a>
               <ul class="treeview-menu">
                 <li class="treeview">
@@ -462,6 +464,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 
               </ul>
             </li>
+            @endcan
              <li>
               <a href="#">
                 <i class="fa fa-plus-square"></i> <span>Ayuda</span>

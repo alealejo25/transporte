@@ -281,13 +281,14 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
               </ul>
             </li>
                        
-            
+
+                @can('finanzas')            
             <li class="treeview">
               <a href="#">
-                @can('finanzas')
+
                 <i class="fa fa-money"></i> <span>Finanzas</span>
                 <i class="fa fa-angle-left pull-right"></i>
-                @endcan
+
                 
               </a>
               <ul class="treeview-menu">
@@ -312,15 +313,17 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 
               </ul>
             </li>
+             @endcan
+            @can('pagoproveedores')
             <li class="treeview">
-              @can('opproveedores')
+            
               <a href="#">
-                @can('pagoproveedores')
+
                 <i class="fa fa-users"></i> <span>Pagos a Proveedores</span>
                 <i class="fa fa-angle-left pull-right"></i>
-                 @endcan
+
               </a>
-               @endcan
+
               <ul class="treeview-menu">
                 @can('opproveedores')
                 <li><a href="/pagos/opproveedores"><i class="fa fa-circle-o"></i> Generar OP P/Proveedores </a></li>
@@ -333,13 +336,14 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
                </ul>
             </li>
-
+             @endcan
+            @can('boltafi')
             <li class="treeview">
               <a href="#">
-                 @can('boltafi')
+
                 <i class="fa fa-users"></i> <span>Boleteria Tafi</span>
                 <i class="fa fa-angle-left pull-right"></i>
-                @endcan
+
               </a>
               <ul class="treeview-menu">
                 @can('abonadostafi')
@@ -374,12 +378,14 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
                </ul>
             </li>
+            @endcan
+            @can('pagoclientes')
             <li class="treeview">
               <a href="#">
-                 @can('pagoclientes')
+
                 <i class="fa fa-bus"></i> <span>Pagos de Clientes</span>
                 <i class="fa fa-angle-left pull-right"></i>
-                 @endcan
+
               </a>
               <ul class="treeview-menu">
                 @can('opproveedores')
@@ -406,6 +412,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
                </ul>
             </li>
+            @endcan
             <li class="treeview">
               <a href="#">
                  @can('consultas')

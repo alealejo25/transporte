@@ -244,6 +244,7 @@ class PermissionsTableSeeder extends Seeder
 		Permission::Create(['name' =>'planchastafi']);
 		Permission::Create(['name' =>'reportestafisupervisor']);
 		Permission::Create(['name' =>'reportestafigerente']);
+		Permission::Create(['name' =>'cajatafi']);
 		
 		//MENUS
 		Permission::Create(['name' =>'abms']);

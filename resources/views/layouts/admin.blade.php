@@ -244,6 +244,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
               </ul>
             </li>
             @endcan
+            @can('comprasvarias')
              <li class="treeview">
               <a href="#">
                 <i class="fa fa-shopping-cart"></i>
@@ -262,6 +263,8 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
               </ul>
             </li>
+             @endcan
+             @can('cuentascorrientes')
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"  aria-hidden="true"></i>
@@ -275,6 +278,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 
               </ul>
             </li>
+            @endcan
                        
             
             <li class="treeview">

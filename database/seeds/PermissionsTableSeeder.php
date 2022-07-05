@@ -93,6 +93,10 @@ class PermissionsTableSeeder extends Seeder
 		Permission::Create(['name' =>'abonados_create']);
 		Permission::Create(['name' =>'abonados_edit']);
 		Permission::Create(['name' =>'abonados_destroy']);
+		Permission::Create(['name' =>'tipoabonos_index']);
+		Permission::Create(['name' =>'tipoabonos_create']);
+		Permission::Create(['name' =>'tipoabonos_edit']);
+		Permission::Create(['name' =>'tipoabonos_destroy']);
 		Permission::Create(['name' =>'acoplados_index']);
 		Permission::Create(['name' =>'acoplados_create']);
 		Permission::Create(['name' =>'acoplados_edit']);
@@ -545,6 +549,10 @@ class PermissionsTableSeeder extends Seeder
 			'reportestafisupervisor',
 			'boltafi',
 			'consultas',
+			'tipoabonos_index',
+			'tipoabonos_create',
+			'tipoabonos_edit',
+			'tipoabonos_destroy',
 
 		]);
 

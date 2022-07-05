@@ -89,6 +89,10 @@ class PermissionsTableSeeder extends Seeder
 
 
 		//Lista de permisos
+    	Permission::Create(['name' =>'abonados_index']);
+		Permission::Create(['name' =>'abonados_create']);
+		Permission::Create(['name' =>'abonados_edit']);
+		Permission::Create(['name' =>'abonados_destroy']);
 		Permission::Create(['name' =>'acoplados_index']);
 		Permission::Create(['name' =>'acoplados_create']);
 		Permission::Create(['name' =>'acoplados_edit']);
@@ -528,6 +532,9 @@ class PermissionsTableSeeder extends Seeder
 			'abonadostafi',
 			'ventatafi',
 			'cajatafi',
+			'abonados_create',
+			'abonados_edit',
+			'abonados_destroy',
 		]);
 
 		$supervisorbol->givePermissionTo([

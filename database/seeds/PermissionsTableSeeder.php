@@ -280,21 +280,16 @@ class PermissionsTableSeeder extends Seeder
 		$taller=Role::create(['name'=>'Taller']);
 
 		$admin->givePermissionTo([
-			'abms'
-			'comprasvarias'
-			'cuentascorrientes'
-			'finanzas'
-			'pagoproveedores'
-			'boltafi'
-			'pagoclientes'
-			'ingresoboleterias'
-			'consultas'
 			'abonadostafi',
 			'ventatafi',
 			'gastostafi',
 			'cargaplanchatafi',
 			'tipoabonotafi',
-			'cajatafi',
+			'cierrecajatafi',
+			'anularplanchatafi',
+			'planchastafi',
+			'reportestafisupervisor',
+			'reportestafigerente',
 			'acoplados_index',
 			'acoplados_create',
 			'acoplados_edit',
@@ -447,15 +442,17 @@ class PermissionsTableSeeder extends Seeder
 
 
 		$administracion->givePermissionTo([
-			'abms'
-			'comprasvarias'
-			'cuentascorrientes'
-			'finanzas'
-			'pagoproveedores'
-			'boltafi'
-			'pagoclientes'
-			'ingresoboleterias'
-			'consultas'
+			'abms',
+			'comprasvarias',
+			'cuentascorrientes',
+			'finanzas',
+			'pagoproveedores',
+			'boltafi',
+			'pagoclientes',
+			'ingresoboleterias',
+			'consultas',
+			'abonadostafi',
+			'reportestafisupervisor',
 			'articulos_index',
 			'articulos_create',
 			'articulos_destroy',
@@ -493,15 +490,24 @@ class PermissionsTableSeeder extends Seeder
 		]);
 
 		$consulta->givePermissionTo([
-			'abms'
-			'comprasvarias'
-			'cuentascorrientes'
-			'finanzas'
-			'pagoproveedores'
-			'boltafi'
-			'pagoclientes'
-			'ingresoboleterias'
-			'consultas'
+			'abonadostafi',
+			'ventatafi',
+			'gastostafi',
+			'cargaplanchatafi',
+			'tipoabonotafi',
+			'cierrecajatafi',
+			'anularplanchatafi',
+			'planchastafi',
+			'reportestafisupervisor',
+			'abms',
+			'comprasvarias',
+			'cuentascorrientes',
+			'finanzas',
+			'pagoproveedores',
+			'boltafi',
+			'pagoclientes',
+			'ingresoboleterias',
+			'consultas',
 			'pdfmantenimientos',
 			'pdfstock',
 			'pdfpagosingresos',
@@ -521,22 +527,27 @@ class PermissionsTableSeeder extends Seeder
 		]);
 
 		$boltafi->givePermissionTo([
-			'boltafi'
-			'consultas'
+			'gastostafi',
+			'cierrecajatafi',
+			'anularplanchatafi',
+			'planchastafi',
+			'reportestafisupervisor',
+			'boltafi',
+			'consultas',
 			'abonadostafi',
 			'ventatafi',
-			'gastostafi',
-			'tipoabonotafi',
 			'cajatafi',
 		]);
 
 		$supervisorbol->givePermissionTo([
-			'boltafi'
-			'consultas'
 			'abonadostafi',
 			'cargaplanchatafi',
 			'tipoabonotafi',
-			'reportestafi',
+			'planchastafi',
+			'reportestafisupervisor',
+			'boltafi',
+			'consultas',
+
 		]);
 
 		$user=User::find(1);//Vero

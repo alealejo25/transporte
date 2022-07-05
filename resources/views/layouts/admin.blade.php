@@ -332,13 +332,13 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
               </a>
               <ul class="treeview-menu">
                 @can('abonadostafi')
-                <li><a href="/boltafi/abonados"><i class="fa fa-circle-o"></i> Abonados
+                <li><a href="/boltafi/abonados"><i class="fa fa-circle-o"></i> Abonados</a></li>
                 @endcan
                 @can('ventatafi')
                 <li><a href="/boltafi/ventasdeabonos/venta"><i class="fa fa-circle-o"></i> Venta de abonos</a></li>
                 @endcan
                 @can('gastostafi')
-                <li><a href="/boltafi/cajas/movimiento"><i class="fa fa-circle-o"></i> Gastos Varios </a></li>
+                <li><a href="/boltafi/cajas/movimiento"><i class="fa fa-circle-o"></i> Caja-Gastos</a></li>
                 @endcan
                 @can('cargaplanchatafi')
                 <li><a href="/boltafi/planchastafi/create"><i class="fa fa-circle-o"></i> Carga de Planchas </a></li>
@@ -346,16 +346,16 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('tipoabonotafi')
                 <li><a href="/boltafi/tiposdeabonos"><i class="fa fa-circle-o"></i> Tipos de Abonos </a></li>
                 @endcan
-                @can('cajatafi')
+                @can('cierrecajatafi')
                 <li><a href="/boltafi/cajas/cierrecajatafi"><i class="fa fa-circle-o"></i> Cierre de Caja </a></li>
                 @endcan
-                @can('cajatafi')
+                @can('anularplanchatafi')
                 <li><a href="/boltafi/planchastafi/mostraranularplancha"><i class="fa fa-circle-o"></i> Anular Plancha </a></li>
                 @endcan
-                @can('cajatafi')
+                @can('planchastafi')
                 <li><a href="/boltafi/planchastafi/"><i class="fa fa-circle-o"></i> Planchas </a></li>
                 @endcan
-                @can('reportestafi')
+                @can('reportestafisupervisor')
                 <li><a href="/"><i class="fa fa-circle-o"></i> Caja </a></li>
                 @endcan
                </ul>

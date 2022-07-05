@@ -280,7 +280,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
             </li>
             @endcan
                        
-            
+            @can('finanzas')
             <li class="treeview">
               <a href="#">
 
@@ -310,13 +310,14 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 
               </ul>
             </li>
+            @endcan
+            @can('pagoproveedores')
             <li class="treeview">
-              @can('opproveedores')
+             
               <a href="#">
                 <i class="fa fa-users"></i> <span>Pagos a Proveedores</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
-               @endcan
               <ul class="treeview-menu">
                 @can('opproveedores')
                 <li><a href="/pagos/opproveedores"><i class="fa fa-circle-o"></i> Generar OP P/Proveedores </a></li>
@@ -329,7 +330,8 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
                </ul>
             </li>
-
+            @endcan
+            @can('boltafi')
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i> <span>Boleteria Tafi</span>
@@ -365,6 +367,8 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
                </ul>
             </li>
+            @endcan
+            @can('pagoclientes')
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-bus"></i> <span>Pagos de Clientes</span>
@@ -379,6 +383,8 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
                </ul>
             </li>
+            @endcan
+            @can('ingresoboleterias')
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-bus"></i> <span>Ingreso de bolerias</span>
@@ -393,6 +399,8 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
                </ul>
             </li>
+            @endcan
+            @can('consultas')
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-flag"></i> <span>Consultas</span>
@@ -440,6 +448,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 
               </ul>
             </li>
+             @endcan
              <li>
               <a href="#">
                 <i class="fa fa-plus-square"></i> <span>Ayuda</span>

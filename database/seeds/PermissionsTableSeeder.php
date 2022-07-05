@@ -249,9 +249,26 @@ class PermissionsTableSeeder extends Seeder
 		Permission::Create(['name' =>'gastostafi']);
 		Permission::Create(['name' =>'cargaplanchatafi']);
 		Permission::Create(['name' =>'tipoabonotafi']);
-		Permission::Create(['name' =>'cajatafi']);
-		Permission::Create(['name' =>'reportestafi']);
+		Permission::Create(['name' =>'cierrecajatafi']);
+		Permission::Create(['name' =>'anularplanchatafi']);
+		Permission::Create(['name' =>'planchastafi']);
+		Permission::Create(['name' =>'reportestafisupervisor']);
+		Permission::Create(['name' =>'reportestafigerente']);
 		
+		//MENUS
+		Permission::Create(['name' =>'abms']);
+		Permission::Create(['name' =>'comprasvarias']);
+		Permission::Create(['name' =>'cuentascorrientes']);
+		Permission::Create(['name' =>'finanzas']);
+		Permission::Create(['name' =>'pagoproveedores']);
+		Permission::Create(['name' =>'boltafi']);
+		Permission::Create(['name' =>'pagoclientes']);
+		Permission::Create(['name' =>'ingresoboleterias']);
+		Permission::Create(['name' =>'consultas']);
+		//----------------------------------------------
+
+
+
 		//---------------------------------------------------------
 		$admin=Role::create(['name'=>'Admin']);
 		$administracion=Role::create(['name'=>'Administracion']);
@@ -263,6 +280,15 @@ class PermissionsTableSeeder extends Seeder
 		$taller=Role::create(['name'=>'Taller']);
 
 		$admin->givePermissionTo([
+			'abms'
+			'comprasvarias'
+			'cuentascorrientes'
+			'finanzas'
+			'pagoproveedores'
+			'boltafi'
+			'pagoclientes'
+			'ingresoboleterias'
+			'consultas'
 			'abonadostafi',
 			'ventatafi',
 			'gastostafi',
@@ -421,6 +447,15 @@ class PermissionsTableSeeder extends Seeder
 
 
 		$administracion->givePermissionTo([
+			'abms'
+			'comprasvarias'
+			'cuentascorrientes'
+			'finanzas'
+			'pagoproveedores'
+			'boltafi'
+			'pagoclientes'
+			'ingresoboleterias'
+			'consultas'
 			'articulos_index',
 			'articulos_create',
 			'articulos_destroy',
@@ -458,6 +493,15 @@ class PermissionsTableSeeder extends Seeder
 		]);
 
 		$consulta->givePermissionTo([
+			'abms'
+			'comprasvarias'
+			'cuentascorrientes'
+			'finanzas'
+			'pagoproveedores'
+			'boltafi'
+			'pagoclientes'
+			'ingresoboleterias'
+			'consultas'
 			'pdfmantenimientos',
 			'pdfstock',
 			'pdfpagosingresos',
@@ -477,6 +521,8 @@ class PermissionsTableSeeder extends Seeder
 		]);
 
 		$boltafi->givePermissionTo([
+			'boltafi'
+			'consultas'
 			'abonadostafi',
 			'ventatafi',
 			'gastostafi',
@@ -485,6 +531,8 @@ class PermissionsTableSeeder extends Seeder
 		]);
 
 		$supervisorbol->givePermissionTo([
+			'boltafi'
+			'consultas'
 			'abonadostafi',
 			'cargaplanchatafi',
 			'tipoabonotafi',

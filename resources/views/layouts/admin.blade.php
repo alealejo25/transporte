@@ -205,7 +205,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 <i class="fa fa-home"></i> <span>Inicio</span>
               </a>
             </li>
-
+            @can('abms')
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-laptop"></i>
@@ -243,6 +243,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
               </ul>
             </li>
+            @endcan
              <li class="treeview">
               <a href="#">
                 <i class="fa fa-shopping-cart"></i>

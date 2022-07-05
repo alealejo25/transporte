@@ -9,7 +9,7 @@
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
 		<h3>Listado de Tipos de Abonos
-			@can('acoplados_create')
+			@can('tipoabonos_create')
 			<a href="tiposdeabonos/create"><button class="btn btn-success">Nuevo</button></a>
 			@endcan
 			<a href="tiposdeabonos/listarPdf"><button  class="btn btn-primary">Reporte PDF</button></a>
@@ -50,10 +50,10 @@
 					<td>{{ $dato->costo103}}</td>
 					<td>
 						<form method="post" action="{{url('abms/tiposdeabonos/'.$dato->id) }}">
-							@can('acoplados_edit')
+							@can('tipoabonos_edit')
 							<a href="{{url('abms/tiposdeabonos/'.$dato->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>
 							@endcan
-							@can('acoplados_destroy')
+							@can('tipoabonos_destroy')
 							{{csrf_field()}}
 							{{method_field('DELETE')}}
 							<button type="submit" onclick="return confirm('Seguro que desea Borrar?');" class="btn btn-danger">Eliminar</button>

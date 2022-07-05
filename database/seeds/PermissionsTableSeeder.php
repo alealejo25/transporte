@@ -230,17 +230,7 @@ class PermissionsTableSeeder extends Seeder
 		Permission::Create(['name' =>'administracionlogistica']);
 		Permission::Create(['name' =>'inicio']);
 
-		//menus
-		Permission::Create(['name' =>'abms']);
-		Permission::Create(['name' =>'operaciones']);
-		Permission::Create(['name' =>'cuentascorrientes']);
-		Permission::Create(['name' =>'mantenimiento']);
-		Permission::Create(['name' =>'choferes']);
-		Permission::Create(['name' =>'finanzas']);
-		Permission::Create(['name' =>'pagos']);
-		Permission::Create(['name' =>'fletes']);
-		Permission::Create(['name' =>'consultas']);
-		Permission::Create(['name' =>'boltafi']);
+
 
 
 		//Boleteria TAFI

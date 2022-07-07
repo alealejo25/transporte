@@ -39,6 +39,11 @@ class CajaTafiController extends Controller
         if($request->tipo ==='INICIAR CAJA'){
             $datos->importe_final=$request->importe;
             $datos->tipo_movimiento="INGRESO";
+            $datos->fecha=$fecha;
+            $datos->user_id=$request->user_id;
+            $datos->save();
+            flash::success('SE REALIZO INICIO DE CAJA'); 
+            return Redirect('boltafi/cajas/movimiento')->with('Mensaje','SE REALIZO INICIO DE CAJA');
         }
         else{
            $datosmovimientos=MovimientoCajaTafi::where('tipo','INICIAR CAJA')->where('cierre',0)->orderBy('id','DESC')->limit(1)->get();
@@ -57,17 +62,22 @@ class CajaTafiController extends Controller
                     $datosmovimientos=MovimientoCajaTafi::orderBy('id','DESC')->limit(1)->get();
                     $datos->importe_final=$datosmovimientos[0]->importe_final-$request->importe;
                     $datos->tipo_movimiento="EGRESO";    
+                    $datos->fecha=$fecha;
+                    $datos->user_id=$request->user_id;
+                    $datos->save();
+                    flash::success('SE REALIZO EL GASTO'); 
+                    return Redirect('boltafi/cajas/movimiento')->with('Mensaje','SE REALIZO EL GASTO');
                 }
             }
             
             
         }
 
-       $datos->fecha=$fecha;
-       $datos->user_id=$request->user_id;
-       $datos->save();
+
        
-       return 'listo';
+       flash::success('Se Inicio la caja'); 
+       return Redirect('boltafi/cajas/movimiento')->with('Mensaje','Se Inicio la caja');
+       
 
     }
     public function cierrecajatafi(Request $request)
@@ -152,7 +162,9 @@ class CajaTafiController extends Controller
                         ->update([
                                 'cierre'=>1,
                                 ]);  
+        flash::success('Se cerro la CAJA'); 
+       return Redirect('boltafi/cajas/cierrecajatafi')->with('Mensaje','Se cerro la CAJA');
+    
     }
      
-    
 }

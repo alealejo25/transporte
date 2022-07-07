@@ -42,10 +42,11 @@
 					<th>Turno</th>
 					<th>Desde</th>
 					<th>Hasta</th>
-					<th>Codigo</th>
+					<!--  -->
 					<th>Tipo de Abono</th>
 					<th>Boleto</th>
-					<th>Opciones</th>
+					<th>Codigo</th>
+					<!--<th>Opciones</th>-->
 				</thead>
                @foreach ($datos as $dato)
 				<tr>
@@ -59,14 +60,14 @@
 					<td>{{ $dato->turno}}</td>
 					<td>{{ $dato->desde}}</td>
 					<td>{{ $dato->hasta}}</td>
-					<td>{{ $dato->codigo}}</td>
+					<!--<td>{{ $dato->codigo}}</td>-->
 					<td>{{ $dato->tipoabono->tipo}}</td>
 					<td>{{ $dato->tipoabono->cantidad}}</td>
 					<td>{{ $dato->boleto}}</td>
-					<td>
-						<form method="post" action="{{url('abms/abonados/'.$dato->id) }}">
+					<!-- <td>
+						<form method="post" action="{{url('boltafi/abonados/'.$dato->id) }}">
 							@can('abonados_edit')
-							<a href="{{url('abms/abonados/'.$dato->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>
+							<a href="{{url('boltafi/abonados/'.$dato->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>
 							@endcan
 							@can('abonados_destroy')
 							{{csrf_field()}}
@@ -76,7 +77,7 @@
 
 						</form>
 						
-					</td>
+					</td> -->
 				</tr>
 				
 				@endforeach

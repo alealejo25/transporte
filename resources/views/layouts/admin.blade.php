@@ -513,11 +513,11 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
       <!--Fin-Contenido-->
       <footer class="main-footer">
         <div class="pull-right hidden-xs">
-          <b>Version</b> 1.1.0
+          <b>Version</b> 1.0.0
         </div>
-        <strong>Copyright &copy; 2021 - AG Ingenieria de Software.</strong> Todos los derechos reservados.
+        <strong>Copyright &copy; 2022 - AG Ingenieria de Software.</strong> Todos los derechos reservados.
       </footer>
-
+  
       
     <!-- jQuery 2.1.4 -->
     <script src="{{asset('js/jQuery-2.1.4.min.js')}}"></script>

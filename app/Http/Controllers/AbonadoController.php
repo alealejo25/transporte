@@ -78,6 +78,6 @@ class AbonadoController extends Controller
 
 
        flash::success('Se a creado el ABONADO'); 
-       return Redirect('abms/abonados/index')->with('Mensaje','Abonado Agregado con éxito');
+       return Redirect('boltafi/abonados')->with('Mensaje','Abonado Agregado con éxito');
     }
 }

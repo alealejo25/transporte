@@ -19,13 +19,15 @@ class PlanchasTafi extends Migration
             $table->string('motivo',40)->nullable();
             $table->string('color',8);
             $table->string('user_anulacion',40)->nullable();
-            $table->date('fechaanulacion');
+            $table->date('fechaanulacion')->nullable();
             $table->date('fechacarga');
             $table->biginteger('user_id')->unsigned()->nullable();
+            $table->integer('usercompra_id')->unsigned()->nullable();
             $table->integer('numero')->unsigned();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('usercompra_id')->references('id')->on('abonados');
         });
     }
 

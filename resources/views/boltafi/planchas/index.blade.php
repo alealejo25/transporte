@@ -34,11 +34,13 @@
 					<th>#</th>
 					<th>Numero</th>
 					<th>Estado</th>
+
 					<th style="width:150px">Fecha de Carga</th>
 					<th style="width:150px">Fecha de Anulacion</th>
 					<th>Usuario Anulacion</th>
 					<th>Motivo</th>
-					<th>Opciones</th>
+					<th>Abonado</th>
+					
 					
 				</thead>
                @foreach ($datos as $dato)
@@ -50,6 +52,7 @@
 					<td>{{date('d-m-Y', strtotime($dato->fechaanulacion))}}</td>
 					<td>{{ $dato->user_anulacion}}</td>
 					<td>{{ $dato->motivo}}</td>
+					<td>{{ $dato->abonado->nombre}}</td>
 
 					<td>
 						<!-- <form method="post" action="{{url('abms/abonados/'.$dato->id) }}">

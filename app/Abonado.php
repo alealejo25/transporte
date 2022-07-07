@@ -33,6 +33,10 @@ class Abonado extends Model
     {
         return $this->hasMany('App\VentaTafi');
     }
+     public function PlanchaTafi()
+    {
+        return $this->hasMany('App\PlanchaTafi');
+    }
 
      public function scopeSearch($query,$name)
     {

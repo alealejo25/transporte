@@ -149,8 +149,9 @@ $impresora->close();*/
 
     public function index(Request $request)
     {
-        
-        $datos=PlanchaTafi::search($request->name)->orderBy('numero','ASC')->paginate(40);
+    
+        $datos=PlanchaTafi::search($request->name)->orderBy('numero','ASC')->paginate(200);
+
         return view('boltafi.planchas.index')
             ->with('datos',$datos);
     }
@@ -252,6 +253,7 @@ $impresora->close();*/
         }
         $movimientocaja->save();
 
-       return $datos;
+        flash::success('SE REALIZO LA VENTA'); 
+        return Redirect('boltafi/ventasdeabonos/venta');
     }
 }

@@ -19,7 +19,8 @@ class PlanchaTafi extends Model
     'fechaanulacion',
     'fechacarga',
     'id_usuario',
-    'numero'
+    'numero',
+    'usercompra_id'
     ];
 
     public function scopeSearch($query,$name)
@@ -29,6 +30,10 @@ class PlanchaTafi extends Model
     public function User()
     {
         return $this->belongsTo('App\User');
+    }
+    public function Abonado()
+    {
+        return $this->belongsTo('App\Abonado');
     }
     //------------
 }

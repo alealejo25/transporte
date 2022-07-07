@@ -16,7 +16,7 @@
 			@endif	
 
 			<div>
-				<h3>Listado de Planchas
+				<h3>Venta de Abonos
 				@can('acoplados_create')
 				<a href="../abonados/create"><button class="btn btn-success">Nuevo Abonado</button></a>
 				@endcan
@@ -30,6 +30,7 @@
 			<div class="Form-group">
 					<input type="text" class="form-control"  name="user_id" id="user_id" style="visibility:hidden"  value="{{ Auth::user()->id }}">
 				</div>
+			<h3 id='mensaje'></h3>
 			<div class="col-lg-6">
 				{{Form::label('dni', 'DNI del Abonado')}}
 				<input type="text" class="form-control {{$errors->has('dni')?'is-invalid':''}}" placeholder="Ingrese el DNI del abonado..." name="dni" id="dni"  value="{{old('dni')}}">
@@ -106,16 +107,17 @@
 
 		</div>
 	</div> 
-	<input type="button" name="buscarabonado" id="buscarabonado" value="Buscar Abonado" class="btn btn-warning" >
+<!-- 	<input type="button" name="buscarabonado" id="buscarabonado" value="Buscar Abonado" class="btn btn-warning" >
 	<form action="POST" action="/pagos/proveedor/ajax" id="form1">
 		@csrf
 		<input type="hidden" name="id1" value="1">
 		<input type="hidden" name="">
 		
-	</form>
+	</form> -->
 
 <script>
 	$(document).ready(function(){
+		$("#dni").focus();
 	//buscar();
 		//function buscar(){
 //			$('#ver').click(function(){
@@ -130,6 +132,7 @@
 				}).done( function( data ){
 					if (data.length!=0)
 					{
+						$('#mensaje').text('');
 						for (var i=0; i<data.length ;i++) {
 							$("#nombre").val(data[i].nombre+' '+data[i].apellido);
 							$("#direccion").val(data[i].direccion);
@@ -145,7 +148,7 @@
 					} 
 					else
 					{
-						alert("No existe abonado con el DNI Ingresado");
+						$('#mensaje').text('NO EXISTE EL ABONADO CON ESE DNI');
 						$("#dni").focus();
 					}
 					

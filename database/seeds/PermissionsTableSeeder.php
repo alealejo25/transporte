@@ -34,12 +34,16 @@ class PermissionsTableSeeder extends Seeder
         'cuit'  => '30-71002307-3',
         'condicion'     => '0',
     ]);
-	DB::table('empresas')->insert([
-        'denominacion'  => 'LEAGAS S.A.',
-        'cuit'  => '30-60388612-3',
-        'condicion'     => '0',
+	DB::table('empresasboltafi')->insert([
+        'nombre'  => 'La Nueva Fournier',
+        'nombre_corto'  => 'LNF',
+        'porcentaje'  => '50'
     ]);
-	
+    DB::table('empresasboltafi')->insert([
+        'nombre'  => 'El Rayo',
+        'nombre_corto'  => 'ER',
+        'porcentaje'  => '50'
+    ]);
 
 	DB::table('users')->insert([
         'name'  => 'Veronica',

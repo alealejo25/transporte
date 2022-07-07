@@ -39,7 +39,7 @@
 					<th style="width:150px">Fecha de Anulacion</th>
 					<th>Usuario Anulacion</th>
 					<th>Motivo</th>
-					<th>Abonado</th>
+					<!--<th>Abonado</th>-->
 					
 					
 				</thead>
@@ -52,7 +52,7 @@
 					<td>{{date('d-m-Y', strtotime($dato->fechaanulacion))}}</td>
 					<td>{{ $dato->user_anulacion}}</td>
 					<td>{{ $dato->motivo}}</td>
-					<td>{{ $dato->abonado->nombre}}</td>
+					<!--<td>{{ $dato->abonado->nombre}}</td>-->
 
 					<td>
 						<!-- <form method="post" action="{{url('abms/abonados/'.$dato->id) }}">

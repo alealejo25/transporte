@@ -19,12 +19,32 @@
 
 			<div class="Form-group">
 				<!-- <label for="nombre">Dominio</label> -->
-				{{Form::label('descripcion', 'Descripción')}}
-				<input type="text" class="form-control {{$errors->has('descripcion')?'is-invalid':''}}" placeholder="Descripcion..." name="descripcion" id="descripcion"  value="{{old('descripcion')}}">
+				{{Form::label('descripcion', 'Observacion')}}
+				<input type="text" class="form-control {{$errors->has('descripcion')?'is-invalid':''}}" placeholder="Coloque una observacion..." name="descripcion" id="descripcion"  value="{{old('descripcion')}}">
 				{!! $errors->first('descripcion','<div class="invalid-feedback">:message</div>')!!}
 
 			</div>
-			
+			<div class="col-lg-12">
+				<label for="montototal">Monto Total de Recaudacion de las dos empresas (ABONOS)</label>
+				<input type="text" name="montototal" id="montototal"  class="form-control {{$errors->has('montototal')?'is-invalid':''}}" placeholder="Cantidad" value="0">
+				{!! $errors->first('montototal','<div class="invalid-feedback">:message</div>')!!}
+			</div>
+			<div class="col-lg-12">
+			<label for="montototal"></label>
+		</div>
+			<div class="col-lg-12">
+			<label for="montototal">RECAUDACION LA NUEVA FOURNIER</label>
+		</div>
+			<div class="col-lg-6">
+				<label for="nrolote">Lote de Posnet</label>
+				<input type="text" name="nrolote" id="nrolote"  class="form-control {{$errors->has('nrolote')?'is-invalid':''}}" placeholder="Cantidad" value="0">
+				{!! $errors->first('nrolote','<div class="invalid-feedback">:message</div>')!!}
+			</div>
+			<div class="col-lg-6">
+				<label for="montolote">Monto Total del Posnet</label>
+				<input type="text" name="montolote" id="montolote"  class="form-control {{$errors->has('montolote')?'is-invalid':''}}" placeholder="Monto del Lote" value="0">
+				{!! $errors->first('montolote','<div class="invalid-feedback">:message</div>')!!}
+			</div>
 			<div class="col-lg-2">
 				<label for="diez">Cant $10</label>
 				<input type="text" name="diez" id="diez"  class="form-control {{$errors->has('diez')?'is-invalid':''}}" placeholder="Cantidad" value="0">

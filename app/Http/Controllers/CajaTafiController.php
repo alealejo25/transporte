@@ -92,6 +92,8 @@ class CajaTafiController extends Controller
         $campos=[
             'descripcion'=>'required|string|max:50',
             'dinerofisico'=>'required|numeric',
+            'nrolote'=>'required|numeric',
+            'montolote'=>'required',
             'diez'=>'required|numeric',
             'veinte'=>'required|numeric',
             'cincuenta'=>'required|numeric',
@@ -105,6 +107,8 @@ class CajaTafiController extends Controller
         $this->validate($request,$campos,$Mensaje);
         $datosCierreCaja=new CierreDiaTafi(request()->except('_token'));
         $datosCierreCaja->fecha=$fecha;
+        $datosCierreCaja->nrolote=$request->nrolote;
+        $datosCierreCaja->montolote=$request->montolote;
 
         $datosmovimientos=MovimientoCajaTafi::where('tipo','INICIAR CAJA')->where('cierre',0)->orderBy('id','DESC')->limit(1)->get();
         if(count($datosmovimientos)==0)
@@ -121,10 +125,10 @@ class CajaTafiController extends Controller
         $datosCierreCaja->gastos=$datosmovimientosgastos;
 
         $datosmovimientosimportefinal=MovimientoCajaTafi::where('cierre',0)->orderBy('id','DESC')->limit(1)->get();
-        $datosCierreCaja->caja_final=$datosmovimientosimportefinal[0]->importe_final;
+        $datosCierreCaja->caja_final=$datosCierreCaja->caja_inicial+$datosCierreCaja->venta-$datosCierreCaja->gastos;
         $datosCierreCaja->caja_final_fisica=$request->dinerofisico;
-        $diferencia=$request->dinerofisico-$datosCierreCaja->caja_final;
-        $datosCierreCaja->caja_diferencia=$diferencia;
+
+
 
         $datosCierreCaja->planchas_impresas=0;
         $datosCierreCaja->planchas_dañada=0;
@@ -132,10 +136,14 @@ class CajaTafiController extends Controller
         $datosCierreCaja->observacion=$request->descripcion;
 
         $datosempresalnf=EmpresasBolTafi::where('nombre_corto','LNF')->get();
-        $datosCierreCaja->ganancialnf=(($datosempresalnf[0]->porcentaje)/100)*$request->dinerofisico;
+        $datosCierreCaja->ganancialnf=($datosCierreCaja->caja_final)/2;
 
+        $datosCierreCaja->gananciatotallnf=$datosCierreCaja->ganancialnf+$datosCierreCaja->montolote;
+         $diferencia=$datosCierreCaja->gananciatotallnf-$request->dinerofisico;
+        $datosCierreCaja->caja_diferencia=$diferencia;
         $datosempresaer=EmpresasBolTafi::where('nombre_corto','ER')->get();
-        $datosCierreCaja->gananciaelrayo=(($datosempresaer[0]->porcentaje)/100)*$request->dinerofisico;
+        $datosCierreCaja->gananciaelrayo=($datosCierreCaja->caja_final)/2;
+
         $datosCierreCaja->diez=$request->diez;
         $datosCierreCaja->veinte=$request->veinte;
         $datosCierreCaja->cincuenta=$request->cincuenta;

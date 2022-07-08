@@ -19,6 +19,8 @@ class CierresDiaTafi extends Migration
             $table->decimal('caja_inicial',10,2);
             $table->decimal('venta',10,2);
             $table->decimal('gastos',10,2);
+            $table->integer('nrolote')->unsigned();
+            $table->decimal('montolote',10,2);
             $table->decimal('caja_final',10,2);
             $table->decimal('caja_final_fisica',10,2);
             $table->decimal('caja_diferencia',10,2);
@@ -27,6 +29,7 @@ class CierresDiaTafi extends Migration
             $table->integer('cierre')->unsigned()->default(0);
             $table->decimal('ganancialnf',10,2);
             $table->decimal('gananciaelrayo',10,2);
+            $table->decimal('gananciatotallnf',10,2);
             $table->string('observacion',100);
             $table->integer('diez')->unsigned()->default(0);
             $table->integer('veinte')->unsigned()->default(0);

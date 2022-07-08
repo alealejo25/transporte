@@ -55,7 +55,7 @@ class AbonadoController extends Controller
         $campos=[
                 'nombre'=>'required|string|max:25',
                 'apellido'=>'required|string|max:25',
-                'dni'=>'required|unique:abonados,dni',
+                'dni'=>'required|max:8|unique:abonados,dni',
                 'direccion'=>'required|string|max:100',
                 'nrocelular'=>'required|string|max:11',
                 'colegio_empresa'=>'required|string|max:100',

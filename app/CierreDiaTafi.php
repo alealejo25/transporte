@@ -16,16 +16,26 @@ class CierreDiaTafi extends Model
     'caja_inicial',
     'venta',
     'gastos',
+    'nrolote',
+    'montolote',
     'caja_final',
+    'caja_final_fisica',
     'caja_diferencia',
     'planchas_impresas',
     'planchas_dañada',
     'ganacialnf',
     'ganaciaelrayo',
-    'caja_diferencia',
+    'gananciatotallnf',
     'observacion',
     'condicion',
-    'user_id'
+    'user_id',
+    'diez',
+    'veinte',
+    'cicuenta',
+    'cien',
+    'doscientos',
+    'quinientos',
+    'mil'
 
     ];
 

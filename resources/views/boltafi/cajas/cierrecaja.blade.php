@@ -35,6 +35,9 @@
 			<div class="col-lg-12">
 			<label for="montototal">RECAUDACION LA NUEVA FOURNIER</label>
 		</div>
+		<div class="Form-group">
+					<input type="text" class="form-control"  name="user_id" id="user_id" style="visibility:hidden"  value="{{ Auth::user()->id }}">
+				</div>
 			<div class="col-lg-6">
 				<label for="nrolote">Lote de Posnet</label>
 				<input type="text" name="nrolote" id="nrolote"  class="form-control {{$errors->has('nrolote')?'is-invalid':''}}" placeholder="Cantidad" value="0">
@@ -87,6 +90,7 @@
 				<input type="text" name="dinerofisico" id="dinerofisico" class="form-control {{$errors->has('dinerofisico')?'is-invalid':''}}" placeholder="Dinero Fisico..." readonly onmousedown="return false;">
 				{!! $errors->first('dinerofisico','<div class="invalid-feedback">:message</div>')!!}
 			</div>
+
 			<div class="row">
 			</div>
 			<div class="Form-group">

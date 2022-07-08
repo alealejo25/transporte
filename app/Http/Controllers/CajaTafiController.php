@@ -8,6 +8,11 @@ use App\MovimientoCajaTafi;
 use App\CierreDiaTafi;
 use App\EmpresasBolTafi;
 use Laracasts\Flash\Flash;
+use Dompdf\Dompdf;
+use Luecano\NumeroALetras\NumeroALetras;
+
+use \PDF;
+
 
 class CajaTafiController extends Controller
 {
@@ -87,7 +92,6 @@ class CajaTafiController extends Controller
 
     public function guardarcierrecajatafi(Request $request)
     {
-
         $fecha=new \DateTime();
         $campos=[
             'descripcion'=>'required|string|max:50',
@@ -143,7 +147,7 @@ class CajaTafiController extends Controller
         $datosCierreCaja->caja_diferencia=$diferencia;
         $datosempresaer=EmpresasBolTafi::where('nombre_corto','ER')->get();
         $datosCierreCaja->gananciaelrayo=($datosCierreCaja->caja_final)/2;
-
+        $datosCierreCaja->user_id=$request->user_id;
         $datosCierreCaja->diez=$request->diez;
         $datosCierreCaja->veinte=$request->veinte;
         $datosCierreCaja->cincuenta=$request->cincuenta;
@@ -169,7 +173,33 @@ class CajaTafiController extends Controller
         $actualizarplancha=MovimientoCajaTafi::where('cierre',0)
                         ->update([
                                 'cierre'=>1,
-                                ]);  
+                                ]);
+
+        $consulta=CierreDiaTafi::orderBy('id','DESC')->limit(1)->get();
+        $consulta->each(function($consulta){
+          $consulta->user;
+        });
+
+
+        $cantbilletes=$consulta[0]->diez+$consulta[0]->veinte+$consulta[0]->cincuenta+$consulta[0]->cien+$consulta[0]->doscientos+$consulta[0]->quinientos+$consulta[0]->mil;
+        $diez=$consulta[0]->diez*10;
+        $veinte=$consulta[0]->veinte*20;
+        $cincuenta=$consulta[0]->cincuenta*50;
+        $cien=$consulta[0]->cien*100;
+        $doscientos=$consulta[0]->doscientos*200;
+        $quinientos=$consulta[0]->quinientos*500;
+        $mil=$consulta[0]->mil*1000;
+        $totaldinero=$diez+$veinte+$cincuenta+$cien+$doscientos+$quinientos+$mil;
+
+
+        $formatter = new NumeroALetras();
+        $montoenletras=$formatter->toMoney($totaldinero, 2, 'PESOS','CENTAVOS');
+        $pdf=\PDF::loadView('pdf.cierredecajatafi',['consulta'=>$consulta,'cantbilletes'=>$cantbilletes,'diez'=>$diez,'veinte'=>$veinte,'cincuenta'=>$cincuenta,'cien'=>$cien,'doscientos'=>$doscientos,'quinientos'=>$quinientos,'mil'=>$mil,'totaldinero'=>$totaldinero,'montoenletras'=>$montoenletras])
+        ->setPaper('a4','landscape');
+        return $pdf->download('cierredecajatafi.pdf');
+
+
+
         flash::success('Se cerro la CAJA'); 
        return Redirect('boltafi/cajas/cierrecajatafi')->with('Mensaje','Se cerro la CAJA');
     

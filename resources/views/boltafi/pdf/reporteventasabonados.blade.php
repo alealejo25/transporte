@@ -101,7 +101,7 @@
                     <th>Fecha</th>
                     <th>Cantidad</th>
                     <th>Plancha</th>
-                    <th>Boleto</th>
+                    <th>Codigo</th>
                     <th>Desde</th>
                     <th>Hasta</th>
                     <th>Usuario</th>

@@ -10,7 +10,7 @@
                     <div class="widget-one">
 
                         <!--TITULO-->
-                        <h4 class="text-center mb-5">Reporte Cuentas Corrientes - Proveedores Leagas. </h4>
+                        <h4 class="text-center mb-5">Reporte Ventas Diarias de abonos - Boleteria Tafi Viejo. </h4>
                         {!!Form::open(['route' => 'reporteventasboltafi','method'=>'POST'])!!}
 						{{Form::token()}}
                         <!--ENCABEZADO-->

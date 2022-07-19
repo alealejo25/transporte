@@ -114,7 +114,7 @@ class CajaTafiController extends Controller
         });
 
 
-      $pdf=\PDF::loadView('boltafi.pdf.reporteventasdiarias',['consulta'=>$consulta,'consultasuma'=>$consultasuma,'montoenletras'=>$montoenletras,'ff'=>$request->fechai,'fi'=>$fi])
+      $pdf=\PDF::loadView('boltafi.pdf.reporteventasdiarias',['consulta'=>$consulta,'consultasuma'=>$consultasuma,'montoenletras'=>$montoenletras,'ff'=>$ff,'fi'=>$fi])
         ->setPaper('a4','landscape');
         return $pdf->download('reporteventasdiarias.pdf');
      }

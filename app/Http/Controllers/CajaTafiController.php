@@ -7,9 +7,11 @@ use App\VentaTafi;
 use App\MovimientoCajaTafi;
 use App\CierreDiaTafi;
 use App\EmpresasBolTafi;
+use App\Abonado;
 use Laracasts\Flash\Flash;
 use Dompdf\Dompdf;
 use Luecano\NumeroALetras\NumeroALetras;
+use Carbon\Carbon;
 
 use \PDF;
 
@@ -89,6 +91,51 @@ class CajaTafiController extends Controller
     {
         return view('boltafi.cajas.cierrecaja');
     }
+     public function ventasdiarias(Request $request)
+    {
+        $abonados=Abonado::orderBy('apellido','ASC')->get();
+        //$abonados=Abonado::orderBy('dni','ASC')->pluck('dni','id');
+        return view('boltafi.reportes.ventasdiarias')->with('abonados',$abonados);
+    }
+    public function reporteventasboltafi(Request $request)
+    {
+
+    $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+    $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+
+    if($request->abonado_id===null){
+       $consulta=VentaTafi::whereBetween('fecha',[$fi, $ff])->get();
+       $consultasuma=VentaTafi::whereBetween('fecha',[$fi, $ff])->sum("montototal");
+       $formatter = new NumeroALetras();
+        $montoenletras=$formatter->toMoney($consultasuma, 2, 'PESOS','CENTAVOS');
+       $consulta->each(function($consulta){
+            $consulta->abonado;
+            $consulta->user;
+        });
+
+
+      $pdf=\PDF::loadView('boltafi.pdf.reporteventasdiarias',['consulta'=>$consulta,'consultasuma'=>$consultasuma,'montoenletras'=>$montoenletras,'ff'=>$request->fechai,'fi'=>$fi])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reporteventasdiarias.pdf');
+     }
+     else{
+        $consulta=VentaTafi::whereBetween('fecha',[$fi, $ff])->where('abonado_id',$request->abonado_id)->get();
+        $abonado=Abonado::where('id',$request->abonado_id)->orderBy('apellido','ASC')->get();
+         $consultasuma=VentaTafi::whereBetween('fecha',[$fi, $ff])->sum("montototal");
+         $formatter = new NumeroALetras();
+        $montoenletras=$formatter->toMoney($consultasuma, 2, 'PESOS','CENTAVOS');
+        $consulta->each(function($consulta){
+            $consulta->user;
+        });
+
+       $pdf=\PDF::loadView('boltafi.pdf.reporteventasabonados',['consulta'=>$consulta,'abonado'=>$abonado,'consultasuma'=>$consultasuma,'montoenletras'=>$montoenletras])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reporteventasabonados.pdf');
+     }
+
+    }
+    
+    
 
     public function guardarcierrecajatafi(Request $request)
     {

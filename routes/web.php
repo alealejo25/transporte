@@ -174,6 +174,15 @@ Route::get('boltafi/cajas/cierrecajatafi','CajaTafiController@cierrecajatafi')->
 Route::post('boltafi/cajas/guardarcierrecajatafi','CajaTafiController@guardarcierrecajatafi')->name('guardarcierrecajatafi');
 //FIN CAJAS
 
+//REPORTES
+Route::get('boltafi/reportes/ventasdiarias','CajaTafiController@ventasdiarias')->name('ventasdiarias');
+Route::post('boltafi/reportes/reporteventasboltafi','CajaTafiController@reporteventasboltafi')->name('reporteventasboltafi');
+
+
+
+//FIN DE REPORTES
+
+
 //**************************************************************
 //***FIN BOLETERIA TAFI VIEJO***********************************
 //**************************************************************

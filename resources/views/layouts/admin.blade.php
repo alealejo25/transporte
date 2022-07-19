@@ -365,6 +365,9 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('reportestafisupervisor')
                 <li><a href="/"><i class="fa fa-circle-o"></i> Caja </a></li>
                 @endcan
+                @can('reportestafisupervisor')
+                <li><a href="/boltafi/reportes/ventasdiarias"><i class="fa fa-circle-o"></i> Reporte Ventas </a></li>
+                @endcan
                </ul>
             </li>
             @endcan

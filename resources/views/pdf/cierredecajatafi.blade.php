@@ -121,7 +121,7 @@
                   <td align="right">$ {{number_format($datos->gastos,2,",",".")}}</td>
                   <td align="right">$ {{number_format($datos->caja_final,2,",",".")}}</td>
                   <td align="right">$ {{number_format($datos->ganancialnf,2,",",".")}}</td>
-                  <td align="right">$ {{number_format($datos->nrolote,2,",",".")}}</td>
+                  <td align="right">{{number_format($datos->nrolote)}}</td>
                   <td align="right">$ {{number_format($datos->montolote,2,",",".")}}</td>
                   <td align="right">$ {{number_format($datos->gananciatotallnf,2,",",".")}}</td>
                   <td align="right">$ {{number_format($datos->caja_final_fisica,2,",",".")}}</td>

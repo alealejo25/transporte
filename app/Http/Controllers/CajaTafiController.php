@@ -12,7 +12,7 @@ use Laracasts\Flash\Flash;
 use Dompdf\Dompdf;
 use Luecano\NumeroALetras\NumeroALetras;
 use Carbon\Carbon;
-
+use App;
 use \PDF;
 
 
@@ -100,6 +100,8 @@ class CajaTafiController extends Controller
     public function reporteventasboltafi(Request $request)
     {
 
+            
+
     $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
     $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
 
@@ -135,7 +137,28 @@ class CajaTafiController extends Controller
 
     }
     
+     public function cierresdecajas(Request $request)
+    {
+        $abonados=Abonado::orderBy('apellido','ASC')->get();
+        //$abonados=Abonado::orderBy('dni','ASC')->pluck('dni','id');
+        return view('boltafi.reportes.cierredecajas')->with('abonados',$abonados);
+    }
     
+    public function reportecierresdecajas(Request $request)
+    {
+        $consulta=CierreDiaTafi::orderBy('id','DESC')->limit(1)->get();
+        $consulta->each(function($consulta){
+          $consulta->user;
+        });
+
+        $formatter = new NumeroALetras();
+        $montoenletras=$formatter->toMoney($consulta[0]->gananciatotallnf, 2, 'PESOS','CENTAVOS');
+        $pdf=\PDF::loadView('boltafi.pdf.reportecierredecaja',['consulta'=>$consulta,'montoenletras'=>$montoenletras])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reportecierredecaja.pdf');
+}
+
+
 
     public function guardarcierrecajatafi(Request $request)
     {

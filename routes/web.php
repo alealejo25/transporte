@@ -177,6 +177,8 @@ Route::post('boltafi/cajas/guardarcierrecajatafi','CajaTafiController@guardarcie
 //REPORTES
 Route::get('boltafi/reportes/ventasdiarias','CajaTafiController@ventasdiarias')->name('ventasdiarias');
 Route::post('boltafi/reportes/reporteventasboltafi','CajaTafiController@reporteventasboltafi')->name('reporteventasboltafi');
+Route::get('boltafi/reportes/cierresdecajas','CajaTafiController@cierresdecajas')->name('cierresdecajas');
+Route::post('boltafi/reportes/reportecierresdecajas','CajaTafiController@reportecierresdecajas')->name('reportecierresdecajas');
 
 
 

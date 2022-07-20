@@ -362,11 +362,14 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('planchastafi')
                 <li><a href="/boltafi/planchastafi/"><i class="fa fa-circle-o"></i> Planchas </a></li>
                 @endcan
-                @can('reportestafisupervisor')
+                @can('abonadostafi')
                 <li><a href="/"><i class="fa fa-circle-o"></i> Caja </a></li>
                 @endcan
-                @can('reportestafisupervisor')
+                @can('boltafi')
                 <li><a href="/boltafi/reportes/ventasdiarias"><i class="fa fa-circle-o"></i> Reporte Ventas </a></li>
+                @endcan
+                @can('boltafi')
+                <li><a href="/boltafi/reportes/cierresdecajas"><i class="fa fa-circle-o"></i> Reporte Cierres </a></li>
                 @endcan
                </ul>
             </li>

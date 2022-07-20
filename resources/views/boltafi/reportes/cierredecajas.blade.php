@@ -10,32 +10,16 @@
                     <div class="widget-one">
 
                         <!--TITULO-->
-                        <h4 class="text-center mb-5">Reporte Ventas Diarias de abonos - Boleteria Tafi Viejo. </h4>
-                        {!!Form::open(['route' => 'reporteventasboltafi','method'=>'POST'])!!}
+                        <h4 class="text-center mb-5">Reporte Cierre de Cajas - Boleteria Tafi Viejo. </h4>
+                        {!!Form::open(['route' => 'reportecierresdecajas','method'=>'POST'])!!}
 						{{Form::token()}}
                         <!--ENCABEZADO-->
                         <div class="row">
-
-                           <div class="col-sm-12 col-md-2 col-lg-2">Fecha inicial
+                           <div class="col-sm-12 col-md-2 col-lg-2">Seleccion Fecha del Cierre
                                <div class="form-group">           
 	                                <input type="date" name="fechai" id="fechai" class="form-control {{$errors->has('fechai')?'is-invalid':''}}" placeholder="Fecha Inicial..." value="{{old('fechai')}}">
 									{!! $errors->first('fechai','<div class="invalid-feedback">:message</div>')!!}
                               </div>
-                            </div>
-
-                           <div class="col-sm-12 col-md-2 col-lg-2">Fecha final
-                               <div class="form-group">           
-	                                <input type="date" name="fechaf" id="fechaf" class="form-control {{$errors->has('fechaf')?'is-invalid':''}}" placeholder="Fecha del Cheque..." value="{{old('fechaf')}}">
-									{!! $errors->first('fechaf','<div class="invalid-feedback">:message</div>')!!}
-                              </div>
-                            </div>
-							<div class="col-sm-12 col-md-3 col-lg-3">Seleccione Abonado
-	                            <select name="abonado_id" id="abonado" class="form-control" onchange="colocar_cantidad(this)">
-										<option value="">Selecccione un Abonado</option>
-										@foreach ($abonados as $abonado) 
-											<option value="{{ $abonado->id }}">{{$abonado->apellido}}, {{$abonado->nombre}} - {{$abonado->dni}}</option>
-										@endforeach
-									</select>
                             </div>
 
 

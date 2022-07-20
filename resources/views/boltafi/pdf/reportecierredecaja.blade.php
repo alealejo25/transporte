@@ -132,52 +132,6 @@
         </table>
     </div>
 <br>
-<h3>Cantidad de Billetes</h3>
-<div>
-        <table class="table table-bordered table-striped table-sm">
-            <thead>
-                <tr> 
-                    <th>Diez</th>
-                    <th>Veinte</th>
-                    <th>Cincuenta</th>
-                    <th>Cien</th>
-                    <th>Doscientos</th>
-                    <th>Quinientos</th>
-                    <th>Mil</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach ($consulta as $datos)
-                <tr>
-                  <td align="right">{{number_format($datos->diez)}}</td>
-                  <td align="right">{{number_format($datos->veinte)}}</td>
-                  <td align="right">{{number_format($datos->cincuenta)}}</td>
-                  <td align="right">{{number_format($datos->cien)}}</td>
-                  <td align="right">{{number_format($datos->doscientos)}}</td>
-                  <td align="right">{{number_format($datos->quinientos)}}</td>
-                  <td align="right">{{number_format($datos->mil)}}</td>
-                  <td align="right">{{number_format($cantbilletes)}}</td>
-                </tr>
-
-                <div>
-        
-                </div>
-                <tr>
-                  <td align="right">$ {{number_format($diez)}}</td>
-                  <td align="right">$ {{number_format($veinte)}}</td>
-                  <td align="right">$ {{number_format($cincuenta)}}</td>
-                  <td align="right">$ {{number_format($cien)}}</td>
-                  <td align="right">$ {{number_format($doscientos)}}</td>
-                  <td align="right">$ {{number_format($quinientos)}}</td>
-                  <td align="right">$ {{number_format($mil)}}</td>
-                  <td align="right"><spam>$ {{number_format($totaldinero)}}</spam></td>
-                </tr>
-            @endforeach                   
-            </tbody>
-        </table>
-    </div>
 
 <div class="card">
         <div class="row">

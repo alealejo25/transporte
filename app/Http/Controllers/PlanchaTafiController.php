@@ -13,6 +13,8 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
 
+
+
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 
@@ -177,6 +179,12 @@ $impresora->close();*/
     public function guardarventa(Request $request)
     {
       
+    $fecha = date("d-m-Y");
+    $fechavencimiento=date("d-m-Y",strtotime($fecha."+ 1 month"));
+
+
+
+
 
        $plancha=PlanchaTafi::where('numero',$request->numero)->get();
 
@@ -203,26 +211,30 @@ $impresora->close();*/
         }
 
        $abonado=Abonado::where('dni',$request->dni)->limit(1)->get();
+       $nomape=$abonado[0]->apellido;
        $tipoabono=TipoAbono::where('id',$abonado[0]->tipo_abono_id)->get();
-
+       $tipo=$tipoabono[0]->tipo;
        if($abonado[0]->boleto=='103')
        {
             $monto=$tipoabono[0]->costo103;
+            $codigo=103;
        }
        else{
            if($abonado[0]->boleto=='101'){
                 $monto=$tipoabono[0]->costo101;
+                $codigo=101;
             } 
             else{
                     $monto=$tipoabono[0]->costo100;
+                    $codigo=100;
             }
         }
        
        
        
-       $fecha=new \DateTime();
+       
        $datos=new VentaTafi(request()->except('_token'));
-       $datos->fecha=$fecha;
+       $datos->fecha=new \DateTime();
        $datos->abonado_id=$abonado[0]->id;
        $datos->montototal=$monto;
        $datos->impresion=1;
@@ -238,7 +250,7 @@ $impresora->close();*/
         $movimientocaja->tipo="VENTA";
         $movimientocaja->tipo_movimiento="INGRESO";
         $movimientocaja->descripcion="VENTA DE ABONO";
-        $movimientocaja->fecha=$fecha;
+        $movimientocaja->fecha=new \DateTime();
         $movimientocaja->importe=$monto;
         $movimientocaja->user_id=$request->user_id;
 
@@ -253,7 +265,21 @@ $impresora->close();*/
         }
         $movimientocaja->save();
 
+
+       
+        $pdf=\PDF::loadView('boltafi.pdf.abono',['numero'=>$request->numero,'fecha'=>$fecha,'codigo'=>$codigo,'fechavencimiento'=>$fechavencimiento,'monto'=>$monto,'nomape'=>$nomape,'tipo'=>$tipo])
+        ->setPaper('a4');
+        return $pdf->download('abono.pdf');
+        //return $pdf->stream('archivo.pdf');
+
+
         flash::success('SE REALIZO LA VENTA'); 
         return Redirect('boltafi/ventasdeabonos/venta');
     }
+
+    public function imprimir(Request $request)
+    {
+        $pdf = Pdf::loadView('pdf.invoice', $data);
+        return $pdf->download('invoice.pdf');
+}
 }

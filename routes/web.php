@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\Route;
 //     return view('index');
 // });
 
-Route::get('/afip/inicio', function () {
-     return view('/afip/inicio');
+Route::get('/afip/react', function () {
+     return view('/afip/react');
  });
 Route::get('/afip/prueba','ReporteController@prueba')->name('prueba');
 
@@ -143,6 +143,12 @@ Route::get('finanzas/movimientoscajas/iniciar','MovimientoCajaController@iniciar
 Route::get('boltafi/abonados','AbonadoController@index')->name('boltafi.abonados');
 Route::get('boltafi/abonados/create','AbonadoController@create')->name('create');
 Route::post('boltafi/abonados/store','AbonadoController@store')->name('store');
+Route::get('boltafi/abonados/{id?}/edit', 'AbonadoController@edit')->name('edit');
+Route::post('boltafi/abonados/guardareditarabonado','AbonadoController@guardareditarabonado')->name('guardareditarabonado');
+Route::get('boltafi/abonados/presentaciondoc','AbonadoController@presentaciondoc')->name('presentaciondoc');
+Route::post('boltafi/abonados/guardardocumentacion','AbonadoController@guardardocumentacion')->name('guardardocumentacion');
+
+
 //FIN ABONADOS
 
 //TIPOS DE ABONOS
@@ -157,6 +163,7 @@ Route::post('boltafi/planchastafi/store','PlanchaTafiController@store')->name('s
 Route::get('boltafi/planchastafi/mostraranularplancha','PlanchaTafiController@mostraranularplancha')->name('mostraranularplancha');
 Route::post('boltafi/planchastafi/anularplancha','PlanchaTafiController@anularplancha')->name('anularplancha');
 Route::get('boltafi/planchastafi','PlanchaTafiController@index')->name('boltafi.planchastafi');
+Route::get('boltafi/ventasdeabonos/imprimirabono','PlanchaTafiController@imprimirabono')->name('imprimirabono');
 //FIN PLANCHAS
 
 //VENTAS
@@ -179,9 +186,6 @@ Route::get('boltafi/reportes/ventasdiarias','CajaTafiController@ventasdiarias')-
 Route::post('boltafi/reportes/reporteventasboltafi','CajaTafiController@reporteventasboltafi')->name('reporteventasboltafi');
 Route::get('boltafi/reportes/cierresdecajas','CajaTafiController@cierresdecajas')->name('cierresdecajas');
 Route::post('boltafi/reportes/reportecierresdecajas','CajaTafiController@reportecierresdecajas')->name('reportecierresdecajas');
-
-
-
 //FIN DE REPORTES
 
 

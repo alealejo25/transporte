@@ -21,6 +21,7 @@ class PlanchasTafi extends Migration
             $table->string('user_anulacion',40)->nullable();
             $table->date('fechaanulacion')->nullable();
             $table->date('fechacarga');
+            $table->date('fechaventa')->nullable();
             $table->biginteger('user_id')->unsigned()->nullable();
             $table->integer('usercompra_id')->unsigned()->nullable();
             $table->integer('numero')->unsigned();

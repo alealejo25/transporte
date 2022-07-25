@@ -42,64 +42,74 @@
               </div>
         </div>
     @endforeach
- 
-
-         
-  
-</div>
-
+ </div>
 @endcan
-
-
-
-
-
 <hr style="width:100%;">
-@can('administradores')
-<h4>Prestamos</h4>
+@can('boltafi')
+<h4>Boleteria Tafi Viejo</h4>
 <div class="row" >
-
-        @foreach ($consultaprestamos as $consultaprestamo)
-
-          @if ($consultaprestamo->fechaproximopago == $mfecha)
-
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-yellow">
+   <div class="col-lg-3 col-xs-6">
+           <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h2>{{ $consultaprestamo->chofer->nombre  }}</h2>
-                  <h2>Cuota : $ {{ $consultaprestamo->valorcuota }},00</h2>
-                  <p>Vencimiento Prestamo en el mes en curso</p>
+                  <h3>$ {{ $totalventas}}</h3>
+                  <p>Ventas de abonos del dia</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="/pagos/listarprestamo" class="small-box-footer">Ir a prestamos a choferes <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="/boltafi/reportes/ventasdiarias" class="small-box-footer">Ir Reportes de ventas Diarias <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
-          @else
-            @if($consultaprestamo->fechaproximopago > $mfecha)
-            <div class="col-lg-3 col-xs-6">
-              <!-- small box -->
-              <div class="small-box bg-red">
+          
+
+
+
+   <div class="col-lg-3 col-xs-6">
+           <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h2>{{ $consultaprestamo->chofer->nombre  }}</h2>
-                  <h2>Cuota : $ {{ $consultaprestamo->valorcuota }},00</h2>
-                  <p>PRESTAMO VENCIDO</p>
+                  <h3> {{ $planchasvendidasdiatafi}}</h3>
+                  <p>Planchas vendidas en el dia</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-pie-graph"></i>
                 </div>
-                <a href="/pagos/listarprestamo" class="small-box-footer">Ir a prestamos a choferes <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="/boltafi/planchastafi/" class="small-box-footer">Ir a listado de Planchas <i class="fa fa-arrow-circle-right"></i></a>
               </div>
             </div>
-            @endif
-          @endif
+          
 
-        @endforeach
-        <!-- ./col -->
+
+<div class="col-lg-3 col-xs-6">
+           <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3> {{ $planchasanuladasdiatafi}}</h3>
+                  <p>Planchas anuladas en el dia</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="/boltafi/planchastafi/mostraranularplancha" class="small-box-footer">Ir a anular Planchas <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+          
+
+
+<div class="col-lg-3 col-xs-6">
+           <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>$ {{ $consultagastosdiariostafi}}</h3>
+                  <p>Gastos en el dia</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="/boltafi/planchastafi/" class="small-box-footer">Ir a listado de Movimientos de caja <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+          
+
 </div>
-@endcan
 
+@endcan
 
   @endsection

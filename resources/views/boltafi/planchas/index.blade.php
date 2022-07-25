@@ -48,8 +48,11 @@
 					<td>{{ $dato->id}}</td>
 					<td>{{ $dato->numero}}</td>
 					<td>{{ $dato->estado}}</td>
+					
 					<td>{{date('d-m-Y', strtotime($dato->fechacarga))}}</td>
+
 					<td>{{date('d-m-Y', strtotime($dato->fechaanulacion))}}</td>
+					<td>{{date('d-m-Y', strtotime($dato->fechaventa))}}</td>
 					<td>{{ $dato->user_anulacion}}</td>
 					<td>{{ $dato->motivo}}</td>
 					

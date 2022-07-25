@@ -12,9 +12,6 @@ use App\MovimientoCajaTafi;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
-
-
-
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\Printer;
 
@@ -136,7 +133,20 @@ $impresora->close();*/
 
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-        $actualizarplancha=PlanchaTafi::where('numero',$request->numero)
+        $datos=PlanchaTafi::where('numero',$request->numero)->get();
+        if(count($datos)==0){
+            Flash::warning('No existe la plancha para anular ');
+            return Redirect('boltafi/planchastafi/mostraranularplancha')->with('Mensaje','Se existe el numero de plancha para anular!!!!');
+
+        }
+        else{
+            if($datos[0]->estado=='ANULADO'){
+                Flash::warning('La Plancha ya se encuentra ANULADA');
+            return Redirect('boltafi/planchastafi/mostraranularplancha');
+            }
+            else{
+              if($datos[0]->estado=='DISPONIBLE'){
+                $actualizarplancha=PlanchaTafi::where('numero',$request->numero)
                         ->update([
                                 'motivo'=>$request->motivo,
                                 'fechaanulacion'=>$fechaanulacion,
@@ -144,10 +154,44 @@ $impresora->close();*/
                                 'user_anulacion'=>$request->user_anulacion,
                                  ]);        
         
-        Flash::success('SE ANULO LA PLANCHA NRO '.$request->numero);
-       
-       return Redirect('boltafi/planchastafi/mostraranularplancha')->with('Mensaje','Se crearon las planchas!!!!');
-    }
+                Flash::success('SE ANULO LA PLANCHA NRO '.$request->numero);
+                return Redirect('boltafi/planchastafi/mostraranularplancha')->with('Mensaje','Se crearon las planchas!!!!'); 
+                }
+                else{
+                    $actualizarplancha=PlanchaTafi::where('numero',$request->numero)
+                        ->update([
+                                'motivo'=>$request->motivo,
+                                'fechaanulacion'=>$fechaanulacion,
+                                'estado'=>$estado,
+                                'user_anulacion'=>$request->user_anulacion,
+                                 ]);        
+                    
+                    $datos=VentaTafi::where('numero',$request->numero)->get();
+                    $monto=$datos[0]->montototal;
+                    $actualizarplancha=VentaTafi::where('numero',$request->numero)
+                        ->update([
+                                'montototal'=>0,
+                                 ]); 
+                    $movimientocaja=new MovimientoCajaTafi();    
+                    $movimientocaja->tipo='ANULADO';
+                    $movimientocaja->tipo_movimiento='EGRESO';
+                    $movimientocaja->descripcion='ANULACION DE PLANCHA';
+                    $movimientocaja->fecha=$fechaanulacion;
+
+                    $datosmovimientos=MovimientoCajaTafi::orderBy('id','DESC')->limit(1)->get();
+                    $movimientocaja->importe=$monto*(-1);
+                    $movimientocaja->importe_final=$datosmovimientos[0]->importe_final-$monto;
+                    $movimientocaja->user_id=$request->user_id;
+                    $movimientocaja->save();
+
+                Flash::success('SE ANULO LA PLANCHA NRO '.$request->numero.' Se actualizo la caja diaria');
+                    return Redirect('boltafi/planchastafi/mostraranularplancha');
+                }
+            }
+
+            }
+        
+        }
 
     public function index(Request $request)
     {
@@ -169,6 +213,10 @@ $impresora->close();*/
     {
 
        $datos=Abonado::where('dni',$request->dni)->get();
+       $costo="costo".$datos[0]->boleto;
+
+       $valor=TipoAbono::where('id',$datos[0]->tipo_abono_id)->select($costo)->get();
+          
         $datos->each(function($datos){
           $datos->tipoabono;
         });
@@ -242,7 +290,109 @@ $impresora->close();*/
 
         $actualizarplancha=PlanchaTafi::where('numero',$request->numero)
                         ->update([
-                                'estado'=>'VENDIDO',
+                                'estado'=>'VENDIDO',//DESPUES CAMBIAR A DISPONIBLE
+                                'motivo'=>'VENTA DE ABONO',
+                                'fechaventa'=>new \DateTime(),
+                                 ]);
+        //movimiento en la caja
+        $movimientocaja=new MovimientoCajaTafi();
+        $movimientocaja->tipo="VENTA";
+        $movimientocaja->tipo_movimiento="INGRESO";
+        $movimientocaja->descripcion="VENTA DE ABONO";
+        $movimientocaja->fecha=new \DateTime();
+        $movimientocaja->importe=$monto;
+        $movimientocaja->user_id=$request->user_id;
+
+
+        $datos=MovimientoCajaTafi::orderBy('id','DESC')->limit(1)->get();
+
+        if(count($datos)==0){
+            $movimientocaja->importe_final=$monto;
+        }
+        else{
+            $movimientocaja->importe_final=$datos[0]->importe_final+$monto;
+        }
+        $movimientocaja->save();
+
+ 
+        $pdf=\PDF::loadView('boltafi.pdf.abono',['numero'=>$request->numero,'fecha'=>$fecha,'codigo'=>$codigo,'fechavencimiento'=>$fechavencimiento,'monto'=>$monto,'nomape'=>$nomape,'tipo'=>$tipo])
+        ->setPaper('a4');
+        
+        flash::success('SE REALIZO LA VENTA'); 
+        return $pdf->download('abono.pdf');
+       
+        
+        flash::success('SE REALIZO LA VENTA'); 
+        return Redirect('boltafi/ventasdeabonos/venta');
+    }
+
+    public function imprimirabono(Request $request)
+    {
+        dd("hola");
+        $fecha = date("d-m-Y");
+        $fechavencimiento=date("d-m-Y",strtotime($fecha."+ 1 month"));
+
+
+
+
+
+       $plancha=PlanchaTafi::where('numero',$request->numero)->get();
+
+        $datosmovimientos=MovimientoCajaTafi::where('tipo','INICIAR CAJA')->where('cierre',0)->orderBy('id','DESC')->limit(1)->get();
+        if(count($datosmovimientos)==0)
+        {
+           Flash::warning('DEBE TENER UN INICIO DE CAJA PARA REALIZAR LA VENTA');
+                return view('boltafi.cajas.movimiento'); 
+        }
+
+       if(count($plancha)==0){
+            Flash::warning('NO ESTA DISPONIBLE EL NUMERO DE PLANCHA '.$request->numero.'PARA LA VENTA!!  NO SE REALIZO LA VENTA');
+                $datos=Abonado::search($request->name)->orderBy('dni','ASC');
+        return view('boltafi.ventasdeabonos.venta')
+            ->with('datos',$datos);
+        }
+        else{
+            if($plancha[0]->estado=='ANULADO' || $plancha[0]->estado=='VENDIDO'){
+                Flash::warning('EL NUMERO DE PLANCHA ESTA ANULADO O VENDIDO - NRO: '.$request->numero.' NO SE REALIZO LA VENTA');
+                $datos=Abonado::search($request->name)->orderBy('dni','ASC');
+        return view('boltafi.ventasdeabonos.venta')
+            ->with('datos',$datos);
+            }
+        }
+
+       $abonado=Abonado::where('dni',$request->dni)->limit(1)->get();
+       $nomape=$abonado[0]->apellido;
+       $tipoabono=TipoAbono::where('id',$abonado[0]->tipo_abono_id)->get();
+       $tipo=$tipoabono[0]->tipo;
+       if($abonado[0]->boleto=='103')
+       {
+            $monto=$tipoabono[0]->costo103;
+            $codigo=103;
+       }
+       else{
+           if($abonado[0]->boleto=='101'){
+                $monto=$tipoabono[0]->costo101;
+                $codigo=101;
+            } 
+            else{
+                    $monto=$tipoabono[0]->costo100;
+                    $codigo=100;
+            }
+        }
+       
+       
+       
+       
+       $datos=new VentaTafi(request()->except('_token'));
+       $datos->fecha=new \DateTime();
+       $datos->abonado_id=$abonado[0]->id;
+       $datos->montototal=$monto;
+       $datos->impresion=1;
+       $datos->save();
+
+        $actualizarplancha=PlanchaTafi::where('numero',$request->numero)
+                        ->update([
+                                'estado'=>'DISPONIBLE',//DESPUES CAMBIAR A VENDIDO
                                 'motivo'=>'VENTA DE ABONO',
                                  ]);
         //movimiento en la caja
@@ -265,21 +415,9 @@ $impresora->close();*/
         }
         $movimientocaja->save();
 
-
+ 
        
-        $pdf=\PDF::loadView('boltafi.pdf.abono',['numero'=>$request->numero,'fecha'=>$fecha,'codigo'=>$codigo,'fechavencimiento'=>$fechavencimiento,'monto'=>$monto,'nomape'=>$nomape,'tipo'=>$tipo])
-        ->setPaper('a4');
-        return $pdf->download('abono.pdf');
+       
         //return $pdf->stream('archivo.pdf');
-
-
-        flash::success('SE REALIZO LA VENTA'); 
-        return Redirect('boltafi/ventasdeabonos/venta');
     }
-
-    public function imprimir(Request $request)
-    {
-        $pdf = Pdf::loadView('pdf.invoice', $data);
-        return $pdf->download('invoice.pdf');
-}
 }

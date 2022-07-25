@@ -31,13 +31,6 @@ class CierresDiaTafi extends Migration
             $table->decimal('gananciaelrayo',10,2);
             $table->decimal('gananciatotallnf',10,2);
             $table->string('observacion',100);
-            $table->integer('diez')->unsigned()->default(0);
-            $table->integer('veinte')->unsigned()->default(0);
-            $table->integer('cincuenta')->unsigned()->default(0);
-            $table->integer('cien')->unsigned()->default(0);
-            $table->integer('doscientos')->unsigned()->default(0);
-            $table->integer('quinientos')->unsigned()->default(0);
-            $table->integer('mil')->unsigned()->default(0);
             $table->integer('condicion')->unsigned()->default(0);
             $table->biginteger('user_id')->unsigned()->nullable();
             

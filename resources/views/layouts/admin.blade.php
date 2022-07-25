@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
+    
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
     <!-- daterange picker 
@@ -20,7 +21,6 @@
     <link rel="apple-touch-icon" href="{{asset('img/apple-touch-icon.png')}}">
     <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('assets/lte/select2/dist/css/select2.min.css')}}">
-
 
 
 <!-- agregado para probar fullcalendar
@@ -341,6 +341,9 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('abonadostafi')
                 <li><a href="/boltafi/abonados"><i class="fa fa-circle-o"></i> Abonados</a></li>
                 @endcan
+                @can('abonadostafi')
+                <li><a href="/boltafi/abonados/presentaciondoc"><i class="fa fa-circle-o"></i> Presentar Documentacion</a></li>
+                @endcan
                 @can('ventatafi')
                 <li><a href="/boltafi/ventasdeabonos/venta"><i class="fa fa-circle-o"></i> Venta de abonos</a></li>
                 @endcan
@@ -365,12 +368,14 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('abonadostafi')
                 <li><a href="/"><i class="fa fa-circle-o"></i> Caja </a></li>
                 @endcan
+
                 @can('boltafi')
                 <li><a href="/boltafi/reportes/ventasdiarias"><i class="fa fa-circle-o"></i> Reporte Ventas </a></li>
                 @endcan
                 @can('boltafi')
                 <li><a href="/boltafi/reportes/cierresdecajas"><i class="fa fa-circle-o"></i> Reporte Cierres </a></li>
                 @endcan
+
                </ul>
             </li>
             @endcan

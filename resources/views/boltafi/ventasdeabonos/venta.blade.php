@@ -27,9 +27,7 @@
 
 
 			{{Form::token()}}
-			<div class="Form-group">
-					<input type="text" class="form-control"  name="user_id" id="user_id" style="visibility:hidden"  value="{{ Auth::user()->id }}">
-				</div>
+
 			<h3 id='mensaje'></h3>
 			<div class="col-lg-6">
 				{{Form::label('dni', 'DNI del Abonado')}}
@@ -41,6 +39,7 @@
 				<input type="text" class="form-control {{$errors->has('numero')?'is-invalid':''}}" placeholder="Ingrese el Nro de plancha..." name="numero" id="numero"  value="{{old('numero')}}">
 				{!! $errors->first('numero','<div class="invalid-feedback">:message</div>')!!}
 			</div>
+<div id='todo'>
 			<div class="col-lg-12">
 				{{Form::label('direccion', 'Nombre y Apellido')}}
 				<input type="text" class="form-control" readonly onmousedown="return false;" name="nombre" id="nombre"  >
@@ -84,7 +83,7 @@
 				<input type="text" class="form-control" readonly onmousedown="return false;"  name="cantidad" id="cantidad">
 			
 			</div>
-
+</div>
 
 			<div class="Form-group">
 				<input type="text" class="form-control"  name="user" id="user" style="visibility:hidden"  value="{{ Auth::user()->id }}">
@@ -93,10 +92,12 @@
 			
 			
 			<div class="Form-group">
-				<button class="btn btn-primary" type="submit">Guardar</button>
+				<button class="btn btn-primary" type="submit" id="guardar">Guardar</button>
 				<button class="btn btn-danger" type="reset">Cancelar</button>
 			</div>
-
+			<div class="Form-group">
+					<input type="text" class="form-control"  name="user_id" id="user_id" style="visibility:hidden"  value="{{ Auth::user()->id }}">
+				</div>
 			
 			{!!Form::close()!!}
 			
@@ -116,13 +117,22 @@
 	</form> -->
 
 <script>
+
+
+		$( "#guardar" ).click(function() {
+
+		});
 	$(document).ready(function(){
+
 		$("#dni").focus();
+		$("#dni").val("");
+		$("#numero").val("");
+		$("#todo").hide();
 	//buscar();
 		//function buscar(){
 //			$('#ver').click(function(){
 		$("#dni").blur(function(){
-			
+			$("#todo").show();
 			$.ajax({
 				url : "/boltafi/ventasdeabonos/buscarabonado",
 				type : "POST",
@@ -134,21 +144,57 @@
 					{
 						$('#mensaje').text('');
 						for (var i=0; i<data.length ;i++) {
-							$("#nombre").val(data[i].nombre+' '+data[i].apellido);
-							$("#direccion").val(data[i].direccion);
-							$("#colegio_empresa").val(data[i].colegio_empresa);
-							$("#turno").val(data[i].turno);
-							$("#desde").val(data[i].desde);
-							$("#hasta").val(data[i].hasta);
-							$("#tipoabono").val(data[i].tipoabono.tipo);
-							$("#boleto").val(data[i].boleto);
-							$("#cantidad").val(data[i].tipoabono.cantidad);
+							if(data[i].docpresentada==null || data[i].docpresentada=='NO'){
+
+								if(data[i].boleto==103){
+									costo=data[i].tipoabono.costo103;
+								}
+								if(data[i].boleto==100){
+									costo=data[i].tipoabono.costo100;
+								}
+								if(data[i].boleto==101){
+									costo=data[i].tipoabono.costo101;
+								}
+								$("#nombre").val(data[i].nombre+' '+data[i].apellido);
+								$("#direccion").val(data[i].direccion);
+								$("#colegio_empresa").val(data[i].colegio_empresa);
+								$("#turno").val(data[i].turno);
+								$("#desde").val(data[i].desde);
+								$("#hasta").val(data[i].hasta);
+								$("#tipoabono").val(data[i].tipoabono.tipo);
+								$("#boleto").val(data[i].boleto);
+								$("#cantidad").val(data[i].tipoabono.cantidad);
+								$('#mensaje').text('Valor del Abono $ '+costo+',00 - EL ABONADO NO PRESENTO DOCUMENTACION');
+								//$("#dni").focus();
+								//$("#dni").val("");
+							}
+							else{
+								if(data[i].boleto==103){
+									costo=data[i].tipoabono.costo103;
+								}
+								if(data[i].boleto==100){
+									costo=data[i].tipoabono.costo100;
+								}
+								if(data[i].boleto==101){
+									costo=data[i].tipoabono.costo101;
+								}
+								$("#nombre").val(data[i].nombre+' '+data[i].apellido);
+								$("#direccion").val(data[i].direccion);
+								$("#colegio_empresa").val(data[i].colegio_empresa);
+								$("#turno").val(data[i].turno);
+								$("#desde").val(data[i].desde);
+								$("#hasta").val(data[i].hasta);
+								$("#tipoabono").val(data[i].tipoabono.tipo);
+								$("#boleto").val(data[i].boleto);
+								$("#cantidad").val(data[i].tipoabono.cantidad);
+								$('#mensaje').text('Valor del Abono $ '+costo+',00');
+							}
 						}
 	
 					} 
 					else
 					{
-						$('#mensaje').text('NO EXISTE EL ABONADO CON ESE DNI');
+						$('#mensaje').text('NO EXISTE EL ABONADO CON ESE DNI.');
 						$("#dni").focus();
 					}
 					
@@ -171,9 +217,6 @@
 			        );
 			    }
 			}
-			
-
-
 	$('#buscarabonado').click(function(){
 		buscar();	
 

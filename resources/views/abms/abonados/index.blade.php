@@ -46,7 +46,7 @@
 					<th>Tipo de Abono</th>
 					<th>Boleto</th>
 					<th>Codigo</th>
-					<!--<th>Opciones</th>-->
+					<th>Opciones</th>
 				</thead>
                @foreach ($datos as $dato)
 				<tr>
@@ -64,20 +64,20 @@
 					<td>{{ $dato->tipoabono->tipo}}</td>
 					<td>{{ $dato->tipoabono->cantidad}}</td>
 					<td>{{ $dato->boleto}}</td>
-					<!-- <td>
+					<td>
 						<form method="post" action="{{url('boltafi/abonados/'.$dato->id) }}">
 							@can('abonados_edit')
 							<a href="{{url('boltafi/abonados/'.$dato->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>
 							@endcan
-							@can('abonados_destroy')
+							<!--@can('abonados_destroy')
 							{{csrf_field()}}
 							{{method_field('DELETE')}}
 							<button type="submit" onclick="return confirm('Seguro que desea Borrar?');" class="btn btn-danger">Eliminar</button>
-							@endcan
+							@endcan-->
 
 						</form>
 						
-					</td> -->
+					</td>
 				</tr>
 				
 				@endforeach

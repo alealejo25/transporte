@@ -26,6 +26,10 @@ class Abonados extends Migration
             $table->string('hasta',30);
             $table->string('codigo',3)->nullable();
             $table->string('boleto',3)->nullable();
+            $table->date('fechapresentacion')->nullable();
+            $table->date('fechavencimiento')->nullable();
+            $table->string('docpresentada',2)->nullable();
+            $table->string('documentacion',75)->nullable();
 
             $table->integer('tipo_abono_id')->unsigned();
             $table->string('estado',30)->nullable();

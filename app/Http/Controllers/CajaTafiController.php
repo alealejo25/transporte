@@ -146,10 +146,11 @@ class CajaTafiController extends Controller
     
     public function reportecierresdecajas(Request $request)
     {
-        $consulta=CierreDiaTafi::orderBy('id','DESC')->limit(1)->get();
+        $consulta=CierreDiaTafi::orderBy('id','DESC')->where('fecha',$request->fechai)->limit(1)->get();
         $consulta->each(function($consulta){
           $consulta->user;
         });
+        
 
         $formatter = new NumeroALetras();
         $montoenletras=$formatter->toMoney($consulta[0]->gananciatotallnf, 2, 'PESOS','CENTAVOS');
@@ -165,17 +166,10 @@ class CajaTafiController extends Controller
         $fecha=new \DateTime();
         $campos=[
             'descripcion'=>'required|string|max:50',
-            'dinerofisico'=>'required|numeric',
+            'montototal'=>'required|numeric',
             'nrolote'=>'required|numeric',
-            'montolote'=>'required',
-            'diez'=>'required|numeric',
-            'veinte'=>'required|numeric',
-            'cincuenta'=>'required|numeric',
-            'cien'=>'required|numeric',
-            'doscientos'=>'required|numeric',
-            'quinientos'=>'required|numeric',
-            'mil'=>'required|numeric'
-           
+            'montolote'=>'required'
+                     
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
@@ -200,7 +194,7 @@ class CajaTafiController extends Controller
 
         $datosmovimientosimportefinal=MovimientoCajaTafi::where('cierre',0)->orderBy('id','DESC')->limit(1)->get();
         $datosCierreCaja->caja_final=$datosCierreCaja->caja_inicial+$datosCierreCaja->venta-$datosCierreCaja->gastos;
-        $datosCierreCaja->caja_final_fisica=$request->dinerofisico;
+        $datosCierreCaja->caja_final_fisica=$request->montototal;
 
 
 
@@ -213,18 +207,11 @@ class CajaTafiController extends Controller
         $datosCierreCaja->ganancialnf=($datosCierreCaja->caja_final)/2;
 
         $datosCierreCaja->gananciatotallnf=$datosCierreCaja->ganancialnf+$datosCierreCaja->montolote;
-         $diferencia=$datosCierreCaja->gananciatotallnf-$request->dinerofisico;
+        $diferencia=$datosCierreCaja->caja_final-$datosCierreCaja->caja_final_fisica;
         $datosCierreCaja->caja_diferencia=$diferencia;
         $datosempresaer=EmpresasBolTafi::where('nombre_corto','ER')->get();
         $datosCierreCaja->gananciaelrayo=($datosCierreCaja->caja_final)/2;
         $datosCierreCaja->user_id=$request->user_id;
-        $datosCierreCaja->diez=$request->diez;
-        $datosCierreCaja->veinte=$request->veinte;
-        $datosCierreCaja->cincuenta=$request->cincuenta;
-        $datosCierreCaja->cien=$request->cien;
-        $datosCierreCaja->doscientos=$request->doscientos;
-        $datosCierreCaja->quinientos=$request->quinientos;
-        $datosCierreCaja->mil=$request->mil;
         $datosCierreCaja->save();
 
         $datos=new MovimientoCajaTafi();
@@ -245,7 +232,7 @@ class CajaTafiController extends Controller
                                 'cierre'=>1,
                                 ]);
 
-        $consulta=CierreDiaTafi::orderBy('id','DESC')->limit(1)->get();
+       /* $consulta=CierreDiaTafi::orderBy('id','DESC')->limit(1)->get();
         $consulta->each(function($consulta){
           $consulta->user;
         });
@@ -266,7 +253,7 @@ class CajaTafiController extends Controller
         $montoenletras=$formatter->toMoney($totaldinero, 2, 'PESOS','CENTAVOS');
         $pdf=\PDF::loadView('pdf.cierredecajatafi',['consulta'=>$consulta,'cantbilletes'=>$cantbilletes,'diez'=>$diez,'veinte'=>$veinte,'cincuenta'=>$cincuenta,'cien'=>$cien,'doscientos'=>$doscientos,'quinientos'=>$quinientos,'mil'=>$mil,'totaldinero'=>$totaldinero,'montoenletras'=>$montoenletras])
         ->setPaper('a4','landscape');
-        return $pdf->download('cierredecajatafi.pdf');
+        return $pdf->download('cierredecajatafi.pdf');*/
 
 
 

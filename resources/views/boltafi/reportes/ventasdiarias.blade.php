@@ -30,7 +30,7 @@
                               </div>
                             </div>
 							<div class="col-sm-12 col-md-3 col-lg-3">Seleccione Abonado
-	                            <select name="abonado_id" id="abonado" class="form-control" onchange="colocar_cantidad(this)">
+	                            <select name="abonado_id" id="abonado" class="form-control">
 										<option value="">Selecccione un Abonado</option>
 										@foreach ($abonados as $abonado) 
 											<option value="{{ $abonado->id }}">{{$abonado->apellido}}, {{$abonado->nombre}} - {{$abonado->dni}}</option>

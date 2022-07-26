@@ -261,5 +261,13 @@ class CajaTafiController extends Controller
        return Redirect('boltafi/cajas/cierrecajatafi')->with('Mensaje','Se cerro la CAJA');
     
     }
+
+     public function recaudacion(Request $request)
+    {
+        
+        $abonados=Abonado::orderBy('apellido','ASC')->get();
+        //$abonados=Abonado::orderBy('dni','ASC')->pluck('dni','id');
+        return view('boltafi.cajas.recaudacion')->with('abonados',$abonados);
+    }
      
 }

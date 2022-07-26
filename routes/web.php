@@ -179,6 +179,7 @@ Route::get('boltafi/cajas/movimiento','CajaTafiController@movimiento')->name('mo
 Route::post('boltafi/cajas/guardarmovimiento','CajaTafiController@guardarmovimiento')->name('guardarmovimiento');
 Route::get('boltafi/cajas/cierrecajatafi','CajaTafiController@cierrecajatafi')->name('cierrecajatafi');
 Route::post('boltafi/cajas/guardarcierrecajatafi','CajaTafiController@guardarcierrecajatafi')->name('guardarcierrecajatafi');
+Route::get('boltafi/cajas/recaudacion','CajaTafiController@recaudacion')->name('recaudacion');
 //FIN CAJAS
 
 //REPORTES

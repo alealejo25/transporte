@@ -25,7 +25,7 @@ class VentasTafi extends Migration
             $table->string('desde',30);
             $table->string('hasta',30);
             $table->biginteger('user_id')->unsigned()->nullable();
-            $table->integer('abonado_id')->unsigned();
+            $table->integer('abonado_id')->unsigned(); 
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

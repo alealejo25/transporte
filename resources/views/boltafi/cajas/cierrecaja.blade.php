@@ -14,7 +14,7 @@
 				</ul>
 			</div>
 			@endif	
- 			{!!Form::open(array('url'=>'boltafi/cajas/guardarcierrecajatafi','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!} 
+ 			{!!Form::open(array('url'=>'boltafi/cajas/guardarcierrecajatafi','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data','onsubmit'=>'return checkSubmit();'))!!} 
 			{{Form::token()}}
 
 			<div class="Form-group">
@@ -93,5 +93,15 @@
 		});
 	});
 
+	var statSend = false;
+	function checkSubmit() {
+	if (!statSend) {
+		statSend = true;
+		return true;
+	} else {
+		alert("El formulario ya se esta enviando...");
+		return false;
+		}
+	}
 </script>
 @endsection

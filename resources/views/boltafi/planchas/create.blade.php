@@ -14,7 +14,8 @@
 				</ul>
 			</div>
 			@endif	
- 			{!!Form::open(array('url'=>'boltafi/planchastafi/store','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!} 
+ 			<!--{!!Form::open(array('url'=>'boltafi/planchastafi/store','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data','onsubmit'=>'enviar();'))!!} -->
+ 			{!!Form::open(array('url'=>'boltafi/planchastafi/store','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data','onsubmit'=>'return checkSubmit();'))!!} 
 			<!-- {!!Form::model(['method'=>'POST','route'=>['camiones.store']])!!}-->
 
 
@@ -47,7 +48,8 @@
 			
 			
 			<div class="Form-group">
-				<button class="btn btn-primary" type="submit">Guardar</button>
+				<button class="btn btn-primary" type="submit" id="btn">Guardar</button>
+				
 				<button class="btn btn-danger" type="reset">Cancelar</button>
 			</div>
 
@@ -61,4 +63,17 @@
 
 		</div>
 	</div> 
+
+	<script>
+	var statSend = false;
+	function checkSubmit() {
+	if (!statSend) {
+		statSend = true;
+		return true;
+	} else {
+		alert("El formulario ya se esta enviando...");
+		return false;
+		}
+	}
+	</script>
 @endsection

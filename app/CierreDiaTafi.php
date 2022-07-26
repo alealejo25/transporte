@@ -29,19 +29,17 @@ class CierreDiaTafi extends Model
     'observacion',
     'condicion',
     'user_id',
-    'diez',
-    'veinte',
-    'cicuenta',
-    'cien',
-    'doscientos',
-    'quinientos',
-    'mil'
+    'recaudacion_id',
 
     ];
 
      public function User()
     {
         return $this->belongsTo('App\User');
+    }
+    public function Recaudacion()
+    {
+        return $this->belongsTo('App\Recaudacion');
     }
     public function MovimentoCajaTafi()
     {

@@ -188,7 +188,14 @@ class CajaTafiController extends Controller
         $datosCierreCaja->caja_inicial=$datosmovimientos[0]->importe;
 
         $datosmovimientosventas=MovimientoCajaTafi::where('tipo','VENTA')->where('cierre',0)->sum('importe');
-        $datosCierreCaja->venta=$datosmovimientosventas;
+                $datosCierreCaja->venta=$datosmovimientosventas;
+        $datoscantidadventas=MovimientoCajaTafi::where('tipo','VENTA')->where('cierre',0)->count('cierre');
+        $datosCierreCaja->planchas_vendidas=$datoscantidadventas;
+
+        
+        $datoscantidadanulados=MovimientoCajaTafi::where('tipo','ANULADO')->where('cierre',0)->count('cierre');
+        $datosCierreCaja->planchas_anuladas=$datoscantidadanulados;
+
 
         $datosmovimientosgastos=MovimientoCajaTafi::where('tipo','GASTOS VARIOS')->where('cierre',0)->sum('importe');
         $datosCierreCaja->gastos=$datosmovimientosgastos;
@@ -325,6 +332,9 @@ class CajaTafiController extends Controller
                         ->update([
                                 'recaudacion_id'=>$recaudacion_id,
                                 ]);
+
+       flash::success('Se realizo la recaudacion'); 
+       return Redirect('boltafi/cajas/recaudacion')->with('Mensaje','Se realizo la recaudacion');
      }
 
 

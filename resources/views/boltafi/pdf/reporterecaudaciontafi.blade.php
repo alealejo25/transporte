@@ -105,8 +105,8 @@
                     <th>Abono 50%</th>
                     <th>Posnet</th>
                     <th>Total Ingresos</th>
-                    <th>Total Egresos</th>
-                    <th><strong>Neto</strong></th>
+                    <th>Tot. Egresos 100%</th>
+                    <th>Neto Ganancia</th>
                     <th>Fisico</th>
                     <th>Diferencia</th>
                     
@@ -208,8 +208,9 @@
                 <tr> 
                 	<th>Fecha Cierre</th>
                     <th>Abono 100%</th>
+                    <th>Gastos 100%</th>
+                    <th>Abono Final</th>
                     <th>Abono 50%</th>
-                    <th>Gastos</th>
                     <th>Lote Posnet</th>
                     <th>Posnet</th>
                     <th>Monto Neto</th>
@@ -223,8 +224,9 @@
                 <tr>
                   <td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
                   <td align="right">$ {{number_format($dato->venta,2,",",".")}}</td>
-                  <td align="right">$ {{number_format($dato->ganancialnf,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->gastos,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->caja_final,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->ganancialnf,2,",",".")}}</td>
                   <td align="right">{{$dato->nrolote}}</td>
                   <td align="right">$ {{number_format($dato->montolote,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->gananciatotallnf,2,",",".")}}</td>

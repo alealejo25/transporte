@@ -85,12 +85,13 @@
     	<!-- <IMG SRC="img\logotlpdf.jpg"> -->
     	 <span class="derecha">Fecha de Emision {{now()->format('d-m-Y')}}</span>
     </div>
- 	<h2>Cierre de Caja - La Nueva Fournier - BOLETERIA TAFI VIEJO</h2>
+ 	<h1>Recaudación - La Nueva Fournier - BOLETERIA TAFI VIEJO</h1>
 
-@foreach ($consulta as $datos)
-<h3>Usuario: {{$datos->user->name}}</h3>
-<h3>Fecha de Cierre: {{date('d-m-Y', strtotime($datos->fecha))}}</h3>
-<h3>Observacion: {{$datos->observacion}}</h3>
+@foreach ($datos as $dato)
+
+<h3>Usuario Responsable: {{$dato->user->name}} - Observacion: {{$dato->observacion}}</h3>
+<h3>Fecha de Recaudacion: {{date('d-m-Y', strtotime($dato->fecha))}} - Recaudaciones: Desde el {{date('d-m-Y', strtotime($dato->desde))}} hasta el {{date('d-m-Y', strtotime($dato->hasta))}}</h3>
+
 
 @endforeach
 <br>
@@ -98,54 +99,144 @@
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr> 
-                    <th>Numero</th>
-                    <th>Planchas Vendidas</th>
-                    <th>Planchas Anuladas</th>
-                    <th>Caja Inicial</th>
-                    <th>Vta. Abonos Total</th>
-                    <th>Gastos</th>
-                    <th>Caja Final Abonos</th>
-                    <th>Ganancia Abonos</th>
-                    <th>Nro Lote</th>
-                    <th>Venta de Posnet</th>
-                    <th>Caja Abonos/Posnet</th>
+                	<th>Planchas Vend.</th>
+                    <th>Planchas Anu.</th>
+                    <th>Abono 100%</th>
+                    <th>Abono 50%</th>
+                    <th>Posnet</th>
+                    <th>Total Ingresos</th>
+                    <th>Total Egresos</th>
+                    <th><strong>Neto</strong></th>
+                    <th>Fisico</th>
+                    <th>Diferencia</th>
+                    
                   
 
                 </tr>
             </thead>
-
-            <tbody>
-                @foreach ($consulta as $datos)
+             <tbody>
+  			@foreach ($datos as $dato)
                 <tr>
-                  <td >{{$datos->id}}</td>
-                  <td >{{$datos->id}}</td>
-                  <td >{{$datos->id}}</td>
-                  <td align="right">$ {{number_format($datos->caja_inicial,2,",",".")}}</td>
-                  <td align="right">$ {{number_format($datos->venta,2,",",".")}}</td>
-                  <td align="right">$ {{number_format($datos->gastos,2,",",".")}}</td>
-                  <td align="right">$ {{number_format($datos->caja_final,2,",",".")}}</td>
-                  <td align="right">$ {{number_format($datos->ganancialnf,2,",",".")}}</td>
-                  <td align="right">{{number_format($datos->nrolote)}}</td>
-                  <td align="right">$ {{number_format($datos->montolote,2,",",".")}}</td>
-                  <td align="right">$ {{number_format($datos->gananciatotallnf,2,",",".")}}</td>
-                  
-                  
-                  </tr>
-            @endforeach                   
+                  <td >{{$dato->planchasvendidas}}</td> 
+                  <td >{{$dato->planchasanuladas}}</td> 
+                  <td align="right">$ {{number_format($dato->abono,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->abono50,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->posnet,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->totalingresos,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->egresos,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->montoneto,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->fisico,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->diferencia,2,",",".")}}</td>
+                </tr>
+            @endforeach            
+                          
             </tbody>
         </table>
     </div>
-<br>
 
-<div class="card">
+<!-- <div class="card">
         <div class="row">
             <div  class="Form-group col-lg-3" >
 
-                <h2 align="right">Son: {{$montoenletras}}</h2>
+                <h2 align="right">Son: {{$montonetoenletras}}</h2>
 
             </div>
     </div>
-</div>
+</div> -->
+<h3>BILLETERO</h3>
+<div>
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+                <tr>
+                	<th></th> 
+                	<th>Diez</th>
+                	<th>Veinte</th>
+                	<th>Cincuenta</th>
+                	<th>Cien</th>
+                	<th>Doscientos</th>
+                	<th>Quinientos</th>
+                	<th>Mil</th>
+                </tr>
+            </thead>
+            <tbody>
+  			@foreach ($datos as $dato)
+                <tr>
+                  <td >Cantidad</td> 
+                  <td align="right">{{$dato->diez}}</td>
+                  <td align="right">{{$dato->veinte}}</td>
+                  <td align="right">{{$dato->cincuenta}}</td>
+                  <td align="right">{{$dato->cien}}</td>
+                  <td align="right">{{$dato->doscientos}}</td>
+                  <td align="right">{{$dato->quinientos}}</td>
+                  <td align="right">{{$dato->mil}}</td>
+                  
+                </tr>
+            @endforeach            
+                          
+            </tbody>
+            <tbody>
+  			
+                <tr>
+                  <td >Monto</td> 
+                  <td align="right">$ {{number_format($diez,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($veinte,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($cincuenta,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($cien,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($doscientos,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($quinientos,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($mil,2,",",".")}}</td>
+                </tr>
+            
+                          
+            </tbody>
+            </table>
+    </div>
+            <table class="table table-bordered table-striped table-sm">
+            	<thead>
+  				@foreach ($datos as $dato)
+                <tr>
+                  <td align="right">Son: {{$montofisicoenletras}} - Total Neto:  $ {{number_format($dato->fisico,2,",",".")}}</td>
+                  
+                </tr>
+            	@endforeach            
+                  </thead>        
+</table>
+<h3>CIERRES</h3>
+<div>
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+                <tr> 
+                	<th>Fecha Cierre</th>
+                    <th>Abono 100%</th>
+                    <th>Abono 50%</th>
+                    <th>Gastos</th>
+                    <th>Lote Posnet</th>
+                    <th>Posnet</th>
+                    <th>Monto Neto</th>
+                    <th>Planchas Vend.</th>
+                    <th>Planchas Anu.</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+             <tbody>
+  			@foreach ($consultacierretafi as $dato)
+                <tr>
+                  <td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
+                  <td align="right">$ {{number_format($dato->venta,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->ganancialnf,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->gastos,2,",",".")}}</td>
+                  <td align="right">{{$dato->nrolote}}</td>
+                  <td align="right">$ {{number_format($dato->montolote,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->gananciatotallnf,2,",",".")}}</td>
+                  <td >{{$dato->planchasvendidas}}</td> 
+                  <td >{{$dato->planchasanuladas}}</td> 
+                  <td >{{$dato->observacion}}</td> 
+                </tr>
+            @endforeach            
+                          
+            </tbody>
+        </table>
+    </div>
     <br><br><br><br><br><br>
    <div class="card">
         <div class="row">

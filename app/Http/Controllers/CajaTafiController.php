@@ -350,8 +350,19 @@ class CajaTafiController extends Controller
 
         $formatter = new NumeroALetras();
         $montonetoenletras=$formatter->toMoney($datos[0]->montoneto, 2, 'PESOS','CENTAVOS');
+        $formatter1 = new NumeroALetras();
+        $montofisicoenletras=$formatter1->toMoney($datos[0]->fisico, 2, 'PESOS','CENTAVOS');
         
-        $pdf=\PDF::loadView('boltafi.pdf.reporterecaudaciontafi',['consultacierretafi'=>$consultacierretafi,'datos'=>$datos,'montonetoenletras'=>$montonetoenletras])
+
+        $diez=$datos[0]->diez*10;
+        $veinte=$datos[0]->veinte*20;
+        $cincuenta=$datos[0]->cincuenta*50;
+        $cien=$datos[0]->cien*100;
+        $doscientos=$datos[0]->doscientos*200;
+        $quinientos=$datos[0]->quinientos*500;
+        $mil=$datos[0]->mil*1000;
+
+        $pdf=\PDF::loadView('boltafi.pdf.reporterecaudaciontafi',['consultacierretafi'=>$consultacierretafi,'datos'=>$datos,'montonetoenletras'=>$montonetoenletras,'montofisicoenletras'=>$montofisicoenletras,'diez'=>$diez,'veinte'=>$veinte,'cincuenta'=>$cincuenta,'cien'=>$cien,'doscientos'=>$doscientos,'quinientos'=>$quinientos,'mil'=>$mil])
         ->setPaper('a4','landscape');
         return $pdf->download('reporterecaudaciontafi.pdf');
     }

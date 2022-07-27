@@ -8,11 +8,11 @@
 @endif
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Planchas
+		<h3>Listado de Recaudaciones
 		@can('acoplados_create')
-		<a href="create"><button class="btn btn-success">Cargar Planchas</button></a>
+		<a href="create"><button class="btn btn-success">Recaudaciones</button></a>
 		@endcan
-		<a href="acoplados/listarPdf"><button  class="btn btn-primary">Reporte PDF</button></a></h3>
+		
 	</div>
 				<!-- BUSCADOR DE aCOPLADO-->
 			{!!Form::open(['route'=>'boltafi.planchastafi','method'=>'GET','class'=>'navbar-form pull-right'])!!}

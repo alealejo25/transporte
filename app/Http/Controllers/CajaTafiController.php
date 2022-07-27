@@ -291,7 +291,7 @@ class CajaTafiController extends Controller
         $consultasumaplanchasvendidas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("planchas_vendidas");
         $consultasumaplanchasanuladas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("planchas_anuladas");
         $consultasumaneto=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("caja_final");
-        $consultasumagananciaabono50=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("ganancialnf");
+        
         $consultasumagananciatotal=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("gananciatotallnf");
         $datos=new Recaudacion();
         $datos->observacion=$request->descripcion;
@@ -299,11 +299,11 @@ class CajaTafiController extends Controller
         $datos->hasta=$request->fechaf;
         $datos->fecha=$fecha;
         $datos->abono=$consultasumaventa;
-        $datos->abono50=$consultasumagananciaabono50;
+        $datos->abono50=$consultasumaventa/2;
         $datos->posnet=$consultasumaposnet;
         $datos->egresos=$consultasumaegresos;
-        $datos->totalingresos=$consultasumagananciaabono50+$consultasumaposnet;
-        $datos->montoneto=$datos->totalingresos-$datos->egresos;
+        $datos->totalingresos=$datos->abono50+$consultasumaposnet;
+        $datos->montoneto=$datos->totalingresos-(($datos->egresos)/2);
         $datos->diez=$request->diez;
         $datos->veinte=$request->veinte;
         $datos->cincuenta=$request->cincuenta;

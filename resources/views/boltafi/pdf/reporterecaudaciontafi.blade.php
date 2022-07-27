@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de Ventas Diarias</title>
+    <title>Reporte de Recaudacion - Tafi Viejo</title>
     <style>
         body {
             margin: 0;
@@ -82,46 +82,53 @@
 </head>
 <body>
     <div>
-        <!-- <IMG SRC="img\logotlpdf.jpg"> -->
-         <span class="derecha">Fecha de Emision {{now()->format('d-m-Y')}}</span>
+    	<!-- <IMG SRC="img\logotlpdf.jpg"> -->
+    	 <span class="derecha">Fecha de Emision {{now()->format('d-m-Y')}}</span>
     </div>
-    <h2>Informe de Ventas -  La Nueva Fournier - BOLETERIA TAFI VIEJO</h2>
+ 	<h2>Cierre de Caja - La Nueva Fournier - BOLETERIA TAFI VIEJO</h2>
 
-<!-- @foreach ($consulta as $datos)
+@foreach ($consulta as $datos)
 <h3>Usuario: {{$datos->user->name}}</h3>
 <h3>Fecha de Cierre: {{date('d-m-Y', strtotime($datos->fecha))}}</h3>
 <h3>Observacion: {{$datos->observacion}}</h3>
 
-@endforeach -->
+@endforeach
 <br>
-    <div>
+	<div>
         <table class="table table-bordered table-striped table-sm">
             <thead>
-                <tr>
-                    <th>Abonado</th> 
-                    <th>Fecha</th>
-                    <th>Cantidad</th>
-                    <th>Plancha</th>
-                    <th>Codigo</th>
-                    <th>Desde</th>
-                    <th>Hasta</th>
-                    <th>Usuario</th>
-                    <th>Monto</th>
+                <tr> 
+                    <th>Numero</th>
+                    <th>Planchas Vendidas</th>
+                    <th>Planchas Anuladas</th>
+                    <th>Caja Inicial</th>
+                    <th>Vta. Abonos Total</th>
+                    <th>Gastos</th>
+                    <th>Caja Final Abonos</th>
+                    <th>Ganancia Abonos</th>
+                    <th>Nro Lote</th>
+                    <th>Venta de Posnet</th>
+                    <th>Caja Abonos/Posnet</th>
+                  
+
                 </tr>
             </thead>
 
             <tbody>
                 @foreach ($consulta as $datos)
                 <tr>
-                  <td >{{$datos->abonado->apellido}},{{$datos->abonado->nombre}}</td>
-                  <td >{{date('d-m-Y', strtotime($datos->fecha))}}</td>
-                  <td >{{$datos->cantidad}}</td>
-                  <td >{{$datos->numero}}</td>
-                  <td >{{$datos->boleto}}</td>
-                  <td >{{$datos->desde}}</td>
-                  <td >{{$datos->hasta}}</td>
-                  <td >{{$datos->user->name}}</td>
-                  <td align="right">$ {{number_format($datos->montototal,2,",",".")}}</td>
+                  <td >{{$datos->id}}</td>
+                  <td >{{$datos->id}}</td>
+                  <td >{{$datos->id}}</td>
+                  <td align="right">$ {{number_format($datos->caja_inicial,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($datos->venta,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($datos->gastos,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($datos->caja_final,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($datos->ganancialnf,2,",",".")}}</td>
+                  <td align="right">{{number_format($datos->nrolote)}}</td>
+                  <td align="right">$ {{number_format($datos->montolote,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($datos->gananciatotallnf,2,",",".")}}</td>
+                  
                   
                   </tr>
             @endforeach                   
@@ -129,23 +136,7 @@
         </table>
     </div>
 <br>
-<div>
-        <table class="table table-bordered table-striped table-sm">
-            <thead>
-             
-            </thead>
 
-            <tbody>
-           
-                <tr>
- 
-                  <td align="right">Total : $ {{number_format($consultasuma,2,",",".")}}</td>
-                  
-                  </tr>
-           
-            </tbody>
-        </table>
-    </div>
 <div class="card">
         <div class="row">
             <div  class="Form-group col-lg-3" >
@@ -155,7 +146,16 @@
             </div>
     </div>
 </div>
+    <br><br><br><br><br><br>
+   <div class="card">
+        <div class="row">
+            <div  class="Form-group col-lg-3" >
 
-   
+                <h4 align='center'>--------------------------------------------------------</h4>
+                <h4 align='center'>Firma y Aclaracion</h4>
+                <h4 align='center'>Encargado Boleteria</h4>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

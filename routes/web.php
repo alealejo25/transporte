@@ -183,6 +183,8 @@ Route::get('boltafi/cajas/recaudacion','CajaTafiController@recaudacion')->name('
 Route::post('boltafi/cajas/guardarrecaudaciontafi','CajaTafiController@guardarrecaudaciontafi')->name('guardarrecaudaciontafi');
 
 Route::get('boltafi/cajas/verrecaudaciontafi','CajaTafiController@verrecaudaciontafi')->name('verrecaudaciontafi');
+Route::get('boltafi/cajas/{id?}/imprimirrecaudaciontafi', 'CajaTafiController@imprimirrecaudaciontafi')->name('imprimirrecaudaciontafi');
+
 //FIN CAJAS
 
 //REPORTES

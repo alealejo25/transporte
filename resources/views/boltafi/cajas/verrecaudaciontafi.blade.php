@@ -67,7 +67,7 @@
 					<td>
 						<form method="post" action="{{url('abms/abonados/'.$dato->id) }}">
 							@can('boltafi')
-							<a href="{{url('abms/abonados/'.$dato->id.'/edit')}}"><input type="button" value="Imprimir" class="btn btn-info">	</a>
+							<a href="{{url('boltafi/cajas/'.$dato->id.'/imprimirrecaudaciontafi')}}"><input type="button" value="Imprimir" class="btn btn-info">	</a>
 							@endcan
 							
 

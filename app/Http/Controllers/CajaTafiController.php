@@ -315,6 +315,7 @@ class CajaTafiController extends Controller
         $datos->planchasvendidas=$consultasumaplanchasvendidas;
         $datos->planchasanuladas=$consultasumaplanchasanuladas;
         $datos->diferencia=$request->dinerofisico-$datos->montoneto;
+        $datos->user_id=$request->user_id;
         $datos->save();
 
         $datosidcierre=Recaudacion::orderBy('id','DESC')->limit(1)->get();
@@ -333,4 +334,26 @@ class CajaTafiController extends Controller
         
         return view('boltafi.cajas.verrecaudaciontafi')->with('datos',$datos);
     }
+  public function imprimirrecaudaciontafi($id)
+    {
+        
+       
+        $datos=Recaudacion::where('id',$id)->get();
+        $datos->each(function($datos){
+          $datos->user;
+        });
+        //dd($datos[0]->diferencia);
+        //dd($datos);
+        $fi = Carbon::parse($datos[0]->desde)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($datos[0]->hasta)->format('Y-m-d').' 23:59:59';
+        $consultacierretafi=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->get();
+
+        $formatter = new NumeroALetras();
+        $montonetoenletras=$formatter->toMoney($datos[0]->montoneto, 2, 'PESOS','CENTAVOS');
+        
+        $pdf=\PDF::loadView('boltafi.pdf.reporterecaudaciontafi',['consultacierretafi'=>$consultacierretafi,'datos'=>$datos,'montonetoenletras'=>$montonetoenletras])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reporterecaudaciontafi.pdf');
+    }
+
 }

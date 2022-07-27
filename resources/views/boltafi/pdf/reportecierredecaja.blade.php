@@ -99,6 +99,8 @@
             <thead>
                 <tr> 
                     <th>Numero</th>
+                    <th>Planchas Vendidas</th>
+                    <th>Planchas Anuladas</th>
                     <th>Caja Inicial</th>
                     <th>Vta. Abonos Total</th>
                     <th>Gastos</th>
@@ -107,14 +109,16 @@
                     <th>Nro Lote</th>
                     <th>Venta de Posnet</th>
                     <th>Caja Abonos/Posnet</th>
-                    <th>Caja Final Fisica</th>
-                    <th>Diferencia</th>
+                  
+
                 </tr>
             </thead>
 
             <tbody>
                 @foreach ($consulta as $datos)
                 <tr>
+                  <td >{{$datos->id}}</td>
+                  <td >{{$datos->id}}</td>
                   <td >{{$datos->id}}</td>
                   <td align="right">$ {{number_format($datos->caja_inicial,2,",",".")}}</td>
                   <td align="right">$ {{number_format($datos->venta,2,",",".")}}</td>
@@ -124,8 +128,8 @@
                   <td align="right">{{number_format($datos->nrolote)}}</td>
                   <td align="right">$ {{number_format($datos->montolote,2,",",".")}}</td>
                   <td align="right">$ {{number_format($datos->gananciatotallnf,2,",",".")}}</td>
-                  <td align="right">$ {{number_format($datos->caja_final_fisica,2,",",".")}}</td>
-                  <td align="right">$ {{number_format($datos->caja_diferencia,2,",",".")}}</td>
+                  
+                  
                   </tr>
             @endforeach                   
             </tbody>

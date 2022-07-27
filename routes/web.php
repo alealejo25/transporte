@@ -180,6 +180,9 @@ Route::post('boltafi/cajas/guardarmovimiento','CajaTafiController@guardarmovimie
 Route::get('boltafi/cajas/cierrecajatafi','CajaTafiController@cierrecajatafi')->name('cierrecajatafi');
 Route::post('boltafi/cajas/guardarcierrecajatafi','CajaTafiController@guardarcierrecajatafi')->name('guardarcierrecajatafi');
 Route::get('boltafi/cajas/recaudacion','CajaTafiController@recaudacion')->name('recaudacion');
+Route::post('boltafi/cajas/guardarrecaudaciontafi','CajaTafiController@guardarrecaudaciontafi')->name('guardarrecaudaciontafi');
+
+Route::get('boltafi/cajas/verrecaudaciontafi','CajaTafiController@verrecaudaciontafi')->name('verrecaudaciontafi');
 //FIN CAJAS
 
 //REPORTES

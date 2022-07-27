@@ -2,7 +2,7 @@
 @section('contenido')
 	<div class="row">
 		<div class="col-lg-6 col-lg-6 col-lg-6 col-xs-12">
-			<h3>Cierre de Caja Diario - BOLETERIA TAFI VIEJO</h3>
+			<h3>Recaudación - BOLETERIA TAFI VIEJO</h3><a href="/boltafi/cajas/verrecaudaciontafi"><button class="btn btn-success">Ver Recaudaciones</button></a></h3>
 
 			@if(count($errors)>0)
 			<div class="alert alert-danger" role="alert">
@@ -14,40 +14,36 @@
 				</ul>
 			</div>
 			@endif	
- 			{!!Form::open(array('url'=>'boltafi/cajas/guardarcierrecajatafi','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!} 
+ 			{!!Form::open(array('url'=>'boltafi/cajas/guardarrecaudaciontafi','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!} 
 			{{Form::token()}}
-
-			<div class="Form-group">
+			<div class="col-lg-12">
 				<!-- <label for="nombre">Dominio</label> -->
 				{{Form::label('descripcion', 'Observacion')}}
 				<input type="text" class="form-control {{$errors->has('descripcion')?'is-invalid':''}}" placeholder="Coloque una observacion..." name="descripcion" id="descripcion"  value="{{old('descripcion')}}">
 				{!! $errors->first('descripcion','<div class="invalid-feedback">:message</div>')!!}
+			</div>
 
+			<div class="col-lg-6">
+				<label for="fechai">Fecha DESDE, que desea crear la recaudación</label>
+				<input type="date" name="fechai" id="fechai" class="form-control {{$errors->has('fechai')?'is-invalid':''}}" placeholder="Fecha Inicial de recaudacion..." value="{{old('fechai')}}">
+				{!! $errors->first('fechai','<div class="invalid-feedback">:message</div>')!!}
 			</div>
-			<div class="col-lg-12">
-				<label for="montototal">Monto Total de Recaudacion de las dos empresas (ABONOS)</label>
-				<input type="text" name="montototal" id="montototal"  class="form-control {{$errors->has('montototal')?'is-invalid':''}}" placeholder="Cantidad" value="0">
-				{!! $errors->first('montototal','<div class="invalid-feedback">:message</div>')!!}
+			<div class="col-lg-6">
+				<label for="fechaf">Fecha HASTA, que desea crear la recaudación</label>
+				<input type="date" name="fechaf" id="fechaf" class="form-control {{$errors->has('fechaf')?'is-invalid':''}}" placeholder="Fecha final de recaudacion..." value="{{old('fechaf')}}">
+				{!! $errors->first('fechaf','<div class="invalid-feedback">:message</div>')!!}
 			</div>
+			
 			<div class="col-lg-12">
 			<label for="montototal"></label>
 		</div>
 			<div class="col-lg-12">
-			<label for="montototal">RECAUDACION LA NUEVA FOURNIER</label>
+			<label for="montototal">BILLETERO</label>
 		</div>
 		<div class="Form-group">
-					<input type="text" class="form-control"  name="user_id" id="user_id" style="visibility:hidden"  value="{{ Auth::user()->id }}">
+					<input type="hidden" class="form-control"  name="user_id" id="user_id" value="{{ Auth::user()->id }}">
 				</div>
-			<div class="col-lg-6">
-				<label for="nrolote">Lote de Posnet</label>
-				<input type="text" name="nrolote" id="nrolote"  class="form-control {{$errors->has('nrolote')?'is-invalid':''}}" placeholder="Cantidad" value="0">
-				{!! $errors->first('nrolote','<div class="invalid-feedback">:message</div>')!!}
-			</div>
-			<div class="col-lg-6">
-				<label for="montolote">Monto Total del Posnet</label>
-				<input type="text" name="montolote" id="montolote"  class="form-control {{$errors->has('montolote')?'is-invalid':''}}" placeholder="Monto del Lote" value="0">
-				{!! $errors->first('montolote','<div class="invalid-feedback">:message</div>')!!}
-			</div>
+			
 			<div class="col-lg-2">
 				<label for="diez">Cant $10</label>
 				<input type="text" name="diez" id="diez"  class="form-control {{$errors->has('diez')?'is-invalid':''}}" placeholder="Cantidad" value="0">
@@ -87,7 +83,7 @@
 
 			<div class="col-lg-10">
 				<label for="dinerofisico">Dinero Fisico</label>
-				<input type="text" name="dinerofisico" id="dinerofisico" class="form-control {{$errors->has('dinerofisico')?'is-invalid':''}}" placeholder="Dinero Fisico..." readonly onmousedown="return false;">
+				<input type="text" name="dinerofisico" id="dinerofisico" class="form-control {{$errors->has('dinerofisico')?'is-invalid':''}}" placeholder="Dinero Fisico..." readonly onmousedown="return false;" value="0">
 				{!! $errors->first('dinerofisico','<div class="invalid-feedback">:message</div>')!!}
 			</div>
 
@@ -106,6 +102,7 @@
 
 	
 	</div> 
+</div>
 <script>
 	$(document).ready(function(){
 		$("#descripcion").focus();

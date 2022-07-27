@@ -8,6 +8,7 @@ use App\MovimientoCajaTafi;
 use App\CierreDiaTafi;
 use App\EmpresasBolTafi;
 use App\Abonado;
+use App\Recaudacion;
 use Laracasts\Flash\Flash;
 use Dompdf\Dompdf;
 use Luecano\NumeroALetras\NumeroALetras;
@@ -269,5 +270,67 @@ class CajaTafiController extends Controller
         //$abonados=Abonado::orderBy('dni','ASC')->pluck('dni','id');
         return view('boltafi.cajas.recaudacion')->with('abonados',$abonados);
     }
-     
+
+    public function guardarrecaudaciontafi(Request $request)
+    {
+        $fecha=new \DateTime();
+        $campos=[
+            'descripcion'=>'required|string|max:50',
+            'fechai'=>'required',
+            'fechaf'=>'required'
+                     
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+
+        $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+        $consultasumaventa=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("venta");
+        $consultasumaegresos=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("gastos");
+        $consultasumaposnet=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("montolote");
+        $consultasumaplanchasvendidas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("planchas_vendidas");
+        $consultasumaplanchasanuladas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("planchas_anuladas");
+        $consultasumaneto=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("caja_final");
+        $consultasumagananciaabono50=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("ganancialnf");
+        $consultasumagananciatotal=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("gananciatotallnf");
+        $datos=new Recaudacion();
+        $datos->observacion=$request->descripcion;
+        $datos->desde=$request->fechai;
+        $datos->hasta=$request->fechaf;
+        $datos->fecha=$fecha;
+        $datos->abono=$consultasumaventa;
+        $datos->abono50=$consultasumagananciaabono50;
+        $datos->posnet=$consultasumaposnet;
+        $datos->egresos=$consultasumaegresos;
+        $datos->totalingresos=$consultasumagananciaabono50+$consultasumaposnet;
+        $datos->montoneto=$datos->totalingresos-$datos->egresos;
+        $datos->diez=$request->diez;
+        $datos->veinte=$request->veinte;
+        $datos->cincuenta=$request->cincuenta;
+        $datos->cien=$request->cien;
+        $datos->doscientos=$request->doscientos;
+        $datos->quinientos=$request->quinientos;
+        $datos->mil=$request->mil;
+        $datos->fisico=$request->dinerofisico;
+        $datos->planchasvendidas=$consultasumaplanchasvendidas;
+        $datos->planchasanuladas=$consultasumaplanchasanuladas;
+        $datos->diferencia=$request->dinerofisico-$datos->montoneto;
+        $datos->save();
+
+        $datosidcierre=Recaudacion::orderBy('id','DESC')->limit(1)->get();
+        $recaudacion_id=$datosidcierre[0]->id;
+
+        $actualizarplancha=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])
+                        ->update([
+                                'recaudacion_id'=>$recaudacion_id,
+                                ]);
+     }
+
+
+      public function verrecaudaciontafi(Request $request)
+    {
+        $datos=Recaudacion::orderBy('fecha','ASC')->paginate(50);
+        
+        return view('boltafi.cajas.verrecaudaciontafi')->with('datos',$datos);
+    }
 }

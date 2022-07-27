@@ -359,6 +359,9 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('cierrecajatafi')
                 <li><a href="/boltafi/cajas/cierrecajatafi"><i class="fa fa-circle-o"></i> Cierre de Caja </a></li>
                 @endcan
+                @can('cierrecajatafi')
+                <li><a href="/boltafi/cajas/recaudacion"><i class="fa fa-circle-o"></i> Enviar Recaudacion </a></li>
+                @endcan
                 @can('anularplanchatafi')
                 <li><a href="/boltafi/planchastafi/mostraranularplancha"><i class="fa fa-circle-o"></i> Anular Plancha </a></li>
                 @endcan
@@ -374,6 +377,9 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
                 @can('boltafi')
                 <li><a href="/boltafi/reportes/cierresdecajas"><i class="fa fa-circle-o"></i> Reporte Cierres </a></li>
+                @endcan
+                @can('boltafi')
+                <li><a href="/boltafi/reportes/recaudaciones"><i class="fa fa-circle-o"></i> Reporte Recaudaciones </a></li>
                 @endcan
 
                </ul>

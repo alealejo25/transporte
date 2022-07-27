@@ -19,10 +19,13 @@ class Recaudaciones extends Migration
             $table->date('hasta');
             $table->date('fecha');
             $table->decimal('abono',10,2);
+            $table->decimal('abono50',10,2);
             $table->decimal('posnet',10,2);
             $table->decimal('egresos',10,2);
             $table->decimal('totalingresos',10,2);
             $table->decimal('montoneto',10,2);
+            $table->integer('planchasvendidas')->unsigned();
+            $table->integer('planchasanuladas')->unsigned();
             $table->integer('diez')->unsigned();
             $table->integer('veinte')->unsigned();
             $table->integer('cincuenta')->unsigned();
@@ -31,6 +34,7 @@ class Recaudaciones extends Migration
             $table->integer('quinientos')->unsigned();
             $table->integer('mil')->unsigned();
             $table->decimal('fisico',10,2);
+            $table->decimal('diferencia',10,2);
             $table->string('observacion',100);
             $table->integer('condicion')->unsigned()->default(0);
             $table->biginteger('user_id')->unsigned()->nullable();

@@ -90,6 +90,18 @@ class PermissionsTableSeeder extends Seeder
         'email'     => 'fernanda@transporte.com',
         'password'  => bcrypt('12345678'),
     ]);
+     DB::table('users')->insert([
+        'name'  => 'Ixis',
+        'tipo'  => 'Dueno',
+        'email'     => 'ixis@transporte.com',
+        'password'  => bcrypt('lnf1234'),
+    ]);
+      DB::table('users')->insert([
+        'name'  => 'Jorge',
+        'tipo'  => 'Dueno',
+        'email'     => 'jorge@transporte.com',
+        'password'  => bcrypt('lnf1234'),
+    ]);
 
 
 		//Lista de permisos
@@ -101,22 +113,10 @@ class PermissionsTableSeeder extends Seeder
 		Permission::Create(['name' =>'tipoabonos_create']);
 		Permission::Create(['name' =>'tipoabonos_edit']);
 		Permission::Create(['name' =>'tipoabonos_destroy']);
-		Permission::Create(['name' =>'acoplados_index']);
-		Permission::Create(['name' =>'acoplados_create']);
-		Permission::Create(['name' =>'acoplados_edit']);
-		Permission::Create(['name' =>'acoplados_destroy']);
-		Permission::Create(['name' =>'articulos_index']);
-		Permission::Create(['name' =>'articulos_create']);
-		Permission::Create(['name' =>'articulos_edit']);
-		Permission::Create(['name' =>'articulos_destroy']);
 		Permission::Create(['name' =>'bancos_index']);
 		Permission::Create(['name' =>'bancos_create']);
 		Permission::Create(['name' =>'bancos_edit']);
 		Permission::Create(['name' =>'bancos_destroy']);
-		Permission::Create(['name' =>'afipprestamosmoratorias_index']);
-		Permission::Create(['name' =>'afipprestamosmoratorias_create']);
-		Permission::Create(['name' =>'afipprestamosmoratorias_edit']);
-		Permission::Create(['name' =>'afipprestamosmoratorias_destroy']);
 		Permission::Create(['name' =>'bienesdeuso_index']);
 		Permission::Create(['name' =>'bienesdeuso_create']);
 		Permission::Create(['name' =>'bienesdeuso_edit']);
@@ -230,6 +230,9 @@ class PermissionsTableSeeder extends Seeder
 		Permission::Create(['name' =>'pdffacturas']);
 		Permission::Create(['name' =>'pdfcierrescajas']);
 		Permission::Create(['name' =>'pdffletes']);
+		Permission::Create(['name' =>'pdfcierrecajatafi']);
+		Permission::Create(['name' =>'pdfrecaudacionestafi']);
+		Permission::Create(['name' =>'pdfventastafi']);
 
 		//para usar
 		Permission::Create(['name' =>'administradores']);
@@ -241,22 +244,26 @@ class PermissionsTableSeeder extends Seeder
 		Permission::Create(['name' =>'talleradministracion']);
 		Permission::Create(['name' =>'administracionlogistica']);
 		Permission::Create(['name' =>'inicio']);
+		Permission::Create(['name' =>'dueño']);
 
 
 
 
 		//Boleteria TAFI
 		Permission::Create(['name' =>'abonadostafi']);
+		Permission::Create(['name' =>'presentardocumentaciontafi']);
 		Permission::Create(['name' =>'ventatafi']);
 		Permission::Create(['name' =>'gastostafi']);
 		Permission::Create(['name' =>'cargaplanchatafi']);
 		Permission::Create(['name' =>'tipoabonotafi']);
 		Permission::Create(['name' =>'cierrecajatafi']);
+		Permission::Create(['name' =>'enviarrecaudaciontafi']);
 		Permission::Create(['name' =>'anularplanchatafi']);
 		Permission::Create(['name' =>'planchastafi']);
+		Permission::Create(['name' =>'cajatafi']);
 		Permission::Create(['name' =>'reportestafisupervisor']);
 		Permission::Create(['name' =>'reportestafigerente']);
-		Permission::Create(['name' =>'cajatafi']);
+		Permission::Create(['name' =>'reportedueños']);
 		
 		//MENUS
 		Permission::Create(['name' =>'abms']);
@@ -281,6 +288,7 @@ class PermissionsTableSeeder extends Seeder
 		$supervisorbol=Role::create(['name'=>'SupervisorBol']);
 		$logistica=Role::create(['name'=>'Logistica']);
 		$taller=Role::create(['name'=>'Taller']);
+		$dueno=Role::create(['name'=>'Dueno']);
 
 		$admin->givePermissionTo([
 			'abonados_index',
@@ -292,16 +300,19 @@ class PermissionsTableSeeder extends Seeder
 			'tipoabonos_edit',
 			'tipoabonos_destroy',
 			'abonadostafi',
+			'presentardocumentaciontafi',
 			'ventatafi',
 			'gastostafi',
 			'cargaplanchatafi',
 			'tipoabonotafi',
 			'cierrecajatafi',
+			'enviarrecaudaciontafi',
 			'anularplanchatafi',
 			'planchastafi',
+			'cajatafi',
 			'reportestafisupervisor',
 			'reportestafigerente',
-			'cajatafi',
+			'reportedueños',
 			'abms',
 			'comprasvarias',
 			'cuentascorrientes',
@@ -315,10 +326,6 @@ class PermissionsTableSeeder extends Seeder
 			'bancos_create',
 			'bancos_edit',
 			'bancos_destroy',
-			'afipprestamosmoratorias_index',
-			'afipprestamosmoratorias_create',
-			'afipprestamosmoratorias_edit',
-			'afipprestamosmoratorias_destroy',
 			'bienesdeuso_index',
 			'bienesdeuso_create',
 			'bienesdeuso_edit',
@@ -425,6 +432,9 @@ class PermissionsTableSeeder extends Seeder
 			'pdffacturas',
 			'pdfcierrescajas',
 			'pdffletes',
+			'pdfcierrecajatafi',
+			'pdfrecaudacionestafi',
+			'pdfventastafi',
 			'administradores',
 			'taller',
 			'logistica',
@@ -441,7 +451,7 @@ class PermissionsTableSeeder extends Seeder
 			'listarfletes',
 			'listarmantenimientocamion',
 			'choferes_index',
-			'acoplados_index',
+			
 			'camiones_index',
 			'logistica',
 			'tallerlogistica',
@@ -466,10 +476,6 @@ class PermissionsTableSeeder extends Seeder
 			'consultas',
 			'abonadostafi',
 			'reportestafisupervisor',
-			'articulos_index',
-			'articulos_create',
-			'articulos_destroy',
-			'acoplados_index',
 			'camiones_index',
 			'repuestos_index',
 			'repuestos_create',
@@ -553,6 +559,11 @@ class PermissionsTableSeeder extends Seeder
 			'abonados_create',
 			'abonados_edit',
 			'abonados_destroy',
+			'pdfcierrecajatafi',
+			'pdfrecaudacionestafi',
+			'pdfventastafi',
+			'presentardocumentaciontafi',
+			'enviarrecaudaciontafi'
 		]);
 
 		$supervisorbol->givePermissionTo([
@@ -567,6 +578,37 @@ class PermissionsTableSeeder extends Seeder
 			'tipoabonos_create',
 			'tipoabonos_edit',
 			'tipoabonos_destroy',
+			'pdfcierrecajatafi',
+			'pdfrecaudacionestafi',
+			'pdfventastafi'
+
+		]);
+		$dueno->givePermissionTo([
+			'abms',
+			'boltafi',
+			'abonadostafi',
+			'cargaplanchatafi',
+			'presentardocumentaciontafi',
+			'ventatafi',
+			'tipoabonotafi',
+			'anularplanchatafi',
+			'planchastafi',
+			'reportestafisupervisor',
+			'boltafi',
+			'cajatafi',
+			'consultas',
+			'tipoabonos_index',
+			'tipoabonos_create',
+			'tipoabonos_edit',
+			'tipoabonos_destroy',
+			'abonados_create',
+			'abonados_edit',
+			'abonados_destroy',
+			'pdfcierrecajatafi',
+			'pdfrecaudacionestafi',
+			'cierrecajatafi',
+			'enviarrecaudaciontafi',
+			'pdfventastafi'
 
 		]);
 
@@ -580,6 +622,11 @@ class PermissionsTableSeeder extends Seeder
 		$user->assignRole('BolTafi');
 		$user=User::find(7);//CONSULTA
 		$user->assignRole('SupervisorBol');
+
+		$user=User::find(8);//ixis
+		$user->assignRole('Dueno');	
+		$user=User::find(9);//jorge
+		$user->assignRole('Dueno');		
 		
 
 	}

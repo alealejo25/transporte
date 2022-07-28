@@ -106,6 +106,7 @@
                     <th>Desde</th>
                     <th>Hasta</th>
                     <th>Usuario</th>
+                    <th>Estado</th>
                     <th>Monto</th>
                 </tr>
             </thead>
@@ -121,6 +122,12 @@
                   <td >{{$datos->desde}}</td>
                   <td >{{$datos->hasta}}</td>
                   <td >{{$datos->user->name}}</td>
+                  @if($datos->anulado==1)
+                      <td >ANULADO</td>
+                    @else
+                      <td >Vendido</td>
+                    @endif
+
                   <td align="right">$ {{number_format($datos->montototal,2,",",".")}}</td>
                   
                   </tr>

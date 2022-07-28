@@ -24,6 +24,7 @@ class Recaudaciones extends Migration
             $table->decimal('egresos',10,2);
             $table->decimal('totalingresos',10,2);
             $table->decimal('montoneto',10,2);
+            $table->decimal('monto_anuladas',10,2);
             $table->integer('planchasvendidas')->unsigned();
             $table->integer('planchasanuladas')->unsigned();
             $table->integer('diez')->unsigned();

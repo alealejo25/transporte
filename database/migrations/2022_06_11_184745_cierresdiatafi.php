@@ -24,6 +24,7 @@ class CierresDiaTafi extends Migration
             $table->decimal('caja_final',10,2);
             $table->decimal('caja_final_fisica',10,2);
             $table->decimal('caja_diferencia',10,2);
+            $table->decimal('monto_anuladas',10,2);
             $table->integer('planchas_impresas')->unsigned();
             $table->integer('planchas_dañada')->unsigned();
             $table->integer('planchas_vendidas')->unsigned()->nullable();

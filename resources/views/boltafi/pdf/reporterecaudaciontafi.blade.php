@@ -102,10 +102,11 @@
                 	<th>Planchas Vend.</th>
                     <th>Planchas Anu.</th>
                     <th>Abono 100%</th>
-                    <th>Abono 50%</th>
+                    <th>Gastos 100%</th>
+                    <th>Monto Anuladas</th>
+                    <th>Ganancia Abono 50%</th>
                     <th>Posnet</th>
                     <th>Total Ingresos</th>
-                    <th>Tot. Egresos 100%</th>
                     <th>Neto Ganancia</th>
                     <th>Fisico</th>
                     <th>Diferencia</th>
@@ -120,10 +121,11 @@
                   <td >{{$dato->planchasvendidas}}</td> 
                   <td >{{$dato->planchasanuladas}}</td> 
                   <td align="right">$ {{number_format($dato->abono,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->egresos,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->monto_anuladas,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->abono50,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->posnet,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->totalingresos,2,",",".")}}</td>
-                  <td align="right">$ {{number_format($dato->egresos,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->montoneto,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->fisico,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->diferencia,2,",",".")}}</td>
@@ -209,6 +211,7 @@
                 	<th>Fecha Cierre</th>
                     <th>Abono 100%</th>
                     <th>Gastos 100%</th>
+                    <th>Monto Anuladas</th>
                     <th>Abono Final</th>
                     <th>Abono 50%</th>
                     <th>Lote Posnet</th>
@@ -225,13 +228,14 @@
                   <td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
                   <td align="right">$ {{number_format($dato->venta,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->gastos,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dato->monto_anuladas,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->caja_final,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->ganancialnf,2,",",".")}}</td>
                   <td align="right">{{$dato->nrolote}}</td>
                   <td align="right">$ {{number_format($dato->montolote,2,",",".")}}</td>
                   <td align="right">$ {{number_format($dato->gananciatotallnf,2,",",".")}}</td>
-                  <td >{{$dato->planchasvendidas}}</td> 
-                  <td >{{$dato->planchasanuladas}}</td> 
+                  <td align="right">{{$dato->planchas_vendidas}}</td> 
+                  <td align="right">{{$dato->planchas_anuladas}}</td> 
                   <td >{{$dato->observacion}}</td> 
                 </tr>
             @endforeach            

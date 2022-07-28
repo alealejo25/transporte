@@ -179,6 +179,7 @@ class CajaTafiController extends Controller
         $datosCierreCaja->nrolote=$request->nrolote;
         $datosCierreCaja->montolote=$request->montolote;
 
+
         $datosmovimientos=MovimientoCajaTafi::where('tipo','INICIAR CAJA')->where('cierre',0)->orderBy('id','DESC')->limit(1)->get();
         if(count($datosmovimientos)==0)
         {
@@ -188,7 +189,11 @@ class CajaTafiController extends Controller
         $datosCierreCaja->caja_inicial=$datosmovimientos[0]->importe;
 
         $datosmovimientosventas=MovimientoCajaTafi::where('tipo','VENTA')->where('cierre',0)->sum('importe');
-                $datosCierreCaja->venta=$datosmovimientosventas;
+        
+        $datosCierreCaja->venta=$datosmovimientosventas;
+
+        $datosmontoanuladas=MovimientoCajaTafi::where('tipo','ANULADO')->where('cierre',0)->sum('importe');
+        $datosCierreCaja->monto_anuladas=$datosmontoanuladas;
         $datoscantidadventas=MovimientoCajaTafi::where('tipo','VENTA')->where('cierre',0)->count('cierre');
         $datosCierreCaja->planchas_vendidas=$datoscantidadventas;
 
@@ -201,7 +206,7 @@ class CajaTafiController extends Controller
         $datosCierreCaja->gastos=$datosmovimientosgastos;
 
         $datosmovimientosimportefinal=MovimientoCajaTafi::where('cierre',0)->orderBy('id','DESC')->limit(1)->get();
-        $datosCierreCaja->caja_final=$datosCierreCaja->caja_inicial+$datosCierreCaja->venta-$datosCierreCaja->gastos;
+        $datosCierreCaja->caja_final=$datosCierreCaja->caja_inicial+$datosCierreCaja->venta-$datosCierreCaja->gastos+$datosmontoanuladas;
         $datosCierreCaja->caja_final_fisica=$request->montototal;
 
 
@@ -222,12 +227,13 @@ class CajaTafiController extends Controller
         $datosCierreCaja->user_id=$request->user_id;
         $datosCierreCaja->save();
 
+        $datosmovimientoscajatafi=MovimientoCajaTafi::orderBy('id','DESC')->limit(1)->get();
         $datos=new MovimientoCajaTafi();
         $datos->tipo='CIERRE CAJA';
         $datos->tipo_movimiento='EGRESO';
         $datos->descripcion=$request->descripcion;
         $datos->fecha=$fecha;
-        $datos->importe=$datosCierreCaja->caja_final;
+        $datos->importe=$datosmovimientoscajatafi[0]->importe_final;
         $datos->importe_final=0;
         $datos->cierre=0;
 
@@ -240,28 +246,7 @@ class CajaTafiController extends Controller
                                 'cierre'=>1,
                                 ]);
 
-       /* $consulta=CierreDiaTafi::orderBy('id','DESC')->limit(1)->get();
-        $consulta->each(function($consulta){
-          $consulta->user;
-        });
-
-
-        $cantbilletes=$consulta[0]->diez+$consulta[0]->veinte+$consulta[0]->cincuenta+$consulta[0]->cien+$consulta[0]->doscientos+$consulta[0]->quinientos+$consulta[0]->mil;
-        $diez=$consulta[0]->diez*10;
-        $veinte=$consulta[0]->veinte*20;
-        $cincuenta=$consulta[0]->cincuenta*50;
-        $cien=$consulta[0]->cien*100;
-        $doscientos=$consulta[0]->doscientos*200;
-        $quinientos=$consulta[0]->quinientos*500;
-        $mil=$consulta[0]->mil*1000;
-        $totaldinero=$diez+$veinte+$cincuenta+$cien+$doscientos+$quinientos+$mil;
-
-
-        $formatter = new NumeroALetras();
-        $montoenletras=$formatter->toMoney($totaldinero, 2, 'PESOS','CENTAVOS');
-        $pdf=\PDF::loadView('pdf.cierredecajatafi',['consulta'=>$consulta,'cantbilletes'=>$cantbilletes,'diez'=>$diez,'veinte'=>$veinte,'cincuenta'=>$cincuenta,'cien'=>$cien,'doscientos'=>$doscientos,'quinientos'=>$quinientos,'mil'=>$mil,'totaldinero'=>$totaldinero,'montoenletras'=>$montoenletras])
-        ->setPaper('a4','landscape');
-        return $pdf->download('cierredecajatafi.pdf');*/
+       
 
 
 
@@ -308,12 +293,13 @@ class CajaTafiController extends Controller
         }
 
         $consultasumaventa=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("venta");
+
         $consultasumaegresos=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("gastos");
         $consultasumaposnet=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("montolote");
         $consultasumaplanchasvendidas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("planchas_vendidas");
         $consultasumaplanchasanuladas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("planchas_anuladas");
         $consultasumaneto=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("caja_final");
-        
+        $consultamontoanuladas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("monto_anuladas");
         $consultasumagananciatotal=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("gananciatotallnf");
         $datos=new Recaudacion();
         $datos->observacion=$request->descripcion;
@@ -321,11 +307,12 @@ class CajaTafiController extends Controller
         $datos->hasta=$request->fechaf;
         $datos->fecha=$fecha;
         $datos->abono=$consultasumaventa;
-        $datos->abono50=$consultasumaventa/2;
+        $datos->abono50=($consultasumaventa-$consultasumaegresos+$consultamontoanuladas)/2;
         $datos->posnet=$consultasumaposnet;
         $datos->egresos=$consultasumaegresos;
-        $datos->totalingresos=$datos->abono50+$consultasumaposnet;
-        $datos->montoneto=$datos->totalingresos-(($datos->egresos)/2);
+        $datos->totalingresos=$datos->abono50+$consultasumaposnet+($consultasumaegresos)/2;
+        $datos->montoneto=$datos->abono50+$consultasumaposnet;
+        $datos->monto_anuladas=$consultamontoanuladas;
         $datos->diez=$request->diez;
         $datos->veinte=$request->veinte;
         $datos->cincuenta=$request->cincuenta;

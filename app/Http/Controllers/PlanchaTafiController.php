@@ -171,6 +171,7 @@ $impresora->close();*/
                     $actualizarplancha=VentaTafi::where('numero',$request->numero)
                         ->update([
                                 'montototal'=>0,
+                                'anulado'=>1,
                                  ]); 
                     $movimientocaja=new MovimientoCajaTafi();    
                     $movimientocaja->tipo='ANULADO';

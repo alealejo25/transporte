@@ -103,7 +103,8 @@
                     <th>Planchas Anuladas</th>
                     <th>Caja Inicial</th>
                     <th>Vta. Abonos Total</th>
-                    <th>Gastos</th>
+                    <th>Anuladas Total</th>
+                    <th>Gastos Varios</th>
                     <th>Caja Final Abonos</th>
                     <th>Ganancia Abonos</th>
                     <th>Nro Lote</th>
@@ -118,10 +119,11 @@
                 @foreach ($consulta as $datos)
                 <tr>
                   <td >{{$datos->id}}</td>
-                  <td >{{$datos->id}}</td>
-                  <td >{{$datos->id}}</td>
+                  <td >{{$datos->planchas_vendidas}}</td>
+                  <td >{{$datos->planchas_anuladas}}</td>
                   <td align="right">$ {{number_format($datos->caja_inicial,2,",",".")}}</td>
                   <td align="right">$ {{number_format($datos->venta,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($datos->monto_anuladas,2,",",".")}}</td>
                   <td align="right">$ {{number_format($datos->gastos,2,",",".")}}</td>
                   <td align="right">$ {{number_format($datos->caja_final,2,",",".")}}</td>
                   <td align="right">$ {{number_format($datos->ganancialnf,2,",",".")}}</td>

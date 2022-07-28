@@ -90,7 +90,7 @@
 @foreach ($datos as $dato)
 
 <h3>Usuario Responsable: {{$dato->user->name}} - Observacion: {{$dato->observacion}}</h3>
-<h3>Fecha de Recaudacion: {{date('d-m-Y', strtotime($dato->fecha))}} - Recaudaciones: Desde el {{date('d-m-Y', strtotime($dato->desde))}} hasta el {{date('d-m-Y', strtotime($dato->hasta))}}</h3>
+<h3>Fecha de Recaudacion: {{date('d-m-Y', strtotime($dato->fecha))}} - Cierres: Desde el {{date('d-m-Y', strtotime($dato->desde))}} hasta el {{date('d-m-Y', strtotime($dato->hasta))}}</h3>
 
 
 @endforeach

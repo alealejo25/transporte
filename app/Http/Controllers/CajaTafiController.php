@@ -292,14 +292,29 @@ class CajaTafiController extends Controller
 
         $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
         $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
-        $consultasumaventa=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("venta");
-        $consultasumaegresos=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("gastos");
-        $consultasumaposnet=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("montolote");
-        $consultasumaplanchasvendidas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("planchas_vendidas");
-        $consultasumaplanchasanuladas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("planchas_anuladas");
-        $consultasumaneto=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("caja_final");
+
+
+
+        $consultacantidad=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->get();
+        $cantidad1=count($consultacantidad);
+        $consultacantidadcerradas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->get();
+        $cantidad2=count($consultacantidadcerradas);
+       
+
+        if($cantidad2 != $cantidad1)
+        {
+            flash::warning('NO REALIZO LA RECAUDACIÓN!!! EXISTE UN CIERRE QUE YA PERTENECE A UNA RECAUDACIÓN.'); 
+       return Redirect('boltafi/cajas/recaudacion')->with('Mensaje','NO REALIZO LA RECAUDACION POR, EXISTE UN CIERRE QUE YA PERTENECE A UNA RECAUDACION.');
+        }
+
+        $consultasumaventa=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("venta");
+        $consultasumaegresos=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("gastos");
+        $consultasumaposnet=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("montolote");
+        $consultasumaplanchasvendidas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("planchas_vendidas");
+        $consultasumaplanchasanuladas=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("planchas_anuladas");
+        $consultasumaneto=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("caja_final");
         
-        $consultasumagananciatotal=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->sum("gananciatotallnf");
+        $consultasumagananciatotal=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)->sum("gananciatotallnf");
         $datos=new Recaudacion();
         $datos->observacion=$request->descripcion;
         $datos->desde=$request->fechai;
@@ -328,7 +343,7 @@ class CajaTafiController extends Controller
         $datosidcierre=Recaudacion::orderBy('id','DESC')->limit(1)->get();
         $recaudacion_id=$datosidcierre[0]->id;
 
-        $actualizarplancha=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])
+        $actualizarplancha=CierreDiaTafi::whereBetween('fecha',[$fi, $ff])->where('recaudacion_id',null)
                         ->update([
                                 'recaudacion_id'=>$recaudacion_id,
                                 ]);

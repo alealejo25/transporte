@@ -91,12 +91,12 @@
 		<br></br>
 	</tr>
 <tr >
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
 </tr>
 
 </table>
@@ -170,12 +170,12 @@
 		<br></br>
 	</tr>
 <tr >
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
 </tr>
 
 </table>	
@@ -247,12 +247,12 @@
 		<br></br>
 	</tr>
 <tr >
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
 </tr>
 
 
@@ -331,12 +331,12 @@
   <td style="width:128px" align="center">{{$fecha}}</td>
 </tr>
 <tr >
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$fechavencimiento}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
 </tr>
 
 </table>
@@ -364,13 +364,13 @@
 
 <tr>
 
-  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$fechavencimiento}}</strong></td>
+  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
 
-  <td style="width:128px" align="center"><br><br><br><h2 align="right"><strong>{{$numero}}</strong></h2><br><strong>{{$tipo}}</strong><br>{{$nomape}}<br>Precio.$ {{number_format($monto,2,",",".")}}<br>COD. <strong>{{$codigo}}</strong><br>Emi.{{$fecha}}<br><br><strong>Venc.{{$fechavencimiento}}</strong></td>
-  <td style="width:128px" align="center"><br><br><br><h2 align="right"><strong>{{$numero}}</strong></h2><br><strong>{{$tipo}}</strong><br>{{$nomape}}<br>$ {{number_format($monto,2,",",".")}}<br>COD. <strong>{{$codigo}}</strong><br>E.{{$fecha}}<br><br><strong>V.{{$fechavencimiento}}</strong></td>
+  <td style="width:128px" align="center"><br><br><br><h2 align="right"><strong>{{$numero}}</strong></h2><br><strong>{{$tipo}}</strong><br>{{$nomape}}<br>Precio.$ {{number_format($monto,2,",",".")}}<br>COD. <strong>{{$codigo}}</strong><br>Emi.{{$fecha}}<br><br><strong>Venc.{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><br><br><br><h2 align="right"><strong>{{$numero}}</strong></h2><br><strong>{{$tipo}}</strong><br>{{$nomape}}<br>$ {{number_format($monto,2,",",".")}}<br>COD. <strong>{{$codigo}}</strong><br>E.{{$fecha}}<br><br><strong>V.{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
 
 </tr>
 

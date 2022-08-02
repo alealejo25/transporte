@@ -228,6 +228,25 @@ $impresora->close();*/
     public function guardarventa(Request $request)
     {
       
+        $dia = date("d");
+        $mes = date("m");
+        $anio = date("y");
+        if($mes=12){
+            $mes=1;
+        }
+        $mes=$mes+1;
+        if($dia>=1 && $dia<11){
+            $dia= 10;
+
+        }
+        else{
+            $dia=20;
+        }
+        
+        $cadena_fecha_mysql = '20'.$anio.'-'.$mes.'-'.$dia;
+        
+        $objeto_DateTime = date_create_from_format('Y-m-d', $cadena_fecha_mysql);
+
     $fecha = date("d-m-Y");
     $fechavencimiento=date("d-m-Y",strtotime($fecha."+ 1 month"));
 
@@ -283,7 +302,9 @@ $impresora->close();*/
        
        
        $datos=new VentaTafi(request()->except('_token'));
+
        $datos->fecha=new \DateTime();
+       $datos->fechavencimiento=$objeto_DateTime;
        $datos->abonado_id=$abonado[0]->id;
        $datos->montototal=$monto;
        $datos->impresion=1;
@@ -316,7 +337,7 @@ $impresora->close();*/
         $movimientocaja->save();
 
  
-        $pdf=\PDF::loadView('boltafi.pdf.abono',['numero'=>$request->numero,'fecha'=>$fecha,'codigo'=>$codigo,'fechavencimiento'=>$fechavencimiento,'monto'=>$monto,'nomape'=>$nomape,'tipo'=>$tipo])
+        $pdf=\PDF::loadView('boltafi.pdf.abono',['numero'=>$request->numero,'fecha'=>$fecha,'codigo'=>$codigo,'fechavencimiento'=>$fechavencimiento,'monto'=>$monto,'nomape'=>$nomape,'tipo'=>$tipo,'dia'=>$dia,'mes'=>$mes,'anio'=>$anio])
         ->setPaper('a4');
         
         flash::success('SE REALIZO LA VENTA'); 

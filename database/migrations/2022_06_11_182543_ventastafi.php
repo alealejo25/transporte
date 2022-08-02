@@ -16,6 +16,7 @@ class VentasTafi extends Migration
          Schema::create('ventastafi', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fecha')->nullable();
+            $table->date('fechavencimiento')->nullable();
             $table->integer('cantidad')->unsigned();
             $table->integer('numero')->unsigned();
             $table->integer('impresion')->unsigned();

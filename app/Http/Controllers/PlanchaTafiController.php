@@ -231,10 +231,13 @@ $impresora->close();*/
         $dia = date("d");
         $mes = date("m");
         $anio = date("y");
-        if($mes=12){
+        if($mes==12){
             $mes=1;
         }
-        $mes=$mes+1;
+        else{
+        $mes=$mes+1;    
+        }
+        
         if($dia>=1 && $dia<11){
             $dia= 10;
 
@@ -244,7 +247,6 @@ $impresora->close();*/
         }
         
         $cadena_fecha_mysql = '20'.$anio.'-'.$mes.'-'.$dia;
-        
         $objeto_DateTime = date_create_from_format('Y-m-d', $cadena_fecha_mysql);
 
     $fecha = date("d-m-Y");

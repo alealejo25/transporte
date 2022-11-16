@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 
+window.Swall = require('sweetalert')
 window.Vue = require('vue');
 
 /**

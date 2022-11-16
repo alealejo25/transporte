@@ -9,6 +9,7 @@ use App\MovimientoPrestamoChofer;
 use App\ChequePropio;
 use App\Cliente;
 use App\MovimientoCajaTafi;
+use App\PlanchaTafi;
 
 use Carbon\Carbon;
 
@@ -31,6 +32,8 @@ class InicioController extends Controller
         $consultafletes=Flete::where('estado','INICIADO')->orderBy('id','DESC')->get();
         $cantidad=count($consultafletes);
 
+        $consultaplanchasdisponibles=PlanchaTafi::where('estado','DISPONIBLE')->orderBy('id','DESC')->get();
+         $cantidaddisponible=count($consultaplanchasdisponibles);
 
         $fecha = Carbon::parse($date);
 
@@ -70,7 +73,8 @@ class InicioController extends Controller
         ->with('planchasanuladasdiatafi',$planchasanuladasdiatafi)
         ->with('chequespropioporvencer',$chequespropioporvencer)
         ->with('consultacamion',$consultacamion)
-        ->with('cantidad',$cantidad);
+        ->with('cantidad',$cantidad)
+        ->with('cantidaddisponible',$cantidaddisponible);
 
     }
 

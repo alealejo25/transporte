@@ -109,6 +109,19 @@
           
 
 </div>
+<div class="col-lg-3 col-xs-6">
+           <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>$ {{ $cantidaddisponible}}</h3>
+                  <p>Planchas Disponibles</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-pie-graph"></i>
+                </div>
+                <a href="/boltafi/planchastafi/" class="small-box-footer">Ir a listado de Planchas disponibles <i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div>
+ </div>
 
 @endcan
 

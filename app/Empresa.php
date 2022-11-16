@@ -17,7 +17,7 @@ class Empresa extends Model
     ];
 
 
-public function ComprasVarias()
+    public function ComprasVarias()
     {
         return $this->hasMany('App\ComprasVarias');
     }
@@ -26,11 +26,11 @@ public function ComprasVarias()
         return $this->hasMany('App\MovimientoOPP');
     }
     
-public function CtaCteP()
+    public function CtaCteP()
     {
         return $this->hasMany('App\CtaCteP');
     }
-public function CtaCtePLeagas()
+    public function CtaCtePLeagas()
     {
         return $this->hasMany('App\CtaCtePLeagas');
     }
@@ -41,5 +41,13 @@ public function CtaCtePLeagas()
     public function OrdenPagoLeagas()
     {
         return $this->hasMany('App\OrdenPagoLeagas');
+    }
+     public function ChoferLeagasLnf()
+    {
+        return $this->hasMany('App\ChoferLeagasLnf');
+    }
+     public function Coche()
+    {
+        return $this->hasMany('App\Coche');
     }
 }

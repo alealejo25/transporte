@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Localidad extends Migration
+class Obrasociales extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,12 @@ class Localidad extends Migration
      */
     public function up()
     {
-        //
+    Schema::create('obrasociales', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('codigo')->unsigned();
+            $table->string('nombre',40);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class Localidad extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('obrasociales');//
     }
 }

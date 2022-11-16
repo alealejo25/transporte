@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{asset('assets/lte/select2/dist/css/select2.min.css')}}">
 
 
+
 <!-- agregado para probar fullcalendar
  jQuery 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -220,9 +221,13 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('cajas_index')
                 <li><a href="/abms/cajas"><i class="fa fa-circle-o"></i> Cajas</a></li>
                 @endcan
-                @can('choferes_index')
-                <li><a href="/abms/choferes"><i class="fa fa-circle-o"></i> Choferes</a></li>
+                 @can('choferes_index')
+                <li><a href="/abms/choferesleagaslnf"><i class="fa fa-circle-o"></i> Choferes</a></li>
                 @endcan 
+                
+                @can('choferes_index')
+                <li><a href="/abms/cocheleagaslnf"><i class="fa fa-circle-o"></i> Coches</a></li>
+                @endcan
                
                 @can('cuentasbancariaspropias_index')
                 <li><a href="/abms/cuentasbancariaspropias"><i class="fa fa-circle-o"></i> Cuentas Bancarias Propias</a></li>
@@ -535,7 +540,10 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
         <strong>Copyright &copy; 2022 - AG Ingenieria de Software.</strong> Todos los derechos reservados.
       </footer>
   
-      
+        <!-- SweetAlert2 -->
+        
+    <script src="{{asset('assets/lte/plugins/sweetalert2/sweetalert2.all.js')}}"></script>
+    
     <!-- jQuery 2.1.4 -->
     <script src="{{asset('js/jQuery-2.1.4.min.js')}}"></script>
     <!-- Bootstrap 3.3.5 -->
@@ -544,8 +552,8 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
     <script src="{{asset('js/app.min.js')}}"></script>
     <!-- Select2 -->
     <script src="{{asset('assets/lte/select2/dist/js/select2.min.js')}}"></script>
-    
-    
+
+   
     <script>
       $(document).ready(function(){
       $("select").select2({

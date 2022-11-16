@@ -4,26 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categoria extends Model
+class Carroceria extends Model
 {
-    protected $table='categorias';
+    protected $table="carrocerias";
 
     protected $primaryKeys='id';
 
     protected $fillable = [
+    'id',
     'nombre',
-    'condicion'
     ];
-
-    public function Articulo()
+    public function Coche()
     {
-        return $this->hasMany('App\Articulo');
+        return $this->hasMany('App\Coche');
     }
     public function scopeSearch($query,$name)
     {
         return $query->where('nombre','LIKE',"%$name%");
     }
-    //------------
-
-    
 }

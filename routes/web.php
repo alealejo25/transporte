@@ -72,7 +72,9 @@ Route::resource('abms/usuarios','UserController')->middleware('permission:usuari
 Route::resource('abms/roles','RoleController');
 Route::resource('abms/camiones','CamionController')->middleware('permission:camiones_index'); 
 
-Route::resource('abms/choferes','ChoferController')->middleware('permission:choferes_index');
+//Route::resource('abms/choferes','ChoferController')->middleware('permission:choferes_index');
+//Route::resource('abms/choferesleagaslnf','ChoferLeagasLnfController')->middleware('permission:choferes_index');
+
 Route::resource('abms/puntos','PuntoController')->middleware('permission:choferes_index');
 Route::resource('abms/servicios','ServicioController')->middleware('permission:choferes_index');
 Route::resource('abms/tarifas','TarifaController');
@@ -91,6 +93,9 @@ Route::resource('abms/cuentasbancariaspropias','CuentaBancariaPropiaController')
 Route::resource('abms/afipprestamosmoratorias','AfipPrestamoMoratoriaController');
 Route::resource('abms/rentasprestamosmoratorias','RentaPrestamoMoratoriaController');
 Route::resource('abms/prestamos','PrestamoController');
+
+Route::post('abms/choferesleagaslnf/eliminar/{$id}','ChoferLeagasLnfController@eliminar');
+Route::post('abms/choferesleagaslnf/{$id}/activardesactivar','ChoferLeagasLnfController@activardesactivar')->name('activardesactivar');
 
 
 
@@ -133,6 +138,31 @@ Route::resource('movimientos/pallets','MovimientoPalletController');
 
 
 Route::get('finanzas/movimientoscajas/iniciar','MovimientoCajaController@iniciar')->name('finanzas.movimientos.iniciar');
+
+
+//**************************************************************
+//***CHOFERES LEAGAS LNF***************************************
+//**************************************************************
+
+Route::get('abms/choferesleagaslnf','ChoferLeagasLnfController@index')->name('choferesleagaslnf');
+Route::get('abms/choferesleagaslnf/create','ChoferLeagasLnfController@create')->name('create');
+Route::post('abms/choferesleagaslnf/store','ChoferLeagasLnfController@store')->name('store');
+Route::get('abms/choferesleagaslnf/{id?}/edit', 'ChoferLeagasLnfController@edit')->name('edit');
+Route::get('abms/choferesleagaslnf/{id?}/desactivar', 'ChoferLeagasLnfController@desactivar')->name('desactivar');
+Route::patch('abms/choferesleagaslnf/guardardesactivar', 'ChoferLeagasLnfController@guardardesactivar')->name('guardardesactivar');
+Route::patch('abms/choferesleagaslnf/update','ChoferLeagasLnfController@update')->name('update');
+
+
+//**************************************************************
+//***COCHES LEAGAS LNF***************************************
+//**************************************************************
+
+Route::get('abms/cocheleagaslnf','CocheLeagasLnfController@index')->name('abms.chocheleagaslnf');
+Route::get('abms/cocheleagaslnf/create','CocheLeagasLnfController@create')->name('create');
+Route::post('abms/cocheleagaslnf/store','CocheLeagasLnfController@store')->name('store');
+Route::get('abms/cocheleagaslnf/{id}/edit','CocheLeagasLnfController@edit')->name('edit');
+Route::get('abms/cocheleagaslnf/{id}/informecoche','CocheLeagasLnfController@informecoche')->name('informecoche');
+Route::patch('abms/cocheleagaslnf/guardaredicioncoche','CocheLeagasLnfController@guardaredicioncoche')->name('guardaredicioncoche');
 
 
 //**************************************************************

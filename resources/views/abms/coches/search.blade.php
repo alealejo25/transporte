@@ -1,4 +1,4 @@
-{!!Form::open(['route'=>'choferesleagaslnf','method'=>'GET','class'=>'navbar-form pull-right'])!!}
+{!!Form::open(['route'=>'cocheleagaslnf','method'=>'GET','class'=>'navbar-form pull-right'])!!}
 				<div class="input-group">
 
 					{!! Form::text('name',null,['class'=>'form-control','placelholder'=>'Buscar Acoplado..','aria-describedby'=>'search'])!!}

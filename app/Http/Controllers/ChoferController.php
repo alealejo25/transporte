@@ -49,8 +49,8 @@ class ChoferController extends Controller
      */
     public function create()
     {
-        $camiones=Camion::where('condicion','0')->orderBy('dominio','ASC')->pluck('dominio','id');
-        
+        $localidades=Localidad::orderBy('dominio','ASC')->pluck('nombre','id');
+        dd($localidades);
         return view('abms.choferes.create')
                ->with('camiones',$camiones);
     }

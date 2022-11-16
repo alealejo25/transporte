@@ -112,7 +112,7 @@
 <div class="col-lg-3 col-xs-6">
            <div class="small-box bg-yellow">
                 <div class="inner">
-                  <h3>$ {{ $cantidaddisponible}}</h3>
+                  <h3>{{ $cantidaddisponible}}</h3>
                   <p>Planchas Disponibles</p>
                 </div>
                 <div class="icon">

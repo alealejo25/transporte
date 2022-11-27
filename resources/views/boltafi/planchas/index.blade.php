@@ -37,6 +37,7 @@
 
 					<th style="width:150px">Fecha de Carga</th>
 					<th style="width:150px">Fecha de Anulacion</th>
+					<th style="width:150px">Fecha de Venta</th>
 					<th>Usuario Anulacion</th>
 					<th>Motivo</th>
 					
@@ -48,12 +49,25 @@
 					<td>{{ $dato->id}}</td>
 					<td>{{ $dato->numero}}</td>
 					<td>{{ $dato->estado}}</td>
-					
 					<td>{{date('d-m-Y', strtotime($dato->fechacarga))}}</td>
-
+					@if($dato->fechaanulacion==NULL)
+					<td></td>
+					@else
 					<td>{{date('d-m-Y', strtotime($dato->fechaanulacion))}}</td>
+					@endif
+
+					@if($dato->fechaventa==NULL)
+					<td></td>
+					@else
 					<td>{{date('d-m-Y', strtotime($dato->fechaventa))}}</td>
+					@endif
+				
+					@if($dato->user_anulacion==NULL)
+					<td></td>
+					@else
 					<td>{{ $dato->user_anulacion}}</td>
+					@endif
+					
 					<td>{{ $dato->motivo}}</td>
 					
 

@@ -40,9 +40,8 @@
 					<th style="width:150px">Fecha de Venta</th>
 					<th>Usuario Anulacion</th>
 					<th>Motivo</th>
-					
-					
-					
+		
+									
 				</thead>
                @foreach ($datos as $dato)
 				<tr>

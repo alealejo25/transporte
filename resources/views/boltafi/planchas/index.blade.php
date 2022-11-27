@@ -71,20 +71,7 @@
 					<td>{{ $dato->motivo}}</td>
 					
 
-					<td>
-						<!-- <form method="post" action="{{url('abms/abonados/'.$dato->id) }}">
-							@can('acoplados_edit')
-							<a href="{{url('abms/abonados/'.$dato->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>
-							@endcan
-							@can('acoplados_destroy')
-							{{csrf_field()}}
-							{{method_field('DELETE')}}
-							<button type="submit" onclick="return confirm('Seguro que desea Borrar?');" class="btn btn-danger">Eliminar</button>
-							@endcan
-
-						</form> -->
-						
-					</td>
+				
 				</tr>
 				
 				@endforeach

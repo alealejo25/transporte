@@ -16,7 +16,7 @@ class Coches extends Migration
         Schema::create('coches', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('interno');
-            $table->interger('nroempresa');
+            $table->integer('nroempresa');
             $table->string('patente',10);
             $table->string('activo',1);
             $table->date('fechavtv')->nullable();

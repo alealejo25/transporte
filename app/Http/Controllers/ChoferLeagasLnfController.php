@@ -70,7 +70,7 @@ class ChoferLeagasLnfController extends Controller
             'legajo'=>'required|unique:choferesleagaslnf|numeric',
             'nombre'=>'required|string|max:30',
             'apellido'=>'required|string|max:30',
-            'dni'=>'required|numeric|max:8',
+            'dni'=>'required|integer|max:8',
             'cuil'=>'required|numeric',
             'direccion'=>'required|string|max:100',
             'codpos'=>'required|numeric',

@@ -27,6 +27,7 @@ class ChoferLeagasLnf extends Model
     'estadocivil',
     'nacionalidad',
     'email',
+    'fechanac',
     'fechaingreso',
     'activo',
     'fechaactivohasta',

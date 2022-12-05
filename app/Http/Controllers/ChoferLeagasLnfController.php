@@ -10,7 +10,10 @@ use App\Gremio;
 use App\Localidad;
 use App\TipoContratacion;
 use App\Empresa;
+use Illuminate\Support\Facades\Storage;
 
+use DB;
+use Dompdf\Dompdf;
 use Laracasts\Flash\Flash;
 class ChoferLeagasLnfController extends Controller
 {
@@ -36,7 +39,7 @@ class ChoferLeagasLnfController extends Controller
             $choferes->tipocontratacion;
             $choferes->obrasocial;
        });
-
+        //dd($choferes);
 
         return view('abms.choferes.index')
             ->with('choferes',$choferes);
@@ -93,11 +96,18 @@ class ChoferLeagasLnfController extends Controller
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
         /*--------------------------------------------------------*/
-        $datos=new ChoferLeagasLnf(request()->except('_token'));
+        /*$datos=new ChoferLeagasLnf(request()->except('_token'));
         
         $datos->activo='1';
         $datos->empresa_id=$request->empresa_id;
-        $datos->save();
+        $datos->save();*/
+
+        $imagen=$request->file('foto')->store('public/choferes');
+        $url=Storage::url($imagen);
+        $datos=new ChoferLeagasLnf(request()->except('_token'));
+        $datos->foto=$url;
+        $datos->activo=1;
+        $datos->save();    
 
         flash::success('Chofer ingresado!!!');
        
@@ -153,8 +163,25 @@ class ChoferLeagasLnfController extends Controller
         $this->validate($request,$campos,$Mensaje);
         /*--------------------------------------------------------*/
  
-        $datosChoferes=request()->except(['_token','_method']);
-        ChoferLeagasLnf::where('id','=',$request->id)->update($datosChoferes);
+        if($request->foto===null){
+           $datos=request()->except(['_token','_method']);
+          ChoferLeagasLnf::where('id','=',$request->id)->update($datos);
+        }
+        else
+        {
+           $imagen=$request->file('foto')->store('public/choferes');
+           $url=Storage::url($imagen);
+
+
+           $datos=request()->except(['_token','_method']);
+           ChoferLeagasLnf::where('id','=',$request->id)->update($datos);
+           $actualizarchofer=ChoferLeagasLnf::where('id',$request->id)
+                        ->update([
+                                'foto'=>$url
+                                 ]);
+        }
+
+        
         flash::success('Se a modificado el Chofer'); 
         return Redirect('abms/choferesleagaslnf');
     }

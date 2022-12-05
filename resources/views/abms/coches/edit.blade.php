@@ -98,20 +98,6 @@
 			<div class="grid grid-cols-1 mt-5 mx-7">
 					<img id="imagenSeleccionada" style="max-height: 300px;">
 			</div>
-			<!-- <div class="grid grid-cols-1 mt-5 mx-7">
-				<label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Subir Foto</label>
-				<div class='flex items-center justify-center w-full'>
-					<label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group'>
-						<div class='flex flex-col items-center justify-center pt-7'>
-							<svg class="w-10 h-10 text-purple group-hover:text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="h1">
-								<p class='text-sm text-gray-400 group-hover=text-purple-600 pt-1 tracking-wider'> Seleccione la Foto</p>
-
-						</div>
-						<input type='file' name="imagen" id="imagen" class="hidden" />
-					</label>
-				</div>
-				
-			</div> -->
 			<div>
 					<img src="{{$coches->foto}}" width="300">
 					<p>{{$coches->foto}}</p>
@@ -128,7 +114,7 @@
 			
 			<div class="Form-group">
 				<br/>
-				<a href="/abms/choferesleagaslnf"><button class="btn btn-success">Regresar</button></a>
+				<a href="/abms/cocheleagaslnf"><button class="btn btn-success">Regresar</button></a>
 			</div>
 
 		</div>

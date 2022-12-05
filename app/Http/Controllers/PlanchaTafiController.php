@@ -233,6 +233,7 @@ $impresora->close();*/
         $anio = date("y");
         if($mes==12){
             $mes=1;
+            $anio=$anio+1;
         }
         else{
         $mes=$mes+1;    

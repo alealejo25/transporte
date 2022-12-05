@@ -14,7 +14,8 @@
 			</div>
 			@endif	
 			
- 			{!!Form::model($choferes,['method'=>'PATCH','route'=>['update']])!!}
+ 			
+ 			{!!Form::open(array('url'=>'abms/choferesleagaslnf/update','method'=>'PATCH','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!} 
 			{{Form::token()}}
 			<div class="Form-group">
 				
@@ -125,6 +126,20 @@
 				<label for="empresa_id">Empresa</label>
 				{!!Form::select('empresa_id',$empresas,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
 			</div>
+
+			<div class="Form-group">
+				<label for="empresa_id">EMPRESA</label>
+				{!!Form::select('empresa_id',$empresas,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+
+				{!! $errors->first('categoria_id','<div class="invalid-feedback">:message</div>')!!}
+			</div> 
+
+						<div class="Form-group">
+				<label for="empresa_id"> Empresa </label>
+				{!!Form::select('empresa_id',$empresas,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+			</div>
+			
+
 			<div class="Form-group">
 				<label for="gremio_id">Gremio</label>
 				{!!Form::select('gremio_id',$gremios,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
@@ -137,6 +152,15 @@
 				<label for="tipocontratacion_id">Tipo de Contratacion</label>
 				{!!Form::select('tipocontratacion_id',$tiposcontratacion,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
 			</div>
+			<div class="grid grid-cols-1 mt-5 mx-7">
+				<img id="imagenSeleccionada" style="max-height: 300px;">
+			</div>
+			<div>
+				<img src="{{$choferes->foto}}" width="300">
+				<p>{{$choferes->foto}}</p>
+				<input type='file' name="foto" id="foto" accept="image/*" >
+			</div>
+
 			<br>
 			<div class="Form-group">
 				<button class="btn btn-primary" type="submit">Guardar</button>

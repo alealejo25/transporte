@@ -52,7 +52,7 @@
 					<td>{{ $dato->modelo->nombre}}</td>
 					
 					<td class="border px-4 py-2">
-						<a title="Interno {{$dato->interno}}" href="{{url('abms/cocheleagaslnf/'.$dato->id.'/informecoche')}}"><img src="{{$dato->foto}}" width="100"></a>
+						<a title="Informe interno {{$dato->interno}}" href="{{url('abms/cocheleagaslnf/'.$dato->id.'/informecoche')}}"><img src="{{$dato->foto}}" width="100"></a>
 					</td>
 
 					

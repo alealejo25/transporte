@@ -127,7 +127,6 @@ class CocheLeagasLnfController extends Controller
         }
         else
         {
-
            $imagen=$request->file('foto')->store('public/coches');
            $url=Storage::url($imagen);
 

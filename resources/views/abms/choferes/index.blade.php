@@ -29,7 +29,7 @@
 					<th>Empresa</th>
 					<th>Categoria</th>
 					<th>Tipo Contrato</th>
-					<!--<th>Foto</th>-->
+					<th>Foto</th>
 					<th>Opciones</th>
 				</thead>
                @foreach ($choferes as $chofer)
@@ -44,9 +44,10 @@
 					<td>{{ $chofer->empresa->denominacion}}</td>
 					<td>{{ $chofer->categoriachofer->nombre}}</td>
 					<td>{{ $chofer->tipocontratacion->nombre}}</td>
-					<!-- <td class="border px-4 py-2">
-						<img src="/imagen/{{$chofer->foto}}" width="60%">
-					</td> -->
+					<td class="border px-4 py-2">
+						<a title="Informe interno {{$chofer->interno}}" href="{{url('abms/choferesleagaslnf/'.$chofer->id.'/informechofer')}}"><img src="{{$chofer->foto}}" width="100"></a>
+					</td>
+
 					<td>
 						
 							<a href="{{url('abms/choferesleagaslnf/'.$chofer->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>

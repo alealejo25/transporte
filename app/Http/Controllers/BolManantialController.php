@@ -8,7 +8,7 @@ use App\ChoferLeagaslnf;
 use App\ServicioLeagasLnf;
 use App\Coche;
 use App\Turno;
-use App\linea;
+use App\Linea;
 use Laracasts\Flash\Flash;
 use Dompdf\Dompdf;
 use Luecano\NumeroALetras\NumeroALetras;

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\BoletoLeagas;
-use App\ChoferLeagaslnf;
+use App\ChoferLeagasLnf;
 use App\ServicioLeagasLnf;
 use App\Coche;
 use App\Turno;

@@ -13,16 +13,11 @@
 				</ul>
 			</div>
 			@endif	
-			
  			
  			{!!Form::open(array('url'=>'abms/choferesleagaslnf/update','method'=>'PATCH','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!} 
 			{{Form::token()}}
 			<div class="Form-group">
-				
-				
 				<input type="hidden" name="id" id="id"  value="{{$choferes->id}}">
-				
-
 			</div>
 			<div class="Form-group">
 				<!-- <label for="nombre">Dominio</label> -->
@@ -66,7 +61,7 @@
 			</div>
 			<div class="Form-group">
 				<label for="localidad_id">Localidad</label>
-				{!!Form::select('localidad_id',$localidades,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+				{!!Form::select('localidad_id',$localidades,$choferes->localidad->id,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
 			</div>
 			<div class="Form-group">
 				<label for="nrocelular">Numero Celular</label>
@@ -120,37 +115,25 @@
 			</div>
 			<div class="Form-group">
 				<label for="obrasocial_id">Obra Social</label>
-				{!!Form::select('obrasocial_id',$obrasociales,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+				{!!Form::select('obrasocial_id',$obrasociales,$choferes->obrasocial->id,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
 			</div>
 			<div class="Form-group">
 				<label for="empresa_id">Empresa</label>
-				{!!Form::select('empresa_id',$empresas,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+				{!!Form::select('empresa_id',$empresas,$choferes->empresa->id,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+
 			</div>
-
-			<div class="Form-group">
-				<label for="empresa_id">EMPRESA</label>
-				{!!Form::select('empresa_id',$empresas,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
-
-				{!! $errors->first('categoria_id','<div class="invalid-feedback">:message</div>')!!}
-			</div> 
-
-						<div class="Form-group">
-				<label for="empresa_id"> Empresa </label>
-				{!!Form::select('empresa_id',$empresas,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
-			</div>
-			
 
 			<div class="Form-group">
 				<label for="gremio_id">Gremio</label>
-				{!!Form::select('gremio_id',$gremios,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+				{!!Form::select('gremio_id',$gremios,$choferes->gremio->id,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
 			</div>
 			<div class="Form-group">
 				<label for="categoriachofer_id">Categoria Chofer</label>
-				{!!Form::select('categoriachofer_id',$categoriaschofer,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+				{!!Form::select('categoriachofer_id',$categoriaschofer,$choferes->categoriachofer->id,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
 			</div>
 			<div class="Form-group">
 				<label for="tipocontratacion_id">Tipo de Contratacion</label>
-				{!!Form::select('tipocontratacion_id',$tiposcontratacion,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+				{!!Form::select('tipocontratacion_id',$tiposcontratacion,$choferes->tipocontratacion->id,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
 			</div>
 			<div class="grid grid-cols-1 mt-5 mx-7">
 				<img id="imagenSeleccionada" style="max-height: 300px;">

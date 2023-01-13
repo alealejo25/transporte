@@ -23,19 +23,16 @@
     <link rel="stylesheet" href="{{asset('assets/lte/select2/dist/css/select2.min.css')}}">
 
 
-
-<!-- agregado para probar fullcalendar
- jQuery 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
--->
-<!-- custom scripts 
-<script type="text/javascript" src="js/script.js"></script> --> 
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
+
+<!-- agregado para probar el modal-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
 
 <!-- fullcalendar 
 <link href="css/fullcalendar.css" rel="stylesheet" />
@@ -222,12 +219,38 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 <li><a href="/abms/cajas"><i class="fa fa-circle-o"></i> Cajas</a></li>
                 @endcan
                  @can('choferes_index')
-                <li><a href="/abms/choferesleagaslnf"><i class="fa fa-circle-o"></i> Choferes</a></li>
+                 <li class="treeview">
+                    <a href="#">
+                      <i class="fa fa-folder"></i> <span>Choferes</span>
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                     <ul class="treeview-menu">
+                      <li><a href="/abms/categoria"><i class="fa fa-circle-o"></i> Categorias</a></li>
+                        <li><a href="/abms/choferesleagaslnf"><i class="fa fa-circle-o"></i> Choferes</a></li>
+                        <li><a href="/abms/gremio"><i class="fa fa-circle-o"></i> Gremios</a></li>
+                        <li><a href="/abms/obrasocial"><i class="fa fa-circle-o"></i> Obra Social</a></li>
+                        <li><a href="/abms/tiposdecontratacion"><i class="fa fa-circle-o"></i> Tipo Contratacion</a></li>
+                    </ul>
+                  </li>
+                @endcan 
+                 @can('choferes_index')
+                 <li class="treeview">
+                    <a href="#">
+                      <i class="fa fa-folder"></i> <span>Coches</span>
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                     <ul class="treeview-menu">
+                      <li><a href="/abms/carroceria"><i class="fa fa-circle-o"></i> Carroceria</a></li>
+                <li><a href="/abms/cocheleagaslnf"><i class="fa fa-circle-o"></i> Coches</a></li>
+                        <li><a href="/abms/marca"><i class="fa fa-circle-o"></i> Marca</a></li>
+                        <li><a href="/abms/modelo"><i class="fa fa-circle-o"></i> Modelo</a></li>
+                        
+                    </ul>
+                  </li>
                 @endcan 
                 
-                @can('choferes_index')
-                <li><a href="/abms/cocheleagaslnf"><i class="fa fa-circle-o"></i> Coches</a></li>
-                @endcan
+
+
                
                 @can('cuentasbancariaspropias_index')
                 <li><a href="/abms/cuentasbancariaspropias"><i class="fa fa-circle-o"></i> Cuentas Bancarias Propias</a></li>
@@ -246,6 +269,25 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('bancos_index')
                 <li><a href="/abms/servicios"><i class="fa fa-circle-o"></i> Servicios </a></li>
                 @endcan
+
+                @can('bancos_index')
+                <li><a href="/bolmanantial/boletosleagas"><i class="fa fa-circle-o"></i> Boletos Leagas </a></li>
+                @endcan
+                @can('bancos_index')
+                <li><a href="/crearrol"><i class="fa fa-circle-o"></i> Crear Rol </a></li>
+                @endcan
+                @can('bancos_index')
+                <li><a href="/asignarrol"><i class="fa fa-circle-o"></i> Asignar Rol </a></li>
+                @endcan
+                @can('bancos_index')
+                <li><a href="/crearpermiso"><i class="fa fa-circle-o"></i> Crear Permiso </a></li>
+                @endcan
+                @can('bancos_index')
+                <li><a href="/asignarpermiso"><i class="fa fa-circle-o"></i> Crear Permiso </a></li>
+                @endcan
+                
+
+                
               </ul>
             </li>
             @endcan
@@ -257,7 +299,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                  <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                @can('proveedores_index')
+                @can('prueba20')
                 <li><a href="/comprasvarias/iniciaroperacion"><i class="fa fa-circle-o"></i> Iniciar Operacion</a></li>
                 @endcan
                 @can('proveedores_index')
@@ -336,6 +378,26 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                </ul>
             </li>
             @endcan
+            
+            @can('boltafi')
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-users"></i> <span>Boleteria Manantial</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                @can('abonadostafi')
+                <li><a href="/bolmanantial/boletosleagas"><i class="fa fa-circle-o"></i> Boletos Leagas</a></li>
+                @endcan
+                @can('abonadostafi')
+                <li><a href="/bolmanantial/boletoslnf"><i class="fa fa-circle-o"></i> Boletos La Nueva Fournier</a></li>
+                @endcan
+                
+               </ul>
+            </li>
+            @endcan
+
+            
             @can('boltafi')
             <li class="treeview">
               <a href="#">

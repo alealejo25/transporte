@@ -40,7 +40,7 @@ Route::get('abms/acoplados/listarPdf','AcopladoController@listarPdf')->name('aco
 Route::get('abms/bancos/listarPdf','BancoController@listarPdf')->name('bancoss_pdf');
 Route::get('abms/bienesdeuso/listarPdf','BienDeUsoController@listarPdf')->name('biendeuso_pdf');
 Route::get('abms/cajas/listarPdf','CajaController@listarPdf')->name('caja_pdf');
-Route::get('abms/categorias/listarPdf','CategoriaController@listarPdf')->name('categorias_pdf');
+//Route::get('abms/categorias/listarPdf','CategoriaController@listarPdf')->name('categorias_pdf');
 Route::get('abms/clientes/listarPdf','ClienteController@listarPdf')->name('clientes_pdf');
 Route::get('abms/cuentasbancariaspropias/listarPdf','CuentaBancariaPropiaController@listarPdf')->name('cuentasbancariaspropias_pdf');
 Route::get('abms/choferes/listarPdf','ChoferController@listarPdf')->name('choferes_pdf');
@@ -67,10 +67,27 @@ Route::get('pagos/proveedor/{id?}/pdf','PagoController@listarPdfOPProveedor')->n
 
 Route::resource('abms/acoplados','AcopladoController')->middleware('permission:acoplados_index');
 
+//-----Administracion-----rOLES Y PERMISOS//
+Route::get('crearrol','AdministracionController@crearrol');
+Route::post('guardarrol','AdministracionController@guardarrol');
+Route::get('asignarrol','AdministracionController@asignarrol');
+Route::post('guardarasignarrol','AdministracionController@guardarasignarrol');
+Route::get('crearpermiso','AdministracionController@crearpermiso');
+Route::post('guardarpermiso','AdministracionController@guardarpermiso');
+Route::get('asignarpermiso','AdministracionController@asignarpermiso');
+Route::post('guardarasignarpermiso','AdministracionController@guardarasignarpermiso');
 
-Route::resource('abms/usuarios','UserController')->middleware('permission:usuarios_index'); 
-Route::resource('abms/roles','RoleController');
-Route::resource('abms/camiones','CamionController')->middleware('permission:camiones_index'); 
+
+
+Route::get('abms/administracion/roles','AdministracionController@index');
+Route::get('abms/administracion/roles/{rol?}/editar','AdministracionController@edit');
+Route::get('abms/administracion/roles/store','AdministracionController@store');
+//Route::get('abms/administracion/roles/create','AdministracionController@create');
+//Route::get('abms/administracion/roles/store','AdministracionController@store');
+//Route::resource('abms/usuarios','UserController'); 
+//Route::resource('abms/usuarios','UserController')->middleware('permission:usuarios_index'); 
+//Route::resource('abms/roles','RoleController');
+//Route::resource('abms/camiones','CamionController')->middleware('permission:camiones_index'); 
 
 //Route::resource('abms/choferes','ChoferController')->middleware('permission:choferes_index');
 //Route::resource('abms/choferesleagaslnf','ChoferLeagasLnfController')->middleware('permission:choferes_index');
@@ -79,7 +96,7 @@ Route::resource('abms/puntos','PuntoController')->middleware('permission:chofere
 Route::resource('abms/servicios','ServicioController')->middleware('permission:choferes_index');
 Route::resource('abms/tarifas','TarifaController');
 Route::resource('abms/estaciones','EstacionController');
-Route::resource('abms/categorias','CategoriaController');
+//Route::resource('abms/categorias','CategoriaController');
 Route::resource('abms/articulos','ArticuloController')->middleware('permission:articulos_index');
 Route::resource('abms/clientes','ClienteController');
 Route::resource('abms/bancos','BancoController')->middleware('permission:bancos_index');
@@ -152,6 +169,12 @@ Route::get('abms/choferesleagaslnf/{id?}/desactivar', 'ChoferLeagasLnfController
 Route::patch('abms/choferesleagaslnf/guardardesactivar', 'ChoferLeagasLnfController@guardardesactivar')->name('guardardesactivar');
 Route::patch('abms/choferesleagaslnf/update','ChoferLeagasLnfController@update')->name('update');
 
+Route::resource('abms/tiposdecontratacion','TipoContratacionController');
+Route::resource('abms/obrasocial','ObraSocialController');
+Route::resource('abms/categoria','CategoriaController');
+Route::resource('abms/gremio','GremioController');
+
+
 
 //**************************************************************
 //***COCHES LEAGAS LNF***************************************
@@ -164,6 +187,17 @@ Route::get('abms/cocheleagaslnf/{id}/edit','CocheLeagasLnfController@edit')->nam
 Route::get('abms/cocheleagaslnf/{id}/informecoche','CocheLeagasLnfController@informecoche')->name('informecoche');
 Route::patch('abms/cocheleagaslnf/guardaredicioncoche','CocheLeagasLnfController@guardaredicioncoche')->name('guardaredicioncoche');
 
+Route::resource('abms/carroceria','CarroceriaController');
+Route::resource('abms/modelo','ModeloController');
+Route::resource('abms/marca','MarcaController');
+
+
+//**************************************************************
+//***BOLETERIA MANANTIAL***************************************
+//**************************************************************
+Route::get('bolmanantial/boletosleagas','BolManantialController@index')->name('bolmanantial.boletosleagas');
+Route::get('bolmanantial/boletosleagas/create','BolManantialController@create')->name('bolmanantial.boletosleagas.create');
+Route::post('bolmanantial/boletosleagas/store','BolManantialController@store')->name('store');
 
 //**************************************************************
 //***BOLETERIA TAFI VIEJO***************************************
@@ -200,7 +234,6 @@ Route::get('boltafi/ventasdeabonos/imprimirabono','PlanchaTafiController@imprimi
 Route::get('boltafi/ventasdeabonos/venta','PlanchaTafiController@venta')->name('venta');
 Route::post('boltafi/ventasdeabonos/guardarventa','PlanchaTafiController@guardarventa')->name('guardarventa');
 Route::post('boltafi/ventasdeabonos/buscarabonado', 'PlanchaTafiController@buscarabonado')->name('buscarabonado');
-
 Route::get('boltafi/ventasdeabonos/impresion','PlanchaTafiController@impresion')->name('impresion');
 //FIN VENTAS
 

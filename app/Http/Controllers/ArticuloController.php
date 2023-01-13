@@ -69,7 +69,6 @@ class ArticuloController extends Controller
     public function edit($id)
     {
         $articulos=Articulo::find($id);
-
         $categorias= Categoria::orderBy('id','DESC')->pluck('nombre','id');
         $clientes= Cliente::orderBy('id','DESC')->pluck('nombre','id');
         return view('abms.articulos.edit')

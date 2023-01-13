@@ -52,10 +52,14 @@ class RoleController extends Controller
 
     public function store(Request $request)
     {
+    	$user=User::find(9);//CONSULTA
+		$user->assignRole('prueba1');
+		dd($user);
 		$role=Role::create($request->all());
     	//actualizar permisos
 		$role->permissions()->sync($request->get('permissions'));
     	
+
     	return redirect()->route('roles.index')
     		->with('info','Role Guardado con exito');
     }

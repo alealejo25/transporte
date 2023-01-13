@@ -19,6 +19,7 @@ class PermissionsTableSeeder extends Seeder
    public function run()
     {
 
+	
 	DB::table('cajas')->insert([
         'denominacion'  => 'CAJA LA NUEVA FOURNIER',
         'descripcion'  => 'CAJA PRINCIPAL',

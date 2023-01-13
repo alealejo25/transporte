@@ -87,8 +87,7 @@ class AbonadoController extends Controller
         $datos->each(function($datos){
             $datos->tipoabono;
         });
-        return view('abms.abonados.documentacion')
-            ->with('datos',$datos);
+        return view('abms.abonados.documentacion');
 
     }
     public function guardardocumentacion(Request $request)

@@ -11,6 +11,8 @@ class User extends Authenticatable
 {
     use Notifiable;
     use HasRoles;
+    
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -66,6 +68,10 @@ class User extends Authenticatable
     public function MovimentoCajaTafi()
     {
         return $this->hasMany('App\MovimentoCajaTafi');
+    }
+     public function BoletoLeagas()
+    {
+        return $this->hasMany('App\BoletoLeagas');
     }
      public function PlanchaTafi()
     {

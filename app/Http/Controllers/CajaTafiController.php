@@ -342,14 +342,13 @@ class CajaTafiController extends Controller
 
       public function verrecaudaciontafi(Request $request)
     {
-        $datos=Recaudacion::orderBy('fecha','ASC')->paginate(50);
+        $datos=Recaudacion::orderBy('fecha','DESC')->paginate(50);
         
         return view('boltafi.cajas.verrecaudaciontafi')->with('datos',$datos);
     }
   public function imprimirrecaudaciontafi($id)
     {
-        
-       
+              
         $datos=Recaudacion::where('id',$id)->get();
         $datos->each(function($datos){
           $datos->user;

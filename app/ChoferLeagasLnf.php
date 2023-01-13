@@ -22,7 +22,6 @@ class ChoferLeagasLnf extends Model
     'localidad_id',
     'nrocelular',
     'nrofijo',
-    'categoriachofer_id',
     'sexo',
     'estadocivil',
     'nacionalidad',
@@ -31,7 +30,9 @@ class ChoferLeagasLnf extends Model
     'fechaingreso',
     'activo',
     'fechaactivohasta',
+    'empresa_id',
     'gremio_id',
+    'categoriachofer_id',
     'tipocontratacion_id',
     'obrasocial_id',
     'foto',
@@ -61,6 +62,11 @@ class ChoferLeagasLnf extends Model
     {
         return $this->belongsTo('App\Gremio');
     }
+    public function BoletoLeagas()
+    {
+        return $this->hasMany('App\BoletoLeagas');
+    }
+
 
     public function scopeSearch($query,$name)
     {

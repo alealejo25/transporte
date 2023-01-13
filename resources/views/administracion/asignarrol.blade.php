@@ -1,0 +1,47 @@
+@extends('layouts.admin')
+@section('contenido')
+	<div class="row">
+		<div class="col-lg-6 col-lg-6 col-lg-6 col-xs-12">
+			<h3>ASIGNAR ROL</h3>
+
+			@if(count($errors)>0)
+			<div class="alert alert-danger" role="alert">
+				<ul>
+					
+					@foreach ($errors->all() as $error)
+					<li>{{$error}}</li>
+					@endforeach
+				</ul>
+			</div>
+			@endif	
+ 			{!!Form::open(array('url'=>'guardarasignarrol','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!} 
+			<!-- {!!Form::model(['method'=>'POST','route'=>['camiones.store']])!!}-->
+			{{Form::token()}}
+			<div class="Form-group">
+				<label for="rol">ROL</label>
+				<input type="text" name="rol" class="form-control {{$errors->has('rol')?'is-invalid':''}}" placeholder="Ingrese la descripcion de la mano de obra ..." value="{{old('rol')}}">
+				{!! $errors->first('rol','<div class="invalid-feedback">:message</div>')!!}
+			</div>
+			<div class="Form-group">
+				<label for="user">USUARIO</label>
+				<input type="text" name="user" class="form-control {{$errors->has('user')?'is-invalid':''}}" placeholder="Ingrese la descripcion de la mano de obra ..." value="{{old('user')}}">
+				{!! $errors->first('user','<div class="invalid-feedback">:message</div>')!!}
+			</div>
+						
+			<br>
+			<div class="Form-group">
+				<button class="btn btn-primary" type="submit">Guardar</button>
+				<button class="btn btn-danger" type="reset">Cancelar</button>
+			</div>
+
+			
+			{!!Form::close()!!}
+			
+			<div class="Form-group">
+				<br/>
+				<a href="/"><button class="btn btn-success">Regresar</button></a>
+			</div>
+
+		</div>
+	</div> 
+@endsection

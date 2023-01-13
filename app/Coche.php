@@ -51,6 +51,10 @@ class Coche extends Model
     {
         return $this->belongsTo('App\Empresa');
     }
+     public function BoletoLeagas()
+    {
+        return $this->hasMany('App\BoletoLeagas');
+    }
       
     public function scopeSearch($query,$name)
     {

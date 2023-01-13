@@ -50,4 +50,13 @@ class Empresa extends Model
     {
         return $this->hasMany('App\Coche');
     }
+    public function Linea()
+    {
+        return $this->hasMany('App\Linea');
+    }
+
+    public function ServicioLeagasLnf()
+    {
+        return $this->hasMany('App\ServicioLeagasLnf');
+    }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Categoria;
+use App\CategoriaChofer;
 
 class CategoriaController extends Controller
 {
@@ -14,15 +14,15 @@ class CategoriaController extends Controller
     }
     public function index(Request $request)
     {
-        $categorias=Categoria::search($request->name)->orderBy('nombre','ASC')->paginate(10);
-        return view('abms.categorias.index')
-        ->with('categorias',$categorias);
+        $datos=CategoriaChofer::search($request->name)->orderBy('nombre','ASC')->paginate(10);
+        return view('abms.choferes.categoria.index')
+        ->with('datos',$datos);
 
     }
 
      public function create()
     {
-        return view('abms.categorias.create');
+        return view('abms.choferes.categoria.create');
     }
 
      public function store(Request $request)
@@ -34,9 +34,9 @@ class CategoriaController extends Controller
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
        $datosCategoria=request()->except('_token');
-       Categoria::insert($datosCategoria);
-       //return response()->json($datosCamion);
-       return Redirect('abms/categorias')->with('Mensaje','Categoria Agregada con éxito');
+       CategoriaChofer::insert($datosCategoria);
+       
+       return Redirect('abms/categoria')->with('Mensaje','Categoria Agregada con éxito');
     }
 
      public function update(Request $request, $id)
@@ -44,20 +44,20 @@ class CategoriaController extends Controller
         $datosCategorias=request()->except(['_token','_method']);
       
 
-        Categoria::where('id','=',$id)->update($datosCategorias);
-       return Redirect('abms/categorias')->with('Mensaje','Categoria Modificada con éxito!!!!!');
+        CategoriaChofer::where('id','=',$id)->update($datosCategorias);
+       return Redirect('abms/categoria')->with('Mensaje','Categoria Modificada con éxito!!!!!');
     }
 
     public function edit($id)
     {
-        $categorias=Categoria::find($id);
-        return view('abms.categorias.edit')
-            ->with('categorias',$categorias);
+        $datos=CategoriaChofer::find($id);
+        return view('abms.choferes.categoria.edit')
+            ->with('datos',$datos);
     }
      public function destroy($id)
         {
-            Categoria::destroy($id);
-            return Redirect('abms/categorias')->with('Mensaje','Categoria Eliminada con éxito!!!!!!');
+            CategoriaChofer::destroy($id);
+            return Redirect('abms/categoria')->with('Mensaje','Categoria Eliminada con éxito!!!!!!');
         }
 
 

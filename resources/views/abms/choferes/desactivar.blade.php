@@ -69,7 +69,7 @@
 			
 			<div class="Form-group">
 				<br/>
-				<a href="/abms/choferes"><button class="btn btn-success">Regresar</button></a>
+				<a href="/abms/choferesleagaslnf"><button class="btn btn-success">Regresar</button></a>
 			</div>
 
 		</div>

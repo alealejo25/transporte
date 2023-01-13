@@ -39,13 +39,11 @@ class ChoferLeagasLnfController extends Controller
             $choferes->tipocontratacion;
             $choferes->obrasocial;
        });
-        //dd($choferes);
-
         return view('abms.choferes.index')
             ->with('choferes',$choferes);
     }
 
-       public function create()
+    public function create()
     {
         $localidades=Localidad::orderBy('nombre','ASC')->pluck('nombre','id');
         $gremios=Gremio::orderBy('nombre','ASC')->pluck('nombre','id');

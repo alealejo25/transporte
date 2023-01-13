@@ -28,6 +28,7 @@ class PlanchaTafiController extends Controller
     public function impresion(Request $request)
     {
         Permission::Create(['name' =>'nuevo']);
+        Role::Create(['analista' =>'analista']);
         $admin = Role::find(9);
         $admin->givePermissionTo([
             'nuevo',

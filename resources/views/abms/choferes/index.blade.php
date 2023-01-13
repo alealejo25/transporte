@@ -50,11 +50,9 @@
 
 					<td>
 						
-							<a href="{{url('abms/choferesleagaslnf/'.$chofer->id.'/edit')}}"><input type="button" value="Editar" class="btn btn-info">	</a>
-							<a href="{{url('abms/choferesleagaslnf/'.$chofer->id.'/desactivar')}}"><input type="button" value="Desactivar" class="btn btn-info">	</a>
+							<a href="{{url('abms/choferesleagaslnf/'.$chofer->id.'/edit')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
+							<a href="{{url('abms/choferesleagaslnf/'.$chofer->id.'/desactivar')}}"><button class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i></button></a>
 
-
-						
 													
 							{{csrf_field()}}
 					</td>
@@ -65,7 +63,7 @@
 		</div>
 		{{$choferes->render()}}
 	</div>
+	 
 </div>
 
 @endsection
-

@@ -84,7 +84,9 @@ class CocheLeagasLnfController extends Controller
         $datos->save();*/
 
         $imagen=$request->file('foto')->store('public/coches');
+        //$imagen=$request->file('foto')->store('public/coches');
         $url=Storage::url($imagen);
+        
         $datos=new Coche(request()->except('_token'));
         $datos->foto=$url;
         $datos->activo=1;

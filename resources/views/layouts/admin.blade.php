@@ -218,7 +218,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('cajas_index')
                 <li><a href="/abms/cajas"><i class="fa fa-circle-o"></i> Cajas</a></li>
                 @endcan
-                 @can('choferes_index')
+                 @can('abms_choferes')
                  <li class="treeview">
                     <a href="#">
                       <i class="fa fa-folder"></i> <span>Choferes</span>

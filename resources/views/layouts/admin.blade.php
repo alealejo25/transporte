@@ -379,17 +379,17 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
             </li>
             @endcan
             
-            @can('boltafi')
+            @can('bolmanantial')
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i> <span>Boleteria Manantial</span>
                 <i class="fa fa-angle-left pull-right"></i>
               </a>
               <ul class="treeview-menu">
-                @can('abonadostafi')
+                @can('boletosleagas')
                 <li><a href="/bolmanantial/boletosleagas"><i class="fa fa-circle-o"></i> Boletos Leagas</a></li>
                 @endcan
-                @can('abonadostafi')
+                @can('boletoslnf')
                 <li><a href="/bolmanantial/boletoslnf"><i class="fa fa-circle-o"></i> Boletos La Nueva Fournier</a></li>
                 @endcan
                 

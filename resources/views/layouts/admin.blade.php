@@ -233,7 +233,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                     </ul>
                   </li>
                 @endcan 
-                 @can('choferes_index')
+                @can('abms_coches')
                  <li class="treeview">
                     <a href="#">
                       <i class="fa fa-folder"></i> <span>Coches</span>

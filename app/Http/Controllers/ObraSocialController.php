@@ -21,8 +21,8 @@ class ObraSocialController extends Controller
     {
         /*VALIDACION -----------------------------------------*/
         $campos=[
-            'nombre'=>'required|string|max:50',
-            'codigo'=>'required|string|max:10',
+            'nombre'=>'required|string|max:100',
+            'codigo'=>'required|string|max:50',
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);

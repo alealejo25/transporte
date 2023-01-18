@@ -15,8 +15,8 @@ class Tiposcontratacion extends Migration
     {
     Schema::create('tiposcontratacion', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('codigo')->unsigned();
-            $table->string('nombre',40);
+            $table->string('codigo',50)->unsigned();
+            $table->string('nombre',80);
             $table->timestamps();
         });
     }

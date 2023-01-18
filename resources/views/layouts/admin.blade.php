@@ -599,7 +599,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
         <div class="pull-right hidden-xs">
           <b>Version</b> 1.0.0
         </div>
-        <strong>Copyright &copy; 2022 - AG Ingenieria de Software.</strong> Todos los derechos reservados.
+        <strong>Copyright &copy; 2023 - AG Ingenieria de Software.</strong> Todos los derechos reservados.
       </footer>
   
         <!-- SweetAlert2 -->

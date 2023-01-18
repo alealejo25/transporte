@@ -15,7 +15,7 @@ class Obrasociales extends Migration
     {
     Schema::create('obrasociales', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('codigo')->unsigned();
+            $table->string('codigo',100)->unsigned();
             $table->string('nombre',40);
             $table->timestamps();
         });

@@ -159,7 +159,7 @@ $impresora->close();*/
                 return Redirect('boltafi/planchastafi/mostraranularplancha')->with('Mensaje','Se crearon las planchas!!!!'); 
                 }
                 else{
-                    dd('vendida');
+                    
                     $actualizarplancha=PlanchaTafi::where('numero',$request->numero)
                         ->update([
                                 'motivo'=>$request->motivo,

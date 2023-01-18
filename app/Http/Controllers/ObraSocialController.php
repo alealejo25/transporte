@@ -23,8 +23,7 @@ class ObraSocialController extends Controller
         $campos=[
             'nombre'=>'required|string|max:100',
             'codigo'=>'required|string|max:50',
-            'nombre'=>'required|string|max:50',
-            'codigo'=>'required|string|max:10',
+
 
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];

@@ -65,71 +65,74 @@ class BolManantialController extends Controller
         $this->validate($request,$campos,$Mensaje);
         */
         /*--------------------------------------------------------*/
-        $rest = substr($request->horafin, 0,-3);
-        $rest1 = substr($request->horafin, -3);
-        if($rest==0){
-            $horainicio=new DateTime($request->horainicio);
-            $rest=20;
-            $horarestadas=$rest.$rest1;
-            $horarestadas=new DateTime($horarestadas);
-             $newhorafin=$horainicio->modify('-4 hours');
-             dd($newhorafin);
-        }
-        else{
-            if($rest==1){
-                $horainicio=new DateTime($request->horainicio);
-                $rest=21;
-                $horarestadas=$rest.$rest1;
-                $horarestadas=new DateTime($horarestadas);
-                 $newhorafin=$horainicio->modify('-3 hours');
-                 dd($newhorafin);
-            }
-            else{
-                if($rest==2){
-                    $horainicio=new DateTime($request->horainicio);
-                $rest=22;
-                $horarestadas=$rest.$rest1;
-                $horarestadas=new DateTime($horarestadas);
-                $newhorafin=$horainicio->modify('-2 hours');
-                 dd($newhorafin);
-                }
-                else{
-                   if($rest==3){
-                    $horainicio=new DateTime($request->horainicio);
-                    $rest=23;
-
-                    $horarestadas=$rest.$rest1;
-                    $horarestadas=new DateTime($horarestadas);
-                    $newhorafin=$horainicio->modify('-1 hours');
-                    dd($newhorafin);
-                    } 
-                }
-            }
-            
-        }
-      
+        $docenoche=new DateTime('23:59');
         $horainicio=new DateTime($request->horainicio);
         $horafin=new DateTime($request->horafin);
-       
-        $horasdetrabajo=new DateTime('07:30');
-        $horaspararestar=new DateTime('12:00');
-        $docenoche=new DateTime('00:00');
+        $rest = substr($request->horafin, 0,-3); // extraigo los 2 primeros caracteres
+        $rest1 = substr($request->horafin, -3);// estraido los 3 ultimos caracteres
+        if($rest == 0 || $rest == 1 || $rest == 2 || $rest == 3){
+            if($rest==0){
+                //$horainicio=new DateTime($request->horainicio);
+                $rest=20;
+                $horarestadas=$rest.$rest1;
+                $newhorafin=new DateTime($horarestadas);
+                $newhorainicio=$horainicio->modify('-4 hours');
+                $canths = $newhorainicio->diff($newhorafin);
+                $canthorastrabajadas=$canths->format('%H:%I');
+                            $horastrabajadas=new DateTime($canthorastrabajadas);
+
+            }
+            else{
+                if($rest==1){
+                    //$horainicio=new DateTime($request->horainicio);
+                    $rest=21;
+                    $horarestadas=$rest.$rest1;
+                    $newhorafin=new DateTime($horarestadas);
+                    $newhorainicio=$horainicio->modify('-4 hours');
+                    
+                    $canths = $newhorainicio->diff($newhorafin);
+                    $canthorastrabajadas=$canths->format('%H:%I');
+                            $horastrabajadas=new DateTime($canthorastrabajadas);
 
 
-        if($horafin>=$docenoche){
-            //dd($horafin);
-          $newhorafin=$horafin->modify('-2 hours');//HACER ALGO CON ESTO
-          $newhorainicio=$horainicio->modify('-2 hours');
-            $canths = $newhorainicio->diff($newhorafin);          
-          
+                }
+                else{
+                    if($rest==2){
+                       //$horainicio=new DateTime($request->horainicio);
+                        $rest=22;
+                        $horarestadas=$rest.$rest1;
+                        $newhorafin=new DateTime($horarestadas);
+                        $newhorainicio=$horainicio->modify('-4 hours');
+                        $canths = $newhorainicio->diff($newhorafin);
+                        $canthorastrabajadas=$canths->format('%H:%I');
+                            $horastrabajadas=new DateTime($canthorastrabajadas);
+ 
+                    }
+                    else{
+                       if($rest==3){
+                            //$horainicio=new DateTime($request->horainicio);
+                            $rest=23;
+                            $horarestadas=$rest.$rest1;
+                            $newhorafin=new DateTime($horarestadas);
+                            $newhorainicio=$horainicio->modify('-4 hours');
+                            $canths = $newhorainicio->diff($newhorafin);
+                            $canthorastrabajadas=$canths->format('%H:%I');
+                            $horastrabajadas=new DateTime($canthorastrabajadas);
+
+                        } 
+                    }
+                }
+            
+            }
+        }
+        else{
+            $canths = $horainicio->diff($horafin);
+            $canthorastrabajadas=$canths->format('%H:%I');
+            $horastrabajadas=new DateTime($canthorastrabajadas);
         }
 
-        $canths = $horainicio->diff($horafin);
-
-        $canthorastrabajadas=$canths->format('%H:%I');
-
-        $horastrabajadas=new DateTime($canthorastrabajadas);
-
+       
+        $horasdetrabajo=new DateTime('07:30');
 
         $datos=new BoletoLeagas(request()->except('_token'));
 

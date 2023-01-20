@@ -14,7 +14,7 @@ class CategoriaController extends Controller
     }
     public function index(Request $request)
     {
-        $datos=CategoriaChofer::search($request->name)->orderBy('nombre','ASC')->paginate(10);
+        $datos=CategoriaChofer::search($request->name)->orderBy('nombre','ASC')->paginate(30);
         return view('abms.choferes.categoria.index')
         ->with('datos',$datos);
 

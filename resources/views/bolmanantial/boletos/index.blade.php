@@ -59,12 +59,12 @@
 					<td align="right">{{ $dato->observaciones}}</td>
 
 					<td>
-					<form method="post">
+					
 						<a href="{{url('datos/anticipos/'.$dato->id.'/finalizardato')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
-						<a href="{{url('datos/anticipos/'.$dato->id.'/finalizardato')}}"><button class="btn btn-success"><i class="fa fa-print" aria-hidden="true"></i></button></a>
+						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id.'/informeboletoleagas')}}"><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true"></i></button></a>
 
 						
-					</form>
+					
 
 
 					</td>

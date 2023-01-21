@@ -16,13 +16,14 @@ use Carbon\Carbon;
 use App;
 use \PDF;
 use DateTime;
+use DB;
 
 
 class BolManantialController extends Controller
 {
  public function index(Request $request)
     {
-        $datos=BoletoLeagas::search($request->name)->orderBy('fecha','DESC')->paginate(30);
+        $datos=BoletoLeagas::search($request->name)->orderBy('fecha','DESC')->paginate(40);
     
         $datos->each(function($datos){
             $datos->linea;
@@ -157,4 +158,33 @@ class BolManantialController extends Controller
        Flash::success('Servicio agregado correctamente');
        return Redirect('bolmanantial/boletosleagas');
         }
+    public function informeboletoleagas($id)
+    {
+
+       $datos=BoletoLeagas::where('id',$id)->get();
+            
+        $datos->each(function($datos){
+            $datos->linea;
+            $datos->choferleagaslnf;
+            $datos->servicioleagaslnf;
+            $datos->turno; 
+            $datos->coche;
+            $datos->user;
+       });
+
+        $pdf=\PDF::loadView('bolmanantial.boletos.informeboletoleagas',['datos'=>$datos])
+        ->setPaper('a4');
+        return $pdf->download('informeboletoleagas.pdf');
+        
+    }
+
+    public function boletosleagas()
+    {
+        //$datos=BoletoLeagas::select('id')->groupBy('chofer_id')->get();
+        $datos=BoletoLeagas::selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horas')->selectRaw('SUM(cantpasajes) as pasajes')->selectRaw('count(*) as sadas')->groupBy('chofer_id')->get();
+        dd($datos);
+        $abonados=Abonado::orderBy('apellido','ASC')->get();
+        //$abonados=Abonado::orderBy('dni','ASC')->pluck('dni','id');
+        return view('boltafi.reportes.cierredecajas')->with('abonados',$abonados);
+    }
 }

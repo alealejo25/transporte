@@ -198,7 +198,10 @@ Route::resource('abms/marca','MarcaController');
 Route::get('bolmanantial/boletosleagas','BolManantialController@index')->name('bolmanantial.boletosleagas');
 Route::get('bolmanantial/boletosleagas/create','BolManantialController@create')->name('bolmanantial.boletosleagas.create');
 Route::post('bolmanantial/boletosleagas/store','BolManantialController@store')->name('store');
+Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialController@informeboletoleagas')->name('informeboletoleagas');
 
+Route::get('bolmanantial/reportes/boletosleagas','BolManantialController@boletosleagas')->name('boletoslegas');
+Route::post('bolmanantial/reportes/reporteboletosleagas','BolManantialController@reporteboletosleagas')->name('reporteboletosleagas');
 //**************************************************************
 //***BOLETERIA TAFI VIEJO***************************************
 //**************************************************************

@@ -89,6 +89,7 @@ class ChoferLeagasLnfController extends Controller
             'gremio_id'=>'required',
             'categoriachofer_id'=>'required',
             'tipocontratacion_id'=>'required',
+            'foto'=>'required',
 
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];

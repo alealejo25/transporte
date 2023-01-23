@@ -25,7 +25,7 @@
     									{!! $errors->first('fechaf','<div class="invalid-feedback">:message</div>')!!}
                                     </div>
                                 </div>
-							    <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Proveedor
+							    <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Chofer
                                     <div class="form-group">           
     								   {!!Form::select('chofer_id',$chofer,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
     							    </div>

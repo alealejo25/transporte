@@ -14,22 +14,14 @@
 		@endcan
 		<a href="acoplados/listarPdf"><button  class="btn btn-primary">Reporte PDF</button></a></h3>
 	</div>
-				<!-- BUSCADOR DE aCOPLADO-->
-			{!!Form::open(['route'=>'boltafi.planchastafi','method'=>'GET','class'=>'navbar-form pull-right'])!!}
-				<div class="input-group">
-
-					{!! Form::text('name',null,['class'=>'form-control','placelholder'=>'Buscar plancha..','aria-describedby'=>'search'])!!}
-					<span class="input-group-addon"  id="search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
-				</div>
-			{!!Form::close()!!}
- 			<!-- FIN DEL BUSCADOR-->	
+			
 	
 </div>
 
 <div class="row">
 	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 		<div class="table-responsive">
-			<table class="table table-striped table-bordered table-condensed table-hover">
+			<table id="tabla" class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
 					<th>#</th>
 					<th>Numero</th>
@@ -82,3 +74,4 @@
 </div>
 
 @endsection
+

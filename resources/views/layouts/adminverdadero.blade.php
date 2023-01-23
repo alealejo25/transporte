@@ -3,43 +3,29 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Leagas-LNF | Sistema Integral</title>
+    <title>Transporte La Nueva Fournier | Sistema Integral</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-
-
-
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap.min.css">
     <!-- Bootstrap 3.3.5 -->
     <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
+    
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('css/AdminLTE.min.css')}}">
-    <!-- daterange picker -->
-  
+    <!-- daterange picker 
+  <link rel="stylesheet" href="../../plugins/daterangepicker/daterangepicker.css">-->
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{asset('css/_all-skins.min.css')}}">
-   <!-- <link rel="stylesheet" href="{{asset('css/submit.css')}}">-->
     <link rel="apple-touch-icon" href="{{asset('img/apple-touch-icon.png')}}">
     <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('assets/lte/select2/dist/css/select2.min.css')}}">
 
 
+<!-- include the style 
 
-<!-- include the style -->
-
-
-
-
-<!-- agregado para probar fullcalendar
- jQuery -->
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
--->
-<!-- custom scripts --> 
-<!--<script type="text/javascript" src="js/script.js"></script>  -->
-
+<script type="text/javascript" src="js/script.js"></script> -->
 <!-- datatables --> 
 <script src=
 "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
@@ -52,6 +38,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
 
+<!-- agregado para probar el modal-->
+<!--- sacadp para probar datable<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 
 
 
@@ -60,19 +48,14 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
-  
-
-
-
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
+<!-- para datatable-->
 <script src=
 "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     </script>
-
-
- <!----------------------------------------------------------------->
+<!----------------------------------------------------------------->
     <!-- estilo para el tamaño del select2 -->
     <style>
       .select2-selection{
@@ -627,56 +610,113 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
         </div>
         <strong>Copyright &copy; 2023 - AG Ingenieria de Software.</strong> Todos los derechos reservados.
       </footer>
-      
+  
 <!-- datatables --> 
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap.min.js"></script>
-
-
 <!--------------->
+        
+
+    
+    <!-- jQuery 2.1.4 -->
+    
     <!-- Bootstrap 3.3.5 -->
     <script src="{{asset('js/bootstrap.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('js/app.min.js')}}"></script>
-  <!--  <script src="{{asset('js/submit.js')}}"></script>-->
     <!-- Select2 -->
     <script src="{{asset('assets/lte/select2/dist/js/select2.min.js')}}"></script>
-    <!--<script src="{{asset('js/alertify.js')}}"></script>-->
-    
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
-  $(document).ready(function () {
-    $('#tabla').DataTable({
-      "language":{
-        "search": "Buscar", 
-        "lengthMenu": "Mostrar _MENU_ registros por pagina",
-        "info": "Mostrando pagina _PAGE_ de _PAGES_",
-        "paginate": {
-                "previous": "Anterior",
-                "next": "Siguiente",
-                "first": "Primero",
-                "last": "Ultimo"
 
-        }
-      }
-    });
 
-});
-</script>
+
+
+   
     <script>
       $(document).ready(function(){
       $("select").select2({
         width: '100%'
         });
-     });
-  
+      });
     </script>
 
+    <script>
+      
+    var campos_max=10;   //max de 10 campos
+    var x = 0;
+    $('#add_field').click (function(e) {
+                e.preventDefault();     //prevenir novos clicks
 
+                if (x < campos_max) {
+                        $('#listas').append('<div id="tabs" >\
+                                                <div class="Form-group col-lg-6 col-lg-6">\
+                                                  <label for="fecha">Dia</label>\
+                                                  <input type="date" name="fecha[]" id="fecha" class="form-control" placeholder="Fecha Inicio..." required>\
+                                                </div>\
+                                                <div class="Form-group col-lg-12">\
+                                                  <div><label for="pv">ABONOS 122 POR PLANCA (10 UNIDADES)</label></div>\
+                                                </div>\
+                                                <div class="Form-group col-lg-4 col-lg-4">\
+                                                  <label for="totalarendirp">Total a Rendir</label>\
+                                                  <input type="number" step=0.01 name="totalarendirp[]" id="totalarendirp" class="form-control" placeholder="Total a Rendir...">\
+                                                </div>\
+                                                <div class="col-lg-4 col-lg-4">\
+                                                  <label for="abonodesdep">Abonos Desde</label>\
+                                                  <input type="number" name="abonodesdep[]" id="abonodesdep" class="form-control" placeholder="Abonos desde...">\
+                                                </div>\
+                                                <div class="col-lg-4 col-lg-4">\
+                                                  <label for="abonohastap">Abonos Hasta</label>\
+                                                  <input type="number" name="abonohastap[]" id="abonohastap" class="form-control" placeholder="Abonos hasta...">\
+                                                  <br>\
+                                                </div>\
+                                                <div class="Form-group col-lg-12">\
+                                                   <div><label for="pv">ABONOS POR UNIDAD</label></div>\
+                                                </div>\
+                                                <div class="Form-group col-lg-4 col-lg-4">\
+                                                  <label for="totalarendiru">Total a Rendir</label>\
+                                                  <input type="number" step=0.01 name="totalarendiru[]" id="totalarendiru" class="form-control" placeholder="Total a Rendir...">\
+                                                </div>\
+                                                <div class="col-lg-4 col-lg-4">\
+                                                  <label for="abonodesdeu">Abonos Desde</label>\
+                                                  <input type="number" name="abonodesdeu[]" id="abonodesdeu" class="form-control" placeholder="Abonos desde...">\
+                                                </div>\
+                                                <div class="col-lg-4 col-lg-4">\
+                                                  <label for="abonohastau">Abonos Hasta</label>\
+                                                  <input type="number" name="abonohastau[]" id="abonohastau" class="form-control" placeholder="Abonos hasta...">\
+                                                  <br>\
+                                                </div>\
+                                                 <div class="Form-group col-lg-12">\
+                                                   <div><label for="pv">CIERRE DE VTAS METROPOLITANA</label></div>\
+                                                </div>\
+                                                <div class="Form-group col-lg-4 col-lg-4">\
+                                                  <label for="totalarendirm">Total a Rendir</label>\
+                                                  <input type="number" step=0.01 name="totalarendirm[]" id="totalarendirm" class="form-control" placeholder="Total a Rendir...">\
+                                                </div>\
+                                                <div class="col-lg-4 col-lg-4">\
+                                                  <label for="cierrelote">Cierre de lote</label>\
+                                                  <input type="number" name="cierrelote[]" id="cierrelote" class="form-control" placeholder="Cierre de Lote...">\
+                                                </div>\
+                                                <div class="Form-group col-lg-4 col-lg-4">\
+                                                   <button class="btn btn-primary remover_campo" id="tabs1" >Remover</button>\
+                                                </div>\
+                                                 <label for="fecha">_______________________________________________________________________________________</label>\
+                                            </div>\
+                                            ');
+                    
+                x++;
 
-  
-
+                                              $('#tabs').attr('id', 'tr'+x);   
+                                              $('#tabs1').attr('id', 'tr'+x); 
+                }
+        });
+        // Remover o div anterior
+        $('#listas').on("click",".remover_campo",function(e) {
+                e.preventDefault();
+                hola=$(this).get(0).id;
+                $("#"+hola).remove();
+                x--;
+        });
+    </script>
 
     @yield("script")
 

@@ -180,11 +180,44 @@ class BolManantialController extends Controller
 
     public function boletosleagas()
     {
+      /*  $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
         //$datos=BoletoLeagas::select('id')->groupBy('chofer_id')->get();
-        $datos=BoletoLeagas::selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horas')->selectRaw('SUM(cantpasajes) as pasajes')->selectRaw('count(*) as sadas')->groupBy('chofer_id')->get();
-        dd($datos);
-        $abonados=Abonado::orderBy('apellido','ASC')->get();
-        //$abonados=Abonado::orderBy('dni','ASC')->pluck('dni','id');
-        return view('boltafi.reportes.cierredecajas')->with('abonados',$abonados);
+        $datos=BoletoLeagas::select('chofer_id')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SUM(cantpasajes) as pasajes')->selectRaw('SUM(toquesanden) as toqueanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoil) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->get();
+        $datos->each(function($datos){
+            $datos->linea;
+            $datos->choferleagaslnf;
+            $datos->servicioleagaslnf;
+            $datos->turno; 
+            $datos->coche;
+            $datos->user;
+       });
+*/
+        $chofer=ChoferLeagaslnf::orderBy('nombre','ASC')->pluck('nombre','id');
+        return view('bolmanantial.reportes.boletoleagas')
+         ->with('chofer',$chofer);
+       
+    }
+    public function reporteboletosleagas(Request $request)
+    {   
+        $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+      
+        // $datos=BoletoLeagas::select('chofer_id','choferleagaslnf.apellido','choferleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SUM(cantpasajes) as cantpasajes')->selectRaw('SUM(recaudacion) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoil) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->get();
+
+        $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SUM(cantpasajes) as cantpasajes')->selectRaw('SUM(recaudacion) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoil) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
+        $datos->each(function($datos){
+            $datos->linea;
+            $datos->choferleagaslnf;
+            $datos->servicioleagaslnf;
+            $datos->turno; 
+            $datos->coche;
+            $datos->user;
+       });
+        //dd($datos);
+        $chofer=ChoferLeagaslnf::orderBy('nombre','ASC')->get();
+        $pdf=\PDF::loadView('bolmanantial.reportes.reporteboletosleagas',['datos'=>$datos, 'chofer'=>$chofer, 'fi'=>$fi, 'ff'=>$ff])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reporteboletosleagas.pdf');       
     }
 }

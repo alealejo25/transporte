@@ -22,23 +22,25 @@
 		<div class="table-responsive">
 			<table id="tabla" class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
-					
-					<th>#</th>
-					<th>Fecha Rec.</th>
-					<th>Desde</th>
-					<th>Hasta</th>
-					<th>Venta Abono</th>
-					<th>Abono 50%</th>
-					<th>Posnet</th>
-					<th>Total Ventas</th>
-					<th>Monto neto</th>
-					<th>Fisico</th>
-					<th>Diferencia</th>
-					<th>Planchas Vend.</th>
-					<th>Planchas Anuladas</th>
-					<th>Observacion</th>
+					<tr>
+						<th>#</th>
+						<th>Fecha Rec.</th>
+						<th>Desde</th>
+						<th>Hasta</th>
+						<th>Venta Abono</th>
+						<th>Abono 50%</th>
+						<th>Posnet</th>
+						<th>Total Ventas</th>
+						<th>Monto neto</th>
+						<th>Fisico</th>
+						<th>Diferencia</th>
+						<th>Planchas Vend.</th>
+						<th>Planchas Anuladas</th>
+						<th>Observacion</th>
+					</tr>
 				</thead>
                @foreach ($datos as $dato)
+               <tbody>
 				<tr>
 					<td>{{ $dato->id}}</td>
 					<td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
@@ -66,7 +68,7 @@
 						
 					</td>
 				</tr>
-				
+				</tbody>
 				@endforeach
 			</table>
 		</div>

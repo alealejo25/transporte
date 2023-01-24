@@ -37,6 +37,7 @@
 						<th>Planchas Vend.</th>
 						<th>Planchas Anuladas</th>
 						<th>Observacion</th>
+						<th>Opciones</th>
 					</tr>
 				</thead>
                @foreach ($datos as $dato)

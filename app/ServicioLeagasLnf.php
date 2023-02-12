@@ -13,8 +13,10 @@ class ServicioLeagasLnf extends Model
     protected $fillable = [
         'id',
         'numero',
-        'nombre',
-        'empresa_id'
+        'empresa_id',
+        'ramal_id',
+        'turno_id',
+        'linea_id'
     ];
 /*    public function ChoferLeagasLnf()
     {
@@ -24,10 +26,23 @@ class ServicioLeagasLnf extends Model
     {
         return $this->belongsTo('App\Empresa');
     }
+    public function Linea()
+    {
+        return $this->belongsTo('App\Linea');
+    }
+        public function Ramal()
+    {
+        return $this->belongsTo('App\Ramal');
+    }
+        public function Turno()
+    {
+        return $this->belongsTo('App\Turno');
+    }
     public function BoletoLeagas()
     {
         return $this->hasMany('App\BoletoLeagas','id');
     }
+
     
     public function scopeSearch($query,$name)
     {

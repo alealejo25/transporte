@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Serviciosleagaslnf extends Migration
+class Turnos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,10 @@ class Serviciosleagaslnf extends Migration
      */
     public function up()
     {
-          Schema::create('serviciosleagaslnf', function (Blueprint $table) {
+       Schema::create('turnos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('numero');
             $table->string('nombre',50);
-            $table->integer('empresa_id')->unsigned()->nullable();
             $table->timestamps();
-
-            $table->foreign('empresa_id')->references('id')->on('empresas');
-
         });
     }
 
@@ -32,6 +27,6 @@ class Serviciosleagaslnf extends Migration
      */
     public function down()
     {
-         Schema::dropIfExists('serviciosleagaslnf');//
+        Schema::dropIfExists('turnos');//
     }
 }

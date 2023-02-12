@@ -28,12 +28,12 @@ class Boletosleagas extends Migration
             $table->integer('gasoil');
             $table->integer('toquesanden');
             $table->decimal('valortoquesanden',10,2);
+            $table->string('taller',2)->nullable();
             $table->string('observaciones',120)->nullable();
             $table->integer('condicion')->unsigned()->default(0);
             $table->integer('linea_id')->nullable()->unsigned();
             $table->integer('chofer_id')->nullable()->unsigned();
             $table->integer('servicio_id')->nullable()->unsigned();
-            $table->integer('turno_id')->nullable()->unsigned();
             $table->integer('coche_id')->nullable()->unsigned();
             $table->biginteger('user_id')->unsigned()->nullable();
             
@@ -42,7 +42,7 @@ class Boletosleagas extends Migration
             $table->foreign('linea_id')->references('id')->on('lineas');
             $table->foreign('chofer_id')->references('id')->on('choferesleagaslnf');
             $table->foreign('servicio_id')->references('id')->on('serviciosleagaslnf');
-            $table->foreign('turno_id')->references('id')->on('turnos');
+            
             $table->foreign('coche_id')->references('id')->on('coches');
             $table->foreign('user_id')->references('id')->on('users');
 

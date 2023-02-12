@@ -23,24 +23,35 @@ class BolManantialController extends Controller
 {
  public function index(Request $request)
     {
-        $datos=BoletoLeagas::search($request->name)->orderBy('fecha','DESC')->paginate(40);
+       //  $datos=BoletoLeagas::search($request->name)->orderBy('fecha','DESC')->paginate(40);
     
-        $datos->each(function($datos){
-            $datos->linea;
-            $datos->choferleagaslnf;
-            $datos->servicioleagaslnf;
-            $datos->turno; 
-            $datos->coche;
-       });
 
+
+        $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->where('serviciosleagaslnf.empresa_id',1)->get();
+        $datos->each(function($datos){
+             $datos->linea;
+             $datos->choferleagaslnf;
+             $datos->servicioleagaslnf;
+             $datos->coche;
+        });
+//dd($datos);
         return view('bolmanantial.boletos.index')
             ->with('datos',$datos);
     }
      public function create()
     {
-        $linea=Linea::orderBy('numero','ASC')->pluck('numero','id');
-        $choferleagaslnf=ChoferLeagaslnf::orderBy('nombre','ASC')->pluck('nombre','id');
-        $servicioleagaslnf=ServicioLeagasLnf::orderBy('nombre','ASC')->pluck('nombre','id');
+        //--------- ESTO ES PARA LOS SERVICIOS DE LA NUEVA FOUNUIER ------------//
+        $linea=Linea::where('empresa_id',1)->orderBy('numero','ASC')->get();
+
+        //$choferleagaslnf=ChoferLeagaslnf::orderBy('nombre','ASC')->pluck('nombre','id');
+        $choferleagaslnf=ChoferLeagaslnf::orderBy('nombre','ASC')->get();
+        $servicioleagaslnf=ServicioLeagasLnf::where('empresa_id',1)->orderBy('numero','ASC')->get();
+        $servicioleagaslnf->each(function($servicioleagaslnf){
+            $servicioleagaslnf->linea;
+            $servicioleagaslnf->ramal;
+            $servicioleagaslnf->empresa;
+       });
+       // $servicioleagaslnf=ServicioLeagasLnf::orderBy('nombre','ASC')->pluck('nombre','id');
         $coche=Coche::orderBy('interno','ASC')->pluck('interno','id');
         $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
        
@@ -49,8 +60,7 @@ class BolManantialController extends Controller
                ->with('linea',$linea)
                ->with('choferleagaslnf',$choferleagaslnf)
                ->with('servicioleagaslnf',$servicioleagaslnf)
-               ->with('coche',$coche)
-               ->with('turno',$turno);
+               ->with('coche',$coche);
     }
     public function store(Request $request)
      {
@@ -138,7 +148,7 @@ class BolManantialController extends Controller
         $datos=new BoletoLeagas(request()->except('_token'));
 
         $datos->valorhorasrestantes=0;
-        $datos->valortoquesanden=$request->toquesanden*63;
+        $datos->valortoquesanden=$request->toquesanden*90;
         $datos->horastotal=$canthorastrabajadas;
         $datos->user_id=$request->user_id;
         if($horastrabajadas>$horasdetrabajo){
@@ -151,8 +161,7 @@ class BolManantialController extends Controller
             //$cerohs=$cero->format('%H:%I');
             $datos->horassobrantes=0;
         }
-         
-        
+       
         $datos->save(); 
       
        Flash::success('Servicio agregado correctamente');
@@ -161,18 +170,29 @@ class BolManantialController extends Controller
     public function informeboletoleagas($id)
     {
 
-       $datos=BoletoLeagas::where('id',$id)->get();
+       // $datos=BoletoLeagas::where('id',$id)->get();
             
-        $datos->each(function($datos){
-            $datos->linea;
-            $datos->choferleagaslnf;
-            $datos->servicioleagaslnf;
-            $datos->turno; 
-            $datos->coche;
-            $datos->user;
-       });
+       //  $datos->each(function($datos){
+       //      $datos->linea;
+       //      $datos->choferleagaslnf;
+       //      $datos->servicioleagaslnf;
+       //      $datos->turno; 
+       //      $datos->coche;
+       //      $datos->user;
+       // });
 
-        $pdf=\PDF::loadView('bolmanantial.boletos.informeboletoleagas',['datos'=>$datos])
+
+        $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->where('boletosleagas.id',$id)->get();
+        $datos->each(function($datos){
+             $datos->linea;
+             $datos->choferleagaslnf;
+             $datos->servicioleagaslnf;
+             $datos->coche;
+        });
+        $taller=$datos[0]->taller;
+
+ 
+        $pdf=\PDF::loadView('bolmanantial.boletos.informeboletoleagas',['datos'=>$datos,'taller'=>$taller])
         ->setPaper('a4');
         return $pdf->download('informeboletoleagas.pdf');
         
@@ -220,4 +240,24 @@ class BolManantialController extends Controller
         ->setPaper('a4','landscape');
         return $pdf->download('reporteboletosleagas.pdf');       
     }
+
+ public function buscarservicios(Request $request)
+    {
+        $linea=Linea::where('id',$request->linea)->get();
+
+        $datos=ServicioLeagasLnf::where('linea_id',$linea[0]->id)->orderBy('numero','ASC')->get();
+        $datos->each(function($datos){
+            $datos->linea;
+            $datos->ramal;
+            $datos->turno; 
+            $datos->empresa;
+       });
+       
+
+       return $datos;
+
+        
+    }
+
+    
 }

@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{csrf_token()}}">
     <title>Leagas-LNF | Sistema Integral</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -649,9 +650,18 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
   $(document).ready(function () {
     $('#tabla').DataTable({
       "language":{
+        "decimal": "",
         "search": "Buscar", 
+        "emptyTable": "No hay información",
         "lengthMenu": "Mostrar _MENU_ registros por pagina",
-        "info": "Mostrando pagina _PAGE_ de _PAGES_",
+        "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+        "infoEmpty": "Mostrando 0 de 0 de 0 Entradas",
+        "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+        "processing": "Procesando...",
+        "loadingRecords": "Cargando...",
+        "zeroRecords": "Sin resultados encontrados",
+        "infoPostFix": "",
+        "thousands": ",",
         "paginate": {
                 "previous": "Anterior",
                 "next": "Siguiente",
@@ -660,6 +670,9 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
 
         }
       }
+
+
+      
     });
 
 });

@@ -26,11 +26,12 @@ class BoletoLeagas extends Model
         'toquesanden',
         'valortoquesanden',
         'observaciones',
+        'taller',
         'condicion',
         'linea_id',
         'chofer_id',
         'servicio_id',
-        'turno_id',
+        
         'use_id',
         'coche_id'
     ];
@@ -50,11 +51,7 @@ class BoletoLeagas extends Model
     {
         return $this->belongsTo('App\ServicioLeagasLnf','servicio_id');
     }
-    public function Turno()
-    {
-        return $this->belongsTo('App\Turno');
-    }
-    public function Coche()
+       public function Coche()
     {
         return $this->belongsTo('App\Coche');
     }

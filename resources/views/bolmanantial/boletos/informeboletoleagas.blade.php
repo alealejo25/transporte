@@ -95,7 +95,7 @@
     <br>
     @foreach ($datos as $dato)
 		<h3>Fecha {{date('d-m-Y', strtotime($dato->fecha))}} - Chofer: {{$dato->choferleagaslnf->nombre}}</h3>
-		<h3>Linea: {{$dato->linea->numero}} - Interno: {{$dato->coche->interno}} - Turno: {{$dato->turno->nombre}} - Servicio: {{$dato->servicioleagaslnf->nombre}}</h3>
+		<h3>Linea: {{$dato->linea->numero}} - Interno: {{$dato->coche->interno}} - Turno: {{$dato->nombre}} - Servicio: {{$dato->servicioleagaslnf->nombre}}</h3>
 	@endforeach
 	<div>
 		<h3>Datos de Venta de Boletos</h3>
@@ -179,7 +179,28 @@
                 @endforeach                               
             </tbody>
         </table>
+    </div>
+    @if($taller=='SI')
+    
+    <div>
+        <h3>TALLER</h3>
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+                <tr> 
+                    <th>Observacion de entrada al taller</th>
+                                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($datos as $dato)
+                <tr>
+                    <td> {{$dato->observaciones}}</td>
+                </tr>
+                @endforeach                               
+            </tbody>
+        </table>
     </div> 
+    @endif
 <br>
     <br>
     <br>

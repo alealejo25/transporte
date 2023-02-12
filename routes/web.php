@@ -202,6 +202,7 @@ Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialCon
 
 Route::get('bolmanantial/reportes/boletosleagas','BolManantialController@boletosleagas')->name('boletoslegas');
 Route::post('bolmanantial/reportes/reporteboletosleagas','BolManantialController@reporteboletosleagas')->name('reporteboletosleagas');
+Route::post('bolmanantial/boletosleagas/buscarservicios', 'BolManantialController@buscarservicios')->name('buscarservicios');
 //**************************************************************
 //***BOLETERIA TAFI VIEJO***************************************
 //**************************************************************

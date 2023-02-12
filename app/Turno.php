@@ -14,9 +14,10 @@ protected $table="turnos";
     'id',
     'nombre'
     ];
-     public function BoletoLeagas()
+   
+     public function ServicioLeagasLnf()
     {
-        return $this->hasMany('App\BoletoLeagas');
+        return $this->hasMany('App\ServicioLeagasLnf');
     }
 
 

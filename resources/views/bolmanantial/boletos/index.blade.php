@@ -18,50 +18,48 @@
 		<div class="table-responsive ">
 			<table id="tabla" class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
-					<th>#</th>
 					<th>Fecha</th>
 					<th>Chofer</th>
-					<th>Servicio</th>
+					<th>Serv.</th>
 					<th>Turno</th>
-					<th>Interno</th>
+					<th>Int.</th>
 					<th>Inicio</th>
 					<th>Cierre</th>
 					<th>Cant. Pax</th>
 					<th>Recaudacion</th>
-					<th>horaI</th>
-					<th>horaF</th>
+					<!--<th>horaI</th>
+					<th>horaF</th>-->
 					<th>horaT</th>
 					<th>horaS</th>
-					<th>anden</th>
-					<th>Valortoque</th>
-					<th>observaciones</th>
+					<!--<th>anden</th>
+					<th>Valortoque</th>-->
+					<th>Observ.</th>
 
 					<th>Opciones</th>
 				</thead>
                @foreach ($datos as $dato)
 				<tr>
-					<td>{{ $dato->id}}</td>
 					<td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
-					<td>{{ $dato->choferleagaslnf->nombre}}, {{$dato->choferleagaslnf->apellido}}</td>
-					<td>{{ $dato->servicioleagaslnf->nombre}}</td>
-					<td>{{ $dato->turno->nombre}}</td>
+					<td>{{ $dato->nombrechofer}}, {{$dato->apellido}}</td>
+					<td>{{ $dato->numero}}</td>
+					<td>{{ $dato->nombre}}</td>
 					<td align="right">{{ $dato->coche->interno}}</td>
 					<td align="right">{{ $dato->iniciotarjeta}}</td>
 					<td align="right">{{ $dato->fintarjeta}}</td>
 					<td align="right">{{ $dato->cantpasajes}}</td>
 					<td align="right">$ {{number_format($dato->recaudacion,2,",",".")}}</td>
-					<td align="right">{{ $dato->horainicio}}</td>
-					<td align="right">{{ $dato->horafin}}</td>
+					<!--<td align="right">{{ $dato->horainicio}}</td>
+					<td align="right">{{ $dato->horafin}}</td>-->
 					<td align="right">{{ $dato->horastotal}}</td>
 					<td align="right">{{ $dato->horassobrantes}}</td>
-					<td align="right">{{ $dato->toquesanden}}</td>
-					<td align="right">{{ $dato->valortoquesanden}}</td>
+					<!--<td align="right">{{ $dato->toquesanden}}</td>
+					<td align="right">{{ $dato->valortoquesanden}}</td>-->
 					<td align="right">{{ $dato->observaciones}}</td>
 
 					<td>
 					
 						<a href="{{url('datos/anticipos/'.$dato->id.'/finalizardato')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
-						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id.'/informeboletoleagas')}}"><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true"></i></button></a>
+						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id_boleto.'/informeboletoleagas')}}"><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true"></i></button></a>
 
 						
 					
@@ -75,7 +73,7 @@
 				@endforeach
 			</table>
 		</div>
-		{{$datos->render()}}
+		
 						<button class="print">Imprimir Documento</button>
 	</div>
 	

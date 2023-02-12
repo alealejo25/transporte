@@ -24,9 +24,17 @@ class Linea extends Model
     {
         return $this->belongsTo('App\Empresa');
     }
+    public function Ramal()
+    {
+        return $this->hasMany('App\Ramal');
+    }
         public function BoletoLeagas()
     {
         return $this->hasMany('App\BoletoLeagas');
+    }
+     public function ServicioLeagasLnf()
+    {
+        return $this->hasMany('App\ServicioLeagasLnf');
     }
 
     public function scopeSearch($query,$name)

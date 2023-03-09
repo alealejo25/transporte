@@ -12,24 +12,25 @@
     						{{Form::token()}}
                             <!--ENCABEZADO-->
                             <div class="row">
-                               <div class="col-sm-12 col-md-2 col-lg-2">Fecha inicial
-                                   <div class="form-group">           
-    	                                <input type="date" name="fechai" id="fechai" class="form-control {{$errors->has('fechai')?'is-invalid':''}}" placeholder="Fecha Inicial..." value="{{old('fechai')}}">
+                                <div>
+                                    <div class="col-sm-12 col-md-2 col-lg-2">Fecha inicial
+                                         <input type="date" name="fechai" id="fechai" class="form-control {{$errors->has('fechai')?'is-invalid':''}}" placeholder="Fecha Inicial..." value="{{old('fechai')}}">
     									{!! $errors->first('fechai','<div class="invalid-feedback">:message</div>')!!}
-                                  </div>
+                                    </div>
                                 </div>
-
-                                <div class="col-sm-12 col-md-2 col-lg-2">Fecha final
-                                    <div class="form-group">           
-    	                                <input type="date" name="fechaf" id="fechaf" class="form-control {{$errors->has('fechaf')?'is-invalid':''}}" placeholder="Fecha del Cheque..." value="{{old('fechaf')}}">
+                                <div>
+                                    <div class="col-sm-12 col-md-2 col-lg-2">Fecha final
+                                        <input type="date" name="fechaf" id="fechaf" class="form-control {{$errors->has('fechaf')?'is-invalid':''}}" placeholder="Fecha del Cheque..." value="{{old('fechaf')}}">
     									{!! $errors->first('fechaf','<div class="invalid-feedback">:message</div>')!!}
                                     </div>
                                 </div>
-							    <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Chofer
-                                    <div class="form-group">           
-    								   {!!Form::select('chofer_id',$chofer,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
-    							    </div>
+                                <div>
+    							     <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Chofer
+                                 	   {!!Form::select('chofer_id',$chofer,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+                                    </div>
                                 </div>
+                            </div>
+                            <div>
 		                        <div class="col-sm-12 col-md-2 col-lg-2"> 
                                     <div class="form-group">      
                                         <button type="submit" class="btn btn-info mt-4 mobile-only">Ver</button>

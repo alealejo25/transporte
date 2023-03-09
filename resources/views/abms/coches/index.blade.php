@@ -18,7 +18,7 @@
 		<div class="table-responsive">
 			<table id="tabla" class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
-					<th>Interno2</th>
+					<th>Interno</th>
 					<th>Linea</th>
 					<th class="border px-4 py-2">Empresa</th>
 					<th>Patente</th>

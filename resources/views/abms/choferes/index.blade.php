@@ -24,7 +24,7 @@
 					<th class="border px-4 py-2">Apellido</th>
 					<th>DNI</th>
 					<th>CUIL</th>
-					<th>Nro Telefono</th>
+					<th>Telefono</th>
 					<th>Fec. Ingreso</th>
 					<th>Empresa</th>
 					<th>Categoria</th>
@@ -61,7 +61,7 @@
 				@endforeach
 			</table>
 		</div>
-		{{$choferes->render()}}
+
 	</div>
 	 
 </div>

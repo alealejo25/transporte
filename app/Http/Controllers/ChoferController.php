@@ -31,7 +31,7 @@ class ChoferController extends Controller
      */
     public function index(Request $request)
     {
-        $choferes=Chofer::search($request->name)->orderBy('nombre','ASC')->paginate(20);
+        $choferes=Chofer::search($request->name)->orderBy('nombre','ASC')->get();
 
         //esto es para las relacion de la tabla acoplados con camion
         $choferes->each(function($choferes){

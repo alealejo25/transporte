@@ -28,7 +28,8 @@ class ChoferLeagasLnfController extends Controller
      */
     public function index(Request $request)
     {
-        $choferes=ChoferLeagasLnf::search($request->name)->where('activo','1')->orderBy('nombre','ASC')->paginate(30);
+        
+        $choferes=ChoferLeagasLnf::where('activo','1')->orderBy('nombre','ASC')->get();
 
         //esto es para las relacion de la tabla acoplados con camion
         $choferes->each(function($choferes){

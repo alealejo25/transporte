@@ -198,11 +198,20 @@ Route::resource('abms/marca','MarcaController');
 Route::get('bolmanantial/boletosleagas','BolManantialController@index')->name('bolmanantial.boletosleagas');
 Route::get('bolmanantial/boletosleagas/create','BolManantialController@create')->name('bolmanantial.boletosleagas.create');
 Route::post('bolmanantial/boletosleagas/store','BolManantialController@store')->name('store');
-Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialController@informeboletoleagas')->name('informeboletoleagas');
+Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialController@infor
+   meboletoleagas')->name('informeboletoleagas');
 
 Route::get('bolmanantial/reportes/boletosleagas','BolManantialController@boletosleagas')->name('boletoslegas');
 Route::post('bolmanantial/reportes/reporteboletosleagas','BolManantialController@reporteboletosleagas')->name('reporteboletosleagas');
 Route::post('bolmanantial/boletosleagas/buscarservicios', 'BolManantialController@buscarservicios')->name('buscarservicios');
+Route::get('bolmanantial/boletos/servicios', 'BolManantialController@servicios')->name('servicios');
+Route::get('bolmanantial/boletos/createservicio', 'BolManantialController@createservicio')->name('createservicio');
+Route::post('bolmanantial/boletosleagas/storeservicio','BolManantialController@storeservicio')->name('storeservicio');
+Route::get('bolmanantial/boletos/{id}/editarservicio','BolManantialController@editarservicio')->name('editarservicio');
+Route::patch('bolmanantial/boletos/guardaredicionservicios','BolManantialController@guardaredicionservicios')->name('guardaredicionservicios');
+Route::get('bolmanantial/boletos/ramal', 'BolManantialController@ramal')->name('ramal');
+Route::get('bolmanantial/boletos/createramal', 'BolManantialController@createramal')->name('createramal');
+Route::post('bolmanantial/boletosleagas/storeramal','BolManantialController@storeramal')->name('storeramal');
 //**************************************************************
 //***BOLETERIA TAFI VIEJO***************************************
 //**************************************************************

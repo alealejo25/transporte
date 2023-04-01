@@ -9,7 +9,10 @@ use App\ServicioLeagasLnf;
 use App\Coche;
 use App\Turno;
 use App\Linea;
+use App\Empresa;
+use App\Ramal;
 use Laracasts\Flash\Flash;
+
 use Dompdf\Dompdf;
 use Luecano\NumeroALetras\NumeroALetras;
 use Carbon\Carbon;
@@ -34,7 +37,7 @@ class BolManantialController extends Controller
              $datos->servicioleagaslnf;
              $datos->coche;
         });
-//dd($datos);
+
         return view('bolmanantial.boletos.index')
             ->with('datos',$datos);
     }
@@ -252,12 +255,154 @@ class BolManantialController extends Controller
             $datos->turno; 
             $datos->empresa;
        });
-       
-
        return $datos;
-
-        
     }
 
+    public function servicios(Request $request)
+    {
+        $datos=ServicioLeagasLnf::orderBy('numero','ASC')->get();
+
+        //esto es para las relacion de la tabla acoplados con camion
+        $datos->each(function($datos){
+            $datos->empresa;
+            $datos->linea;
+            $datos->ramal;
+            $datos->turno;
+        });
+        //----------------------------------------------------------
+        //dd($servicios);
+        return view('bolmanantial.boletos.servicios')
+            ->with('datos',$datos);
+       
+        $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->where('serviciosleagaslnf.empresa_id',1)->get();
+        $datos->each(function($datos){
+             $datos->linea;
+             $datos->choferleagaslnf;
+             $datos->servicioleagaslnf;
+             $datos->coche;
+        });
+
+        return view('bolmanantial.boletos.index')
+            ->with('datos',$datos);
+    }
+public function createservicio()
+    {
+        $turno=Turno::orderBy('nombre','ASC')->get();
+        $empresa=Empresa::orderBy('denominacion','ASC')->get();
+        $linea=Linea::orderBy('numero','ASC')->get();
+        $ramal=Ramal::orderBy('nombre','ASC')->get();
+
+        return view('bolmanantial.boletos.createservicio')
+               ->with('turno',$turno)
+               ->with('empresa',$empresa)
+               ->with('linea',$linea)
+               ->with('ramal',$ramal);
+    }
+
+
+    public function storeservicio(Request $request)
+    {
+
+        /*VALIDACION -----------------------------------------*/
+        $campos=[
+            'numero'=>'required|integer',
+            'empresa'=>'required',
+            'turno'=>'required',
+            'ramal'=>'required',
+            'linea'=>'required',
+            ];
+
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+        
+        
+            $datos=new ServicioLeagasLnf(request()->except('_token'));
+            $datos->linea_id=$request->linea;
+            $datos->empresa_id=$request->empresa;
+            $datos->turno_id=$request->turno;
+            $datos->ramal_id=$request->ramal;
+
+            $datos->save();
+               
+
+        Flash::success('Se creo el servicio!!!!');
+       
+       return Redirect('bolmanantial/boletos/servicios')->with('Mensaje','Se creo el servicio!!!!');
+    }
+
+     public function editarservicio($id)
+    {
+        $servicios=ServicioLeagasLnf::find($id);
+         $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
+        //$turno=Turno::orderBy('nombre','ASC')->get();
+        $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
+        $linea=Linea::orderBy('numero','ASC')->pluck('numero','id');
+        $ramal=Ramal::orderBy('nombre','ASC')->pluck('nombre','id');
+        return view('bolmanantial.boletos.editarservicio')
+            ->with('servicios',$servicios)
+            ->with('turno',$turno)
+            ->with('ramal',$ramal)
+            ->with('empresa',$empresa)
+            ->with('linea',$linea);
+    }
+
+public function guardaredicionservicios(Request $request)
+    {
+        $campos=[
+            'numero'=>'required|integer',
+            'turno_id'=>'required',
+            'empresa_id'=>'required',
+            'ramal_id'=>'required',
+            'linea_id'=>'required',
+
+
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+       $datos=request()->except('_token');
+  
+        $datos=request()->except(['_token','_method']);
+        ServicioLeagasLnf::where('id','=',$request->id)->update($datos);
+ 
+       return Redirect('bolmanantial/boletos/servicios')->with('Mensaje','Se modifico el servicio!!!!');
+    }
+
+        public function ramal(Request $request)
+    {
+        $datos=Ramal::orderBy('nombre','ASC')->get();
+        return view('bolmanantial.boletos.ramal')
+        ->with('datos',$datos);
+    }
+
+
+public function createramal()
+    {
+        return view('bolmanantial.boletos.createramal');
+               
+    }
+
+public function storeramal(Request $request)
+    {
+
+        /*VALIDACION -----------------------------------------*/
+        $campos=[
+            'nombre'=>'required|string|max:50',
+            
+            ];
+
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+        
+        
+            $datos=new Ramal(request()->except('_token'));
+
+            $datos->save();
+               
+
+        Flash::success('Se creo el Ramal!!!!');
+       
+       return Redirect('bolmanantial/boletos/ramal')->with('Mensaje','Se creo el Ramal!!!!');
+    }
+    
     
 }

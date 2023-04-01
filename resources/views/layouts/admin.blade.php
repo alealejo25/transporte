@@ -416,10 +416,12 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('boletosleagas')
                 <li><a href="/bolmanantial/reportes/boletosleagas"><i class="fa fa-circle-o"></i> Reporte Boletos LNF</a></li>
                 @endcan
-<!--                 @can('boletoslnf')
-                <li><a href="/bolmanantial/boletoslnf"><i class="fa fa-circle-o"></i> Boletos La Nueva Fournier</a></li>
-                @endcan -->
-                
+                @can('boletoslnf')
+                <li><a href="/bolmanantial/boletos/servicios"><i class="fa fa-circle-o"></i> Servicios</a></li>
+                @endcan 
+                @can('boletoslnf')
+                <li><a href="/bolmanantial/boletos/ramal"><i class="fa fa-circle-o"></i> Ramales</a></li>
+                @endcan
                </ul>
             </li>
             @endcan

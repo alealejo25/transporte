@@ -20,9 +20,9 @@ class Ramal extends Model
     {
         return $this->hasMany('App\ChoferLeagasLnf');
     }*/
-    public function Lineas()
+    public function Linea()
     {
-        return $this->belongsTo('App\Lineas');
+        return $this->belongsTo('App\Linea');
     }
      public function ServicioLeagasLnf()
     {

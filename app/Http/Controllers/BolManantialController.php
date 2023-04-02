@@ -47,7 +47,7 @@ class BolManantialController extends Controller
         $linea=Linea::where('empresa_id',1)->orderBy('numero','ASC')->get();
 
         //$choferleagaslnf=ChoferLeagaslnf::orderBy('nombre','ASC')->pluck('nombre','id');
-        $choferleagaslnf=ChoferLeagaslnf::orderBy('nombre','ASC')->get();
+        $choferleagaslnf=ChoferLeagaslnf::orderBy('legajo','ASC')->get();
         $servicioleagaslnf=ServicioLeagasLnf::where('empresa_id',1)->orderBy('numero','ASC')->get();
         $servicioleagaslnf->each(function($servicioleagaslnf){
             $servicioleagaslnf->linea;
@@ -151,7 +151,7 @@ class BolManantialController extends Controller
         $datos=new BoletoLeagas(request()->except('_token'));
 
         $datos->valorhorasrestantes=0;
-        $datos->valortoquesanden=$request->toquesanden*90;
+        $datos->valortoquesanden=$request->toquesanden*117;
         $datos->horastotal=$canthorastrabajadas;
         $datos->user_id=$request->user_id;
         if($horastrabajadas>$horasdetrabajo){
@@ -368,26 +368,32 @@ public function guardaredicionservicios(Request $request)
     }
 
         public function ramal(Request $request)
-    {
+    {   
         $datos=Ramal::orderBy('nombre','ASC')->get();
+        $datos->each(function($datos){
+             $datos->linea;
+        });
         return view('bolmanantial.boletos.ramal')
-        ->with('datos',$datos);
+            ->with('datos',$datos);
     }
 
 
 public function createramal()
     {
-        return view('bolmanantial.boletos.createramal');
+        $linea=Linea::orderBy('numero','ASC')->get();
+        return view('bolmanantial.boletos.createramal')
+            ->with('linea',$linea);
                
     }
 
 public function storeramal(Request $request)
     {
+    //    dd($request);
 
         /*VALIDACION -----------------------------------------*/
         $campos=[
             'nombre'=>'required|string|max:50',
-            
+            'linea_id'=>'required',
             ];
 
         $Mensaje=["required"=>'El :attribute es requerido'];
@@ -401,7 +407,8 @@ public function storeramal(Request $request)
 
         Flash::success('Se creo el Ramal!!!!');
        
-       return Redirect('bolmanantial/boletos/ramal')->with('Mensaje','Se creo el Ramal!!!!');
+       return Redirect('bolmanantial/boletos/ramal
+        ')->with('Mensaje','Se creo el Ramal!!!!');
     }
     
     

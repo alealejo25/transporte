@@ -26,9 +26,15 @@
 				{!! $errors->first('nombre','<div class="invalid-feedback">:message</div>')!!}
 
 			</div>
-
-			 
-			
+			<div class="form-group col-lg-6 col-md-4 col-sm-12">
+ 				<label for="linea">Seleccione Linea</label>
+				<select name="linea_id" id="linea_id" class="form-control">
+					<option value="">Selecccione un Linea</option>
+						@foreach ($linea as $lineas) 
+					<option value="{{ $lineas->id }}">{{$lineas->numero}}</option>
+						@endforeach
+				</select>
+ 			</div>	
 
 			<br>
 			<div class="Form-group">

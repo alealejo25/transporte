@@ -18,14 +18,14 @@
 		<div class="table-responsive ">
 			<table id="tabla" class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
-					<th>Id</th>
 					<th>Nombre</th>
+					<th>Linea</th>
 					<th>Opciones</th>
 				</thead>
                @foreach ($datos as $dato)
 				<tr>
-					<td>{{$dato->id}}</td>
 					<td>{{$dato->nombre}}</td>
+					<td>{{$dato->linea->numero}}</td>
 					<td>
 					
 						<a href="{{url('bolmanantial/boletos/'.$dato->id.'/editarservicio')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>

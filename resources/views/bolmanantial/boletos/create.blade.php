@@ -27,7 +27,7 @@
 									<select name="chofer_id" id="chofer" class="form-control">
 										<option value="">Seleccione un Chofer</option>
 										@foreach ($choferleagaslnf as $datos) 
-											<option value="{{ $datos->id }}">{{$datos->apellido}}, {{$datos->nombre}}</option>
+											<option value="{{ $datos->id }}">Legajo: {{$datos->legajo}} - {{$datos->apellido}}, {{$datos->nombre}}</option>
 										@endforeach
 									</select>
 
@@ -229,7 +229,7 @@
 						$("#fintarjeta").val("");
   					}
   					else{
-  						recaudacion=resta*42.7;
+  						recaudacion=resta*101.52;
 						$("#cantpasajes").val(resta);
 						$("#recaudacion").val(recaudacion);
   					}

@@ -28,11 +28,12 @@ class AdministracionController extends Controller
     }
     public function guardarasignarrol(Request $request)
     {
+        //dd($request);
         
         //para reasiganar un rol hacerlo desde la tabla model_has_roles, cambiar en la columna role_id
-        $user = User::find(11);
+        $user = User::find(13);
         $user->assignRole($request->rol);
-       //Role::create(['name' => $request->rol]);
+        Role::create(['name' => $request->rol]);
         return view('/');
     }
     public function crearpermiso()
@@ -72,14 +73,14 @@ class AdministracionController extends Controller
         
 
         //asignacion de multiples permisos funciona
-       $role = Role::find(11);//id del rol
-       $role->syncPermissions(request()->input('permissions',[]));
+       //$role = Role::find(11);//id del rol
+       //$role->syncPermissions(request()->input('permissions',[]));
        //$role->permissions()->sync($request->get('permissions'));
 
        // dd('listo a');
             // para asisgnar un permiso a un rol
-       // $role = Role::find(11);
-        //$role->givePermissionTo('bolmanantial');
+        $role = Role::find(11);
+        $role->givePermissionTo('ramales');
         dd('listo a');
         return view('/');
     }

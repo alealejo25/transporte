@@ -8,7 +8,7 @@
 @endif
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Servicios <a href="boletosleagas/create"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></button></i></a></h3>
+		<h3>Listado de Servicios <a href="boletosleagas/create"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true" title="Nuevo Servicio"></i></button></i></a></h3>
 		
 	</div>
 </div>
@@ -23,9 +23,7 @@
 					<th>Serv.</th>
 					<th>Turno</th>
 					<th>Int.</th>
-					<th>Inicio</th>
-					<th>Cierre</th>
-					<th>Cant. Pax</th>
+					<th>Pax</th>
 					<th>Recaudacion</th>
 					<!--<th>horaI</th>
 					<th>horaF</th>-->
@@ -33,6 +31,7 @@
 					<th>horaS</th>
 					<!--<th>anden</th>
 					<th>Valortoque</th>-->
+					<th>Gasoil</th>
 					<th>Observ.</th>
 
 					<th>Opciones</th>
@@ -44,8 +43,6 @@
 					<td>{{ $dato->numero}}</td>
 					<td>{{ $dato->nombre}}</td>
 					<td align="right">{{ $dato->coche->interno}}</td>
-					<td align="right">{{ $dato->iniciotarjeta}}</td>
-					<td align="right">{{ $dato->fintarjeta}}</td>
 					<td align="right">{{ $dato->cantpasajes}}</td>
 					<td align="right">$ {{number_format($dato->recaudacion,2,",",".")}}</td>
 					<!--<td align="right">{{ $dato->horainicio}}</td>
@@ -54,12 +51,14 @@
 					<td align="right">{{ $dato->horassobrantes}}</td>
 					<!--<td align="right">{{ $dato->toquesanden}}</td>
 					<td align="right">{{ $dato->valortoquesanden}}</td>-->
+					<td align="right">{{ $dato->gasoil}}</td>
 					<td align="right">{{ $dato->observaciones}}</td>
 
 					<td>
 					
-						<a href="{{url('datos/anticipos/'.$dato->id.'/finalizardato')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>
-						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id_boleto.'/informeboletoleagas')}}"><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true"></i></button></a>
+						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id_boleto.'/modificarservicio')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a>
+						<a href="{{url('bolmanantial/boletos/'.$dato->id_boleto.'/cargargasoil')}}"><button class="btn btn-success"><i class="fa fa-bus" aria-hidden="true" title="Cargar Gasoil"></i></button></a>
+						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id_boleto.'/informeboletoleagas')}}"><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a>
 
 						
 					

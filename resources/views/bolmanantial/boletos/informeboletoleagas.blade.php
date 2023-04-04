@@ -87,7 +87,7 @@
 </head>
 <body>
    <div>
-   		<h2>Informe de Boleto Leagas <span class="derecha">Fecha de Emision: {{now()->format('d-m-Y')}}</span></h2>
+   		<h2>Informe de Servicio - La Nueva Fournier <span class="derecha">Fecha de Emision: {{now()->format('d-m-Y')}}</span></h2>
     </div>
         <br>
     <br>
@@ -95,7 +95,7 @@
     <br>
     @foreach ($datos as $dato)
 		<h3>Fecha {{date('d-m-Y', strtotime($dato->fecha))}} - Chofer: {{$dato->choferleagaslnf->nombre}}</h3>
-		<h3>Linea: {{$dato->linea->numero}} - Interno: {{$dato->coche->interno}} - Turno: {{$dato->nombre}} - Servicio: {{$dato->servicioleagaslnf->nombre}}</h3>
+		<h3>Linea: {{$dato->linea->numero}} - Interno: {{$dato->coche->interno}} - Turno: {{$dato->nombre}} - Servicio: {{$dato->servicioleagaslnf->numero}}</h3>
 	@endforeach
 	<div>
 		<h3>Datos de Venta de Boletos</h3>

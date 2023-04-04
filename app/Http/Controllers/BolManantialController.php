@@ -410,6 +410,32 @@ public function storeramal(Request $request)
        return Redirect('bolmanantial/boletos/ramal
         ')->with('Mensaje','Se creo el Ramal!!!!');
     }
+
+     public function cargargasoil($id)
+    {
+        
+        $servicios=BoletoLeagas::find($id);
+        return view('bolmanantial.boletos.cargargasoil')
+            ->with('servicios',$servicios)
+            ->with('id',$id);
+    }
+
+    public function guardarcargagasoil(Request $request)
+    {
+
+        $campos=[
+            'gasoil'=>'required|integer',
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+       
+      $editalservicio=BoletoLeagas::where('id',$request->id)
+                ->update([
+                          'gasoil'=>$request->gasoil
+                          ]);
+ 
+       return Redirect('bolmanantial/boletosleagas')->with('Mensaje','Se modifico el servicio!!!!');
+    }
     
     
 }

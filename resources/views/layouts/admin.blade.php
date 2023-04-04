@@ -403,7 +403,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
             </li>
             @endcan
             
-            @can('bolmanantial')
+            @can('ramales')
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i> <span>Boleteria Manantial</span>
@@ -413,13 +413,13 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('boletoslnf')
                 <li><a href="/bolmanantial/boletosleagas"><i class="fa fa-circle-o"></i> Boletos La Nueva Fournier</a></li>
                 @endcan
-                @can('boletosleagas')
+                @can('reporteboletoslnf')
                 <li><a href="/bolmanantial/reportes/boletosleagas"><i class="fa fa-circle-o"></i> Reporte Boletos LNF</a></li>
                 @endcan
-                @can('boletoslnf')
+                @can('servicios')
                 <li><a href="/bolmanantial/boletos/servicios"><i class="fa fa-circle-o"></i> Servicios</a></li>
                 @endcan 
-                @can('boletoslnf')
+                @can('ramales')
                 <li><a href="/bolmanantial/boletos/ramal"><i class="fa fa-circle-o"></i> Ramales</a></li>
                 @endcan
                </ul>

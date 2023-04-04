@@ -198,8 +198,7 @@ Route::resource('abms/marca','MarcaController');
 Route::get('bolmanantial/boletosleagas','BolManantialController@index')->name('bolmanantial.boletosleagas');
 Route::get('bolmanantial/boletosleagas/create','BolManantialController@create')->name('bolmanantial.boletosleagas.create');
 Route::post('bolmanantial/boletosleagas/store','BolManantialController@store')->name('store');
-Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialController@infor
-   meboletoleagas')->name('informeboletoleagas');
+Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialController@informeboletoleagas')->name('informeboletoleagas');
 
 Route::get('bolmanantial/reportes/boletosleagas','BolManantialController@boletosleagas')->name('boletoslegas');
 Route::post('bolmanantial/reportes/reporteboletosleagas','BolManantialController@reporteboletosleagas')->name('reporteboletosleagas');
@@ -212,6 +211,8 @@ Route::patch('bolmanantial/boletos/guardaredicionservicios','BolManantialControl
 Route::get('bolmanantial/boletos/ramal', 'BolManantialController@ramal')->name('ramal');
 Route::get('bolmanantial/boletos/createramal', 'BolManantialController@createramal')->name('createramal');
 Route::post('bolmanantial/boletosleagas/storeramal','BolManantialController@storeramal')->name('storeramal');
+Route::get('bolmanantial/boletos/{id}/cargargasoil','BolManantialController@cargargasoil')->name('cargargasoil');
+Route::patch('bolmanantial/boletos/guardarcargagasoil','BolManantialController@guardarcargagasoil')->name('guardarcargagasoil');
 //**************************************************************
 //***BOLETERIA TAFI VIEJO***************************************
 //**************************************************************

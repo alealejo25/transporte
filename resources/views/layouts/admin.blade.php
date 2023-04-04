@@ -403,7 +403,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
             </li>
             @endcan
             
-            @can('ramales')
+            @can('bolmanantial')
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i> <span>Boleteria Manantial</span>

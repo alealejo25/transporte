@@ -188,6 +188,8 @@
             <thead>
                 <tr> 
                     <th>Observacion de entrada al taller</th>
+                    <th>Interno de Cambio</th>
+                    <th>Motivo de Cambio</th>
                                     
                 </tr>
             </thead>
@@ -195,6 +197,8 @@
                 @foreach ($datos as $dato)
                 <tr>
                     <td> {{$dato->observaciones}}</td>
+                    <td> {{$dato->interno}}</td>
+                    <td> {{$dato->motivo_cambio}}</td>
                 </tr>
                 @endforeach                               
             </tbody>

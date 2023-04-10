@@ -392,7 +392,7 @@ public function articulos(Request $request)
     ), */
     
 );
-
+//dd($data);
 
 //$afip = new Afip(array('CUIT' => 23273645039));
 

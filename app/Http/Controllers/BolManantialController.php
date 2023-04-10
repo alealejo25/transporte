@@ -185,13 +185,19 @@ class BolManantialController extends Controller
        // });
 
 
-        $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->where('boletosleagas.id',$id)->get();
+        $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto')
+            ->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')
+            ->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')
+            ->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')
+            ->join('coches','boletosleagas.coche_id_cambio','=','coches.id')
+            ->where('boletosleagas.id',$id)->get();
         $datos->each(function($datos){
              $datos->linea;
              $datos->choferleagaslnf;
              $datos->servicioleagaslnf;
              $datos->coche;
         });
+        //dd($datos);
         $taller=$datos[0]->taller;
 
  
@@ -229,7 +235,8 @@ class BolManantialController extends Controller
         // $datos=BoletoLeagas::select('chofer_id','choferleagaslnf.apellido','choferleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SUM(cantpasajes) as cantpasajes')->selectRaw('SUM(recaudacion) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoil) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->get();
 
         $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SUM(cantpasajes) as cantpasajes')->selectRaw('SUM(recaudacion) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoil) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
-        $datos->each(function($datos){
+
+            $datos->each(function($datos){
             $datos->linea;
             $datos->choferleagaslnf;
             $datos->servicioleagaslnf;
@@ -333,8 +340,7 @@ public function createservicio()
      public function editarservicio($id)
     {
         $servicios=ServicioLeagasLnf::find($id);
-         $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
-        //$turno=Turno::orderBy('nombre','ASC')->get();
+        $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
         $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
         $linea=Linea::orderBy('numero','ASC')->pluck('numero','id');
         $ramal=Ramal::orderBy('nombre','ASC')->pluck('nombre','id');
@@ -436,6 +442,35 @@ public function storeramal(Request $request)
  
        return Redirect('bolmanantial/boletosleagas')->with('Mensaje','Se modifico el servicio!!!!');
     }
-    
+    public function cambiocoche($id)
+    {
+        
+        $servicios=BoletoLeagas::find($id);
+        $coches=Coche::find($servicios->coche_id);
+        $nroempresa=$coches->nroempresa;
+        $coche=Coche::orderBy('interno','ASC')->where('empresa_id','1')->where('nroempresa',$nroempresa)->get();
+        return view('bolmanantial.boletos.cambiocoche')
+            ->with('servicios',$servicios)
+            ->with('coche',$coche)
+            ->with('id',$id);
+    }
+    public function guardarcambiocoche(Request $request)
+    {
+
+        $campos=[
+            'coche_id_cambio'=>'required|integer',
+            'motivo_cambio'=>'required|string|max:150',
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+       
+      $editalservicio=BoletoLeagas::where('id',$request->id)
+                ->update([
+                          'coche_id_cambio'=>$request->coche_id_cambio,
+                          'motivo_cambio'=>$request->motivo_cambio
+                          ]);
+ 
+       return Redirect('bolmanantial/boletosleagas')->with('Mensaje','Se modifico el servicio!!!!');
+    }
     
 }

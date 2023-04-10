@@ -35,6 +35,8 @@ class Boletosleagas extends Migration
             $table->integer('chofer_id')->nullable()->unsigned();
             $table->integer('servicio_id')->nullable()->unsigned();
             $table->integer('coche_id')->nullable()->unsigned();
+             $table->integer('coche_id_cambio')->nullable()->unsigned();
+             $table->string('motivo_cambio',150)->nullable();
             $table->biginteger('user_id')->unsigned()->nullable();
             
             $table->timestamps();

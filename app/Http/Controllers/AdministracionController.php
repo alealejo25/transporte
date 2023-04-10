@@ -24,6 +24,7 @@ class AdministracionController extends Controller
     }
     public function asignarrol()
     {
+
         return view('administracion.asignarrol');
     }
     public function guardarasignarrol(Request $request)
@@ -33,7 +34,7 @@ class AdministracionController extends Controller
         //para reasiganar un rol hacerlo desde la tabla model_has_roles, cambiar en la columna role_id
         $user = User::find(11);
         $user->assignRole($request->rol);
-        Role::create(['name' => $request->rol]);
+       // Role::create(['name' => $request->rol]);
         return view('/');
     }
     public function crearpermiso()

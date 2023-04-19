@@ -78,6 +78,7 @@ class AdministracionController extends Controller
        $role->syncPermissions(request()->input('permissions',[]));
        $role->permissions()->sync($request->get('permissions'));
 
+
        // dd('listo a');
             // para asisgnar un permiso a un rol
        // $role = Role::find(11);

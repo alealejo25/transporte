@@ -13,10 +13,7 @@ class BoletoLeagas extends Model
     protected $fillable = [
         'id',
         'fecha',
-        'iniciotarjeta',
-        'fintarjeta',
-        'cantpasajes',
-        'recaudacion',
+        'recaudaciontotal',
         'horainicio',
         'horafin',
         'horastotal',
@@ -26,19 +23,18 @@ class BoletoLeagas extends Model
         'toquesanden',
         'valortoquesanden',
         'observaciones',
-        'taller',
         'condicion',
         'linea_id',
         'chofer_id',
         'servicio_id',
-        
-        'use_id',
-        'coche_id'
-    ];
-/*    public function ChoferLeagasLnf()
-    {
-        return $this->hasMany('App\ChoferLeagasLnf');
+        'user_id',
+        ];
+    /*  return $this->hasMany('App\ChoferLeagasLnf');
     }*/
+    public function CocheBoleto()
+    {
+        return $this->hasMany('App\CocheBoleto');
+    }
     public function Linea()
     {
         return $this->belongsTo('App\Linea');
@@ -51,10 +47,10 @@ class BoletoLeagas extends Model
     {
         return $this->belongsTo('App\ServicioLeagasLnf','servicio_id');
     }
-       public function Coche()
-    {
-        return $this->belongsTo('App\Coche');
-    }
+    //    public function Coche()
+    // {
+    //     return $this->belongsTo('App\Coche');
+    // }
     public function User()
     {
         return $this->belongsTo('App\User');

@@ -12,7 +12,7 @@ use App\Linea;
 use App\Empresa;
 use App\Ramal;
 use Laracasts\Flash\Flash;
-
+use App\CocheBoleto;
 use Dompdf\Dompdf;
 use Luecano\NumeroALetras\NumeroALetras;
 use Carbon\Carbon;
@@ -26,16 +26,13 @@ class BolManantialController extends Controller
 {
  public function index(Request $request)
     {
-       //  $datos=BoletoLeagas::search($request->name)->orderBy('fecha','DESC')->paginate(40);
-    
-
-
+ 
         $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->where('serviciosleagaslnf.empresa_id',1)->get();
         $datos->each(function($datos){
              $datos->linea;
              $datos->choferleagaslnf;
              $datos->servicioleagaslnf;
-             $datos->coche;
+
         });
 
         return view('bolmanantial.boletos.index')
@@ -69,16 +66,25 @@ class BolManantialController extends Controller
      {
 
         $date = new \DateTime();
-        /*VALIDACION -----------------------------------------*/
-        /*  $campos=[
+
+        /*VALIDACION -----------------------------------------
+            $campos=[
             'chofer_id'=>'required',
-            'anticipo'=>'required',
-  
-         ];
+            'linea_id'=>'required',
+            'servicio_id'=>'required',
+            'horainicio'=>'required',
+            'horafin'=>'required',
+            'toquesanden'=>'required',
+            'coche_id'=>'required',
+            'iniciotarjeta'=>'required',
+            'fintarjeta'=>'required',
+            'taller'=>'required',
+        ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-        */
+*/
         /*--------------------------------------------------------*/
+                $coches=$request->all();
         $docenoche=new DateTime('23:59');
         $horainicio=new DateTime($request->horainicio);
         $horafin=new DateTime($request->horafin);
@@ -148,7 +154,8 @@ class BolManantialController extends Controller
        
         $horasdetrabajo=new DateTime('07:30');
 
-        $datos=new BoletoLeagas(request()->except('_token'));
+        //$datos=new BoletoLeagas(request()->except('_token'));
+        $datos=new BoletoLeagas();
 
         $datos->valorhorasrestantes=0;
         $datos->valortoquesanden=$request->toquesanden*117;
@@ -164,9 +171,41 @@ class BolManantialController extends Controller
             //$cerohs=$cero->format('%H:%I');
             $datos->horassobrantes=0;
         }
-       
-        $datos->save(); 
+       $datos->chofer_id=$request->chofer_id;
+       $datos->linea_id=$request->linea_id;
+       $datos->servicio_id=$request->servicio_id;
+       $datos->fecha=$request->fecha;
+       $datos->horainicio=$request->horainicio;
+       $datos->horafin=$request->horafin;
+       $datos->gasoil=$request->gasoil;
+       $datos->toquesanden=$request->toquesanden;
+       $datos->save();
+       $idBoletoLeagas=BoletoLeagas::orderBy('id','DESC')->limit(1)->get();
+       $idBoleto=$idBoletoLeagas[0]->id;
+
+       $recaudaciontotal=0;
+       $pasajestotal=0;
+        foreach($coches['coche_id'] as $key => $value){
+            $boletos=new CocheBoleto();
+                $boletos->iniciotarjeta=$coches["iniciotarjeta"][$key];
+                $boletos->fintarjeta=$coches["fintarjeta"][$key];
+                $boletos->cantpasajes=$coches["fintarjeta"][$key]-$coches["iniciotarjeta"][$key];
+                $boletos->recaudacion=101.52*$boletos->cantpasajes;
+                $boletos->taller=$coches["taller"][$key];
+                $boletos->motivo_cambio=$coches["motivo_cambio"][$key];
+                $boletos->coche_id=$coches["coche_id"][$key];
+                $boletos->boletosleagas_id=$idBoleto;
+                $recaudaciontotal=$recaudaciontotal+$boletos->recaudacion;
+                $pasajestotal=$pasajestotal+$boletos->cantpasajes;
+                $boletos->save();    
+        }
       
+        $actualizarboletos=BoletoLeagas::where('id',$idBoleto)
+                        ->update([
+                                'recaudaciontotal'=>$recaudaciontotal,
+                                'pasajestotal'=>$pasajestotal
+                                 ]);
+
        Flash::success('Servicio agregado correctamente');
        return Redirect('bolmanantial/boletosleagas');
         }

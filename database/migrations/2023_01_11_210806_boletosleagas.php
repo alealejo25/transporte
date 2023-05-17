@@ -16,27 +16,21 @@ class Boletosleagas extends Migration
         Schema::create('boletosleagas', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fecha');
-            $table->integer('iniciotarjeta');
-            $table->integer('fintarjeta');
-            $table->integer('cantpasajes');
-            $table->decimal('recaudacion',10,2);
+            $table->decimal('recaudaciontotal',10,2);
+            $table->integer('pasajestotal');
             $table->time('horainicio',0);
             $table->time('horafin',0);
             $table->time('horastotal',0);
             $table->time('horassobrantes',0);
             $table->decimal('valorhorasrestantes',10,2);
-            $table->integer('gasoil');
+            $table->integer('gasoil')->nullable();
             $table->integer('toquesanden');
             $table->decimal('valortoquesanden',10,2);
-            $table->string('taller',2)->nullable();
             $table->string('observaciones',120)->nullable();
             $table->integer('condicion')->unsigned()->default(0);
             $table->integer('linea_id')->nullable()->unsigned();
             $table->integer('chofer_id')->nullable()->unsigned();
             $table->integer('servicio_id')->nullable()->unsigned();
-            $table->integer('coche_id')->nullable()->unsigned();
-             $table->integer('coche_id_cambio')->nullable()->unsigned();
-             $table->string('motivo_cambio',150)->nullable();
             $table->biginteger('user_id')->unsigned()->nullable();
             
             $table->timestamps();

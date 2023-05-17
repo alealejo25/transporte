@@ -35,7 +35,7 @@
 				</div>
 				<div>
 					<div class="Form-group col-lg-12" >
-						<label for="servicio">Linea</label>
+						<label for="linea_id">Linea</label>
 							<select name="linea_id" id="linea_id">
 							  <option value="">Seleccione una Linea</option>
 									@foreach ($linea as $item)
@@ -46,18 +46,14 @@
 					</div>
 					<div>
 						<div class="Form-group col-lg-12" >
-							<label for="linea_id">Servicio</label>
+							<label for="servicio_id">Servicio</label>
 								<select name="servicio_id" id="servicios">
 									<option value="">Seleccione un Servicio</option>
 								</select>
 						</div>
 				</div>
 								
-				<div class="form-group col-lg-12 col-md-4 col-sm-12">
-					<label for="servicio">Coche</label>
-					
-					{!!Form::select('coche_id',$coche,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
-				</div>
+
 			</div>
 			<!-------------------------------------------------------------->
 			<hr size="8px">
@@ -70,31 +66,9 @@
 					{!! $errors->first('fecha','<div class="invalid-feedback">:message</div>')!!}
 				</div>
 
-				<div class="form-group col-lg-4 col-md-4 col-sm-12">
-					<label for="iniciotarjeta">Inicio Tarjeta</label>
-					<input type="number" step=0 name="iniciotarjeta" id="iniciotarjeta" class="form-control {{$errors->has('iniciotarjeta')?'is-invalid':''}}" placeholder="Inicio Tarjeta..." value="{{old('iniciotarjeta')}}">
-					{!! $errors->first('iniciotarjeta','<div class="invalid-feedback">:message</div>')!!}
-				</div>
-				<div class="form-group col-lg-4 col-md-4 col-sm-12">
-					<label for="fintarjeta">Fin Tarjeta</label>
-					<input type="number" step=0 name="fintarjeta" id="fintarjeta" class="form-control {{$errors->has('fintarjeta')?'is-invalid':''}}" placeholder="Fin Tarjeta..." value="{{old('fintarjeta')}}" >
-					{!! $errors->first('fintarjeta','<div class="invalid-feedback">:message</div>')!!}
-				</div>
+				
 			</div>
-			<div class="row">
-				<div class="form-group col-lg-6 col-md-4 col-sm-12">
-					<label for="cantpasajes">Cantidad de Pasajes</label>
-					<input type="number" step=0.01 name="cantpasajes" id="cantpasajes" class="form-control {{$errors->has('cantpasajes')?'is-invalid':''}}" placeholder="Inicio Tarjeta..." value="{{old('cantpasajes')}}" readonly onmousedown="return false;">
-					{!! $errors->first('cantpasajes','<div class="invalid-feedback">:message</div>')!!}
-				</div>
-				<div class="form-group col-lg-6 col-md-4 col-sm-12">
-					<label for="recaudacion">Recaudacion $</label>
-					<input type="number" step=0.01 name="recaudacion" id="recaudacion" class="form-control {{$errors->has('recaudacion')?'is-invalid':''}}" placeholder="Inicio Tarjeta..." value="{{old('recaudacion')}}" readonly onmousedown="return false;" >
-					{!! $errors->first('recaudacion','<div class="invalid-feedback">:message</div>')!!}
-				</div>
-				<div class="form-group col-lg-6 col-md-4 col-sm-12">
-				</div>
-			</div>
+		
 			<!-------------------------------------------------------------->
 			<hr size="8px">
 			<!-------------------------------------------------------------->
@@ -127,10 +101,45 @@
 					{!! $errors->first('gasoil','<div class="invalid-feedback">:message</div>')!!}
 				</div>
 							</div>
-				<div class="row">
+							<!-------------------------------------------------------------->
+			<hr size="8px">
+			<!-------------------------------------------------------------->
+<div id='TextBoxesGroup'>
+  <div id="TextBoxDiv1">
+			<div class="row">
+				<div class="form-group col-lg-4 col-md-4 col-sm-12">
+					<label for="servicio">Coche</label>
+					{!!Form::select('coche_id[]',$coche,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+				</div>
+				<div class="form-group col-lg-4 col-md-4 col-sm-12">
+					<label for="iniciotarjeta">Inicio Tarjeta</label>
+					<input type="number" step=0 name="iniciotarjeta[]" id="iniciotarjeta" class="form-control {{$errors->has('iniciotarjeta')?'is-invalid':''}}" placeholder="Inicio Tarjeta..." value="{{old('iniciotarjeta')}}">
+					{!! $errors->first('iniciotarjeta','<div class="invalid-feedback">:message</div>')!!}
+				</div>
+				<div class="form-group col-lg-4 col-md-4 col-sm-12">
+					<label for="fintarjeta">Fin Tarjeta</label>
+					<input type="number" step=0 name="fintarjeta[]" id="fintarjeta" class="form-control {{$errors->has('fintarjeta')?'is-invalid':''}}" placeholder="Fin Tarjeta..." value="{{old('fintarjeta')}}" >
+					{!! $errors->first('fintarjeta','<div class="invalid-feedback">:message</div>')!!}
+				</div>
+			</div>
+					<div class="row">
+				<div class="form-group col-lg-6 col-md-4 col-sm-12">
+					<label for="cantpasajes">Cantidad de Pasajes</label>
+					<input type="number" step=0.01 name="cantpasajes" id="cantpasajes" class="form-control {{$errors->has('cantpasajes')?'is-invalid':''}}" placeholder="Inicio Tarjeta..." value="{{old('cantpasajes')}}" readonly onmousedown="return false;">
+					{!! $errors->first('cantpasajes','<div class="invalid-feedback">:message</div>')!!}
+				</div>
+				<div class="form-group col-lg-6 col-md-4 col-sm-12">
+					<label for="recaudacion">Recaudacion $</label>
+					<input type="number" step=0.01 name="recaudacion" id="recaudacion" class="form-control {{$errors->has('recaudacion')?'is-invalid':''}}" placeholder="Inicio Tarjeta..." value="{{old('recaudacion')}}" readonly onmousedown="return false;" >
+					{!! $errors->first('recaudacion','<div class="invalid-feedback">:message</div>')!!}
+				</div>
+					<div class="form-group col-lg-6 col-md-4 col-sm-12">
+				</div>
+			</div>
+			<div class="row">
 				<div class="form-group col-lg-3 col-md-4 col-sm-12">
 					<label for="">Entro al Taller?</label>
-									<select name="taller" id="taller" class="form-control">
+									<select name="taller[]" id="taller" class="form-control">
 										<option value="">Seleccione una opcion</option>
 										<option value="SI">SI</option>
 										<option value="NO">NO</option>
@@ -139,15 +148,23 @@
 				</div>
 
 				<div class="form-group col-lg-9 col-md-4 col-sm-12">
-					<label for="linea_id">Obsevaciones taller </label>
-					<input type="text" name="observaciones" id="observaciones" class="form-control {{$errors->has('observaciones')?'is-invalid':''}}" placeholder="Observacion de ingreso al taller..." value="{{old('observaciones')}}">
-					{!! $errors->first('observaciones','<div class="invalid-feedback">:message</div>')!!}
+					<label for="linea_id">Observaciones taller </label>
+					<input type="text" name="motivo_cambio[]" id="motivo_cambio" class="form-control {{$errors->has('motivo_cambio')?'is-invalid':''}}" placeholder="Observacion de ingreso al taller..." value="{{old('motivo_cambio')}}">
+					{!! $errors->first('motivo_cambio','<div> class="invalid-feedback">:message</div>')!!}
 				</div>
+			</div>
+				<hr size="8px">
+	</div>
+</div>
+
+<input type='button' value='Agregar Cambio de Coche' id='addButton'/>
+<input type='button' value='Eliminar Cambio de Coche' id='removeButton'/>
+
 			<div class="Form-group">
 					<input type="hidden" class="form-control"  name="user_id" id="user_id" value="{{ Auth::user()->id }}">
-				</div>
-				
 			</div>
+				
+
 			<br>
 
 
@@ -168,7 +185,7 @@
 
 		</div>
 	</div> 
-
+</div>
 	
 
 <script>
@@ -239,6 +256,43 @@
 $(".print").click(function() {
   window.print();
 });
+
+
+
+        var counter = 2;
+        $("#addButton").click(function () {
+            if (counter > 3) {
+                alert("Solo se puede agregar 3 cambios");
+                return false;
+            }
+            var newTextBoxDiv = $(document.createElement('div')).attr("id", 'TextBoxDiv' + counter);
+            newTextBoxDiv.after().html('<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="servicio">Coche</label>{!!Form::select("coche_id[]",$coche,null,["class" => "form-control","placeholder"=>"Seleccione una opcion","requerid"])!!}</div>'+'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="iniciotarjeta">Inicio Tarjeta</label><input type="number" step=0 name="iniciotarjeta[]" id="iniciotarjeta" class="form-control {{$errors->has("iniciotarjeta")?"is-invalid":""}}" placeholder="Inicio Tarjeta..." value="{{old("iniciotarjeta")}}"></div>'+
+            	'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="fintarjeta">Fin Tarjeta</label><input type="number" step=0 name="fintarjeta[]" id="fintarjeta" class="form-control {{$errors->has("fintarjeta")?"is-invalid":""}}" placeholder="Fin Tarjeta..." value="{{old("fintarjeta")}}" ></div>'+
+            	'<div class="form-group col-lg-6 col-md-4 col-sm-12"><label for="cantpasajes">Cantidad de Pasajes</label><input type="number" step=0.01 name="cantpasajes[]" id="cantpasajes" class="form-control {{$errors->has("cantpasajes")?"is-invalid":""}}" placeholder="Inicio Tarjeta..." value="{{old("cantpasajes")}}" readonly onmousedown="return false;"></div>'+
+            	'<div class="form-group col-lg-6 col-md-4 col-sm-12"><label for="recaudacion">Recaudacion $</label><input type="number" step=0.01 name="recaudacion[]" id="recaudacion" class="form-control {{$errors->has("recaudacion")?"is-invalid":""}}" placeholder="Inicio Tarjeta..." value="{{old("recaudacion")}}" readonly onmousedown="return false;" ></div>'+
+            	'<div class="row"><div class="form-group col-lg-3 col-md-4 col-sm-12"><label for="">Entro al Taller?</label><select name="taller[]" id="taller" class="form-control"><option value="">Seleccione una opcion</option><option value="SI">SI</option><option value="NO">NO</option></select></div><div class="form-group col-lg-9 col-md-4 col-sm-12"><label for="linea_id">Obsevaciones taller </label><input type="text" name="motivo_cambio[]" id="motivo_cambio" class="form-control {{$errors->has("motivo_cambio")?"is-invalid":""}}" placeholder="Observacion de ingreso al taller..." value="{{old("motivo_cambio")}}"></div></div>'+'<hr size="8px">');
+            newTextBoxDiv.appendTo("#TextBoxesGroup");
+            counter++;
+        });
+        $("#removeButton").click(function () {
+            if (counter == 1) {
+                alert("No more textbox to remove");
+                return false;
+            }
+            counter--;
+            $("#TextBoxDiv" + counter).remove();
+        });
+        $("#getButtonValue").click(function () {
+            var msg = '';
+            for (i = 1; i < counter; i++) {
+                msg += "\n Textbox #" + i + " : " + $('#textbox' + i).val();
+            }
+            alert(msg);
+        });
+
+
+
+
 	})
 </script>
 @endsection

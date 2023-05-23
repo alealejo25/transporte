@@ -27,7 +27,7 @@ class BolManantialController extends Controller
  public function index(Request $request)
     {
  
-        $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->where('serviciosleagaslnf.empresa_id',1)->get();
+        $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->where('serviciosleagaslnf.empresa_id',2)->get();
         $datos->each(function($datos){
              $datos->linea;
              $datos->choferleagaslnf;
@@ -38,13 +38,54 @@ class BolManantialController extends Controller
         return view('bolmanantial.boletos.index')
             ->with('datos',$datos);
     }
+
+    public function indexlnf(Request $request)
+    {
+ 
+        $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->where('serviciosleagaslnf.empresa_id',1)->get();
+        $datos->each(function($datos){
+             $datos->linea;
+             $datos->choferleagaslnf;
+             $datos->servicioleagaslnf;
+
+        });
+
+        return view('bolmanantial.boletos.indexlnf')
+            ->with('datos',$datos);
+    }
+
+
      public function create()
+    {
+        //--------- ESTO ES PARA LOS SERVICIOS DE LA NUEVA FOUNUIER ------------//
+        $linea=Linea::where('empresa_id',2)->orderBy('numero','ASC')->get();
+
+        //$choferleagaslnf=ChoferLeagaslnf::orderBy('nombre','ASC')->pluck('nombre','id');
+        $choferleagaslnf=ChoferLeagaslnf::where('empresa_id',2)->orderBy('legajo','ASC')->get();
+        $servicioleagaslnf=ServicioLeagasLnf::where('empresa_id',2)->orderBy('numero','ASC')->get();
+        $servicioleagaslnf->each(function($servicioleagaslnf){
+            $servicioleagaslnf->linea;
+            $servicioleagaslnf->ramal;
+            $servicioleagaslnf->empresa;
+       });
+       // $servicioleagaslnf=ServicioLeagasLnf::orderBy('nombre','ASC')->pluck('nombre','id');
+        $coche=Coche::where('empresa_id',2)->orderBy('interno','ASC')->get();
+        $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
+       
+
+        return view('bolmanantial.boletos.create')
+               ->with('linea',$linea)
+               ->with('choferleagaslnf',$choferleagaslnf)
+               ->with('servicioleagaslnf',$servicioleagaslnf)
+               ->with('coche',$coche);
+    }
+     public function createlnf()
     {
         //--------- ESTO ES PARA LOS SERVICIOS DE LA NUEVA FOUNUIER ------------//
         $linea=Linea::where('empresa_id',1)->orderBy('numero','ASC')->get();
 
         //$choferleagaslnf=ChoferLeagaslnf::orderBy('nombre','ASC')->pluck('nombre','id');
-        $choferleagaslnf=ChoferLeagaslnf::orderBy('legajo','ASC')->get();
+        $choferleagaslnf=ChoferLeagaslnf::where('empresa_id',1)->orderBy('legajo','ASC')->get();
         $servicioleagaslnf=ServicioLeagasLnf::where('empresa_id',1)->orderBy('numero','ASC')->get();
         $servicioleagaslnf->each(function($servicioleagaslnf){
             $servicioleagaslnf->linea;
@@ -52,7 +93,7 @@ class BolManantialController extends Controller
             $servicioleagaslnf->empresa;
        });
        // $servicioleagaslnf=ServicioLeagasLnf::orderBy('nombre','ASC')->pluck('nombre','id');
-        $coche=Coche::orderBy('interno','ASC')->pluck('interno','id');
+        $coche=Coche::where('empresa_id',1)->orderBy('interno','ASC')->get();
         $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
        
 

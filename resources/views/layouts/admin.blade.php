@@ -411,7 +411,10 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
               </a>
               <ul class="treeview-menu">
                 @can('boletoslnf')
-                <li><a href="/bolmanantial/boletosleagas"><i class="fa fa-circle-o"></i> Boletos La Nueva Fournier</a></li>
+                <li><a href="/bolmanantial/boletoslnf"><i class="fa fa-circle-o"></i> Boletos La Nueva Fournier</a></li>
+                @endcan
+                @can('boletoslnf')
+                <li><a href="/bolmanantial/boletosleagas"><i class="fa fa-circle-o"></i> Boletos Leagas</a></li>
                 @endcan
                 @can('reporteboletoslnf')
                 <li><a href="/bolmanantial/reportes/boletosleagas"><i class="fa fa-circle-o"></i> Reporte Boletos LNF</a></li>

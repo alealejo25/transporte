@@ -21,7 +21,7 @@
 
 		<!-------------------------------------------------------------->
 			<div class="row">
-				<div>
+
 								<div class="Form-group col-lg-12" >
 									<label for="">Chofer</label>
 									<select name="chofer_id" id="chofer" class="form-control">
@@ -32,7 +32,7 @@
 									</select>
 
 								</div>
-				</div>
+
 				<div>
 					<div class="Form-group col-lg-12" >
 						<label for="linea_id">Linea</label>
@@ -109,8 +109,15 @@
 			<div class="row">
 				<div class="form-group col-lg-4 col-md-4 col-sm-12">
 					<label for="servicio">Coche</label>
-					{!!Form::select('coche_id[]',$coche,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
-				</div>
+						<select name="coche_id[]" id="coche" class="form-control">
+										<option value="">Seleccione un Coche</option>
+										@foreach ($coche as $datos) 
+											<option value="{{ $datos->id }}">Interno: {{$datos->interno}} - {{$datos->patente}}</option>
+										@endforeach
+									</select>
+
+								</div>
+				
 				<div class="form-group col-lg-4 col-md-4 col-sm-12">
 					<label for="iniciotarjeta">Inicio Tarjeta</label>
 					<input type="number" step=0 name="iniciotarjeta[]" id="iniciotarjeta" class="form-control {{$errors->has('iniciotarjeta')?'is-invalid':''}}" placeholder="Inicio Tarjeta..." value="{{old('iniciotarjeta')}}">
@@ -266,7 +273,8 @@ $(".print").click(function() {
                 return false;
             }
             var newTextBoxDiv = $(document.createElement('div')).attr("id", 'TextBoxDiv' + counter);
-            newTextBoxDiv.after().html('<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="servicio">Coche</label>{!!Form::select("coche_id[]",$coche,null,["class" => "form-control","placeholder"=>"Seleccione una opcion","requerid"])!!}</div>'+'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="iniciotarjeta">Inicio Tarjeta</label><input type="number" step=0 name="iniciotarjeta[]" id="iniciotarjeta" class="form-control {{$errors->has("iniciotarjeta")?"is-invalid":""}}" placeholder="Inicio Tarjeta..." value="{{old("iniciotarjeta")}}"></div>'+
+            newTextBoxDiv.after().html('<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="servicio">Coche</label><select name="coche_id[]" id="coche" class="form-control"><option value="">Seleccione un Coche</option>@foreach ($coche as $datos)<option value="{{ $datos->id }}">Interno: {{$datos->interno}} - {{$datos->patente}}</option>@endforeach</select></div>'+
+            	'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="iniciotarjeta">Inicio Tarjeta</label><input type="number" step=0 name="iniciotarjeta[]" id="iniciotarjeta" class="form-control {{$errors->has("iniciotarjeta")?"is-invalid":""}}" placeholder="Inicio Tarjeta..." value="{{old("iniciotarjeta")}}"></div>'+
             	'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="fintarjeta">Fin Tarjeta</label><input type="number" step=0 name="fintarjeta[]" id="fintarjeta" class="form-control {{$errors->has("fintarjeta")?"is-invalid":""}}" placeholder="Fin Tarjeta..." value="{{old("fintarjeta")}}" ></div>'+
             	'<div class="form-group col-lg-6 col-md-4 col-sm-12"><label for="cantpasajes">Cantidad de Pasajes</label><input type="number" step=0.01 name="cantpasajes[]" id="cantpasajes" class="form-control {{$errors->has("cantpasajes")?"is-invalid":""}}" placeholder="Inicio Tarjeta..." value="{{old("cantpasajes")}}" readonly onmousedown="return false;"></div>'+
             	'<div class="form-group col-lg-6 col-md-4 col-sm-12"><label for="recaudacion">Recaudacion $</label><input type="number" step=0.01 name="recaudacion[]" id="recaudacion" class="form-control {{$errors->has("recaudacion")?"is-invalid":""}}" placeholder="Inicio Tarjeta..." value="{{old("recaudacion")}}" readonly onmousedown="return false;" ></div>'+

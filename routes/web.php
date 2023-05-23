@@ -196,7 +196,10 @@ Route::resource('abms/marca','MarcaController');
 //***BOLETERIA MANANTIAL***************************************
 //**************************************************************
 Route::get('bolmanantial/boletosleagas','BolManantialController@index')->name('bolmanantial.boletosleagas');
+Route::get('bolmanantial/boletoslnf','BolManantialController@indexlnf')->name('bolmanantial.boletoslnf');
+
 Route::get('bolmanantial/boletosleagas/create','BolManantialController@create')->name('bolmanantial.boletosleagas.create');
+Route::get('bolmanantial/boletosleagas/createlnf','BolManantialController@createlnf')->name('bolmanantial.boletosleagas.createlnf');
 Route::post('bolmanantial/boletosleagas/store','BolManantialController@store')->name('store');
 Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialController@informeboletoleagas')->name('informeboletoleagas');
 

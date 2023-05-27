@@ -34,7 +34,7 @@
 								</div>
 
 				<div>
-					<div class="Form-group col-lg-12" >
+					<div class="Form-group col-lg-4" >
 						<label for="linea_id">Linea</label>
 							<select name="linea_id" id="linea_id">
 							  <option value="">Seleccione una Linea</option>
@@ -45,7 +45,7 @@
 						</div>
 					</div>
 					<div>
-						<div class="Form-group col-lg-12" >
+						<div class="Form-group col-lg-8" >
 							<label for="servicio_id">Servicio</label>
 								<select name="servicio_id" id="servicios">
 									<option value="">Seleccione un Servicio</option>
@@ -74,29 +74,24 @@
 			<!-------------------------------------------------------------->
 			<div class="row">
 
-				<div class="form-group col-lg-6 col-md-4 col-sm-12">
+				<div class="form-group col-lg-4 col-md-4 col-sm-12">
 					<label for="linea_id">Hora de Inicio</label>
 					<input type="time" name="horainicio" id="horainicio" class="form-control {{$errors->has('horainicio')?'is-invalid':''}}" placeholder="Hora Inicio..." value="{{old('horainicio')}}">
 					{!! $errors->first('horainicio','<div class="invalid-feedback">:message</div>')!!}
 				</div>
-				<div class="form-group col-lg-6 col-md-4 col-sm-12">
+				<div class="form-group col-lg-4 col-md-4 col-sm-12">
 					<label for="linea_id">Hora de Fin</label>
 					<input type="time" name="horafin" id="horafin" class="form-control {{$errors->has('horafin')?'is-invalid':''}}" placeholder="Hora Fin..." value="{{old('horafin')}}">
 					{!! $errors->first('horafin','<div class="invalid-feedback">:message</div>')!!}
 				</div>
-				<div class="form-group col-lg-6 col-md-4 col-sm-12">
-				</div>
-				
-			</div>
-			<div class="row">
-
-				<div class="form-group col-lg-6 col-md-4 col-sm-12">
+				<div class="form-group col-lg-4 col-md-4 col-sm-12">
 					<label for="linea_id">Toques de Anden</label>
 					<input type="number" name="toquesanden" id="toquesanden" class="form-control {{$errors->has('toquesanden')?'is-invalid':''}}" placeholder="Toques de anden..." value="{{old('toquesanden')}}">
 					{!! $errors->first('toquesanden','<div class="invalid-feedback">:message</div>')!!}
 				</div>
 				
-							</div>
+			</div>
+
 							<!-------------------------------------------------------------->
 			<hr size="8px">
 			<!-------------------------------------------------------------->

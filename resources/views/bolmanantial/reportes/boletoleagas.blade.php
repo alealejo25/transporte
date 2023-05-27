@@ -1,5 +1,10 @@
 @extends('layouts.admin')
 @section('contenido')
+@if(Session::has('Mensaje')){{
+    
+    Session::get('Mensaje')
+}}
+@endif
 	<div  class="main-content">
         <div class="layout-px-spacing">
             <div class="row layout-top-spacing">
@@ -7,27 +12,22 @@
                     <div class="widget-content-area">
                         <div class="widget-one">
                             <!--TITULO-->
-                            <h4 class="text-center mb-5">Reporte Boletos - Leagas. </h4>
+                            <h4 class="text-center mb-5">Reporte Servicios de Choferes. </h4>
                             {!!Form::open(['route' => 'reporteboletosleagas','method'=>'POST'])!!}
     						{{Form::token()}}
                             <!--ENCABEZADO-->
                             <div class="row">
-                                <div>
-                                    <div class="col-sm-12 col-md-2 col-lg-2">Fecha inicial
+                                <div class="col-sm-12 col-md-2 col-lg-2">Fecha inicial
                                          <input type="date" name="fechai" id="fechai" class="form-control {{$errors->has('fechai')?'is-invalid':''}}" placeholder="Fecha Inicial..." value="{{old('fechai')}}">
     									{!! $errors->first('fechai','<div class="invalid-feedback">:message</div>')!!}
-                                    </div>
                                 </div>
-                                <div>
-                                    <div class="col-sm-12 col-md-2 col-lg-2">Fecha final
+                                <div class="col-sm-12 col-md-2 col-lg-2">Fecha final
                                         <input type="date" name="fechaf" id="fechaf" class="form-control {{$errors->has('fechaf')?'is-invalid':''}}" placeholder="Fecha del Cheque..." value="{{old('fechaf')}}">
     									{!! $errors->first('fechaf','<div class="invalid-feedback">:message</div>')!!}
-                                    </div>
                                 </div>
-                                <div>
-    							     <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Chofer
-                                 	   {!!Form::select('chofer_id',$chofer,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
-                                    </div>
+    						     <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Chofer
+                                 	   {!!Form::select('empresa_id',$empresa,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+                                       {!! $errors->first('empresa_id','<div class="invalid-feedback">:message</div>')!!}
                                 </div>
                             </div>
                             <div>

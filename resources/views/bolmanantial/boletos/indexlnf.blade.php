@@ -8,7 +8,7 @@
 @endif
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Servicios - LA NUEVA FOURNIER<a href="boletosleagas/createlnf"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true" title="Nuevo Servicio"></i></button></i></a></h3>
+		<h3>Listado de Servicios - LA NUEVA FOURNIER <a href="boletosleagas/createlnf"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true" title="Nuevo Servicio"></i></button></i></a></h3>
 		
 	</div>
 </div>

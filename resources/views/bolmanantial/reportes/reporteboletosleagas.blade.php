@@ -113,7 +113,7 @@
 				  <td align="right">{{$dato->cantidaddeservicios}}</td> 
 				  <td align="right">{{$dato->horastotal}}</td> 
 				  <td align="right">{{$dato->horassobrantes}}</td>
-				  <td align="right">{{$dato->cantpasajes}}</td> 
+				  <td align="right">{{$dato->pasajes}}</td> 
 				  
 				  <td align="right">$ {{number_format($dato->recaudacion,2,",",".")}}</td>
 				  <td align="right">{{$dato->toquesanden}}</td> 

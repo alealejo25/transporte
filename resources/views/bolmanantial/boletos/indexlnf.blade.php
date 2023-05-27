@@ -8,7 +8,7 @@
 @endif
 <div class="row">
 	<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-		<h3>Listado de Servicios <a href="boletosleagas/createlnf"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true" title="Nuevo Servicio"></i></button></i></a></h3>
+		<h3>Listado de Servicios - LA NUEVA FOURNIER<a href="boletosleagas/createlnf"><button class="btn btn-success"><i class="fa fa-plus" aria-hidden="true" title="Nuevo Servicio"></i></button></i></a></h3>
 		
 	</div>
 </div>
@@ -26,7 +26,6 @@
 					<th>Recaudacion</th>
 					<th>horaT</th>
 					<th>horaS</th>
-					<th>Gasoil</th>
 					<th>Observ.</th>
 
 					<th>Opciones</th>
@@ -45,7 +44,6 @@
 					<td align="right">{{ $dato->horassobrantes}}</td>
 					<!--<td align="right">{{ $dato->toquesanden}}</td>
 					<td align="right">{{ $dato->valortoquesanden}}</td>-->
-					<td align="right">{{ $dato->gasoil}}</td>
 					<td align="right">{{ $dato->observaciones}}</td>
 
 					<td>

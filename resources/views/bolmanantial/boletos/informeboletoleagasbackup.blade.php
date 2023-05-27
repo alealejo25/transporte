@@ -95,7 +95,7 @@
     <br>
     @foreach ($datos as $dato)
 		<h3>Fecha {{date('d-m-Y', strtotime($dato->fecha))}} - Chofer: {{$dato->nombrechofer}}</h3>
-		<h3>Linea: {{$dato->linea->numero}} - Turno: {{$dato->nombre}} - Servicio: {{$dato->servicioleagaslnf->numero}}</h3>
+		<h3>Linea: {{$dato->linea->numero}} - Interno: {{$dato->coche->interno}} - Turno: {{$dato->nombre}} - Servicio: {{$dato->servicioleagaslnf->numero}}</h3>
 	@endforeach
 	<div>
 		<h3>Datos de Venta de Boletos</h3>
@@ -113,10 +113,10 @@
                 @foreach ($datos as $dato)
                 <tr>
                     <td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
-                    <td align="right">{{$dato->pasajestotal}}</td>
-                    <td align="right">$ {{$dato->recaudaciontotal}}</td>
-                    <td align="right">{{$dato->toquesanden}}</td>
-                    <td align="right">$ {{$dato->valortoquesanden}}</td>
+                    <td align="right">{{$dato->iniciotarjeta}}</td>
+                    <td align="right">{{$dato->fintarjeta}}</td>
+                    <td align="right">{{$dato->cantpasajes}}</td>
+                    <td align="right">$ {{$dato->recaudacion}}</td>
                 </tr>
                 @endforeach                               
             </tbody>
@@ -144,7 +144,7 @@
                     <td>{{$dato->horafin}}</td>
                     <td>{{$dato->horastotal}}</td>
                     <td>{{$dato->horassobrantes}}</td>
-                    <td>{{$dato->valorhorasrestantes}}</td>
+                    <td align="right">$ {{$dato->valorhorasrestantes}}</td>
                     
                 </tr>
                 @endforeach                               
@@ -158,32 +158,52 @@
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr> 
-                    <th>Interno</th>
-                    <th>Inicio Tarjeta</th>
-                    <th>Fin Tarjeta</th>
-                    <th>Cant. Pasajes</th>
-                    <th>Recaudacion</th>
-                    <th>Gasoil</th>
-                    <th>Motivo Cambio</th>
+                    <th>GasOil</th>
+                    <th>Toques de Anden</th>
+                    <th>Valor de Toques</th>
+                    <th>Observaciones</th>
+                    <th>Usuario Responsable</th>
                     
                 </tr>
             </thead>
             <tbody>
-                @foreach ($servicios as $servicio)
+                @foreach ($datos as $dato)
                 <tr>
-                    <td align="right"> {{$servicio->interno}}</td>
-                    <td align="right">{{$servicio->iniciotarjeta}}</td>
-                    <td align="right">$ {{$servicio->fintarjeta}}</td>
-					<td align="right">{{$servicio->cantpasajes}}</td>
-					<td align="right">${{$servicio->recaudacion}}</td>
-                    <td align="right">{{$servicio->gasoil}}</td>
-                    <td>{{$servicio->motivo_cambio}}</td>
+                    <td align="right"> {{$dato->gasoil}}</td>
+                    <td align="right">{{$dato->toquesanden}}</td>
+                    <td align="right">$ {{$dato->valortoquesanden}}</td>
+					<td>{{$dato->observaciones}}</td>
+					<td>{{$dato->user->name}}</td>
                 </tr>
                 @endforeach                               
             </tbody>
         </table>
     </div>
+    @if($taller=='SI')
     
+    <div>
+        <h3>TALLER</h3>
+        <table class="table table-bordered table-striped table-sm">
+            <thead>
+                <tr> 
+                    <th>Observacion de entrada al taller</th>
+                    <th>Interno de Cambio</th>
+                    <th>Motivo de Cambio</th>
+                                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($datos as $dato)
+                <tr>
+                    <td> {{$dato->observaciones}}</td>
+                    <td> {{$dato->interno}}</td>
+                    <td> {{$dato->motivo_cambio}}</td>
+                </tr>
+                @endforeach                               
+            </tbody>
+        </table>
+    </div> 
+    @endif
 <br>
     <br>
     <br>

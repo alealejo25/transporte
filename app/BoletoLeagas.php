@@ -19,7 +19,7 @@ class BoletoLeagas extends Model
         'horastotal',
         'horassobrantes',
         'valorhorasrestantes',
-        'gasoil',
+        //'gasoil',
         'toquesanden',
         'valortoquesanden',
         'observaciones',

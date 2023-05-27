@@ -21,6 +21,7 @@ class Cochesboletos extends Migration
             $table->decimal('recaudacion',10,2);
             $table->string('taller',2)->nullable();
             $table->string('motivo_cambio',150)->nullable();
+            $table->integer('gasoil')->nullable();
             $table->integer('condicion')->unsigned()->default(0);
             $table->integer('coche_id')->nullable()->unsigned();
             $table->integer('boletosleagas_id')->nullable()->unsigned();

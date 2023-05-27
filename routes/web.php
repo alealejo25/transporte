@@ -218,6 +218,12 @@ Route::get('bolmanantial/boletos/{id}/cargargasoil','BolManantialController@carg
 Route::patch('bolmanantial/boletos/guardarcargagasoil','BolManantialController@guardarcargagasoil')->name('guardarcargagasoil');
 Route::get('bolmanantial/boletos/{id}/cambiocoche','BolManantialController@cambiocoche')->name('cambiocoche');
 Route::patch('bolmanantial/boletos/guardarcambiocoche','BolManantialController@guardarcambiocoche')->name('guardarcambiocoche');
+
+//--------------------------------------------------------------
+//-------------- FIN BOLETERIA MANANTIAL -----------------------
+//--------------------------------------------------------------
+
+
 //**************************************************************
 //***BOLETERIA TAFI VIEJO***************************************
 //**************************************************************

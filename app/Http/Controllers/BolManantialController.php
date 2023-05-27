@@ -252,36 +252,17 @@ class BolManantialController extends Controller
         }
     public function informeboletoleagas($id)
     {
-
-       // $datos=BoletoLeagas::where('id',$id)->get();
-            
-       //  $datos->each(function($datos){
-       //      $datos->linea;
-       //      $datos->choferleagaslnf;
-       //      $datos->servicioleagaslnf;
-       //      $datos->turno; 
-       //      $datos->coche;
-       //      $datos->user;
-       // });
-
-
-        $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto')
+        $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','turnos.nombre as nombreturno','boletosleagas.id as id_boleto')
             ->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')
             ->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')
             ->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')
-            ->join('coches','boletosleagas.coche_id_cambio','=','coches.id')
             ->where('boletosleagas.id',$id)->get();
-        $datos->each(function($datos){
-             $datos->linea;
-             $datos->choferleagaslnf;
-             $datos->servicioleagaslnf;
-             $datos->coche;
-        });
-        //dd($datos);
-        $taller=$datos[0]->taller;
 
- 
-        $pdf=\PDF::loadView('bolmanantial.boletos.informeboletoleagas',['datos'=>$datos,'taller'=>$taller])
+            $servicios=CocheBoleto::select('*','cochesboletos.id as id_co')->join('coches','cochesboletos.coche_id','=','coches.id')->where('cochesboletos.boletosleagas_id',$id)->get();
+
+
+
+        $pdf=\PDF::loadView('bolmanantial.boletos.informeboletoleagas',['datos'=>$datos,'servicios'=>$servicios])
         ->setPaper('a4');
         return $pdf->download('informeboletoleagas.pdf');
         
@@ -499,8 +480,8 @@ public function storeramal(Request $request)
 
      public function cargargasoil($id)
     {
-        
-        $servicios=BoletoLeagas::find($id);
+
+    $servicios=CocheBoleto::select('*','cochesboletos.id as id_co')->join('coches','cochesboletos.coche_id','=','coches.id')->where('cochesboletos.boletosleagas_id',$id)->get();
         return view('bolmanantial.boletos.cargargasoil')
             ->with('servicios',$servicios)
             ->with('id',$id);
@@ -509,17 +490,32 @@ public function storeramal(Request $request)
     public function guardarcargagasoil(Request $request)
     {
 
-        $campos=[
+        /*$campos=[
             'gasoil'=>'required|integer',
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-       
-      $editalservicio=BoletoLeagas::where('id',$request->id)
+       */
+
+        $boletos=$request->all();
+
+        foreach($boletos['cochesboletos_id'] as $key => $value){
+
+            $editacocheboletos=CocheBoleto::where('id',$boletos["cochesboletos_id"][$key])
                 ->update([
-                          'gasoil'=>$request->gasoil
+                          'gasoil'=>$boletos["gasoil"][$key]
                           ]);
+              
+        }
+
+
+
+
+      
  
+
+
+
        return Redirect('bolmanantial/boletosleagas')->with('Mensaje','Se modifico el servicio!!!!');
     }
     public function cambiocoche($id)

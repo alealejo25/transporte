@@ -18,6 +18,7 @@ class CocheBoleto extends Model
         'recaudacion',
         'taller',
         'motivo_cambio',
+        'gasoil',
         'condicion',
         'coche_id',
         'boletosleagas_id'

@@ -14,7 +14,7 @@
 				</ul>
 			</div>
 			@endif	
- 			{!!Form::open(array('url'=>'bolmanantial/boletosleagas/store','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data'))!!} 
+ 			{!!Form::open(array('url'=>'bolmanantial/boletosleagas/store','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data','onsubmit'=>'enviar();'))!!} 
 			<!-- {!!Form::model(['method'=>'POST','route'=>['camiones.store']])!!}-->
 			{{Form::token()}}
 
@@ -95,11 +95,7 @@
 					<input type="number" name="toquesanden" id="toquesanden" class="form-control {{$errors->has('toquesanden')?'is-invalid':''}}" placeholder="Toques de anden..." value="{{old('toquesanden')}}">
 					{!! $errors->first('toquesanden','<div class="invalid-feedback">:message</div>')!!}
 				</div>
-				<div class="form-group col-lg-6 col-md-4 col-sm-12">
-					<label for="linea_id">Gasoil</label>
-					<input type="number" name="gasoil" id="gasoil" class="form-control {{$errors->has('gasoil')?'is-invalid':''}}" placeholder="Toques de anden..." value="{{old('gasoil')}}">
-					{!! $errors->first('gasoil','<div class="invalid-feedback">:message</div>')!!}
-				</div>
+				
 							</div>
 							<!-------------------------------------------------------------->
 			<hr size="8px">
@@ -132,12 +128,12 @@
 					<div class="row">
 				<div class="form-group col-lg-6 col-md-4 col-sm-12">
 					<label for="cantpasajes">Cantidad de Pasajes</label>
-					<input type="number" step=0.01 name="cantpasajes" id="cantpasajes" class="form-control {{$errors->has('cantpasajes')?'is-invalid':''}}" placeholder="Inicio Tarjeta..." value="{{old('cantpasajes')}}" readonly onmousedown="return false;">
+					<input type="number" step=0.01 name="cantpasajes" id="cantpasajes" class="form-control {{$errors->has('cantpasajes')?'is-invalid':''}}" placeholder="Cantidad de Pasajes..." value="{{old('cantpasajes')}}" readonly onmousedown="return false;">
 					{!! $errors->first('cantpasajes','<div class="invalid-feedback">:message</div>')!!}
 				</div>
 				<div class="form-group col-lg-6 col-md-4 col-sm-12">
 					<label for="recaudacion">Recaudacion $</label>
-					<input type="number" step=0.01 name="recaudacion" id="recaudacion" class="form-control {{$errors->has('recaudacion')?'is-invalid':''}}" placeholder="Inicio Tarjeta..." value="{{old('recaudacion')}}" readonly onmousedown="return false;" >
+					<input type="number" step=0.01 name="recaudacion" id="recaudacion" class="form-control {{$errors->has('recaudacion')?'is-invalid':''}}" placeholder="Recaudacion..." value="{{old('recaudacion')}}" readonly onmousedown="return false;" >
 					{!! $errors->first('recaudacion','<div class="invalid-feedback">:message</div>')!!}
 				</div>
 					<div class="form-group col-lg-6 col-md-4 col-sm-12">
@@ -177,7 +173,7 @@
 
 			<div class="row">
 				<div class="form-group col-lg-12 col-md-4 col-sm-12">
-					<button class="btn btn-primary" type="submit">Guardar</button>
+					<button id="btn" class="btn btn-primary" type="submit">Guardar</button>
 					<button class="btn btn-danger" type="reset">Cancelar</button>
 				</div>
 			</div>
@@ -197,7 +193,12 @@
 
 <script>
 		
-
+   function enviar(){
+		
+    var btn = document.getElementById('btn');
+    btn.setAttribute('disabled','');
+    
+  }
 
 	 $(document).ready(function(){
 	 	const csrfToken=document.head.querySelector("[name~=csrf-token][content]").content;
@@ -276,8 +277,8 @@ $(".print").click(function() {
             newTextBoxDiv.after().html('<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="servicio">Coche</label><select name="coche_id[]" id="coche" class="form-control"><option value="">Seleccione un Coche</option>@foreach ($coche as $datos)<option value="{{ $datos->id }}">Interno: {{$datos->interno}} - {{$datos->patente}}</option>@endforeach</select></div>'+
             	'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="iniciotarjeta">Inicio Tarjeta</label><input type="number" step=0 name="iniciotarjeta[]" id="iniciotarjeta" class="form-control {{$errors->has("iniciotarjeta")?"is-invalid":""}}" placeholder="Inicio Tarjeta..." value="{{old("iniciotarjeta")}}"></div>'+
             	'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="fintarjeta">Fin Tarjeta</label><input type="number" step=0 name="fintarjeta[]" id="fintarjeta" class="form-control {{$errors->has("fintarjeta")?"is-invalid":""}}" placeholder="Fin Tarjeta..." value="{{old("fintarjeta")}}" ></div>'+
-            	'<div class="form-group col-lg-6 col-md-4 col-sm-12"><label for="cantpasajes">Cantidad de Pasajes</label><input type="number" step=0.01 name="cantpasajes[]" id="cantpasajes" class="form-control {{$errors->has("cantpasajes")?"is-invalid":""}}" placeholder="Inicio Tarjeta..." value="{{old("cantpasajes")}}" readonly onmousedown="return false;"></div>'+
-            	'<div class="form-group col-lg-6 col-md-4 col-sm-12"><label for="recaudacion">Recaudacion $</label><input type="number" step=0.01 name="recaudacion[]" id="recaudacion" class="form-control {{$errors->has("recaudacion")?"is-invalid":""}}" placeholder="Inicio Tarjeta..." value="{{old("recaudacion")}}" readonly onmousedown="return false;" ></div>'+
+            	'<div class="form-group col-lg-6 col-md-4 col-sm-12"><label for="cantpasajes">Cantidad de Pasajes</label><input type="number" step=0.01 name="cantpasajes[]" id="cantpasajes" class="form-control {{$errors->has("cantpasajes")?"is-invalid":""}}" placeholder="Cantidad de Pasajes..." value="{{old("cantpasajes")}}" readonly onmousedown="return false;"></div>'+
+            	'<div class="form-group col-lg-6 col-md-4 col-sm-12"><label for="recaudacion">Recaudacion $</label><input type="number" step=0.01 name="recaudacion[]" id="recaudacion" class="form-control {{$errors->has("recaudacion")?"is-invalid":""}}" placeholder="Recaudacion..." value="{{old("recaudacion")}}" readonly onmousedown="return false;" ></div>'+
             	'<div class="row"><div class="form-group col-lg-3 col-md-4 col-sm-12"><label for="">Entro al Taller?</label><select name="taller[]" id="taller" class="form-control"><option value="">Seleccione una opcion</option><option value="SI">SI</option><option value="NO">NO</option></select></div><div class="form-group col-lg-9 col-md-4 col-sm-12"><label for="linea_id">Obsevaciones taller </label><input type="text" name="motivo_cambio[]" id="motivo_cambio" class="form-control {{$errors->has("motivo_cambio")?"is-invalid":""}}" placeholder="Observacion de ingreso al taller..." value="{{old("motivo_cambio")}}"></div></div>'+'<hr size="8px">');
             newTextBoxDiv.appendTo("#TextBoxesGroup");
             counter++;
@@ -299,6 +300,8 @@ $(".print").click(function() {
         });
 
 
+
+ 
 
 
 	})

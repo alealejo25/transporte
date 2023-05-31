@@ -391,6 +391,7 @@ public function createservicio()
             'turno'=>'required',
             'ramal'=>'required',
             'linea'=>'required',
+            'km'=>'required|integer',
             ];
 
         $Mensaje=["required"=>'El :attribute es requerido'];

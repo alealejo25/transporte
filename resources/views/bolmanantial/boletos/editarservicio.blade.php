@@ -47,6 +47,13 @@
 				{!!Form::select('ramal_id',$ramal,$servicios->ramal->id,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
 				{!! $errors->first('ramal_id','<div class="invalid-feedback">:message</div>')!!}
 			</div>
+			<div class="Form-group">
+				<!-- <label for="nombre">Dominio</label> -->
+				{{Form::label('km', 'Kms')}}
+				<input type="text" class="form-control {{$errors->has('km')?'is-invalid':''}}" placeholder="Ingrese los kms del servicio..." name="km" id="km"  value="{{$servicios->km}}">
+				{!! $errors->first('km','<div class="invalid-feedback">:message</div>')!!}
+
+			</div>
 			
 			<br>
 			<div class="Form-group">

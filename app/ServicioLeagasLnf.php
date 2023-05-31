@@ -16,7 +16,8 @@ class ServicioLeagasLnf extends Model
         'empresa_id',
         'ramal_id',
         'turno_id',
-        'linea_id'
+        'linea_id',
+        'km'
     ];
 /*    public function ChoferLeagasLnf()
     {

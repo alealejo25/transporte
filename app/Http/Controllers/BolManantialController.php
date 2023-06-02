@@ -492,19 +492,26 @@ public function storeramal(Request $request)
         ')->with('Mensaje','Se creo el Ramal!!!!');
     }
 
-     public function cargargasoil($id)
+     public function cargargasoil()
     {
 
-    $servicios=CocheBoleto::select('*','cochesboletos.id as id_co')->join('coches','cochesboletos.coche_id','=','coches.id')->where('cochesboletos.boletosleagas_id',$id)->get();
-        return view('bolmanantial.boletos.cargargasoil')
-            ->with('servicios',$servicios)
-            ->with('id',$id);
+    $linea10=Coche::where('nroempresa',10)->get();
+    $linea142=Coche::where('nroempresa',142)->get();
+    $linea110=Coche::where('nroempresa',110)->get();
+    $linea118=Coche::where('nroempresa',118)->get();
+
+    return view('bolmanantial.boletos.cargargasoil')
+            ->with('linea10',$linea10)
+            ->with('linea142',$linea142)
+            ->with('linea110',$linea110)
+            ->with('linea118',$linea118);
+    
     }
 
     public function guardarcargagasoil(Request $request)
     {
 
-       
+       dd($request);
        
        /* $campos=[
             '$boletos["gasoil"][$key]'=>'required',

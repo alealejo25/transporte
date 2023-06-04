@@ -20,6 +20,8 @@ use App;
 use \PDF;
 use DateTime;
 use DB;
+use DatePeriod;
+use DateInterval;
 
 
 class BolManantialController extends Controller
@@ -106,26 +108,28 @@ class BolManantialController extends Controller
     public function store(Request $request)
      {
 
-        $date = new \DateTime();
+ 
 
-        /*VALIDACION -----------------------------------------
+  /*      VALIDACION -----------------------------------------*/
             $campos=[
             'chofer_id'=>'required',
             'linea_id'=>'required',
             'servicio_id'=>'required',
+            'fecha'=>'required',
             'horainicio'=>'required',
             'horafin'=>'required',
-            'toquesanden'=>'required',
-            'coche_id'=>'required',
-            'iniciotarjeta'=>'required',
-            'fintarjeta'=>'required',
-            'taller'=>'required',
+            'toquesanden'=>'numeric|required|min:0|max:10',
+            'coche_id.*'=>'required',
+            'iniciotarjeta.*'=>'numeric|required',
+            'fintarjeta.*'=>'numeric|required',
+            'taller.*'=>'required',
+            'motivo_cambio.*'=>'max:150',
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-*/
+
         /*--------------------------------------------------------*/
-                $coches=$request->all();
+        $coches=$request->all();
         $docenoche=new DateTime('23:59');
         $horainicio=new DateTime($request->horainicio);
         $horafin=new DateTime($request->horafin);
@@ -140,7 +144,7 @@ class BolManantialController extends Controller
                 $newhorainicio=$horainicio->modify('-4 hours');
                 $canths = $newhorainicio->diff($newhorafin);
                 $canthorastrabajadas=$canths->format('%H:%I');
-                            $horastrabajadas=new DateTime($canthorastrabajadas);
+                $horastrabajadas=new DateTime($canthorastrabajadas);
 
             }
             else{
@@ -200,18 +204,65 @@ class BolManantialController extends Controller
 
         $datos->valorhorasrestantes=0;
         $datos->valortoquesanden=$request->toquesanden*117;
-        $datos->horastotal=$canthorastrabajadas;
+        
         $datos->user_id=$request->user_id;
-        if($horastrabajadas>$horasdetrabajo){
-            $diferenciacanths=$horasdetrabajo->diff($horastrabajadas);  
-            $horassobrantes=$diferenciacanths->format('%H:%I');
-            $datos->horassobrantes=$horassobrantes;
+        if($request->tiposervicio=='NORMAL'){
+            $datos->horastotal=$canthorastrabajadas;
+            if($horastrabajadas>$horasdetrabajo){
+                $diferenciacanths=$horasdetrabajo->diff($horastrabajadas);  
+                $horassobrantes=$diferenciacanths->format('%H:%I');
+                $datos->horassobrantes=$horassobrantes;
+            }
+            else{
+               // $cero=new DateTime('0:0');
+                //$cerohs=$cero->format('%H:%I');
+                $datos->horassobrantes=0;
+            }
         }
         else{
-           // $cero=new DateTime('0:0');
-            //$cerohs=$cero->format('%H:%I');
-            $datos->horassobrantes=0;
+            if($request->tiposervicio=='ALARGUE'){
+                $datos->alargue=1;
+                $datos->horastotalalargue=$canthorastrabajadas;
+            }
+            else{
+
+                $cortado=BoletoLeagas::where('chofer_id',$request->chofer_id)->where('cortado',1)->where('fecha',$request->fecha)->orderBy('id','DESC')->limit(1)->get();
+                
+                if(count($cortado)>0){
+                    $horastrabajadasanterior=$cortado[0]->horastotal;
+                    list($h, $m, $s) = explode(':', $horastrabajadasanterior); //Separo los elementos de la segunda hora
+                    $a = new DateTime($canthorastrabajadas); //Creo un DateTime
+                    $b = new DateInterval(sprintf('PT%sH%sM%sS', $h, $m, $s)); //Creo un DateInterval
+                    $a->add($b); //SUMO las horas
+                    $horassumadas=$a->format('H:i'); //Retorno la Suma
+                    $horassumadasformateada=new DateTime($horassumadas);
+                    $actualizarboletos=BoletoLeagas::where('chofer_id',$request->chofer_id)->where('cortado',1)->where('fecha',$request->fecha)->update([
+                                'cortado'=>'2',
+                                 ]);
+
+
+                    if($horassumadasformateada>$horasdetrabajo){
+                        $diferenciacanths=$horasdetrabajo->diff($horassumadasformateada);  
+                        $horassobrantes=$diferenciacanths->format('%H:%I');
+                        $datos->horassobrantes=$horassobrantes;
+                        $datos->horastotal=$canthorastrabajadas;
+                        $datos->cortado=2;
+                    }
+                    else
+                    {
+                       // $cero=new DateTime('0:0');
+                        //$cerohs=$cero->format('%H:%I');
+                        $datos->horassobrantes=0;
+                        $datos->horastotal=$canthorastrabajadas;
+                        $datos->cortado=2;
+                    }
+                }else{
+                    $datos->cortado=1;
+                    $datos->horastotal=$canthorastrabajadas;
+                    $datos->horassobrantes=0;
+                }
         }
+    }
        $datos->chofer_id=$request->chofer_id;
        $datos->linea_id=$request->linea_id;
        $datos->servicio_id=$request->servicio_id;
@@ -307,7 +358,7 @@ class BolManantialController extends Controller
         $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
         $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
       
-       $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
+       $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
        
        
 
@@ -511,7 +562,7 @@ public function storeramal(Request $request)
     public function guardarcargagasoil(Request $request)
     {
 
-       dd($request);
+       
        
        /* $campos=[
             '$boletos["gasoil"][$key]'=>'required',

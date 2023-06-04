@@ -20,8 +20,11 @@ class Boletosleagas extends Migration
             $table->integer('pasajestotal');
             $table->time('horainicio',0);
             $table->time('horafin',0);
-            $table->time('horastotal',0);
-            $table->time('horassobrantes',0);
+            $table->time('horastotal',0)->nullable();//modificado
+            $table->string('alargue',1)->nullable();//nuevo
+            $table->string('cortado',1)->nullable();////nuevo
+            $table->time('horastotalalargue',0)->nullable();//nuevo
+            $table->time('horassobrantes',0)->nullable();//modificado
             $table->decimal('valorhorasrestantes',10,2);
             $table->integer('gasoiltotal')->nullable();
             $table->integer('toquesanden');

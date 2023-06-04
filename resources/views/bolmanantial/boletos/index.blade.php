@@ -24,11 +24,9 @@
 					<th>Turno</th>
 					<th>Pax</th>
 					<th>Recaudacion</th>
-					<th>horaT</th>
-					<th>horaS</th>
-					
-					<th>Observ.</th>
-
+					<th>HoraT</th>
+					<th>HoraS</th>
+					<th>HoraA</th>
 					<th>Opciones</th>
 				</thead>
                @foreach ($datos as $dato)
@@ -43,11 +41,10 @@
 					<td align="right">{{ $dato->horafin}}</td>-->
 					<td align="right">{{ $dato->horastotal}}</td>
 					<td align="right">{{ $dato->horassobrantes}}</td>
+					<td align="right">{{ $dato->horastotalalargue}}</td>
 					<!--<td align="right">{{ $dato->toquesanden}}</td>
 					<td align="right">{{ $dato->valortoquesanden}}</td>-->
 					
-					<td align="right">{{ $dato->observaciones}}</td>
-
 					<td>
 					
 						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id_boleto.'/modificarservicio')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a>

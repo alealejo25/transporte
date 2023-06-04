@@ -94,6 +94,9 @@
         <br>
     <br>
     @foreach ($datos as $dato)
+        @if($dato->alargue==1)
+        <h2>Tipo de servicio: ALARGUE</h2>
+    @endif
 		<h3>Fecha {{date('d-m-Y', strtotime($dato->fecha))}} - Chofer: {{$dato->nombrechofer}}</h3>
 		<h3>Linea: {{$dato->linea->numero}} - Turno: {{$dato->nombre}} - Servicio: {{$dato->servicioleagaslnf->numero}}</h3>
 	@endforeach
@@ -142,7 +145,11 @@
                 <tr>
                     <td>{{$dato->horainicio}}</td>
                     <td>{{$dato->horafin}}</td>
-                    <td>{{$dato->horastotal}}</td>
+                    @if($dato->alargue==1)
+                        <td>{{$dato->horastotalalargue}}</td>
+                    @else
+                        <td>{{$dato->horastotal}}</td>
+                    @endif
                     <td>{{$dato->horassobrantes}}</td>
                     <td>{{$dato->valorhorasrestantes}}</td>
                     
@@ -171,9 +178,9 @@
             <tbody>
                 @foreach ($servicios as $servicio)
                 <tr>
-                    <td align="right"> {{$servicio->interno}}</td>
+                    <td align="right">{{$servicio->interno}}</td>
                     <td align="right">{{$servicio->iniciotarjeta}}</td>
-                    <td align="right">$ {{$servicio->fintarjeta}}</td>
+                    <td align="right">{{$servicio->fintarjeta}}</td>
 					<td align="right">{{$servicio->cantpasajes}}</td>
 					<td align="right">${{$servicio->recaudacion}}</td>
                     <td align="right">{{$servicio->gasoil}}</td>

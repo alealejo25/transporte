@@ -98,6 +98,7 @@
                     <th>Cant. Serv.</th>
                     <th>Hs Trab</th>
                     <th>Hs Sob</th>
+                    <th>Hs Alargue</th>
                     <th>Cant Pax</th>
                     <th>Rec.</th>
                     <th>Toques anden</th>
@@ -113,6 +114,7 @@
 				  <td align="right">{{$dato->cantidaddeservicios}}</td> 
 				  <td align="right">{{$dato->horastotal}}</td> 
 				  <td align="right">{{$dato->horassobrantes}}</td>
+                  <td align="right">{{$dato->horastotalalargue}}</td>
 				  <td align="right">{{$dato->pasajes}}</td> 
 				  
 				  <td align="right">$ {{number_format($dato->recaudacion,2,",",".")}}</td>

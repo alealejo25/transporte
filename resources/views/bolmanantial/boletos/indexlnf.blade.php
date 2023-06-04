@@ -26,7 +26,7 @@
 					<th>Recaudacion</th>
 					<th>horaT</th>
 					<th>horaS</th>
-					<th>Observ.</th>
+					<th>HoraA</th>
 
 					<th>Opciones</th>
 				</thead>
@@ -42,9 +42,8 @@
 					<td align="right">{{ $dato->horafin}}</td>-->
 					<td align="right">{{ $dato->horastotal}}</td>
 					<td align="right">{{ $dato->horassobrantes}}</td>
-					<!--<td align="right">{{ $dato->toquesanden}}</td>
-					<td align="right">{{ $dato->valortoquesanden}}</td>-->
-					<td align="right">{{ $dato->observaciones}}</td>
+						<td align="right">{{ $dato->horastotalalargue}}</td>
+					
 
 					<td>
 					

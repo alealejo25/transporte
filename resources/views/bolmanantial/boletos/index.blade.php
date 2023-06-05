@@ -23,10 +23,10 @@
 					<th>Serv.</th>
 					<th>Turno</th>
 					<th>Pax</th>
-					<th>Recaudacion</th>
+					<th>Rec.</th>
 					<th>HoraT</th>
 					<th>HoraS</th>
-					<th>HoraA</th>
+					<th>HAlargue</th>
 					<th>Opciones</th>
 				</thead>
                @foreach ($datos as $dato)

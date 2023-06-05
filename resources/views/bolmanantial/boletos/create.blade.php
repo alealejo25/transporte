@@ -252,7 +252,7 @@
 					
   				}
   				else{
-  					if(resta<=0){
+  					if(resta<0){
   						alert("LA CANTIDAD DE PASAJES NO PUEDE SER NEGATIVA");
   						$("#iniciotarjeta").focus();
 						$("#iniciotarjeta").val("");

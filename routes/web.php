@@ -195,25 +195,25 @@ Route::resource('abms/marca','MarcaController');
 //**************************************************************
 //***BOLETERIA MANANTIAL***************************************
 //**************************************************************
-Route::get('bolmanantial/boletosleagas','BolManantialController@index')->name('bolmanantial.boletosleagas');
-Route::get('bolmanantial/boletoslnf','BolManantialController@indexlnf')->name('bolmanantial.boletoslnf');
+Route::get('bolmanantial/boletosleagas','BolManantialController@index')->name('bolmanantial.boletosleagas')->middleware('auth');
+Route::get('bolmanantial/boletoslnf','BolManantialController@indexlnf')->name('bolmanantial.boletoslnf')->middleware('auth');
 
-Route::get('bolmanantial/boletosleagas/create','BolManantialController@create')->name('bolmanantial.boletosleagas.create');
-Route::get('bolmanantial/boletosleagas/createlnf','BolManantialController@createlnf')->name('bolmanantial.boletosleagas.createlnf');
-Route::post('bolmanantial/boletosleagas/store','BolManantialController@store')->name('store');
-Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialController@informeboletoleagas')->name('informeboletoleagas');
+Route::get('bolmanantial/boletosleagas/create','BolManantialController@create')->name('bolmanantial.boletosleagas.create')->middleware('auth');
+Route::get('bolmanantial/boletosleagas/createlnf','BolManantialController@createlnf')->name('bolmanantial.boletosleagas.createlnf')->middleware('auth');
+Route::post('bolmanantial/boletosleagas/store','BolManantialController@store')->name('store')->middleware('auth');
+Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialController@informeboletoleagas')->name('informeboletoleagas')->middleware('auth');
 
-Route::get('bolmanantial/reportes/boletosleagas','BolManantialController@boletosleagas')->name('boletoslegas');
-Route::post('bolmanantial/reportes/reporteboletosleagas','BolManantialController@reporteboletosleagas')->name('reporteboletosleagas');
-Route::post('bolmanantial/boletosleagas/buscarservicios', 'BolManantialController@buscarservicios')->name('buscarservicios');
-Route::get('bolmanantial/boletos/servicios', 'BolManantialController@servicios')->name('servicios');
-Route::get('bolmanantial/boletos/createservicio', 'BolManantialController@createservicio')->name('createservicio');
-Route::post('bolmanantial/boletosleagas/storeservicio','BolManantialController@storeservicio')->name('storeservicio');
-Route::get('bolmanantial/boletos/{id}/editarservicio','BolManantialController@editarservicio')->name('editarservicio');
-Route::patch('bolmanantial/boletos/guardaredicionservicios','BolManantialController@guardaredicionservicios')->name('guardaredicionservicios');
-Route::get('bolmanantial/boletos/ramal', 'BolManantialController@ramal')->name('ramal');
-Route::get('bolmanantial/boletos/createramal', 'BolManantialController@createramal')->name('createramal');
-Route::post('bolmanantial/boletosleagas/storeramal','BolManantialController@storeramal')->name('storeramal');
+Route::get('bolmanantial/reportes/boletosleagas','BolManantialController@boletosleagas')->name('boletoslegas')->middleware('auth');
+Route::post('bolmanantial/reportes/reporteboletosleagas','BolManantialController@reporteboletosleagas')->name('reporteboletosleagas')->middleware('auth');
+Route::post('bolmanantial/boletosleagas/buscarservicios', 'BolManantialController@buscarservicios')->name('buscarservicios')->middleware('auth');
+Route::get('bolmanantial/boletos/servicios', 'BolManantialController@servicios')->name('servicios')->middleware('auth')->middleware('auth');
+Route::get('bolmanantial/boletos/createservicio', 'BolManantialController@createservicio')->name('createservicio')->middleware('auth');
+Route::post('bolmanantial/boletosleagas/storeservicio','BolManantialController@storeservicio')->name('storeservicio')->middleware('auth');
+Route::get('bolmanantial/boletos/{id}/editarservicio','BolManantialController@editarservicio')->name('editarservicio')->middleware('auth');
+Route::patch('bolmanantial/boletos/guardaredicionservicios','BolManantialController@guardaredicionservicios')->name('guardaredicionservicios')->middleware('auth');
+Route::get('bolmanantial/boletos/ramal', 'BolManantialController@ramal')->name('ramal')->middleware('auth');
+Route::get('bolmanantial/boletos/createramal', 'BolManantialController@createramal')->name('createramal')->middleware('auth');
+Route::post('bolmanantial/boletosleagas/storeramal','BolManantialController@storeramal')->name('storeramal')->middleware('auth');
 //Route::get('bolmanantial/boletos/{id}/cargargasoil','BolManantialController@cargargasoil')->name('cargargasoil');
 Route::get('bolmanantial/boletos/cargargasoil','BolManantialController@cargargasoil')->name('cargargasoil');
 Route::patch('bolmanantial/boletos/guardarcargagasoil','BolManantialController@guardarcargagasoil')->name('guardarcargagasoil');

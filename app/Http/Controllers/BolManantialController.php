@@ -246,7 +246,7 @@ class BolManantialController extends Controller
                         $horassobrantes=$diferenciacanths->format('%H:%I');
                         $datos->horassobrantes=$horassobrantes;
                         $datos->horastotal=$canthorastrabajadas;
-                        $datos->cortado=2;
+                        //$datos->cortado=2;
                     }
                     else
                     {
@@ -254,7 +254,7 @@ class BolManantialController extends Controller
                         //$cerohs=$cero->format('%H:%I');
                         $datos->horassobrantes=0;
                         $datos->horastotal=$canthorastrabajadas;
-                        $datos->cortado=2;
+                        //$datos->cortado=2;
                     }
                 }else{
                     $datos->cortado=1;

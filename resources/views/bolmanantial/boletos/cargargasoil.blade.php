@@ -24,10 +24,10 @@
             {{Form::token()}}
             @foreach ($linea10 as $l110)
             <tr>
-                <div class="form-group col-lg-2 col-md-4 col-sm-6">
+                <div class="form-group col-lg-6 col-md-2 col-sm-2">
                     <!-- <label for="nombre">Dominio</label> -->
                     {{Form::label('linea10', $l110->interno)}}
-                    <input type="text" class="form-control {{$errors->has($l110->id)?'is-invalid':''}}" placeholder="interno {{$l110->id}}..." name="{{$l110->id}}" iid="{{$l110->id}}"  value="{{old($l110->id)}}">
+                    <input type="text" class="form-control {{$errors->has($l110->id)?'is-invalid':''}}" placeholder="interno {{$l110->id}}..." name="{{$l110->id}}" id="{{$l110->id}}"  value="{{old($l110->id)}}">
                     {!! $errors->first('nombre','<div class="invalid-feedback">:message</div>')!!}
 
                 </div>

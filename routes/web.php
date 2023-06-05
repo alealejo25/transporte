@@ -215,7 +215,7 @@ Route::get('bolmanantial/boletos/ramal', 'BolManantialController@ramal')->name('
 Route::get('bolmanantial/boletos/createramal', 'BolManantialController@createramal')->name('createramal')->middleware('auth');
 Route::post('bolmanantial/boletosleagas/storeramal','BolManantialController@storeramal')->name('storeramal')->middleware('auth');
 //Route::get('bolmanantial/boletos/{id}/cargargasoil','BolManantialController@cargargasoil')->name('cargargasoil');
-Route::get('bolmanantial/boletos/cargargasoil','BolManantialController@cargargasoil')->name('cargargasoil');
+Route::get('bolmanantial/boletos/cargargasoil','BolManantialController@cargargasoil')->name('cargargasoil')->middleware('permission:cargargasoil');
 Route::patch('bolmanantial/boletos/guardarcargagasoil','BolManantialController@guardarcargagasoil')->name('guardarcargagasoil');
 Route::get('bolmanantial/boletos/{id}/cambiocoche','BolManantialController@cambiocoche')->name('cambiocoche');
 Route::patch('bolmanantial/boletos/guardarcambiocoche','BolManantialController@guardarcambiocoche')->name('guardarcambiocoche');

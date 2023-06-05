@@ -47,7 +47,7 @@ Route::get('abms/choferes/listarPdf','ChoferController@listarPdf')->name('chofer
 Route::get('abms/repuestos/listarPdf','RepuestoController@listarPdf')->name('repuestos_pdf');
 
 
-Route::get('/','InicioController@index');
+Route::get('/','InicioController@index')->middleware('auth');
 
 //probando jquery!!
 

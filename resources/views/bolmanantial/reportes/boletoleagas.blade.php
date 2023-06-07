@@ -22,12 +22,16 @@
     									{!! $errors->first('fechai','<div class="invalid-feedback">:message</div>')!!}
                                 </div>
                                 <div class="col-sm-12 col-md-2 col-lg-2">Fecha final
-                                        <input type="date" name="fechaf" id="fechaf" class="form-control {{$errors->has('fechaf')?'is-invalid':''}}" placeholder="Fecha del Cheque..." value="{{old('fechaf')}}">
+                                        <input type="date" name="fechaf" id="fechaf" class="form-control {{$errors->has('fechaf')?'is-invalid':''}}" value="{{old('fechaf')}}">
     									{!! $errors->first('fechaf','<div class="invalid-feedback">:message</div>')!!}
                                 </div>
-    						     <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Chofer
-                                 	   {!!Form::select('empresa_id',$empresa,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
+    						     <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Empresa
+                                 	   {!!Form::select('empresa_id',$empresa,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion'])!!}
                                        {!! $errors->first('empresa_id','<div class="invalid-feedback">:message</div>')!!}
+                                </div>
+                                <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Linea
+                                       {!!Form::select('linea_id',$linea,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion'])!!}
+                                       {!! $errors->first('linea_id','<div class="invalid-feedback">:message</div>')!!}
                                 </div>
                             </div>
                             <div>

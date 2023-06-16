@@ -2,8 +2,13 @@
 @section('contenido')
 	<div class="row">
 		<div class="col-lg-6 col-lg-6 col-lg-6 col-xs-12">
-			<h3>Cargar Servicio</h3>
 
+@if($empresa==2)
+<h3>Cargar Servicio LEAGAS</h3>
+@endif
+@if($empresa==1)
+<h3>Cargar Servicio LA NUEVA FOURNIER</h3>
+@endif
 			@if(count($errors)>0)
 			<div class="alert alert-danger" role="alert">
 				<ul>
@@ -21,6 +26,9 @@
 
 		<!-------------------------------------------------------------->
 		<div class="row">
+
+					
+					<input type="text" hidden name="empresa" id="empresa" value="{{$empresa}}"> 
 				<div class="form-group col-lg-4 col-md-4 col-sm-12">
 					<label for="fecha">Fecha</label>
 					<input type="date" step=0.01 name="fecha" class="form-control" required> 
@@ -131,6 +139,7 @@
 					<input type="number" step=0 name="iniciotarjeta[]" id="iniciotarjeta" class="form-control" placeholder="Inicio Tarjeta..." required>
 					
 				</div>
+
 				<div class="form-group col-lg-4 col-md-4 col-sm-12">
 					<label for="fintarjeta">Fin Tarjeta</label>
 					<input type="number" step=0 name="fintarjeta[]" id="fintarjeta" class="form-control" placeholder="Fin Tarjeta..." required>
@@ -196,12 +205,20 @@
 			</div>
 			
 			{!!Form::close()!!}
-			
+			@if($empresa==2)
 			<div class="Form-group">
 				<br/>
 				<a href="/bolmanantial/boletosleagas"><button class="btn btn-success">Regresar</button></a>
 
 			</div>
+			@endif
+			@if($empresa==1)
+			<div class="Form-group">
+				<br/>
+				<a href="/bolmanantial/boletoslnf"><button class="btn btn-success">Regresar</button></a>
+
+			</div>
+			@endif
 
 		</div>
 	</div> 

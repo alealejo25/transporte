@@ -59,7 +59,7 @@ class BolManantialController extends Controller
 
      public function create()
     {
-        //--------- ESTO ES PARA LOS SERVICIOS DE LA NUEVA FOUNUIER ------------//
+        //--------- ESTO ES PARA LOS SERVICIOS DE LEAGAS ------------//
         $linea=Linea::where('empresa_id',2)->orderBy('numero','ASC')->get();
 
         //$choferleagaslnf=ChoferLeagaslnf::orderBy('nombre','ASC')->pluck('nombre','id');
@@ -79,6 +79,7 @@ class BolManantialController extends Controller
                ->with('linea',$linea)
                ->with('choferleagaslnf',$choferleagaslnf)
                ->with('servicioleagaslnf',$servicioleagaslnf)
+               ->with('empresa',2)
                ->with('coche',$coche);
     }
      public function createlnf()
@@ -103,6 +104,7 @@ class BolManantialController extends Controller
                ->with('linea',$linea)
                ->with('choferleagaslnf',$choferleagaslnf)
                ->with('servicioleagaslnf',$servicioleagaslnf)
+                ->with('empresa',1)
                ->with('coche',$coche);
     }
     public function store(Request $request)
@@ -298,9 +300,16 @@ class BolManantialController extends Controller
                                 'recaudaciontotal'=>$recaudaciontotal,
                                 'pasajestotal'=>$pasajestotal
                                  ]);
-
+       if($request->empresa==2){
        Flash::success('Servicio agregado correctamente');
        return Redirect('bolmanantial/boletosleagas');
+       }else
+       {
+               Flash::success('Servicio agregado correctamente');
+       return Redirect('bolmanantial/boletoslnf');
+       }
+
+
         }
     public function informeboletoleagas($id)
     {

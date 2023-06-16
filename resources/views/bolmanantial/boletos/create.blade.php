@@ -47,7 +47,7 @@
 					<label for="dia">Dia</label>
 					<select name="dia" id="dia" class="form-control" required>
 						<option value="">Seleccione una opcion</option>
-						<option value="kmsemana">SEMANA</option>
+						<option value="kmsemana">HABIL</option>
 						<option value="kmsabado">SABADO</option>
 						<option value="kmdomingo">DOMINGO</option>
 					</select>

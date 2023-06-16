@@ -294,7 +294,7 @@
 							{
 								$("#km").val(data);
 							}else{
-								alert('Debe seleccionar el dia');
+								alert('Debe seleccionar el dia, luego seleccione nuevamente el servicio para actualizar los kms');
 								$("#dia").focus();
 							}
 		            	},

@@ -19,8 +19,9 @@ class Serviciosleagaslnf extends Migration
             $table->integer('empresa_id')->unsigned()->nullable();
             $table->integer('turno_id')->unsigned()->nullable();
             $table->integer('linea_id')->unsigned()->nullable();
-            $table->integer('ramal_id')->unsigned()->nullable();
-            $table->integer('km')->nullable();
+            $table->integer('kmsemana')->nullable();
+            $table->integer('kmsabado')->nullable();
+            $table->integer('kmdomingo')->nullable();
             $table->timestamps();
 
             $table->foreign('empresa_id')->references('id')->on('empresas');

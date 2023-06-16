@@ -23,7 +23,9 @@
 					<th>Turno</th>
 					<th>Linea</th>
 					<th>Ramal</th>
-					<th>KMs</th>
+					<th>KMSemana</th>
+					<th>KMSabado</th>
+					<th>KMDomingo</th>
 					<th>Opciones</th>
 				</thead>
                @foreach ($datos as $dato)
@@ -33,7 +35,9 @@
 					<td>{{$dato->turno->nombre}}</td>
 					<td>{{$dato->linea->numero}}</td>
 					<td>{{$dato->ramal->nombre}}</td>
-					<td>{{$dato->km}}</td>
+					<td>{{$dato->kmsemana}}</td>
+					<td>{{$dato->kmsabado}}</td>
+					<td>{{$dato->kmdomingo}}</td>
 					
 					<td>
 					

@@ -81,8 +81,8 @@ class AdministracionController extends Controller
 
        // dd('listo a');
             // para asiganar o agregar un permiso a un rol
-        //$role = Role::find(1);
-        //$role->givePermissionTo('cargargasoil');
+      //  $role = Role::find(11);
+      //  $role->givePermissionTo('servicios');
 
         dd('listo a');
         return view('/');

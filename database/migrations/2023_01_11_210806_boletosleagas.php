@@ -27,6 +27,7 @@ class Boletosleagas extends Migration
             $table->time('horassobrantes',0)->nullable();//modificado
             $table->decimal('valorhorasrestantes',10,2);
             $table->integer('gasoiltotal')->nullable();
+
             $table->integer('toquesanden');
             $table->decimal('valortoquesanden',10,2);
             $table->string('observaciones',120)->nullable();

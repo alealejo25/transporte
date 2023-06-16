@@ -49,9 +49,23 @@
 			</div>
 			<div class="Form-group">
 				<!-- <label for="nombre">Dominio</label> -->
-				{{Form::label('km', 'Kms')}}
-				<input type="text" class="form-control {{$errors->has('km')?'is-invalid':''}}" placeholder="Ingrese los kms del servicio..." name="km" id="km"  value="{{$servicios->km}}">
-				{!! $errors->first('km','<div class="invalid-feedback">:message</div>')!!}
+				{{Form::label('kmsemana', 'KmSemana')}}
+				<input type="text" class="form-control {{$errors->has('kmsemana')?'is-invalid':''}}" placeholder="Ingrese los kms del servicio..." name="kmsemana" id="km"  value="{{$servicios->kmsemana}}">
+				{!! $errors->first('kmsemana','<div class="invalid-feedback">:message</div>')!!}
+
+			</div>
+			<div class="Form-group">
+				<!-- <label for="nombre">Dominio</label> -->
+				{{Form::label('kmsabado', 'KmSabado')}}
+				<input type="text" class="form-control {{$errors->has('kmsabado')?'is-invalid':''}}" placeholder="Ingrese los kms del servicio..." name="kmsabado" id="km"  value="{{$servicios->kmsabado}}">
+				{!! $errors->first('kmsabado','<div class="invalid-feedback">:message</div>')!!}
+
+			</div>
+			<div class="Form-group">
+				<!-- <label for="nombre">Dominio</label> -->
+				{{Form::label('kmdomingo', 'KmDomingo')}}
+				<input type="text" class="form-control {{$errors->has('kmdomingo')?'is-invalid':''}}" placeholder="Ingrese los kms del servicio..." name="kmdomingo" id="km"  value="{{$servicios->kmdomingo}}">
+				{!! $errors->first('kmdomingo','<div class="invalid-feedback">:message</div>')!!}
 
 			</div>
 			

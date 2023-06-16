@@ -206,6 +206,8 @@ Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialCon
 Route::get('bolmanantial/reportes/boletosleagas','BolManantialController@boletosleagas')->name('boletoslegas')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/reportes/reporteboletosleagas','BolManantialController@reporteboletosleagas')->name('reporteboletosleagas')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/boletosleagas/buscarservicios', 'BolManantialController@buscarservicios')->name('buscarservicios')->middleware('auth');
+Route::post('/bolmanantial/boletosleagas/buscarkms', 'BolManantialController@buscarkms')->name('buscarkms')->middleware('auth');
+
 Route::get('bolmanantial/boletos/servicios', 'BolManantialController@servicios')->name('servicios')->middleware('auth')->middleware('permission:servicios');
 Route::get('bolmanantial/boletos/createservicio', 'BolManantialController@createservicio')->name('createservicio')->middleware('permission:servicios');
 Route::post('bolmanantial/boletosleagas/storeservicio','BolManantialController@storeservicio')->name('storeservicio')->middleware('permission:servicios');

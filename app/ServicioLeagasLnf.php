@@ -17,7 +17,9 @@ class ServicioLeagasLnf extends Model
         'ramal_id',
         'turno_id',
         'linea_id',
-        'km'
+        'kmsemana',
+        'kmsabado',
+        'kmdomingo'
     ];
 /*    public function ChoferLeagasLnf()
     {

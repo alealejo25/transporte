@@ -24,6 +24,7 @@ class Cochesboletos extends Migration
             $table->integer('gasoil')->nullable();
             $table->integer('condicion')->unsigned()->default(0);
             $table->integer('coche_id')->nullable()->unsigned();
+            $table->integer('km')->nullable();
             $table->integer('boletosleagas_id')->nullable()->unsigned();
             $table->timestamps();
 

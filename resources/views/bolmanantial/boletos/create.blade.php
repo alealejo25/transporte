@@ -26,13 +26,22 @@
 					<input type="date" step=0.01 name="fecha" class="form-control" required> 
 					
 				</div>
-				<div class="form-group col-lg-8 col-md-8 col-sm-12">
-					<label for="">Tipo de Servicio</label>
+				<div class="form-group col-lg-4 col-md-8 col-sm-12">
+					<label for="tipo">Tipo de Servicio</label>
 					<select name="tiposervicio" id="tiposervicio" class="form-control" required>
 						<option value="">Seleccione una opcion</option>
 						<option value="NORMAL">NORMAL</option>
 						<option value="ALARGUE">ALARGUE</option>
 						<option value="CORTADO">CORTADO</option>
+					</select>
+				</div>
+				<div class="form-group col-lg-4 col-md-8 col-sm-12">
+					<label for="dia">Dia</label>
+					<select name="dia" id="dia" class="form-control" required>
+						<option value="">Seleccione una opcion</option>
+						<option value="kmsemana">SEMANA</option>
+						<option value="kmsabado">SABADO</option>
+						<option value="kmdomingo">DOMINGO</option>
 					</select>
 				</div>
 			</div>
@@ -129,14 +138,19 @@
 				</div>
 			</div>
 					<div class="row">
-				<div class="form-group col-lg-6 col-md-4 col-sm-12">
+				<div class="form-group col-lg-4 col-md-4 col-sm-12">
 					<label for="cantpasajes">Cantidad de Pasajes</label>
 					<input type="number" step=0.01 name="cantpasajes[]" id="cantpasajes" class="form-control" placeholder="Cantidad de Pasajes..." readonly onmousedown="return false;">
 
 				</div>
-				<div class="form-group col-lg-6 col-md-4 col-sm-12">
+				<div class="form-group col-lg-4 col-md-4 col-sm-12">
 					<label for="recaudacion">Recaudacion $</label>
 					<input type="number" step=0.01 name="recaudacion[]" id="recaudacion" class="form-control" placeholder="Recaudacion..." readonly onmousedown="return false;" >
+					
+				</div>
+				<div class="form-group col-lg-4 col-md-4 col-sm-12">
+					<label for="km">KMS $</label>
+					<input type="number" step=0.01 name="km[]" id="km" class="form-control" placeholder="Kilometros...">
 					
 				</div>
 					<div class="form-group col-lg-6 col-md-4 col-sm-12">
@@ -264,6 +278,33 @@
   				}
   			}
 		});
+
+		$('#servicios').on('change', function() {
+			$.ajax({
+				url : "/bolmanantial/boletosleagas/buscarkms",
+				type : "POST",
+				data : {
+					servicio : $("#servicios").val(),
+					dia : $("#dia").val(),
+					_token : $('input[name="_token"]').val()
+						},
+						success: function(data) {
+
+                			if (data.length!=0 && data!=0)
+							{
+								$("#km").val(data);
+							}else{
+								alert('Debe seleccionar el dia');
+								$("#dia").focus();
+							}
+		            	},
+		            error: function (error) { 
+		                 $("#dia").focus();
+		            }
+
+					})
+				});
+
 $(".print").click(function() {
   window.print();
 });

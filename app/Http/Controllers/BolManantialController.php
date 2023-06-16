@@ -286,6 +286,7 @@ class BolManantialController extends Controller
                 $boletos->taller=$coches["taller"][$key];
                 $boletos->motivo_cambio=$coches["motivo_cambio"][$key];
                 $boletos->coche_id=$coches["coche_id"][$key];
+                $boletos->km=$coches["km"][$key];
                 $boletos->boletosleagas_id=$idBoleto;
                 $recaudaciontotal=$recaudaciontotal+$boletos->recaudacion;
                 $pasajestotal=$pasajestotal+$boletos->cantpasajes;
@@ -400,6 +401,29 @@ class BolManantialController extends Controller
        return $datos;
     }
 
+public function buscarkms(Request $request)
+    {
+        $datos=ServicioLeagasLnf::where('id',$request->servicio)->get();
+        if($request->dia=='kmsemana'){
+            $kms=$datos[0]->kmsemana;
+        }
+        else
+        {
+            if($request->dia=='kmsabado'){
+                $kms=$datos[0]->kmsabado;
+            }else{
+                if($request->dia=='kmdomingo'){
+                    $kms=$datos[0]->kmdomingo;;
+                }
+                else{
+                    $kms=0;
+                }
+                
+            }
+        }
+        
+        return $kms;
+    }
     public function servicios(Request $request)
     {
         $datos=ServicioLeagasLnf::orderBy('numero','ASC')->get();
@@ -452,7 +476,9 @@ public function createservicio()
             'turno'=>'required',
             'ramal'=>'required',
             'linea'=>'required',
-            'km'=>'required|integer',
+            'kmsemana'=>'required|integer',
+            'kmsabado'=>'required|integer',
+            'kmdomingo'=>'required|integer',
             ];
 
         $Mensaje=["required"=>'El :attribute es requerido'];
@@ -464,6 +490,9 @@ public function createservicio()
             $datos->empresa_id=$request->empresa;
             $datos->turno_id=$request->turno;
             $datos->ramal_id=$request->ramal;
+            $datos->kmsemana=$request->kmsemana;
+            $datos->kmsabado=$request->kmsabado;
+            $datos->kmdomingo=$request->kmdomingo;
 
             $datos->save();
                
@@ -490,12 +519,16 @@ public function createservicio()
 
 public function guardaredicionservicios(Request $request)
     {
+        //dd($request);
         $campos=[
             'numero'=>'required|integer',
             'turno_id'=>'required',
             'empresa_id'=>'required',
             'ramal_id'=>'required',
             'linea_id'=>'required',
+            'kmsemana'=>'required|integer',
+            'kmsabado'=>'required|integer',
+            'kmdomingo'=>'required|integer'
 
 
         ];

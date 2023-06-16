@@ -25,7 +25,8 @@ class Coches extends Migration
             $table->string('motor',30);
             $table->string('chasis',30);
             $table->integer('nroasientos');
-            $table->integer('km');
+            $table->integer('km')->nullable();
+            
             $table->date('ultimoservice')->nullable();
             $table->date('fecha_ingreso');
             $table->date('fecha_egreso')->nullable();

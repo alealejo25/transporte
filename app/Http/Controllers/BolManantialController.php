@@ -570,7 +570,7 @@ function convertirFechaATexto($fecha) {
         }
         //dd($datos131);
         $pdf=\PDF::loadView('bolmanantial.reportes.reportegasoil',['empresa'=>$empresa,'datos118'=>$datos118, 'datos121'=>$datos121,'datos122'=>$datos122,'datos131'=>$datos131, 'fi'=>$fi, 'ff'=>$ff])
-        ->setPaper('a4','landscape');
+        ->setPaper('a4','portrait');
         return $pdf->download('reportegasoillnf.pdf');
         }
         else
@@ -619,7 +619,7 @@ function convertirFechaATexto($fecha) {
             }
         }
         $pdf=\PDF::loadView('bolmanantial.reportes.reportegasoil',['empresa'=>$empresa,'datos10'=>$datos10, 'datos110'=>$datos110,'datos142'=>$datos142,'fi'=>$fi, 'ff'=>$ff])
-        ->setPaper('a4','landscape');
+        ->setPaper('a4','portrait');
         return $pdf->download('reportegasoilleagas.pdf');
         }
 

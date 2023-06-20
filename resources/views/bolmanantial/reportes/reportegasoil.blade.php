@@ -250,7 +250,7 @@
     </div>
     @endif
 
-    @if($datos110!=0)
+    @if($datos110 != '0')
     <br>
      
     <div>

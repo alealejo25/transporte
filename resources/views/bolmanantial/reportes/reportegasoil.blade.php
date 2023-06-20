@@ -108,7 +108,7 @@
              <tbody>
   			@foreach ($datos118 as $dato)
                 <tr>
-                  <td  >{{$dato->fecha}}</td> 
+                  <td width="200px" >{{$dato->fecha}}</td> 
                   <td align="right" >{{$dato->pasajestotal}}</td> 
                   <td align="right" >{{$dato->gasoiltotal}}</td> 
                   <td align="right" >{{$dato->ids}}</td> 
@@ -139,7 +139,7 @@
              <tbody>
             @foreach ($datos121 as $dato)
                 <tr>
-                  <td>{{$dato->fecha}}</td> 
+                  <td width="200px">{{$dato->fecha}}</td> 
                   <td align="right">{{$dato->pasajestotal}}</td> 
                   <td align="right">{{$dato->gasoiltotal}}</td> 
                   <td align="right">{{$dato->ids}}</td> 
@@ -169,7 +169,7 @@
              <tbody>
             @foreach ($datos122 as $dato)
                 <tr>
-                  <td>{{$dato->fecha}}</td> 
+                  <td width="200px">{{$dato->fecha}}</td> 
                   <td align="right">{{$dato->pasajestotal}}</td> 
                   <td align="right">{{$dato->gasoiltotal}}</td> 
                   <td align="right">{{$dato->ids}}</td> 
@@ -199,7 +199,7 @@
              <tbody>
             @foreach ($datos131 as $dato)
                 <tr>
-                  <td>{{$dato->fecha}}</td> 
+                  <td width="200px">{{$dato->fecha}}</td> 
                   <td align="right">{{$dato->pasajestotal}}</td> 
                   <td align="right">{{$dato->gasoiltotal}}</td> 
                   <td align="right">{{$dato->ids}}</td> 
@@ -236,7 +236,7 @@
              <tbody>
             @foreach ($datos10 as $dato)
                 <tr>
-                  <td  >{{$dato->fecha}}</td> 
+                  <td  width="200px">{{$dato->fecha}}</td> 
                   <td align="right" >{{$dato->pasajestotal}}</td> 
                   <td align="right" >{{$dato->gasoiltotal}}</td> 
                   <td align="right" >{{$dato->ids}}</td> 
@@ -268,7 +268,7 @@
              <tbody>
             @foreach ($datos110 as $dato)
                 <tr>
-                  <td  >{{$dato->fecha}}</td> 
+                  <td  width="200px">{{$dato->fecha}}</td> 
                   <td align="right" >{{$dato->pasajestotal}}</td> 
                   <td align="right" >{{$dato->gasoiltotal}}</td> 
                   <td align="right" >{{$dato->ids}}</td> 
@@ -298,7 +298,7 @@
              <tbody>
             @foreach ($datos142 as $dato)
                 <tr>
-                  <td  >{{$dato->fecha}}</td> 
+                  <td  width="200px">{{$dato->fecha}}</td> 
                   <td align="right" >{{$dato->pasajestotal}}</td> 
                   <td align="right" >{{$dato->gasoiltotal}}</td> 
                   <td align="right" >{{$dato->ids}}</td> 

@@ -182,7 +182,7 @@
         </table>
     </div>
     @endif
-    @if($datos131 != 0)
+    @if($datos131 != '0')
     <br>
       <div>
         <h2>LINEA 131</h2>
@@ -281,7 +281,7 @@
         </table>
     </div>
     @endif
-    @if($datos142 != 0)
+    @if($datos142 != '0')
      <br>
     <div>
         <h2>LINEA 142</h2>

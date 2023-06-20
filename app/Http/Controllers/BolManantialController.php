@@ -84,6 +84,9 @@ class BolManantialController extends Controller
     }
      public function createlnf()
     {
+        
+         
+        //$servicios=BoletoLeagas::select('fecha','boletosleagas')->join('coches','cochesboletos.coche_id','=','coches.id')->where('cochesboletos.boletosleagas_id',$id)->get();
         //--------- ESTO ES PARA LOS SERVICIOS DE LA NUEVA FOUNUIER ------------//
         $linea=Linea::where('empresa_id',1)->orderBy('numero','ASC')->get();
 
@@ -132,6 +135,8 @@ class BolManantialController extends Controller
 
         /*--------------------------------------------------------*/
         $coches=$request->all();
+
+        // --------- calculo de horas trabajadas
         $docenoche=new DateTime('23:59');
         $horainicio=new DateTime($request->horainicio);
         $horafin=new DateTime($request->horafin);
@@ -159,7 +164,7 @@ class BolManantialController extends Controller
                     
                     $canths = $newhorainicio->diff($newhorafin);
                     $canthorastrabajadas=$canths->format('%H:%I');
-                            $horastrabajadas=new DateTime($canthorastrabajadas);
+                    $horastrabajadas=new DateTime($canthorastrabajadas);
 
 
                 }
@@ -197,10 +202,9 @@ class BolManantialController extends Controller
             $canthorastrabajadas=$canths->format('%H:%I');
             $horastrabajadas=new DateTime($canthorastrabajadas);
         }
-
+        // ------ fin de calculo de hs trabajasdas
        
         $horasdetrabajo=new DateTime('07:30');
-
         //$datos=new BoletoLeagas(request()->except('_token'));
         $datos=new BoletoLeagas();
 
@@ -208,55 +212,82 @@ class BolManantialController extends Controller
         $datos->valortoquesanden=$request->toquesanden*117;
         
         $datos->user_id=$request->user_id;
+
+        // calculo por tipos de servicios normal alargue cortado/////
         if($request->tiposervicio=='NORMAL'){
+            //$datos->normal=1;
+            $normal=BoletoLeagas::where('chofer_id',$request->chofer_id)->where('normal',1)->where('fecha',$request->fecha)->orderBy('id','DESC')->limit(1)->get();
             $datos->horastotal=$canthorastrabajadas;
-            if($horastrabajadas>$horasdetrabajo){
+
+            if(count($normal)>0){
+                $datos->doblenegro=1;
+                $datos->horassobrantes=0;
+            }
+            else{
+                $datos->normal=1;
+                if($horastrabajadas>$horasdetrabajo){
                 $diferenciacanths=$horasdetrabajo->diff($horastrabajadas);  
                 $horassobrantes=$diferenciacanths->format('%H:%I');
                 $datos->horassobrantes=$horassobrantes;
+                }
+                else{
+                    $datos->horassobrantes=0;
+                }
             }
-            else{
-               // $cero=new DateTime('0:0');
-                //$cerohs=$cero->format('%H:%I');
-                $datos->horassobrantes=0;
-            }
+            
         }
+
         else{
+            // LOS ALARGUES NORMAL/CORTADO NORMAL/NORMAL/CORTADO
             if($request->tiposervicio=='ALARGUE'){
                 $datos->alargue=1;
                 $datos->horastotalalargue=$canthorastrabajadas;
+                $datos->horastotal=$canthorastrabajadas; 
+                $datos->horassobrantes=0; 
             }
+            //ESTO ES CORTADO/CORTADO
             else{
 
                 $cortado=BoletoLeagas::where('chofer_id',$request->chofer_id)->where('cortado',1)->where('fecha',$request->fecha)->orderBy('id','DESC')->limit(1)->get();
                 
                 if(count($cortado)>0){
-                    $horastrabajadasanterior=$cortado[0]->horastotal;
-                    list($h, $m, $s) = explode(':', $horastrabajadasanterior); //Separo los elementos de la segunda hora
-                    $a = new DateTime($canthorastrabajadas); //Creo un DateTime
-                    $b = new DateInterval(sprintf('PT%sH%sM%sS', $h, $m, $s)); //Creo un DateInterval
-                    $a->add($b); //SUMO las horas
-                    $horassumadas=$a->format('H:i'); //Retorno la Suma
-                    $horassumadasformateada=new DateTime($horassumadas);
-                    $actualizarboletos=BoletoLeagas::where('chofer_id',$request->chofer_id)->where('cortado',1)->where('fecha',$request->fecha)->update([
-                                'cortado'=>'2',
-                                 ]);
-
-
-                    if($horassumadasformateada>$horasdetrabajo){
-                        $diferenciacanths=$horasdetrabajo->diff($horassumadasformateada);  
-                        $horassobrantes=$diferenciacanths->format('%H:%I');
-                        $datos->horassobrantes=$horassobrantes;
+                    $normal=BoletoLeagas::where('chofer_id',$request->chofer_id)->where('normal',1)->where('fecha',$request->fecha)->orderBy('id','DESC')->limit(1)->get();
+                    if(count($normal)>0){
+                        $datos->cortado=2;
                         $datos->horastotal=$canthorastrabajadas;
-                        //$datos->cortado=2;
+                        $datos->horassobrantes=0;
+                        $datos->doblenegro=1;
                     }
                     else
                     {
-                       // $cero=new DateTime('0:0');
-                        //$cerohs=$cero->format('%H:%I');
-                        $datos->horassobrantes=0;
-                        $datos->horastotal=$canthorastrabajadas;
-                        //$datos->cortado=2;
+                        $horastrabajadasanterior=$cortado[0]->horastotal;
+                        list($h, $m, $s) = explode(':', $horastrabajadasanterior); //Separo los elementos de la segunda hora
+                        $a = new DateTime($canthorastrabajadas); //Creo un DateTime
+                        $b = new DateInterval(sprintf('PT%sH%sM%sS', $h, $m, $s)); //Creo un DateInterval
+                        $a->add($b); //SUMO las horas
+                        $horassumadas=$a->format('H:i'); //Retorno la Suma
+                        $horassumadasformateada=new DateTime($horassumadas);
+                        $actualizarboletos=BoletoLeagas::where('chofer_id',$request->chofer_id)->where('cortado',1)->where('fecha',$request->fecha)->update([
+                                    'cortado'=>'2',
+                                     ]);
+
+                        $datos->cortado=2;
+
+                        if($horassumadasformateada>$horasdetrabajo){
+                            $diferenciacanths=$horasdetrabajo->diff($horassumadasformateada);  
+                            $horassobrantes=$diferenciacanths->format('%H:%I');
+                            $datos->horassobrantes=$horassobrantes;
+                            $datos->horastotal=$canthorastrabajadas;
+                            //$datos->cortado=2;
+                        }
+                        else
+                        {
+                           // $cero=new DateTime('0:0');
+                            //$cerohs=$cero->format('%H:%I');
+                            $datos->horassobrantes=0;
+                            $datos->horastotal=$canthorastrabajadas;
+                            //$datos->cortado=2;
+                        }
                     }
                 }else{
                     $datos->cortado=1;
@@ -372,12 +403,12 @@ class BolManantialController extends Controller
       
       if($request->linea_id == NULL){
 
-       $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
+       $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
    }
    else{
 
 
-           $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->where('linea_id',$request->linea_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
+           $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->where('linea_id',$request->linea_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
    }
        
        
@@ -396,6 +427,208 @@ class BolManantialController extends Controller
         return $pdf->download('reporteboletosleagas.pdf');       
     }
 
+//reporte de gasoil pedido por guillermo
+        public function gasoil()
+    {
+        $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
+        //$linea=Linea::orderBy('numero','ASC')->pluck('numero','id');
+        return view('bolmanantial.reportes.gasoil')
+        //->with('linea',$linea)
+         ->with('empresa',$empresa);
+       
+    }
+    public function reportegasoil(Request $request)
+    {   
+
+
+
+function convertirFechaATexto($fecha) {
+    //dd($fecha);
+    $fecha_actual = strtotime($fecha);
+    $dia_semana = date('l', $fecha_actual);
+    $dia = date('d', $fecha_actual);
+    $mes = date('F', $fecha_actual);
+    $anio = date('Y', $fecha_actual);
+
+    // Obtener el día de la semana en español
+    $dias_semana = array(
+        'Monday' => 'Lunes',
+        'Tuesday' => 'Martes',
+        'Wednesday' => 'Miércoles',
+        'Thursday' => 'Jueves',
+        'Friday' => 'Viernes',
+        'Saturday' => 'Sábado',
+        'Sunday' => 'Domingo'
+    );
+    $dia_semana_espanol = $dias_semana[$dia_semana];
+
+    // Obtener el mes en español
+    $meses = array(
+        'January' => 'enero',
+        'February' => 'febrero',
+        'March' => 'marzo',
+        'April' => 'abril',
+        'May' => 'mayo',
+        'June' => 'junio',
+        'July' => 'julio',
+        'August' => 'agosto',
+        'September' => 'septiembre',
+        'October' => 'octubre',
+        'November' => 'noviembre',
+        'December' => 'diciembre'
+    );
+    $mes_espanol = $meses[$mes];
+
+    // Construir el texto de la fecha
+    $texto_fecha = $dia_semana_espanol . ', ' . $dia . ' de ' . $mes_espanol . ' de ' . $anio;
+    return $texto_fecha;
+}
+
+// Ejemplo de uso
+//$fecha = '2023-06-20';
+//$texto_fecha = convertirFechaATexto($fecha);
+//echo $texto_fecha;
+
+
+
+
+        /*VALIDACION -----------------------------------------*/
+            $campos=[
+            'fechai'=>'required',
+            'fechaf'=>'required',
+            'empresa_id'=>'required',
+            
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+
+        /*--------------------------------------------------------*/
+          
+
+        $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+
+
+        //empresa LA NUEVA FOURNIER 118 121 122 131
+        if($request->empresa_id==1){
+            $empresa=$request->empresa_id;
+        //LINEA118 
+        $datos118=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(pasajestotal) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',118)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+        //dd($datos118[0]->fecha);
+        $cantidad=count($datos118);
+        $i=0;
+        if($cantidad==0){
+            $datos118=0;
+        }
+        else
+        {
+            while($cantidad>$i){
+                $datos118[$i]->fecha=convertirFechaATexto($datos118[$i]->fecha);
+                $i=$i+1;
+            }
+        }
+        $datos121=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(pasajestotal) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',121)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+        $cantidad=count($datos121);
+        $i=0;
+        if($cantidad==0){
+            $datos121=0;
+        }
+        else
+        {
+            while($cantidad>$i){
+                $datos121[$i]->fecha=convertirFechaATexto($datos121[$i]->fecha);
+                $i=$i+1;
+            }
+        }
+        $datos122=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(pasajestotal) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',122)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+
+        $cantidad=count($datos122);
+        $i=0;
+        if($cantidad==0){
+            $datos122=0;
+        }
+        else
+        {
+            while($cantidad>$i){
+                $datos122[$i]->fecha=convertirFechaATexto($datos122[$i]->fecha);
+                $i=$i+1;
+            }
+        }
+        $datos131=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(pasajestotal) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',131)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+
+        $cantidad=count($datos131);
+        $i=0;
+        if($cantidad==0){
+            $datos131=0;
+        }
+        else
+        {
+            while($cantidad>$i){
+                $datos131[$i]->fecha=convertirFechaATexto($datos131[$i]->fecha);
+                $i=$i+1;
+            }
+        }
+        //dd($datos131);
+        $pdf=\PDF::loadView('bolmanantial.reportes.reportegasoil',['empresa'=>$empresa,'datos118'=>$datos118, 'datos121'=>$datos121,'datos122'=>$datos122,'datos131'=>$datos131, 'fi'=>$fi, 'ff'=>$ff])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reportegasoillnf.pdf');
+        }
+        else
+        {
+        //empresa LEAGAS 10 110 142
+        $empresa=$request->empresa_id;
+        $datos10=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(pasajestotal) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',10)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+        $cantidad=count($datos10);
+        $i=0;
+
+         if($cantidad==0){
+            $datos10=0;
+        }
+        else
+        {
+            while($cantidad>$i){
+                $datos10[$i]->fecha=convertirFechaATexto($datos10[$i]->fecha);
+                $i=$i+1;
+            }
+        }
+        //dd($datos10);
+        $datos110=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(pasajestotal) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',110)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+        $cantidad=count($datos110);
+        $i=0;
+        if($cantidad==0){
+            $datos110=0;
+        }
+        else
+        {
+            while($cantidad>$i){
+                $datos110[$i]->fecha=convertirFechaATexto($datos110[$i]->fecha);
+                $i=$i+1;
+            }
+        }
+        $datos142=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(recaudaciontotal) as recaudaciontotal')->selectRaw('SUM(pasajestotal) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',142)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+        $cantidad=count($datos142);
+        $i=0;
+        if($cantidad==0){
+            $datos142=0;
+        }
+        else
+        {
+            while($cantidad>$i){
+                $datos142[$i]->fecha=convertirFechaATexto($datos142[$i]->fecha);
+                $i=$i+1;
+            }
+        }
+        $pdf=\PDF::loadView('bolmanantial.reportes.reportegasoil',['empresa'=>$empresa,'datos10'=>$datos10, 'datos110'=>$datos110,'datos142'=>$datos142,'fi'=>$fi, 'ff'=>$ff])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reportegasoilleagas.pdf');
+        }
+
+        $chofer=ChoferLeagaslnf::orderBy('nombre','ASC')->get();
+        $pdf=\PDF::loadView('bolmanantial.reportes.reportegasoil',['empresa'=>$empresa,'datos'=>$datos, 'chofer'=>$chofer, 'fi'=>$fi, 'ff'=>$ff])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reporteboletosleagas.pdf');       
+    }
+//-------------------------------------------
  public function buscarservicios(Request $request)
     {
         $linea=Linea::where('id',$request->linea)->get();

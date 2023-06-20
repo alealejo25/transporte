@@ -28,6 +28,12 @@ class BoletoLeagas extends Model
         'chofer_id',
         'servicio_id',
         'user_id',
+        'tipo',
+        'doblenegro',
+        'normal',
+        'horasalargue',
+        'cortado',
+        'alargue',
         ];
     /*  return $this->hasMany('App\ChoferLeagasLnf');
     }*/

@@ -23,6 +23,9 @@ class Boletosleagas extends Migration
             $table->time('horastotal',0)->nullable();//modificado
             $table->string('alargue',1)->nullable();//nuevo
             $table->string('cortado',1)->nullable();////nuevo
+            $table->string('tipo',1)->nullable();//nuevo
+            $table->string('doblenegro',1)->nullable();////nuevo
+            $table->string('normal',1)->nullable();//nuevo
             $table->time('horastotalalargue',0)->nullable();//nuevo
             $table->time('horassobrantes',0)->nullable();//modificado
             $table->decimal('valorhorasrestantes',10,2);

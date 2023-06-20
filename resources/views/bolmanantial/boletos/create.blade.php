@@ -39,7 +39,7 @@
 					<select name="tiposervicio" id="tiposervicio" class="form-control" required>
 						<option value="">Seleccione una opcion</option>
 						<option value="NORMAL">NORMAL</option>
-						<option value="ALARGUE">ALARGUE</option>
+						<option value="ALARGUE">CORTADO-ALARGUE</option>
 						<option value="CORTADO">CORTADO</option>
 					</select>
 				</div>
@@ -158,8 +158,8 @@
 					
 				</div>
 				<div class="form-group col-lg-4 col-md-4 col-sm-12">
-					<label for="km">KMS $</label>
-					<input type="number" step=0.01 name="km[]" id="km" class="form-control" placeholder="Kilometros...">
+					<label for="km">KMS</label>
+					<input type="number" step=0.01 name="km[]" id="km" class="form-control" placeholder="Kilometros..." required>
 					
 				</div>
 					<div class="form-group col-lg-6 col-md-4 col-sm-12">
@@ -338,12 +338,14 @@ $(".print").click(function() {
             newTextBoxDiv.after().html('<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="servicio">Coche</label><select name="coche_id[]" id="coche" class="form-control" required><option value="">Seleccione un Coche</option>@foreach ($coche as $datos)<option value="{{ $datos->id }}">Interno: {{$datos->interno}} - {{$datos->patente}}</option>@endforeach</select></div>'+
             	'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="iniciotarjeta">Inicio Tarjeta</label><input type="number" step=0 name="iniciotarjeta[]" id="iniciotarjeta" class="form-control" placeholder="Inicio Tarjeta..." required></div>'+
             	'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="fintarjeta">Fin Tarjeta</label><input type="number" step=0 name="fintarjeta[]" id="fintarjeta" class="form-control" placeholder="Fin Tarjeta..." required></div>'+
-            	'<div class="form-group col-lg-6 col-md-4 col-sm-12"><label for="cantpasajes">Cantidad de Pasajes</label><input type="number" step=0.01 name="cantpasajes[]" id="cantpasajes" class="form-control" placeholder="Cantidad de Pasajes..." readonly onmousedown="return false;"></div>'+
-            	'<div class="form-group col-lg-6 col-md-4 col-sm-12"><label for="recaudacion">Recaudacion $</label><input type="number" step=0.01 name="recaudacion[]" id="recaudacion" class="form-control" placeholder="Recaudacion..." readonly onmousedown="return false;" ></div>'+
+            	'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="cantpasajes">Cantidad de Pasajes</label><input type="number" step=0.01 name="cantpasajes[]" id="cantpasajes" class="form-control" placeholder="Cantidad de Pasajes..." readonly onmousedown="return false;"></div>'+
+            	'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="recaudacion">Recaudacion $</label><input type="number" step=0.01 name="recaudacion[]" id="recaudacion" class="form-control" placeholder="Recaudacion..." readonly onmousedown="return false;" ></div>'+
+            	'<div class="form-group col-lg-4 col-md-4 col-sm-12"><label for="km">KMS </label><input type="number" step=0.01 name="km[]" id="km" class="form-control" placeholder="Kilometros..."></div>'+
             	'<div class="row"><div class="form-group col-lg-3 col-md-4 col-sm-12"><label for="">Entro al Taller?</label><select name="taller[]" id="taller" class="form-control" required><option value="">Seleccione una opcion</option><option value="SI">SI</option><option value="NO">NO</option></select></div><div class="form-group col-lg-9 col-md-4 col-sm-12"><label for="linea_id">Obsevaciones taller </label><input type="text" name="motivo_cambio[]" id="motivo_cambio" class="form-control {{$errors->has("motivo_cambio")?"is-invalid":""}}" placeholder="Observacion de ingreso al taller..." value="{{old("motivo_cambio[]")}}"></div></div>'+'<hr size="8px">');
             newTextBoxDiv.appendTo("#TextBoxesGroup");
             counter++;
         });
+        ///  name="nombre${contador}"
         $("#removeButton").click(function () {
             if (counter == 1) {
                 alert("No more textbox to remove");

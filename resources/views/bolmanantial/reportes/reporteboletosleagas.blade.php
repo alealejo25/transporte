@@ -99,6 +99,8 @@
                     <th>Hs Trab</th>
                     <th>Hs Sob</th>
                     <th>Hs Alargue</th>
+                    <th>Serv. Normal</th>
+                    <th>Serv. Doble Negro</th>
                     <th>Cant Pax</th>
                     <th>Rec.</th>
                     <th>Toques anden</th>
@@ -115,6 +117,8 @@
 				  <td align="right">{{$dato->horastotal}}</td> 
 				  <td align="right">{{$dato->horassobrantes}}</td>
                   <td align="right">{{$dato->horastotalalargue}}</td>
+                  <td align="right">{{$dato->normal}}</td> 
+                  <td align="right">{{$dato->doblenegro}}</td> 
 				  <td align="right">{{$dato->pasajes}}</td> 
     			  <td align="right">$ {{number_format($dato->recaudacion,2,",",".")}}</td>
 				  <td align="right">{{$dato->toquesanden}}</td> 

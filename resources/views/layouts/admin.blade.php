@@ -422,6 +422,9 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('boletoslnf')
                 <li><a href="/bolmanantial/reportes/gasoil"><i class="fa fa-circle-o"></i> Reporte Gasoil</a></li>
                 @endcan
+                 @can('boletoslnf')
+                <li><a href="/bolmanantial/reportes/asistencia"><i class="fa fa-circle-o"></i> Reporte Asistencia</a></li>
+                @endcan
                 @can('cargargasoil')
                 <li><a href="/bolmanantial/boletos/cargargasoil"><i class="fa fa-circle-o"></i> Cargar Gasoil</a></li>
                 @endcan

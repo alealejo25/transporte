@@ -73,10 +73,11 @@ class BolManantialController extends Controller
        // $servicioleagaslnf=ServicioLeagasLnf::orderBy('nombre','ASC')->pluck('nombre','id');
         $coche=Coche::where('empresa_id',2)->orderBy('interno','ASC')->get();
         $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
-       
+              $fecha=null;
 
         return view('bolmanantial.boletos.create')
                ->with('linea',$linea)
+                ->with('fecha',$fecha)
                ->with('choferleagaslnf',$choferleagaslnf)
                ->with('servicioleagaslnf',$servicioleagaslnf)
                ->with('empresa',2)
@@ -85,8 +86,6 @@ class BolManantialController extends Controller
      public function createlnf()
     {
         
-         
-        //$servicios=BoletoLeagas::select('fecha','boletosleagas')->join('coches','cochesboletos.coche_id','=','coches.id')->where('cochesboletos.boletosleagas_id',$id)->get();
         //--------- ESTO ES PARA LOS SERVICIOS DE LA NUEVA FOUNUIER ------------//
         $linea=Linea::where('empresa_id',1)->orderBy('numero','ASC')->get();
 
@@ -102,9 +101,11 @@ class BolManantialController extends Controller
         $coche=Coche::where('empresa_id',1)->orderBy('interno','ASC')->get();
         $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
        
+       $fecha=null;
 
         return view('bolmanantial.boletos.create')
                ->with('linea',$linea)
+               ->with('fecha',$fecha)
                ->with('choferleagaslnf',$choferleagaslnf)
                ->with('servicioleagaslnf',$servicioleagaslnf)
                 ->with('empresa',1)
@@ -310,12 +311,18 @@ class BolManantialController extends Controller
 
        $recaudaciontotal=0;
        $pasajestotal=0;
+       $linea=Linea::where('id',$request->linea_id)->limit(1)->get();
+
+       $precioboleto=$linea[0]->precioboleto;
+
         foreach($coches['coche_id'] as $key => $value){
             $boletos=new CocheBoleto();
                 $boletos->iniciotarjeta=$coches["iniciotarjeta"][$key];
                 $boletos->fintarjeta=$coches["fintarjeta"][$key];
                 $boletos->cantpasajes=$coches["fintarjeta"][$key]-$coches["iniciotarjeta"][$key];
-                $boletos->recaudacion=101.52*$boletos->cantpasajes;
+               $boletos->recaudacion=$precioboleto*$boletos->cantpasajes;    
+            
+                
                 $boletos->taller=$coches["taller"][$key];
                 $boletos->motivo_cambio=$coches["motivo_cambio"][$key];
                 $boletos->coche_id=$coches["coche_id"][$key];
@@ -332,18 +339,68 @@ class BolManantialController extends Controller
                                 'pasajestotal'=>$pasajestotal
                                  ]);
        if($request->empresa==2){
-       Flash::success('Servicio agregado correctamente');
-       return Redirect('bolmanantial/boletosleagas');
+//--------- ESTO ES PARA LOS SERVICIOS DE LEAGAS ------------//
+        $linea=Linea::where('empresa_id',2)->orderBy('numero','ASC')->get();
+
+        //$choferleagaslnf=ChoferLeagaslnf::orderBy('nombre','ASC')->pluck('nombre','id');
+        $choferleagaslnf=ChoferLeagaslnf::where('empresa_id',2)->orderBy('legajo','ASC')->get();
+        $servicioleagaslnf=ServicioLeagasLnf::where('empresa_id',2)->orderBy('numero','ASC')->get();
+        $servicioleagaslnf->each(function($servicioleagaslnf){
+            $servicioleagaslnf->linea;
+            $servicioleagaslnf->ramal;
+            $servicioleagaslnf->empresa;
+       });
+       // $servicioleagaslnf=ServicioLeagasLnf::orderBy('nombre','ASC')->pluck('nombre','id');
+        $coche=Coche::where('empresa_id',2)->orderBy('interno','ASC')->get();
+        $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
+        Flash::success('Servicio agregado correctamente');
+        return view('bolmanantial.boletos.create')
+               ->with('linea',$linea)
+               ->with('fecha',$request->fecha)
+               ->with('choferleagaslnf',$choferleagaslnf)
+               ->with('servicioleagaslnf',$servicioleagaslnf)
+                ->with('empresa',2)
+               ->with('coche',$coche);
+
        }else
        {
-               Flash::success('Servicio agregado correctamente');
-       return Redirect('bolmanantial/boletoslnf');
+
+//--------- ESTO ES PARA LOS SERVICIOS DE LA NUEVA FOUNUIER ------------//
+        $linea=Linea::where('empresa_id',1)->orderBy('numero','ASC')->get();
+
+        //$choferleagaslnf=ChoferLeagaslnf::orderBy('nombre','ASC')->pluck('nombre','id');
+        $choferleagaslnf=ChoferLeagaslnf::where('empresa_id',1)->orderBy('legajo','ASC')->get();
+        $servicioleagaslnf=ServicioLeagasLnf::where('empresa_id',1)->orderBy('numero','ASC')->get();
+        $servicioleagaslnf->each(function($servicioleagaslnf){
+            $servicioleagaslnf->linea;
+            $servicioleagaslnf->ramal;
+            $servicioleagaslnf->empresa;
+       });
+       // $servicioleagaslnf=ServicioLeagasLnf::orderBy('nombre','ASC')->pluck('nombre','id');
+        $coche=Coche::where('empresa_id',1)->orderBy('interno','ASC')->get();
+        $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
+       
+
+        
+        Flash::success('Servicio agregado correctamente');
+        return view('bolmanantial.boletos.create')
+               ->with('linea',$linea)
+               ->with('fecha',$request->fecha)
+               ->with('choferleagaslnf',$choferleagaslnf)
+               ->with('servicioleagaslnf',$servicioleagaslnf)
+                ->with('empresa',1)
+               ->with('coche',$coche);
+
+
+
+
+       //return Redirect('bolmanantial/boletoslnf');
        }
 
 
         }
-    public function informeboletoleagas($id)
-    {
+    public function informeboletoleagas($id){
+
         $datos=BoletoLeagas::select('*','choferesleagaslnf.nombre as nombrechofer','turnos.nombre as nombreturno','boletosleagas.id as id_boleto')
             ->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')
             ->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')
@@ -351,10 +408,14 @@ class BolManantialController extends Controller
             ->where('boletosleagas.id',$id)->get();
 
             $servicios=CocheBoleto::select('*','cochesboletos.id as id_co')->join('coches','cochesboletos.coche_id','=','coches.id')->where('cochesboletos.boletosleagas_id',$id)->get();
+            $emp=BoletoLeagas::where('id',$id)->limit(1)->get();
 
+            $linea=Linea::where('id',$emp[0]->linea_id)->limit(1)->get();
+            $empresa=$linea[0]->empresa_id;
+            
+            
 
-
-        $pdf=\PDF::loadView('bolmanantial.boletos.informeboletoleagas',['datos'=>$datos,'servicios'=>$servicios])
+        $pdf=\PDF::loadView('bolmanantial.boletos.informeboletoleagas',['datos'=>$datos,'empresa'=>$empresa,'servicios'=>$servicios])
         ->setPaper('a4');
         return $pdf->download('informeboletoleagas.pdf');
         
@@ -421,8 +482,10 @@ class BolManantialController extends Controller
             $datos->coche;
             $datos->user;
        });
+
+             $empresa=$request->empresa_id;
         $chofer=ChoferLeagaslnf::orderBy('nombre','ASC')->get();
-        $pdf=\PDF::loadView('bolmanantial.reportes.reporteboletosleagas',['datos'=>$datos, 'chofer'=>$chofer, 'fi'=>$fi, 'ff'=>$ff])
+        $pdf=\PDF::loadView('bolmanantial.reportes.reporteboletosleagas',['datos'=>$datos,'empresa'=>$empresa, 'chofer'=>$chofer, 'fi'=>$fi, 'ff'=>$ff])
         ->setPaper('a4','landscape');
         return $pdf->download('reporteboletosleagas.pdf');       
     }
@@ -433,7 +496,6 @@ class BolManantialController extends Controller
         $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
         //$linea=Linea::orderBy('numero','ASC')->pluck('numero','id');
         return view('bolmanantial.reportes.gasoil')
-        //->with('linea',$linea)
          ->with('empresa',$empresa);
        
     }
@@ -935,7 +997,7 @@ public function storeramal(Request $request)
     public function guardarcargagasoil(Request $request)
     {
 
-       
+       dd($request);
        
        /* $campos=[
             '$boletos["gasoil"][$key]'=>'required',

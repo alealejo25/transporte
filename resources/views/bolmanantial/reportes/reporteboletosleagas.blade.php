@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de Recaudacion - Tafi Viejo</title>
+    <title>Reporte Servicios</title>
     <style>
         body {
             margin: 0;
@@ -85,7 +85,13 @@
     	<!-- <IMG SRC="img\logotlpdf.jpg"> -->
     	 <span class="derecha">Fecha de Emision {{now()->format('d-m-Y')}}</span>
     </div>
- 	<h1>Boletos Leagas - Central Manantial</h1>
+    @if($empresa==1)
+        <h1>Servicios La Nueva Fournier - Central Manantial</h1>
+    @else
+        <h1>Servicios Leagas - Central Manantial</h1>
+    @endif
+
+ 
 
 <h3>Desde el {{date('d-m-Y', strtotime($fi))}} hasta el {{date('d-m-Y', strtotime($ff))}}</h3>
 <br>

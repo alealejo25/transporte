@@ -80,10 +80,6 @@
         height:calc(1.7em + .75rem + 2px) !important;
       }
 
-
-
-
-
 a {
   outline: none;
   text-decoration: none;

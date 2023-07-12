@@ -31,7 +31,7 @@
 					<input type="text" hidden name="empresa" id="empresa" value="{{$empresa}}"> 
 				<div class="form-group col-lg-4 col-md-4 col-sm-12">
 					<label for="fecha">Fecha</label>
-					<input type="date" step=0.01 name="fecha" class="form-control" required> 
+					<input type="date" step=0.01 name="fecha" class="form-control" value="{{$fecha}}" required> 
 					
 				</div>
 				<div class="form-group col-lg-4 col-md-8 col-sm-12">

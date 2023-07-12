@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    @if($empresa==1)
+    <title>Reporte de Boletos La Nueva Fournier</title>
+@else
     <title>Reporte de Boletos Leagas</title>
+@endif
+
     <style>
         body {
             margin: 0;
@@ -87,7 +92,13 @@
 </head>
 <body>
    <div>
-   		<h2>Informe de Servicio - La Nueva Fournier <span class="derecha">Fecha de Emision: {{now()->format('d-m-Y')}}</span></h2>
+        @if($empresa==1)
+        <h2>Informe de Servicio - La Nueva Fournier <span class="derecha">Fecha de Emision: {{now()->format('d-m-Y')}}</span></h2>
+        @else
+        <h2>Informe de Servicio - Leagas <span class="derecha">Fecha de Emision: {{now()->format('d-m-Y')}}</span></h2>
+        @endif
+
+   		
     </div>
         <br>
     <br>
@@ -97,7 +108,7 @@
         @if($dato->alargue==1)
         <h2>Tipo de servicio: ALARGUE</h2>
     @endif
-		<h3>Fecha {{date('d-m-Y', strtotime($dato->fecha))}} - Chofer: {{$dato->nombrechofer}}</h3>
+		<h3>Fecha {{date('d-m-Y', strtotime($dato->fecha))}} - Chofer: {{$dato->apellido}}, {{$dato->nombrechofer}}</h3>
 		<h3>Linea: {{$dato->linea->numero}} - Turno: {{$dato->nombre}} - Servicio: {{$dato->servicioleagaslnf->numero}}</h3>
 	@endforeach
 	<div>

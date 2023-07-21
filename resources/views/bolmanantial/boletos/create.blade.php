@@ -307,7 +307,7 @@
 						},
 						success: function(data) {
 							console.log(data);
-                			if (data.length!=0 && data!=0)
+                			if (data.length!=0 && data>=0)
 							{
 								$("#km").val(data);
 							}else{

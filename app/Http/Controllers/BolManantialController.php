@@ -797,7 +797,7 @@ function convertirFechaATexto($fecha) {
 
 public function buscarkms(Request $request)
     {
-        dd($request);
+        print($request);
         $datos=ServicioLeagasLnf::where('id',$request->servicio)->get();
         if($request->dia=='kmsemana'){
             $kms=$datos[0]->kmsemana;

@@ -59,4 +59,8 @@ class Empresa extends Model
     {
         return $this->hasMany('App\ServicioLeagasLnf');
     }
+    public function Gasoil()
+    {
+        return $this->hasMany('App\Gasoil');
+    }
 }

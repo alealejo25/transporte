@@ -11,6 +11,8 @@ use App\Turno;
 use App\Linea;
 use App\Empresa;
 use App\Ramal;
+use App\CargarGasoil;
+use App\Gasoil;
 use Laracasts\Flash\Flash;
 use App\CocheBoleto;
 use Dompdf\Dompdf;
@@ -795,6 +797,7 @@ function convertirFechaATexto($fecha) {
 
 public function buscarkms(Request $request)
     {
+        dd($request);
         $datos=ServicioLeagasLnf::where('id',$request->servicio)->get();
         if($request->dia=='kmsemana'){
             $kms=$datos[0]->kmsemana;
@@ -978,51 +981,253 @@ public function storeramal(Request $request)
         ')->with('Mensaje','Se creo el Ramal!!!!');
     }
 
-     public function cargargasoil()
+     public function cargargasoilleagas()
     {
 
-    $linea10=Coche::where('nroempresa',10)->get();
-    $linea142=Coche::where('nroempresa',142)->get();
-    $linea110=Coche::where('nroempresa',110)->get();
-    $linea118=Coche::where('nroempresa',118)->get();
+    $linea10=Coche::where('nroempresa',10)->orderby('interno')->get();
+    $linea142=Coche::where('nroempresa',142)->orderby('interno')->get();
+    $linea110=Coche::where('nroempresa',110)->orderby('interno')->get();
+    //$linea118=Coche::where('nroempresa',118)->orderby('interno')->get();
 
-    return view('bolmanantial.boletos.cargargasoil')
+    return view('bolmanantial.boletos.cargargasoilleagas')
             ->with('linea10',$linea10)
             ->with('linea142',$linea142)
-            ->with('linea110',$linea110)
-            ->with('linea118',$linea118);
+            ->with('linea110',$linea110);
+      //      ->with('linea118',$linea118);
     
     }
-
-    public function guardarcargagasoil(Request $request)
+     public function cargargasoillnf()
     {
 
-       dd($request);
-       
-       /* $campos=[
-            '$boletos["gasoil"][$key]'=>'required',
-        ];
-        $Mensaje=["required"=>'El :attribute es requerido'];
-        $this->validate($request,$campos,$Mensaje);
-        }*/
-        
-        
-        $boletos=$request->all();
-        $gasoiltotal=0;
-        foreach($boletos['cochesboletos_id'] as $key => $value){
-            $gasoiltotal=$gasoiltotal+$boletos["gasoil"][$key];
-            $editacocheboletos=CocheBoleto::where('id',$boletos["cochesboletos_id"][$key])
-                ->update([
-                          'gasoil'=>$boletos["gasoil"][$key]
-                          ]);
-              
+    $linea118=Coche::where('nroempresa',118)->orderby('interno')->get();
+    $linea121=Coche::where('nroempresa',121)->orderby('interno')->get();
+    $linea122=Coche::where('nroempresa',122)->orderby('interno')->get();
+    $linea131=Coche::where('nroempresa',131)->orderby('interno')->get();
+    //$linea118=Coche::where('nroempresa',118)->orderby('interno')->get();
+
+    return view('bolmanantial.boletos.cargargasoillnf')
+            ->with('linea118',$linea118)
+            ->with('linea121',$linea121)
+            ->with('linea122',$linea122)
+            ->with('linea131',$linea131);
+    
+    }
+   public function guardarcargagasoillnf(Request $request)
+    {
+
+
+  
+/* calculos de totales de carga de litros por lineas */
+//------------------------------------------------------
+    $cantidad118=count($request->linea118);
+    $linea118=Coche::where('nroempresa','118')->orderby('interno')->get();
+    $total118=0;
+    for($i=0;$i<$cantidad118;$i++){
+        $total118=$total118+$request->linea118[$linea118[$i]->interno];
+     }
+
+    $cantidad121=count($request->linea121);
+    $linea121=Coche::where('nroempresa','121')->orderby('interno')->get();
+    $total121=0;
+    for($i=0;$i<$cantidad121;$i++){
+        $total121=$total121+$request->linea121[$linea121[$i]->interno];
+     }
+
+    $cantidad122=count($request->linea122);
+    $linea122=Coche::where('nroempresa','122')->orderby('interno')->get();
+    $total122=0;
+    for($i=0;$i<$cantidad122;$i++){
+        $total122=$total122+$request->linea122[$linea122[$i]->interno];
+     }
+
+   $cantidad131=count($request->linea131);
+    $linea131=Coche::where('nroempresa','131')->orderby('interno')->get();
+    $total131=0;
+    for($i=0;$i<$cantidad131;$i++){
+        $total131=$total131+$request->linea131[$linea131[$i]->interno];
+     }
+
+     $total=$total118+$total121+$total122+$total131;
+//-------------------------------------------------------------------------
+//---- FIN DE CALCULO DE TOTAL DE CARGA DE GASOIL X LINEAS ----------------
+
+
+//---- carga de tabla de gasoil
+    $datos=new Gasoil(request()->except('_token'));
+    $datos->t1diferencia=$request->t1apertura-$request->t1cierre;
+    $datos->t2diferencia=$request->t2apertura-$request->t2cierre;
+    $datos->t1saldo=$request->t1nivel-$request->t1consumo;
+    $datos->t2saldo=$request->t2nivel-$request->t2consumo;
+    $datos->l118total=$total118;
+    $datos->l121total=$total121;
+    $datos->l122total=$total122;
+    $datos->l131total=$total131;
+    //$datos->l118total=$total118;
+    $datos->empresa_id=1;
+    $datos->save();
+//-----------------------------------------------------------------------------------
+
+$gasoil=Gasoil::orderBy('id','DESC')->limit(1)->get();
+
+// carga en la tabla cargargasoil de cada interno x linea
+      for($i=0;$i<$cantidad118;$i++){
+        if($request->linea118[$linea118[$i]->interno]<>null){
+            $datos=new CargarGasoil();
+            $datos->litros=$request->linea118[$linea118[$i]->interno];    
+            $datos->interno=$linea118[$i]->interno;    
+            $datos->coche_id=$linea118[$i]->id;    
+            $datos->gasoil_id=$gasoil[0]->id;  
+            $datos->save();
+            
+            }
         }
         
-        $editacocheboletos=BoletoLeagas::where('id',$request->id)
-                ->update([
-                          'gasoiltotal'=>$gasoiltotal
-                          ]);
-              
+        for($i=0;$i<$cantidad121;$i++){
+        if($request->linea121[$linea121[$i]->interno]<>null){
+            $datos=new CargarGasoil();
+            $datos->litros=$request->linea121[$linea121[$i]->interno];    
+            $datos->interno=$linea121[$i]->interno;    
+            $datos->coche_id=$linea121[$i]->id;    
+            $datos->gasoil_id=$gasoil[0]->id;   
+            $datos->save();
+            
+            }
+        }
+         for($i=0;$i<$cantidad122;$i++){
+        if($request->linea122[$linea122[$i]->interno]<>null){
+            $datos=new CargarGasoil();
+            $datos->litros=$request->linea122[$linea122[$i]->interno];    
+            $datos->interno=$linea122[$i]->interno;    
+            $datos->coche_id=$linea122[$i]->id;    
+            $datos->gasoil_id=$gasoil[0]->id;   
+            $datos->save();
+            
+            }
+        }
+         for($i=0;$i<$cantidad131;$i++){
+        if($request->linea131[$linea131[$i]->interno]<>null){
+            $datos=new CargarGasoil();
+            $datos->litros=$request->linea131[$linea131[$i]->interno];    
+            $datos->interno=$linea131[$i]->interno;    
+            $datos->coche_id=$linea131[$i]->id;    
+            $datos->gasoil_id=$gasoil[0]->id;   
+            $datos->save();
+            
+            }
+        }
+//--------------------------------------------------------
+// FIN carga en la tabla cargargasoil de cada interno x linea
+        
+
+
+       return Redirect('bolmanantial/boletosleagas')->with('Mensaje','Se modifico el servicio!!!!');
+    }
+    public function guardarcargagasoilleagas(Request $request)
+    {
+
+
+  
+/* calculos de totales de carga de litros por lineas */
+//------------------------------------------------------
+    $cantidad10=count($request->linea10);
+    $linea10=Coche::where('nroempresa','10')->orderby('interno')->get();
+    $total10=0;
+    for($i=0;$i<$cantidad10;$i++){
+        $total10=$total10+$request->linea10[$linea10[$i]->interno];
+     }
+
+    $cantidad142=count($request->linea142);
+    $linea142=Coche::where('nroempresa','142')->orderby('interno')->get();
+    $total142=0;
+    for($i=0;$i<$cantidad142;$i++){
+        $total142=$total142+$request->linea142[$linea142[$i]->interno];
+     }
+
+    $cantidad110=count($request->linea110);
+    $linea110=Coche::where('nroempresa','110')->orderby('interno')->get();
+    $total110=0;
+    for($i=0;$i<$cantidad110;$i++){
+        $total110=$total110+$request->linea110[$linea110[$i]->interno];
+     }
+
+   /* $cantidad118=count($request->linea118);
+    $linea118=Coche::where('nroempresa','118')->orderby('interno')->get();
+    $total118=0;
+    for($i=0;$i<$cantidad118;$i++){
+        $total118=$total118+$request->linea118[$linea118[$i]->interno];
+     }*/
+
+     $total=$total10+$total110+$total142;
+//-------------------------------------------------------------------------
+//---- FIN DE CALCULO DE TOTAL DE CARGA DE GASOIL X LINEAS ----------------
+
+
+//---- carga de tabla de gasoil
+    $datos=new Gasoil(request()->except('_token'));
+    $datos->t1diferencia=$request->t1apertura-$request->t1cierre;
+    $datos->t2diferencia=$request->t2apertura-$request->t2cierre;
+    $datos->t1saldo=$request->t1nivel-$request->t1consumo;
+    $datos->t2saldo=$request->t2nivel-$request->t2consumo;
+    $datos->l10total=$total10;
+    $datos->l142total=$total142;
+    $datos->l110total=$total110;
+    //$datos->l118total=$total118;
+    $datos->empresa_id=2;
+    $datos->save();
+//-----------------------------------------------------------------------------------
+
+$gasoil=Gasoil::orderBy('id','DESC')->limit(1)->get();
+
+// carga en la tabla cargargasoil de cada interno x linea
+      for($i=0;$i<$cantidad10;$i++){
+        if($request->linea10[$linea10[$i]->interno]<>null){
+            $datos=new CargarGasoil();
+            $datos->litros=$request->linea10[$linea10[$i]->interno];    
+            $datos->interno=$linea10[$i]->interno;    
+            $datos->coche_id=$linea10[$i]->id;    
+            $datos->gasoil_id=$gasoil[0]->id;  
+            $datos->save();
+            
+            }
+        }
+        
+        for($i=0;$i<$cantidad142;$i++){
+        if($request->linea142[$linea142[$i]->interno]<>null){
+            $datos=new CargarGasoil();
+            $datos->litros=$request->linea142[$linea142[$i]->interno];    
+            $datos->interno=$linea142[$i]->interno;    
+            $datos->coche_id=$linea142[$i]->id;    
+            $datos->gasoil_id=$gasoil[0]->id;   
+            $datos->save();
+            
+            }
+        }
+         for($i=0;$i<$cantidad110;$i++){
+        if($request->linea110[$linea110[$i]->interno]<>null){
+            $datos=new CargarGasoil();
+            $datos->litros=$request->linea110[$linea110[$i]->interno];    
+            $datos->interno=$linea110[$i]->interno;    
+            $datos->coche_id=$linea110[$i]->id;    
+            $datos->gasoil_id=$gasoil[0]->id;   
+            $datos->save();
+            
+            }
+        }
+       /*  for($i=0;$i<$cantidad118;$i++){
+        if($request->linea118[$linea118[$i]->interno]<>null){
+            $datos=new CargarGasoil();
+            $datos->litros=$request->linea118[$linea118[$i]->interno];    
+            $datos->interno=$linea118[$i]->interno;    
+            $datos->coche_id=$linea118[$i]->id;    
+            $datos->gasoil_id=$gasoil[0]->id;   
+            $datos->save();
+            
+            }
+        }*/
+//--------------------------------------------------------
+// FIN carga en la tabla cargargasoil de cada interno x linea
+        
+
 
        return Redirect('bolmanantial/boletosleagas')->with('Mensaje','Se modifico el servicio!!!!');
     }

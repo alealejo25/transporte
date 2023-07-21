@@ -21,6 +21,7 @@ class Gasoil extends Migration
             $table->integer('t1cierre');
             $table->integer('t1diferencia');
             $table->integer('t1consumo');
+            $table->integer('t1nivel');
             $table->integer('t1saldo');
             $table->integer('t1ingreso')->nullable();
 
@@ -28,6 +29,7 @@ class Gasoil extends Migration
             $table->integer('t2cierre');
             $table->integer('t2diferencia');
             $table->integer('t2consumo');
+            $table->integer('t2nivel');
             $table->integer('t2saldo');
             $table->integer('t2ingreso')->nullable();
 
@@ -40,12 +42,14 @@ class Gasoil extends Migration
             $table->integer('l131total')->nullable();
 
             $table->string('responsable',60)->nullable();
+            $table->biginteger('user_id')->unsigned()->nullable();
 
             $table->integer('empresa_id')->nullable()->unsigned();
             $table->timestamps();
 
             $table->foreign('empresa_id')->references('id')->on('empresas');
-
+            $table->foreign('user_id')->references('id')->on('users');
+        });
  
     }
 

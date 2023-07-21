@@ -123,7 +123,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
       
     </div>
    </div>
-  <body class="hold-transition skin-blue sidebar-mini">
+  <body class="hold-transition skin-blue sidebar-mini" id="cuerpo">
 <!----AQUI PEGUE EL LOGIN MEJORAR ESTO  si se borra no pasa nada-->
 
 
@@ -422,7 +422,10 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 <li><a href="/bolmanantial/reportes/asistencia"><i class="fa fa-circle-o"></i> Reporte Asistencia</a></li>
                 @endcan
                 @can('cargargasoil')
-                <li><a href="/bolmanantial/boletos/cargargasoil"><i class="fa fa-circle-o"></i> Cargar Gasoil</a></li>
+                <li><a href="/bolmanantial/boletos/cargargasoilleagas"><i class="fa fa-circle-o"></i> Cargar Gasoil Leagas</a></li>
+                @endcan
+                @can('cargargasoil')
+                <li><a href="/bolmanantial/boletos/cargargasoillnf"><i class="fa fa-circle-o"></i> Cargar Gasoil LNF</a></li>
                 @endcan
                 @can('servicios')
                 <li><a href="/bolmanantial/boletos/servicios"><i class="fa fa-circle-o"></i> Servicios</a></li>

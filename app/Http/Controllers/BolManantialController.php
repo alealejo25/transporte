@@ -1119,7 +1119,7 @@ $gasoil=Gasoil::orderBy('id','DESC')->limit(1)->get();
 // FIN carga en la tabla cargargasoil de cada interno x linea
         
 
-
+Flash::success('SE CARGO UNA NUEVA PLANILLA DE GASOIL LA NUEVA FOURNIER!!!!');
        return Redirect('bolmanantial/boletos/cargargasoillnf')->with('Mensaje','SE CARGO UNA NUEVA PLANILLA DE GASOIL LA NUEVA FOURNIER!!!!');
     }
     public function guardarcargagasoilleagas(Request $request)
@@ -1228,7 +1228,7 @@ $gasoil=Gasoil::orderBy('id','DESC')->limit(1)->get();
 // FIN carga en la tabla cargargasoil de cada interno x linea
         
 
-
+Flash::success('SE CARGO UNA NUEVA PLANILLA DE GASOIL LEAGAS!!!!');
        return Redirect('bolmanantial/boletos/cargargasoilleagas')->with('Mensaje','Mensaje','SE CARGO UNA NUEVA PLANILLA DE GASOIL LEAGAS!!!!');
     }
     public function cambiocoche($id)

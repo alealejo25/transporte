@@ -1120,7 +1120,7 @@ $gasoil=Gasoil::orderBy('id','DESC')->limit(1)->get();
         
 
 
-       return Redirect('bolmanantial/boletosleagas')->with('Mensaje','Se modifico el servicio!!!!');
+       return Redirect('bolmanantial/boletos/cargargasoillnf')->with('Mensaje','SE CARGO UNA NUEVA PLANILLA DE GASOIL LA NUEVA FOURNIER!!!!');
     }
     public function guardarcargagasoilleagas(Request $request)
     {
@@ -1229,7 +1229,7 @@ $gasoil=Gasoil::orderBy('id','DESC')->limit(1)->get();
         
 
 
-       return Redirect('bolmanantial/boletosleagas')->with('Mensaje','Se modifico el servicio!!!!');
+       return Redirect('bolmanantial/boletos/cargargasoilleagas')->with('Mensaje','Mensaje','SE CARGO UNA NUEVA PLANILLA DE GASOIL LEAGAS!!!!');
     }
     public function cambiocoche($id)
     {

@@ -176,6 +176,7 @@ Route::resource('abms/gremio','GremioController');
 
 
 
+
 //**************************************************************
 //***COCHES LEAGAS LNF***************************************
 //**************************************************************
@@ -205,6 +206,14 @@ Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialCon
 
 Route::get('bolmanantial/reportes/boletosleagas','BolManantialController@boletosleagas')->name('boletoslegas')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/reportes/reporteboletosleagas','BolManantialController@reporteboletosleagas')->name('reporteboletosleagas')->middleware('permission:bolmanantial');
+
+
+
+
+Route::get('bolmanantial/reportes/reportechoferesleagas','BolManantialController@reportechoferesleagas')->name('reportechoferesleagas')->middleware('permission:bolmanantial');
+
+Route::get('bolmanantial/reportes/reportechofereslnf','BolManantialController@reportechofereslnf')->name('reportechofereslnf')->middleware('permission:bolmanantial');
+
 Route::get('bolmanantial/reportes/gasoil','BolManantialController@gasoil')->name('gasoil')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/reportes/reportegasoil','BolManantialController@reportegasoil')->name('reportegasoil')->middleware('permission:bolmanantial');
 Route::get('bolmanantial/reportes/asistencia','BolManantialController@asistencia')->name('asistencia')->middleware('permission:bolmanantial');

@@ -1261,5 +1261,39 @@ Flash::success('SE CARGO UNA NUEVA PLANILLA DE GASOIL LEAGAS!!!!');
  
        return Redirect('bolmanantial/boletosleagas')->with('Mensaje','Se modifico el servicio!!!!');
     }
+
+public function reportechoferesleagas()
+    {
+        $datos=ChoferLeagaslnf::where('empresa_id',2)->orderBy('apellido')->get();
+
+        $datos->each(function($datos){
+            $datos->tipocontratacion;
+            $datos->obrasocial;
+            $datos->categoriachofer; 
+            
+       });
+
+        //dd($datos);
+        $pdf=\PDF::loadView('bolmanantial.reportes.reportechoferes',['empresa'=>2,'datos'=>$datos])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reportechoferes.pdf');
+    }
+
+    public function reportechofereslnf()
+    {
+         $datos=ChoferLeagaslnf::where('empresa_id',1)->orderBy('apellido')->get();
+
+        $datos->each(function($datos){
+            $datos->tipocontratacion;
+            $datos->obrasocial;
+            $datos->categoriachofer; 
+            
+       });
+
+        //dd($datos);
+        $pdf=\PDF::loadView('bolmanantial.reportes.reportechoferes',['empresa'=>1,'datos'=>$datos])
+        ->setPaper('a4','landscape');
+        return $pdf->download('reportechoferes.pdf');
+    }
     
 }

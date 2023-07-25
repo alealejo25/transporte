@@ -32,7 +32,7 @@
 				</thead>
                @foreach ($datos as $dato)
 				<tr>
-					<td>{{ $dato->id}}</td>
+					<td>{{ $dato->id_boleto}}</td>
 					<td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
 					<td>{{ $dato->nombrechofer}}, {{$dato->apellido}}</td>
 					<td>{{ $dato->numero}}</td>

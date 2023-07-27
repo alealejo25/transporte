@@ -29,12 +29,16 @@
 
 					
 				<input type="text" hidden name="empresa" id="empresa" value="{{$empresa}}"> 
-				<div class="form-group col-lg-4 col-md-4 col-sm-12">
+				<div class="form-group col-lg-3 col-md-3 col-sm-12">
+					<label for="numero">Nro de Planilla</label>
+					<input type="number" name="numero" id="numero" class="form-control" placeholder="Numero de Planilla..." required>
+				</div>
+				<div class="form-group col-lg-3 col-md-3 col-sm-12">
 					<label for="fecha">Fecha</label>
 					<input type="date" step=0.01 name="fecha" class="form-control" value="{{$fecha}}" required> 
 					
 				</div>
-				<div class="form-group col-lg-4 col-md-8 col-sm-12">
+				<div class="form-group col-lg-3 col-md-3 col-sm-12">
 					<label for="tipo">Tipo de Servicio</label>
 					<select name="tiposervicio" id="tiposervicio" class="form-control" required>
 						<option value="">Seleccione una opcion</option>
@@ -43,7 +47,7 @@
 						<option value="CORTADO">CORTADO</option>
 					</select>
 				</div>
-				<div class="form-group col-lg-4 col-md-8 col-sm-12">
+				<div class="form-group col-lg-3 col-md-3 col-sm-12">
 					<label for="dia">Dia</label>
 					<select name="dia" id="dia" class="form-control" required>
 						<option value="">Seleccione una opcion</option>

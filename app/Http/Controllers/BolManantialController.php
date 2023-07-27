@@ -120,6 +120,7 @@ class BolManantialController extends Controller
 
   /*      VALIDACION -----------------------------------------*/
             $campos=[
+            'numero'=>'required|max:8|unique:boletosleagas,numero',
             'chofer_id'=>'required',
             'linea_id'=>'required',
             'servicio_id'=>'required',
@@ -133,8 +134,15 @@ class BolManantialController extends Controller
             'taller.*'=>'required',
             'motivo_cambio.*'=>'max:150',
         ];
-        $Mensaje=["required"=>'El :attribute es requerido'];
+        $Mensaje=["required"=>'El :attribute es requerido',
+                      "unique"=>'YA EXISTE EL NUMERO DE PLANILLA'];
         $this->validate($request,$campos,$Mensaje);
+
+
+
+
+
+
 
         /*--------------------------------------------------------*/
         $coches=$request->all();
@@ -210,7 +218,7 @@ class BolManantialController extends Controller
         $horasdetrabajo=new DateTime('07:30');
         //$datos=new BoletoLeagas(request()->except('_token'));
         $datos=new BoletoLeagas();
-
+        $datos->numero=$request->numero;
         $datos->valorhorasrestantes=0;
         $datos->valortoquesanden=$request->toquesanden*117;
         

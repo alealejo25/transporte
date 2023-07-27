@@ -668,6 +668,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
     <script>
   $(document).ready(function () {
     $('#tabla').DataTable({
+      "order":{[0,"desc"]}//para ordenar por la primera columna descendente
       "language":{
         "decimal": "",
         "search": "Buscar", 

@@ -668,7 +668,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
     <script>
   $(document).ready(function () {
     $('#tabla').DataTable({
-      
+      "sPaginationType":"full_numbers","iDisplayLength":20,"bJQueryUI":true,"aaSorting":[[0,"desc"]]
       "language":{
         "decimal": "",
         "search": "Buscar", 

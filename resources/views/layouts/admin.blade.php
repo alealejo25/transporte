@@ -43,11 +43,11 @@
 
 <!-- datatables --> 
 <script src=
-"https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js">
+"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
     </script>
 <!---------------->
 
-<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
@@ -668,7 +668,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
     <script>
   $(document).ready(function () {
     $('#tabla').DataTable({
-      "order": [[0, 'desc']]
+      
       "language":{
         "decimal": "",
         "search": "Buscar", 

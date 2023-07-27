@@ -18,7 +18,7 @@
 		<div class="table-responsive ">
 			<table id="tabla" class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
-					<th>Id</th>
+					<th>Num Planilla</th>
 					<th>Fecha</th>
 					<th>Chofer</th>
 					<th>Serv.</th>
@@ -32,7 +32,7 @@
 				</thead>
                @foreach ($datos as $dato)
 				<tr>
-					<td>{{ $dato->id_boleto}}</td>
+					<td align="right">{{ $dato->num }}</td>
 					<td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
 					<td>{{ $dato->nombrechofer}}, {{$dato->apellido}}</td>
 					<td>{{ $dato->numero}}</td>

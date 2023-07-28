@@ -30,7 +30,7 @@
 					
 				<input type="text" hidden name="empresa" id="empresa" value="{{$empresa}}"> 
 				<div class="form-group col-lg-3 col-md-3 col-sm-12">
-					<label for="numero">Nro de Planilla</label>
+					<label for="numero">Nro. de Planilla</label>
 					<input type="number" name="numero" id="numero" class="form-control" placeholder="Numero de Planilla..." required>
 				</div>
 				<div class="form-group col-lg-3 col-md-3 col-sm-12">

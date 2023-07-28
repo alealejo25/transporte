@@ -425,6 +425,12 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 <li><a href="/bolmanantial/boletos/cargargasoilleagas"><i class="fa fa-circle-o"></i> Cargar Gasoil Leagas</a></li>
                 @endcan
                 @can('boletoslnf')
+                <li><a href="/bolmanantial/gasoil/gasoilleagas"><i class="fa fa-circle-o"></i> Gasoil Leagas</a></li>
+                @endcan
+                @can('boletoslnf')
+                <li><a href="/bolmanantial/gasoil/gasoillnf"><i class="fa fa-circle-o"></i> Gasoil La Nueva Fournier</a></li>
+                @endcan
+                @can('boletoslnf')
                 <li><a href="/bolmanantial/boletos/cargargasoillnf"><i class="fa fa-circle-o"></i> Cargar Gasoil LNF</a></li>
                 @endcan
                 @can('servicios')
@@ -668,7 +674,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
     <script>
   $(document).ready(function () {
     $('#tabla').DataTable({
-      "sPaginationType":"full_numbers","iDisplayLength":20
+      
       "language":{
         "decimal": "",
         "search": "Buscar", 

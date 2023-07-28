@@ -238,6 +238,11 @@ Route::patch('bolmanantial/boletos/guardarcargagasoillnf','BolManantialControlle
 Route::get('bolmanantial/boletos/{id}/cambiocoche','BolManantialController@cambiocoche')->name('cambiocoche');
 Route::patch('bolmanantial/boletos/guardarcambiocoche','BolManantialController@guardarcambiocoche')->name('guardarcambiocoche');
 
+
+
+Route::get('bolmanantial/gasoil/gasoilleagas','BolManantialController@gasoilleagas')->name('bolmanantial.gasoil.gasoilleagas')->middleware('permission:bolmanantial');
+Route::get('bolmanantial/gasoil/cargargasoilleagas','BolManantialController@cargargasoilleagas')->name('cargargasoilleagas')->middleware('permission:boletoslnf');
+Route::patch('bolmanantial/boletos/guardarcargagasoilleagas','BolManantialController@guardarcargagasoilleagas')->name('guardarcargagasoilleagas')->middleware('permission:boletoslnf');
 //--------------------------------------------------------------
 //-------------- FIN BOLETERIA MANANTIAL -----------------------
 //--------------------------------------------------------------

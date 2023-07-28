@@ -988,7 +988,14 @@ public function storeramal(Request $request)
        return Redirect('bolmanantial/boletos/ramal
         ')->with('Mensaje','Se creo el Ramal!!!!');
     }
+public function gasoilleagas()
+{
 
+      $datos=Gasoil::select('*')->join('users','gasoil.user_id','=','users.id')->where('gasoil.empresa_id',2)->get();
+//dd($datos);
+            return view('bolmanantial.gasoil.indexleagas')
+                ->with('datos',$datos);
+}
      public function cargargasoilleagas()
     {
 

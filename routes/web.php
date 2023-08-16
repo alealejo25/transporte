@@ -26,6 +26,7 @@ Route::get('/afip/react', function () {
      return view('/afip/react');
  });
 Route::get('/afip/prueba','ReporteController@prueba')->name('prueba');
+Route::get('/afip/indexafip','ReporteController@indexafip')->name('indexafip');
 
 //para inicio del login
 Auth::routes(['register'=>false,'reset'=>false]);
@@ -243,6 +244,8 @@ Route::patch('bolmanantial/boletos/guardarcambiocoche','BolManantialController@g
 Route::get('bolmanantial/gasoil/gasoilleagas','BolManantialController@gasoilleagas')->name('bolmanantial.gasoil.gasoilleagas')->middleware('permission:bolmanantial');
 Route::get('bolmanantial/gasoil/cargargasoilleagas','BolManantialController@cargargasoilleagas')->name('cargargasoilleagas')->middleware('permission:boletoslnf');
 Route::patch('bolmanantial/boletos/guardarcargagasoilleagas','BolManantialController@guardarcargagasoilleagas')->name('guardarcargagasoilleagas')->middleware('permission:boletoslnf');
+
+Route::get('bolmanantial/boletos/monitoreo','BolManantialController@monitoreo')->name('monitoreo')->middleware('permission:boletoslnf');
 //--------------------------------------------------------------
 //-------------- FIN BOLETERIA MANANTIAL -----------------------
 //--------------------------------------------------------------

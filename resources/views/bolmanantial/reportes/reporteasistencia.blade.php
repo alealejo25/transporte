@@ -99,6 +99,7 @@
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr> 
+                    <th >Dia</th>
                 	<th >Fecha</th>
                     <th >Legajo</th>
                     <th >Chofer</th>
@@ -107,11 +108,11 @@
              <tbody>
   			@foreach ($datos as $dato)
                 <tr>
-                  <td width="200px" >{{$dato->fecha}}</td> 
-                  <td align="right" >{{$dato->legajo}}</td> 
-                  <td width="250px">{{$dato->apellido}}, {{$dato->nombre}}</td> 
+                  <td width="100px" >{{$dato->fechadia}}</td>
+                  <td width="150px" >{{date('d/m/Y', strtotime($dato->fecha))}}</td> 
+                  <td align="right" width="80px" >{{$dato->legajo}}</td> 
+                  <td width="270px">{{$dato->apellido}}, {{$dato->nombre}}</td> 
                   
-                 
                 </tr>
             @endforeach            
                           

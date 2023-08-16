@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\BoletoLeagas;
 use App\ChoferLeagasLnf;
@@ -24,7 +25,8 @@ use DateTime;
 use DB;
 use DatePeriod;
 use DateInterval;
-
+use Ndum\Laravel\Snmp;
+use Ndum\Laravel\SnmpTrapServer;
 
 class BolManantialController extends Controller
 {
@@ -754,6 +756,48 @@ function convertirFechaATexto($fecha) {
     return $texto_fecha;
 }
 
+function convertirFechaATextoDia($fecha) {
+    //dd($fecha);
+    $fecha_actual = strtotime($fecha);
+    $dia_semana = date('l', $fecha_actual);
+    $dia = date('d', $fecha_actual);
+    $mes = date('F', $fecha_actual);
+    $anio = date('Y', $fecha_actual);
+
+    // Obtener el día de la semana en español
+    $dias_semana = array(
+        'Monday' => 'Lunes',
+        'Tuesday' => 'Martes',
+        'Wednesday' => 'Miércoles',
+        'Thursday' => 'Jueves',
+        'Friday' => 'Viernes',
+        'Saturday' => 'Sábado',
+        'Sunday' => 'Domingo'
+    );
+    $dia_semana_espanol = $dias_semana[$dia_semana];
+
+    // Obtener el mes en español
+    $meses = array(
+        'January' => 'enero',
+        'February' => 'febrero',
+        'March' => 'marzo',
+        'April' => 'abril',
+        'May' => 'mayo',
+        'June' => 'junio',
+        'July' => 'julio',
+        'August' => 'agosto',
+        'September' => 'septiembre',
+        'October' => 'octubre',
+        'November' => 'noviembre',
+        'December' => 'diciembre'
+    );
+    $mes_espanol = $meses[$mes];
+
+    // Construir el texto de la fecha
+    $texto_fecha = $dia_semana_espanol;
+    return $texto_fecha;
+}
+
         /*VALIDACION -----------------------------------------*/
             $campos=[
             'fechai'=>'required',
@@ -780,10 +824,15 @@ function convertirFechaATexto($fecha) {
         else
         {
             while($cantidad>$i){
-                $datos[$i]->fecha=convertirFechaATexto($datos[$i]->fecha);
+                $fecha=$datos[$i]->fecha;
+                //$datos[$i]->fechaconvertida=convertirFechaATexto($fecha);
+                $datos[$i]->fechadia=convertirFechaATextoDia($fecha);
+                
                 $i=$i+1;
             }
         }
+
+        //dd($datos);
          $pdf=\PDF::loadView('bolmanantial.reportes.reporteasistencia',['empresa'=>$empresa,'datos'=>$datos,'fi'=>$fi, 'ff'=>$ff])
         ->setPaper('a4','portrait');
         return $pdf->download('reporteasistencia.pdf');
@@ -1309,6 +1358,28 @@ public function reportechoferesleagas()
         $pdf=\PDF::loadView('bolmanantial.reportes.reportechoferes',['empresa'=>1,'datos'=>$datos])
         ->setPaper('a4','landscape');
         return $pdf->download('reportechoferes.pdf');
+    }
+    public function monitoreo()
+    {
+$options = [
+        'ip' => '192.168.101.212',
+        'port' => 162,
+        'transport' => 'udp',
+        'version' => null,
+        'community' => null,
+        'whitelist' => null,
+        'timeout_connect' => 5,
+    ];
+
+$listener = new TrapListener(); ### your in step 1 created listener-class
+
+$server = new SnmpTrapServer();
+$server->prepare($listener, $options); # $options only needed if other than default
+$server->listen();
+
+# in addition: (only if needed)
+$server->getOptions(); # to get the options
+$server->setOptions($options); # to set the options
     }
     
 }

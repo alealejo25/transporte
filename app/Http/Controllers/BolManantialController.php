@@ -530,7 +530,6 @@ public function hstrabajadas()
 
 public function reportehstrabajadas(Request $request)
     {   
-        dd($request);
          /*VALIDACION -----------------------------------------*/
             $campos=[
             'fechai'=>'required',
@@ -544,6 +543,7 @@ public function reportehstrabajadas(Request $request)
         $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
         $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
         if($request->chofer_id==null){
+
          $datos=BoletoLeagas::select('choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->get();
         }
         else

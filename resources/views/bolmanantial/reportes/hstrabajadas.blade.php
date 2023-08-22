@@ -28,6 +28,7 @@
                                 <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Chofer
                                      <select name="chofer_id" id="chofer" class="form-control">
                                      <option value="">Seleccione un Chofer</option>
+                                    <option value="TODOS">Todos</option>
                                     @foreach ($choferleagaslnf as $datos)
                                         <option value="{{$datos->id}}" >Legajo: {{$datos->legajo}} - {{$datos->apellido}}, {{$datos->nombre}}</option>                    
             

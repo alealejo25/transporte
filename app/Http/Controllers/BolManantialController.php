@@ -524,7 +524,9 @@ class BolManantialController extends Controller
 public function hstrabajadas()
     {
        $choferleagaslnf=ChoferLeagaslnf::orderBy('legajo','ASC')->get();
+        $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
         return view('bolmanantial.reportes.hstrabajadas')
+            ->with('empresa',$empresa)
             ->with('choferleagaslnf',$choferleagaslnf);
     }
 
@@ -534,6 +536,8 @@ public function reportehstrabajadas(Request $request)
             $campos=[
             'fechai'=>'required',
             'fechaf'=>'required',
+            'empresa_id'=>'required',
+            'chofer_id'=>'required',
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
@@ -544,7 +548,7 @@ public function reportehstrabajadas(Request $request)
         $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
         if($request->chofer_id=='TODOS'){
 
-            $datos=BoletoLeagas::select('choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->get();
+            $datos=BoletoLeagas::select('choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->get();
         }
         else
         {
@@ -552,7 +556,7 @@ public function reportehstrabajadas(Request $request)
         }
 
 
-        dd($datos);
+        
   $pdf=\PDF::loadView('bolmanantial.reportes.reportehstrabajadas',['datos'=>$datos,'fi'=>$fi, 'ff'=>$ff])
         ->setPaper('a4','portrait');
         return $pdf->download('reportehstrabajadas.pdf');

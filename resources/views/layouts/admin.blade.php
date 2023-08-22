@@ -445,6 +445,9 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                  @can('boletoslnf')
                 <li><a href="/bolmanantial/reportes/reportechoferesleagas"><i class="fa fa-circle-o"></i> Choferes Leagas</a></li>
                 @endcan
+                @can('boletoslnf')
+                <li><a href="/bolmanantial/reportes/hstrabajadas"><i class="fa fa-circle-o"></i> Reporte de Hs trabajadas</a></li>
+                @endcan
                </ul>
             </li>
             @endcan

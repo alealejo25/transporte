@@ -211,7 +211,9 @@ Route::post('bolmanantial/reportes/reporteboletosleagas','BolManantialController
 
 
 
-Route::get('bolmanantial/reportes/reportechoferesleagas','BolManantialController@reportechoferesleagas')->name('reportechoferesleagas')->middleware('permission:bolmanantial');
+Route::get('bolmanantial/reportes/hstrabajadas','BolManantialController@hstrabajadas')->name('hstrabajadas')->middleware('permission:bolmanantial');
+Route::post('bolmanantial/reportes/reportehstrabajadas','BolManantialController@reportehstrabajadas')->name('reportehstrabajadas')->middleware('permission:bolmanantial');
+
 
 Route::get('bolmanantial/reportes/reportechofereslnf','BolManantialController@reportechofereslnf')->name('reportechofereslnf')->middleware('permission:bolmanantial');
 

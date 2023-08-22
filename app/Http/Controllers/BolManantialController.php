@@ -520,6 +520,42 @@ class BolManantialController extends Controller
         return $pdf->download('reporteboletosleagas.pdf');       
     }
 
+
+public function hstrabajadas()
+    {
+       $choferleagaslnf=ChoferLeagaslnf::orderBy('legajo','ASC')->get();
+        return view('bolmanantial.reportes.hstrabajadas')
+            ->with('choferleagaslnf',$choferleagaslnf);
+    }
+
+public function reportehstrabajadas(Request $request)
+    {   
+         /*VALIDACION -----------------------------------------*/
+            $campos=[
+            'fechai'=>'required',
+            'fechaf'=>'required',
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+
+        /*--------------------------------------------------------*/
+
+        $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+        if($request->chofer_id==null){
+
+         $datos=BoletoLeagas::select('choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->get();
+        }
+        else
+        {
+                    $datos=BoletoLeagas::select('choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->get();
+        }
+
+  $pdf=\PDF::loadView('bolmanantial.reportes.reportehstrabajadas',['datos'=>$datos,'fi'=>$fi, 'ff'=>$ff])
+        ->setPaper('a4','portrait');
+        return $pdf->download('reportehstrabajadas.pdf');
+
+}
 //reporte de gasoil pedido por guillermo
         public function gasoil()
     {

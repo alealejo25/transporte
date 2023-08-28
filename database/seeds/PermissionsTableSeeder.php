@@ -97,9 +97,9 @@ class PermissionsTableSeeder extends Seeder
         'password'  => bcrypt('12345678'),
     ]);
      DB::table('users')->insert([
-        'name'  => 'Ixis',
+        'name'  => 'Isis',
         'tipo'  => 'Dueno',
-        'email'     => 'ixis@transporte.com',
+        'email'     => 'isis@transporte.com',
         'password'  => bcrypt('lnf1234'),
     ]);
       DB::table('users')->insert([

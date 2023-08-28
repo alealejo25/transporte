@@ -233,6 +233,7 @@ Route::get('bolmanantial/boletos/ramal', 'BolManantialController@ramal')->name('
 Route::get('bolmanantial/boletos/createramal', 'BolManantialController@createramal')->name('createramal')->middleware('permission:ramales');
 Route::post('bolmanantial/boletosleagas/storeramal','BolManantialController@storeramal')->name('storeramal')->middleware('permission:ramales');
 //Route::get('bolmanantial/boletos/{id}/cargargasoil','BolManantialController@cargargasoil')->name('cargargasoil');
+
 Route::get('bolmanantial/boletos/cargargasoilleagas','BolManantialController@cargargasoilleagas')->name('cargargasoilleagas')->middleware('permission:boletoslnf');
 Route::patch('bolmanantial/boletos/guardarcargagasoilleagas','BolManantialController@guardarcargagasoilleagas')->name('guardarcargagasoilleagas')->middleware('permission:boletoslnf');
 Route::get('bolmanantial/boletos/cargargasoillnf','BolManantialController@cargargasoillnf')->name('cargargasoillnf')->middleware('permission:boletoslnf');
@@ -245,6 +246,9 @@ Route::patch('bolmanantial/boletos/guardarcambiocoche','BolManantialController@g
 
 Route::get('bolmanantial/gasoil/gasoilleagas','BolManantialController@gasoilleagas')->name('bolmanantial.gasoil.gasoilleagas')->middleware('permission:bolmanantial');
 Route::get('bolmanantial/gasoil/cargargasoilleagas','BolManantialController@cargargasoilleagas')->name('cargargasoilleagas')->middleware('permission:boletoslnf');
+
+Route::get('bolmanantial/gasoil/gasoillnf','BolManantialController@gasoillnf')->name('bolmanantial.gasoil.gasoillnf')->middleware('permission:bolmanantial');
+
 Route::patch('bolmanantial/boletos/guardarcargagasoilleagas','BolManantialController@guardarcargagasoilleagas')->name('guardarcargagasoilleagas')->middleware('permission:boletoslnf');
 
 Route::get('bolmanantial/boletos/monitoreo','BolManantialController@monitoreo')->name('monitoreo')->middleware('permission:boletoslnf');

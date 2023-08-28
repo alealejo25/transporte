@@ -1107,6 +1107,15 @@ public function gasoilleagas()
             return view('bolmanantial.gasoil.indexleagas')
                 ->with('datos',$datos);
 }
+public function gasoillnf()
+{
+
+      $datos=Gasoil::select('*')->join('users','gasoil.user_id','=','users.id')->where('gasoil.empresa_id',1)->get();
+
+            return view('bolmanantial.gasoil.indexlnf')
+                ->with('datos',$datos);
+}
+
      public function cargargasoilleagas()
     {
 

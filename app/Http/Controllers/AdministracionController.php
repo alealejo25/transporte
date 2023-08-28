@@ -74,7 +74,7 @@ class AdministracionController extends Controller
         
 
         //asignacion de multiples permisos funciona
-       $role = Role::find(11);//id del rol
+       $role = Role::find(9);//id del rol
        $role->syncPermissions(request()->input('permissions',[]));
        $role->permissions()->sync($request->get('permissions'));
 

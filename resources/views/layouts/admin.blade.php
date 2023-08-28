@@ -303,7 +303,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 <li><a href="/crearpermiso"><i class="fa fa-circle-o"></i> Crear Permiso </a></li>
                 @endcan
                 @can('bancos_index')
-                <li><a href="/asignarpermiso"><i class="fa fa-circle-o"></i> Crear Permiso </a></li>
+                <li><a href="/asignarpermiso"><i class="fa fa-circle-o"></i> Asignar Permiso a roles</a></li>
                 @endcan
                 
 

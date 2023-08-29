@@ -21,6 +21,7 @@
 					<th>Num Planilla</th>
 					<th>Fecha</th>
 					<th>Chofer</th>
+					<th>Linea</th>
 					<th>Serv.</th>
 					<th>Turno</th>
 					<th>Pax</th>
@@ -36,6 +37,7 @@
 					<td>{{ $dato->num}}</td>
 					<td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
 					<td>{{ $dato->nombrechofer}}, {{$dato->apellido}}</td>
+					<td>{{ $dato->linea->numero}}</td>
 					<td>{{ $dato->numero}}</td>
 					<td>{{ $dato->nombre}}</td>
 					<td align="right">{{ $dato->pasajestotal}}</td>

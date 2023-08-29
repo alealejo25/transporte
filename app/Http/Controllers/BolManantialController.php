@@ -55,6 +55,7 @@ class BolManantialController extends Controller
              $datos->servicioleagaslnf;
 
         });
+        //dd($datos);
 
         return view('bolmanantial.boletos.indexlnf')
             ->with('datos',$datos);

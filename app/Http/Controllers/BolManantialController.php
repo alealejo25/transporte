@@ -557,7 +557,7 @@ public function reportehstrabajadas(Request $request)
                     
         }
 
-        dd($datos1);
+ //       dd($datos1);
         
   $pdf=\PDF::loadView('bolmanantial.reportes.reportehstrabajadas',['datos'=>$datos,'datos1'=>$datos1,'fi'=>$fi, 'ff'=>$ff])
         ->setPaper('a4','portrait');

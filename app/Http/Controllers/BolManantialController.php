@@ -526,8 +526,10 @@ public function hstrabajadas()
     {
        $choferleagaslnf=ChoferLeagaslnf::orderBy('legajo','ASC')->get();
         $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
+        $linea=Linea::orderBy('numero','ASC')->pluck('numero','id');
         return view('bolmanantial.reportes.hstrabajadas')
             ->with('empresa',$empresa)
+            ->with('linea',$linea)
             ->with('choferleagaslnf',$choferleagaslnf);
     }
 
@@ -568,6 +570,51 @@ public function reportehstrabajadas(Request $request)
  
 
 }
+
+public function cargargasoil($id)
+    {
+
+    $servicios=CocheBoleto::select('*','cochesboletos.id as id_co')->join('coches','cochesboletos.coche_id','=','coches.id')->where('cochesboletos.boletosleagas_id',$id)->get();
+        return view('bolmanantial.boletos.cargargasoil')
+            ->with('servicios',$servicios)
+            ->with('id',$id);
+    }
+
+    public function guardarcargagasoil(Request $request)
+    {
+
+       
+       
+       /* $campos=[
+            '$boletos["gasoil"][$key]'=>'required',
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+        }*/
+        
+        
+        $boletos=$request->all();
+        $gasoiltotal=0;
+        foreach($boletos['cochesboletos_id'] as $key => $value){
+            $gasoiltotal=$gasoiltotal+$boletos["gasoil"][$key];
+            $editacocheboletos=CocheBoleto::where('id',$boletos["cochesboletos_id"][$key])
+                ->update([
+                          'gasoil'=>$boletos["gasoil"][$key]
+                          ]);
+              
+        }
+        
+        $editacocheboletos=BoletoLeagas::where('id',$request->id)
+                ->update([
+                          'gasoiltotal'=>$gasoiltotal
+                          ]);
+              
+
+       return Redirect('bolmanantial/boletosleagas')->with('Mensaje','Se modifico el servicio!!!!');
+    }
+
+
+
 //reporte de gasoil pedido por guillermo
         public function gasoil()
     {

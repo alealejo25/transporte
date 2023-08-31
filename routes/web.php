@@ -232,8 +232,11 @@ Route::patch('bolmanantial/boletos/guardaredicionservicios','BolManantialControl
 Route::get('bolmanantial/boletos/ramal', 'BolManantialController@ramal')->name('ramal')->middleware('permission:ramales');
 Route::get('bolmanantial/boletos/createramal', 'BolManantialController@createramal')->name('createramal')->middleware('permission:ramales');
 Route::post('bolmanantial/boletosleagas/storeramal','BolManantialController@storeramal')->name('storeramal')->middleware('permission:ramales');
-//Route::get('bolmanantial/boletos/{id}/cargargasoil','BolManantialController@cargargasoil')->name('cargargasoil');
+///modificacion de la cartga
+Route::get('bolmanantial/boletos/{id}/cargargasoil','BolManantialController@cargargasoil')->name('cargargasoil');
+Route::patch('bolmanantial/boletos/guardarcargagasoil','BolManantialController@guardarcargagasoil')->name('guardarcargagasoil');
 
+//--------------------------------------------
 Route::get('bolmanantial/boletos/cargargasoilleagas','BolManantialController@cargargasoilleagas')->name('cargargasoilleagas')->middleware('permission:boletoslnf');
 Route::patch('bolmanantial/boletos/guardarcargagasoilleagas','BolManantialController@guardarcargagasoilleagas')->name('guardarcargagasoilleagas')->middleware('permission:boletoslnf');
 Route::get('bolmanantial/boletos/cargargasoillnf','BolManantialController@cargargasoillnf')->name('cargargasoillnf')->middleware('permission:boletoslnf');

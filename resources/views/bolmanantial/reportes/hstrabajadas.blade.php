@@ -29,6 +29,10 @@
                                        {!!Form::select('empresa_id',$empresa,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion'])!!}
                                        {!! $errors->first('empresa_id','<div class="invalid-feedback">:message</div>')!!}
                                 </div>
+                                <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Linea
+                                       {!!Form::select('linea_id',$linea,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion'])!!}
+                                       {!! $errors->first('linea_id','<div class="invalid-feedback">:message</div>')!!}
+                                </div>
                                 <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Chofer
                                      <select name="chofer_id" id="chofer" class="form-control">
                                      <option value="">Seleccione un Chofer</option>

@@ -29,6 +29,7 @@
 					<th>horaT</th>
 					<th>horaS</th>
 					<th>HoraA</th>
+					<th>GasoilT</th>
 
 					<th>Opciones</th>
 				</thead>
@@ -47,12 +48,14 @@
 					<td align="right">{{ $dato->horastotal}}</td>
 					<td align="right">{{ $dato->horassobrantes}}</td>
 						<td align="right">{{ $dato->horastotalalargue}}</td>
+						<td align="right">{{ $dato->gasoiltotal}}</td>
 					
 
 					<td>
 						@can('editarservicio')
 						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id_boleto.'/modificarservicio')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a>
 							@endcan
+							<a href="{{url('bolmanantial/boletos/'.$dato->id_boleto.'/cargargasoil')}}"><button class="btn btn-success"><i class="fa fa-bus" aria-hidden="true" title="Cargar Gasoil"></i></button></a>
 						@can('borrarservicio')
 						<a href="{{url('bolmanantial/boletos/'.$dato->id_boleto.'/cargargasoil')}}"><button class="btn btn-success"><i class="fa fa-bus" aria-hidden="true" title="Cargar Gasoil"></i></button></a>
 							@endcan

@@ -236,6 +236,11 @@ Route::post('bolmanantial/boletosleagas/storeramal','BolManantialController@stor
 Route::get('bolmanantial/boletos/{id}/cargargasoil','BolManantialController@cargargasoil')->name('cargargasoil');
 Route::patch('bolmanantial/boletos/guardarcargagasoil','BolManantialController@guardarcargagasoil')->name('guardarcargagasoil');
 
+// reporte gasoil diario
+Route::get('bolmanantial/reportes/gasoildiario','BolManantialController@gasoildiario')->name('gasoildiario');
+Route::post('bolmanantial/reportes/reportegasoildiario','BolManantialController@reportegasoildiario')->name('reportegasoildiario')->middleware('permission:bolmanantial');
+
+
 //--------------------------------------------
 Route::get('bolmanantial/boletos/cargargasoilleagas','BolManantialController@cargargasoilleagas')->name('cargargasoilleagas')->middleware('permission:boletoslnf');
 Route::patch('bolmanantial/boletos/guardarcargagasoilleagas','BolManantialController@guardarcargagasoilleagas')->name('guardarcargagasoilleagas')->middleware('permission:boletoslnf');

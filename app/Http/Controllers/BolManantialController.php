@@ -552,8 +552,8 @@ public function reportehstrabajadas(Request $request)
         if($request->chofer_id=='TODOS'){
 
             $datos=BoletoLeagas::select('choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->get();
-            $datos1=BoletoLeagas::select('choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->groupby('choferesleagaslnf.apellido')->get();
-             $pdf=\PDF::loadView('bolmanantial.reportes.reportehstrabajadas',['datos'=>$datos,'datos1'=>$datos1,'fi'=>$fi, 'ff'=>$ff])
+            /*$datos1=BoletoLeagas::select('choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->groupby('choferesleagaslnf.apellido')->get();*/
+             $pdf=\PDF::loadView('bolmanantial.reportes.reportehstrabajadas',['datos'=>$datos,'fi'=>$fi, 'ff'=>$ff])
         ->setPaper('a4','portrait');
         return $pdf->download('reportehstrabajadas.pdf');
         }
@@ -613,8 +613,49 @@ public function cargargasoil($id)
        return Redirect('bolmanantial/boletosleagas')->with('Mensaje','Se modifico el servicio!!!!');
     }
 
+public function gasoildiario()
+{
+    $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
+    return view('bolmanantial.reportes.reportegasoildiario')
+         ->with('empresa',$empresa);
 
+}
+public function reportegasoildiario(Request $request)
+    {
+        $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
 
+        //para la nueva fournier LA NUEVA FOURNIER
+        if($request->empresa_id=1){
+            $datos=Gasoil::Select('gasoil.fecha','gasoil.l118total as l118','gasoil.l121total','gasoil.l122total','gasoil.l121total')->whereBetween('fecha',[$fi, $ff])->where('empresa_id',1)->get();
+            dd($datos);
+            $linea118=CargarGasoil::Select('cargargasoil.litros as litros','cargargasoil.interno as interno','coches.nroempresa as nroempresa','gasoil.fecha as fecha')->join('gasoil','cargargasoil.gasoil_id','=','gasoil.id')->join('coches','cargargasoil.coche_id','=','coches.id')->whereBetween('fecha',[$fi, $ff])->where('coches.nroempresa',118)->get();
+
+            $linea121=CargarGasoil::Select('cargargasoil.litros as litros','cargargasoil.interno as interno','coches.nroempresa as nroempresa','gasoil.fecha as fecha')->join('gasoil','cargargasoil.gasoil_id','=','gasoil.id')->join('coches','cargargasoil.coche_id','=','coches.id')->whereBetween('fecha',[$fi, $ff])->where('coches.nroempresa',121)->get();
+            $linea122=CargarGasoil::Select('cargargasoil.litros as litros','cargargasoil.interno as interno','coches.nroempresa as nroempresa','gasoil.fecha as fecha')->join('gasoil','cargargasoil.gasoil_id','=','gasoil.id')->join('coches','cargargasoil.coche_id','=','coches.id')->whereBetween('fecha',[$fi, $ff])->where('coches.nroempresa',122)->get();
+            $linea131=CargarGasoil::Select('cargargasoil.litros as litros','cargargasoil.interno as interno','coches.nroempresa as nroempresa','gasoil.fecha as fecha')->join('gasoil','cargargasoil.gasoil_id','=','gasoil.id')->join('coches','cargargasoil.coche_id','=','coches.id')->whereBetween('fecha',[$fi, $ff])->where('coches.nroempresa',131)->get();
+
+         $pdf=\PDF::loadView('bolmanantial.reportes.reportegasoildiariolnf',['datos'=>$datos,'linea118'=>$linea118, 'linea121'=>$linea121,'linea122'=>$linea122,'linea131'=>$linea131, 'fi'=>$fi, 'ff'=>$ff])
+        ->setPaper('a4','portrait');
+        return $pdf->download('reportegasoildiariolnf.pdf');
+
+        }
+        else
+        {
+            $linea10=CargarGasoil::Select('cargargasoil.litros as litros','cargargasoil.interno as interno','coches.nroempresa as nroempresa','gasoil.fecha as fecha')->join('gasoil','cargargasoil.gasoil_id','=','gasoil.id')->join('coches','cargargasoil.coche_id','=','coches.id')->whereBetween('fecha',[$fi, $ff])->where('coches.nroempresa',10)->get();
+            $linea110=CargarGasoil::Select('cargargasoil.litros as litros','cargargasoil.interno as interno','coches.nroempresa as nroempresa','gasoil.fecha as fecha')->join('gasoil','cargargasoil.gasoil_id','=','gasoil.id')->join('coches','cargargasoil.coche_id','=','coches.id')->whereBetween('fecha',[$fi, $ff])->where('coches.nroempresa',110)->get();
+            $linea142=CargarGasoil::Select('cargargasoil.litros as litros','cargargasoil.interno as interno','coches.nroempresa as nroempresa','gasoil.fecha as fecha')->join('gasoil','cargargasoil.gasoil_id','=','gasoil.id')->join('coches','cargargasoil.coche_id','=','coches.id')->whereBetween('fecha',[$fi, $ff])->where('coches.nroempresa',142)->get();
+
+            $pdf=\PDF::loadView('bolmanantial.reportes.reportegasoildiarioleagas',['datos'=>$datos,'linea10'=>$linea10, 'linea110'=>$linea110,'linea142'=>$linea142,'fi'=>$fi, 'ff'=>$ff])
+        ->setPaper('a4','portrait');
+        return $pdf->download('reportegasoildiarioleagas.pdf');
+        }
+        
+              
+       
+        
+
+        }
 //reporte de gasoil pedido por guillermo
         public function gasoil()
     {

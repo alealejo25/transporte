@@ -103,6 +103,8 @@
                     <th >Gasoil</th>
                     <th >Cuenta de Serv.</th>
                     <th >Coches</th>
+                    <th >Prom x Pasajero</th>
+                    <th >Prom x Servicio</th>
                 </tr>
             </thead>
              <tbody>
@@ -113,6 +115,8 @@
                   <td align="right" >{{$dato->gasoiltotal}}</td> 
                   <td align="right" >{{$dato->ids}}</td> 
                   <td align="right" >{{$dato->idcoches}}</td> 
+                    <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
                  
                 </tr>
             @endforeach            
@@ -134,6 +138,8 @@
                     <th>Gasoil</th>
                     <th>Cuenta de Serv.</th>
                     <th>Coches</th>
+                    <th >Prom x Pasajero</th>
+                    <th >Prom x Servicio</th>
                 </tr>
             </thead>
              <tbody>
@@ -144,6 +150,8 @@
                   <td align="right">{{$dato->gasoiltotal}}</td> 
                   <td align="right">{{$dato->ids}}</td> 
                   <td align="right">{{$dato->idcoches}}</td> 
+                  <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
                  
                 </tr>
             @endforeach            
@@ -164,6 +172,8 @@
                     <th>Gasoil</th>
                     <th>Cuenta de Serv.</th>
                     <th>Coches</th>
+                    <th >Prom x Pasajero</th>
+                    <th >Prom x Servicio</th>
                 </tr>
             </thead>
              <tbody>
@@ -174,6 +184,8 @@
                   <td align="right">{{$dato->gasoiltotal}}</td> 
                   <td align="right">{{$dato->ids}}</td> 
                   <td align="right">{{$dato->idcoches}}</td> 
+                  <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
                  
                 </tr>
             @endforeach            
@@ -194,6 +206,8 @@
                     <th>Gasoil</th>
                     <th>Cuenta de Serv.</th>
                     <th>Coches</th>
+                    <th >Prom x Pasajero</th>
+                    <th >Prom x Servicio</th>
                 </tr>
             </thead>
              <tbody>
@@ -203,7 +217,9 @@
                   <td align="right">{{$dato->pasajestotal}}</td> 
                   <td align="right">{{$dato->gasoiltotal}}</td> 
                   <td align="right">{{$dato->ids}}</td> 
-                  <td align="right">{{$dato->idcoches}}</td> 
+                  <td align="right">{{$dato->idcoches}}</td>
+                  <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
                  
                 </tr>
             @endforeach            
@@ -231,6 +247,8 @@
                     <th >Gasoil</th>
                     <th >Cuenta de Serv.</th>
                     <th >Coches</th>
+                    <th >Prom x Pasajero</th>
+                    <th >Prom x Servicio</th>
                 </tr>
             </thead>
              <tbody>
@@ -241,8 +259,9 @@
                   <td align="right" >{{$dato->gasoiltotal}}</td> 
                   <td align="right" >{{$dato->ids}}</td> 
                   <td align="right" >{{$dato->idcoches}}</td> 
-                 
-                </tr>
+                  <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}</td> 
+                 </tr>
             @endforeach            
                           
             </tbody>
@@ -263,6 +282,8 @@
                     <th >Gasoil</th>
                     <th >Cuenta de Serv.</th>
                     <th >Coches</th>
+                    <th >Prom x Pasajero</th>
+                    <th >Prom x Servicio</th>
                 </tr>
             </thead>
              <tbody>
@@ -273,6 +294,8 @@
                   <td align="right" >{{$dato->gasoiltotal}}</td> 
                   <td align="right" >{{$dato->ids}}</td> 
                   <td align="right" >{{$dato->idcoches}}</td> 
+                <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
                  
                 </tr>
             @endforeach            
@@ -293,6 +316,8 @@
                     <th >Gasoil</th>
                     <th >Cuenta de Serv.</th>
                     <th >Coches</th>
+                    <th >Prom x Pasajero</th>
+                    <th >Prom x Servicio</th>
                 </tr>
             </thead>
              <tbody>
@@ -303,6 +328,8 @@
                   <td align="right" >{{$dato->gasoiltotal}}</td> 
                   <td align="right" >{{$dato->ids}}</td> 
                   <td align="right" >{{$dato->idcoches}}</td> 
+                <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
                  
                 </tr>
             @endforeach            

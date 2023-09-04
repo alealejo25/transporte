@@ -93,71 +93,48 @@
 
 <h3>Desde el {{date('d-m-Y', strtotime($fi))}} hasta el {{date('d-m-Y', strtotime($ff))}}</h3>
 <br>
-@foreach ($datos1 as $dato1)
-<h3>Legajo: {{$dato1->legajo}} - Chofer: {{$dato1->apellido}}, {{$dato1->nombre}}</h3>
 	<div>
         <table class="table table-bordered table-striped table-sm">
             <thead>
                 <tr> 
-                	
+                	<th>Legajo</th>
+                    <th>Chofer</th>
                     <th>Fecha</th>
                     <th>Nro Servicio</th>
                     <th>Total Pax</th>
                     <th>Hs Trab.</th>
-                    <th>Cortado</th>
-                    <th>DN</th>
-                    <th>Normal</th>
-                    <th>Alargue</th>
+                    <th>Hs Sobr.</th>
+                    <th>A</th>
                     <th>Hs Alargue</th>
-                     <th>Hs Extras</th>
+                    <th>C</th>
+                    <th>DN</th>
+                    <th>N</th>
                     
                  </tr>
             </thead>
              <tbody>
   			@foreach ($datos as $dato)
-                @if($dato1->idchofer1 == $dato->idchofer)
                 <tr>
-                 
+                  <td>{{$dato->legajo}}</td> 
+                  <td>{{$dato->apellido}}, {{$dato->nombre}}</td> 
 				  <td align="right" >{{date("d/m/Y",strtotime($dato->fecha))}}
 				  <td align="right">{{$dato->numero}}</td> 
 				  <td align="right">{{$dato->pasajestotal}}</td>
                   <td align="right">{{$dato->horastotal}}</td>
+                  <td align="right">{{$dato->horassobrantes}}</td> 
+                  <td align="right">{{$dato->alargue}}</td> 
+                  <td align="right">{{$dato->horastotalalargue}}</td> 
                   <td align="right">{{$dato->cortado}}</td> 
                   <td align="right">{{$dato->doblenegro}}</td> 
                   <td align="right">{{$dato->normal}}</td> 
-                  <td align="right">{{$dato->alargue}}</td> 
-                  <td align="right">{{$dato->horastotalalargue}}</td> 
-                  <td align="right">{{$dato->horassobrantes}}</td>
 				  
                 </tr>
-                @endif
             @endforeach            
-                         
+                          
             </tbody>
         </table>
-
-        <table class="table table-bordered table-striped table-sm">
-            <thead>
-                <tr > 
-                    
-                    <th align="right" >Horas Extras Trabajadas</th>
-
-                 </tr>
-            </thead>
-             <tbody>
-                 <tr>
-                 
-                  <td align="right" >{{$dato1->sumhorassobrantes}}
-                      </tr>
-          
-                         
-            </tbody>
-        </table>
-
-
     </div>
-     <br>
-  @endforeach    
+
     <br><br><br><br><br><br>
    <div class="card">
         <div class="row">

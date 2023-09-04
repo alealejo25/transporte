@@ -223,7 +223,7 @@ class BolManantialController extends Controller
         $datos=new BoletoLeagas();
         $datos->numero=$request->numero;
         $datos->valorhorasrestantes=0;
-        $datos->valortoquesanden=$request->toquesanden*117;
+        $datos->valortoquesanden=$request->toquesanden*170;
         
         $datos->user_id=$request->user_id;
 

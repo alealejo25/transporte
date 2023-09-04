@@ -115,8 +115,8 @@
                   <td align="right" >{{$dato->gasoiltotal}}</td> 
                   <td align="right" >{{$dato->ids}}</td> 
                   <td align="right" >{{$dato->idcoches}}</td> 
-                    <td align="right" >$dato->prompax,'1',4</td> 
-                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
+                    <td align="right" >$dato->prompax</td> 
+                  <td align="right" >$dato->promservicios}}
                  
                 </tr>
             @endforeach            

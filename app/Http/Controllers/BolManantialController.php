@@ -551,11 +551,15 @@ public function reportehstrabajadas(Request $request)
         $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
         $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
         if($request->chofer_id=='TODOS'){
+/*
+      $datos=BoletoLeagas::select('lineas.numero as numlinea','choferesleagaslnf.id as idchofer','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('choferesleagaslnf.empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido','ASC')->orderby('boletosleagas.fecha','ASC')->get();
 
-            $datos=BoletoLeagas::select('choferesleagaslnf.id as idchofer','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->get();
+*/
 
-   
-            $datos1=BoletoLeagas::select('choferesleagaslnf.id as idchofer1','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(boletosleagas.horassobrantes))) as sumhorassobrantes')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->groupby('choferesleagaslnf.id')->get();
+
+ $datos=BoletoLeagas::select('turnos.nombre as nomturno','ramales.nombre as nomramal','serviciosleagaslnf.numero as numservicio','lineas.numero as numlinea','choferesleagaslnf.id as idchofer','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('ramales','serviciosleagaslnf.ramal_id','=','ramales.id')->where('choferesleagaslnf.empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido','ASC')->orderby('boletosleagas.fecha','ASC')->get();
+
+    $datos1=BoletoLeagas::select('choferesleagaslnf.id as idchofer1','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(boletosleagas.horassobrantes))) as sumhorassobrantes')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->orderby('boletosleagas.fecha','ASC')->groupby('choferesleagaslnf.id')->get();
 
 
              $pdf=\PDF::loadView('bolmanantial.reportes.reportehstrabajadas',['datos'=>$datos,'datos1'=>$datos1,'fi'=>$fi, 'ff'=>$ff])
@@ -564,8 +568,14 @@ public function reportehstrabajadas(Request $request)
         }
         else
         {
-            $datos=BoletoLeagas::select('choferesleagaslnf.id as idchofer','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->get();
-            $datos1=BoletoLeagas::select('choferesleagaslnf.id as idchofer1','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(boletosleagas.horassobrantes))) as sumhorassobrantes')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->get();
+    /*        $datos=BoletoLeagas::select('lineas.numero as numlinea','choferesleagaslnf.id as idchofer','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->orderby('boletosleagas.fecha','ASC')->get();*/
+
+
+$datos=BoletoLeagas::select('turnos.nombre as nomturno','ramales.nombre as nomramal','serviciosleagaslnf.numero as numservicio','lineas.numero as numlinea','choferesleagaslnf.id as idchofer','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('ramales','serviciosleagaslnf.ramal_id','=','ramales.id')->where('boletosleagas.chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido','ASC')->orderby('boletosleagas.fecha','ASC')->get();
+
+
+
+            $datos1=BoletoLeagas::select('choferesleagaslnf.id as idchofer1','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(boletosleagas.horassobrantes))) as sumhorassobrantes')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->orderby('boletosleagas.fecha','ASC')->get();
 
              $pdf=\PDF::loadView('bolmanantial.reportes.reportehstrabajadas',['datos'=>$datos,'datos1'=>$datos1,'fi'=>$fi, 'ff'=>$ff])
         ->setPaper('a4','portrait');
@@ -629,12 +639,13 @@ public function gasoildiario()
 }
 public function reportegasoildiario(Request $request)
     {
+
         $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
         $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
 
         //para la nueva fournier LA NUEVA FOURNIER
-        if($request->empresa_id=1){
-            $datos=Gasoil::Select('gasoil.fecha','gasoil.l118total as l118','gasoil.l121total','gasoil.l122total','gasoil.l121total')->whereBetween('fecha',[$fi, $ff])->where('empresa_id',1)->get();
+        if($request->empresa_id==1){
+            $datos=Gasoil::Select('gasoil.fecha','gasoil.l118total as l118','gasoil.l121total','gasoil.l122total','gasoil.l131total')->whereBetween('fecha',[$fi, $ff])->where('empresa_id',1)->get();
             dd($datos);
             $linea118=CargarGasoil::Select('cargargasoil.litros as litros','cargargasoil.interno as interno','coches.nroempresa as nroempresa','gasoil.fecha as fecha')->join('gasoil','cargargasoil.gasoil_id','=','gasoil.id')->join('coches','cargargasoil.coche_id','=','coches.id')->whereBetween('fecha',[$fi, $ff])->where('coches.nroempresa',118)->get();
 
@@ -649,12 +660,14 @@ public function reportegasoildiario(Request $request)
         }
         else
         {
+            $datos=Gasoil::Select('gasoil.fecha','gasoil.l10total','gasoil.l110total','gasoil.l142total')->whereBetween('fecha',[$fi, $ff])->where('empresa_id',2)->get();
+            
             $linea10=CargarGasoil::Select('cargargasoil.litros as litros','cargargasoil.interno as interno','coches.nroempresa as nroempresa','gasoil.fecha as fecha')->join('gasoil','cargargasoil.gasoil_id','=','gasoil.id')->join('coches','cargargasoil.coche_id','=','coches.id')->whereBetween('fecha',[$fi, $ff])->where('coches.nroempresa',10)->get();
             $linea110=CargarGasoil::Select('cargargasoil.litros as litros','cargargasoil.interno as interno','coches.nroempresa as nroempresa','gasoil.fecha as fecha')->join('gasoil','cargargasoil.gasoil_id','=','gasoil.id')->join('coches','cargargasoil.coche_id','=','coches.id')->whereBetween('fecha',[$fi, $ff])->where('coches.nroempresa',110)->get();
             $linea142=CargarGasoil::Select('cargargasoil.litros as litros','cargargasoil.interno as interno','coches.nroempresa as nroempresa','gasoil.fecha as fecha')->join('gasoil','cargargasoil.gasoil_id','=','gasoil.id')->join('coches','cargargasoil.coche_id','=','coches.id')->whereBetween('fecha',[$fi, $ff])->where('coches.nroempresa',142)->get();
 
             $pdf=\PDF::loadView('bolmanantial.reportes.reportegasoildiarioleagas',['datos'=>$datos,'linea10'=>$linea10, 'linea110'=>$linea110,'linea142'=>$linea142,'fi'=>$fi, 'ff'=>$ff])
-        ->setPaper('a4','portrait');
+        ->setPaper('a4','landscape');
         return $pdf->download('reportegasoildiarioleagas.pdf');
         }
         
@@ -760,8 +773,8 @@ function convertirFechaATexto($fecha) {
                     if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
 
-                        $datos->prompax='Sin Datos';
-                        $datos->promservicios='Sin Datos';
+                        $datos->prompax=0;
+                        $datos->promservicios=0;
                     }
                     else{
                     $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
@@ -799,8 +812,8 @@ function convertirFechaATexto($fecha) {
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
                         
-                        $datos->prompax='Sin Datos';
-                        $datos->promservicios='Sin Datos';
+                        $datos->prompax=0;
+                        $datos->promservicios=0;
                     }
                     else{
                     $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
@@ -839,8 +852,8 @@ function convertirFechaATexto($fecha) {
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
                         
-                        $datos->prompax='Sin Datos';
-                        $datos->promservicios='Sin Datos';
+                        $datos->prompax=0;
+                        $datos->promservicios=0;
                     }
                     else{
                     $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
@@ -881,8 +894,8 @@ function convertirFechaATexto($fecha) {
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
                         
-                        $datos->prompax='Sin Datos';
-                        $datos->promservicios='Sin Datos';
+                        $datos->prompax=0;
+                        $datos->promservicios=0;
                     }
                     else{
                     $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
@@ -927,8 +940,8 @@ function convertirFechaATexto($fecha) {
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
                         
-                        $datos->prompax='Sin Datos';
-                        $datos->promservicios='Sin Datos';
+                        $datos->prompax=0;
+                        $datos->promservicios=0;
                     }
                     else{
                     $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
@@ -969,8 +982,8 @@ function convertirFechaATexto($fecha) {
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
                         
-                        $datos->prompax='Sin Datos';
-                        $datos->promservicios='Sin Datos';
+                        $datos->prompax=0;
+                        $datos->promservicios=0;
                     }
                     else{
                     $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
@@ -1007,8 +1020,8 @@ function convertirFechaATexto($fecha) {
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
                         
-                        $datos->prompax='Sin Datos';
-                        $datos->promservicios='Sin Datos';
+                        $datos->prompax=0;
+                        $datos->promservicios=0;
                     }
                     else{
                     $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;

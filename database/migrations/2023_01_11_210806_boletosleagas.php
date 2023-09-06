@@ -47,7 +47,7 @@ class Boletosleagas extends Migration
             $table->foreign('chofer_id')->references('id')->on('choferesleagaslnf');
             $table->foreign('servicio_id')->references('id')->on('serviciosleagaslnf');
             
-            $table->foreign('coche_id')->references('id')->on('coches');
+            //$table->foreign('coche_id')->references('id')->on('coches');
             $table->foreign('user_id')->references('id')->on('users');
 
         });

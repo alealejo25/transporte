@@ -101,14 +101,16 @@
                 <tr> 
                 	
                     <th>Fecha</th>
-                    <th>Nro Servicio</th>
+                    <th>Planilla</th>
+                    <th>Linea</th>
+                    <th>Servicio</th>
                     <th>Total Pax</th>
                     <th>Hs Trab.</th>
-                    <th>Cortado</th>
-                    <th>DN</th>
-                    <th>Normal</th>
-                    <th>Alargue</th>
-                    <th>Hs Alargue</th>
+                    <th>N</th>
+                    <th>C</th>
+                    <th>D</th>
+                    <th>A</th>
+                    <th>Hs Alarg.</th>
                      <th>Hs Extras</th>
                     
                  </tr>
@@ -119,12 +121,15 @@
                 <tr>
                  
 				  <td align="right" >{{date("d/m/Y",strtotime($dato->fecha))}}
-				  <td align="right">{{$dato->numero}}</td> 
+                 <td align="right">{{$dato->numero}}</td> 
+                  <td align="right">{{$dato->numlinea}}</td> 
+
+                  <td>{{$dato->numservicio}}-{{substr($dato->nomramal,0,12)}}-{{substr($dato->nomturno,0,12)}}</td>
 				  <td align="right">{{$dato->pasajestotal}}</td>
                   <td align="right">{{$dato->horastotal}}</td>
+                  <td align="right">{{$dato->normal}}</td> 
                   <td align="right">{{$dato->cortado}}</td> 
                   <td align="right">{{$dato->doblenegro}}</td> 
-                  <td align="right">{{$dato->normal}}</td> 
                   <td align="right">{{$dato->alargue}}</td> 
                   <td align="right">{{$dato->horastotalalargue}}</td> 
                   <td align="right">{{$dato->horassobrantes}}</td>

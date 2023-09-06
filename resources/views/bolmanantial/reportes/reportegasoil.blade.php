@@ -105,6 +105,7 @@
                     <th >Coches</th>
                     <th >Prom x Pasajero</th>
                     <th >Prom x Servicio</th>
+                    <th >Prom x Coche</th>
                 </tr>
             </thead>
              <tbody>
@@ -116,7 +117,8 @@
                   <td align="right" >{{$dato->ids}}</td> 
                   <td align="right" >{{$dato->idcoches}}</td> 
                   <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
-                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}</td>
+                  <td align="right" >{{bcdiv($dato->promcoches,'1',4)}}</td>
                  
                 </tr>
             @endforeach            
@@ -140,6 +142,7 @@
                     <th>Coches</th>
                     <th >Prom x Pasajero</th>
                     <th >Prom x Servicio</th>
+                    <th >Prom x Coche</th>
                 </tr>
             </thead>
              <tbody>
@@ -151,7 +154,8 @@
                   <td align="right">{{$dato->ids}}</td> 
                   <td align="right">{{$dato->idcoches}}</td> 
                   <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
-                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}</td>
+                <td align="right" >{{bcdiv($dato->promcoches,'1',4)}}</td>
                  
                 </tr>
             @endforeach            
@@ -174,6 +178,7 @@
                     <th>Coches</th>
                     <th >Prom x Pasajero</th>
                     <th >Prom x Servicio</th>
+                    <th >Prom x Coche</th>
                 </tr>
             </thead>
              <tbody>
@@ -185,7 +190,8 @@
                   <td align="right">{{$dato->ids}}</td> 
                   <td align="right">{{$dato->idcoches}}</td> 
                   <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
-                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}</td>
+                     <td align="right" >{{bcdiv($dato->promcoches,'1',4)}}</td>
                  
                 </tr>
             @endforeach            
@@ -208,6 +214,7 @@
                     <th>Coches</th>
                     <th >Prom x Pasajero</th>
                     <th >Prom x Servicio</th>
+                    <th >Prom x Coche</th>
                 </tr>
             </thead>
              <tbody>
@@ -219,7 +226,8 @@
                   <td align="right">{{$dato->ids}}</td> 
                   <td align="right">{{$dato->idcoches}}</td>
                   <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
-                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}</td>
+                     <td align="right" >{{bcdiv($dato->promcoches,'1',4)}}</td>
                  
                 </tr>
             @endforeach            
@@ -249,6 +257,7 @@
                     <th >Coches</th>
                     <th >Prom x Pasajero</th>
                     <th >Prom x Servicio</th>
+                    <th >Prom x Coche</th>
                 </tr>
             </thead>
              <tbody>
@@ -261,6 +270,7 @@
                   <td align="right" >{{$dato->idcoches}}</td> 
                   <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
                   <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}</td> 
+                   <td align="right" >{{bcdiv($dato->promcoches,'1',4)}}</td>
                  </tr>
             @endforeach            
                           
@@ -284,6 +294,7 @@
                     <th >Coches</th>
                     <th >Prom x Pasajero</th>
                     <th >Prom x Servicio</th>
+                    <th >Prom x Coche</th>
                 </tr>
             </thead>
              <tbody>
@@ -295,7 +306,8 @@
                   <td align="right" >{{$dato->ids}}</td> 
                   <td align="right" >{{$dato->idcoches}}</td> 
                 <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
-                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}</td>
+                   <td align="right" >{{bcdiv($dato->promcoches,'1',4)}}</td>
                  
                 </tr>
             @endforeach            
@@ -318,6 +330,7 @@
                     <th >Coches</th>
                     <th >Prom x Pasajero</th>
                     <th >Prom x Servicio</th>
+                    <th >Prom x Coche</th>
                 </tr>
             </thead>
              <tbody>
@@ -329,7 +342,8 @@
                   <td align="right" >{{$dato->ids}}</td> 
                   <td align="right" >{{$dato->idcoches}}</td> 
                 <td align="right" >{{bcdiv($dato->prompax,'1',4)}}</td> 
-                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}
+                  <td align="right" >{{bcdiv($dato->promservicios,'1',4)}}</td>
+                                     <td align="right" >{{bcdiv($dato->promcoches,'1',4)}}</td>
                  
                 </tr>
             @endforeach            

@@ -777,10 +777,12 @@ function convertirFechaATexto($fecha) {
 
                         $datos->prompax=0;
                         $datos->promservicios=0;
+                        $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
-                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;    
+                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;
+                    $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
                     
 
@@ -813,13 +815,15 @@ function convertirFechaATexto($fecha) {
                     $datos->gasoiltotal=$descripcion->l121total;
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
-                        
+
                         $datos->prompax=0;
                         $datos->promservicios=0;
+                        $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
-                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;  
+                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;
+                    $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
                     
 
@@ -853,13 +857,15 @@ function convertirFechaATexto($fecha) {
                     $datos->gasoiltotal=$descripcion->l122total;
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
-                        
+
                         $datos->prompax=0;
                         $datos->promservicios=0;
+                        $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
-                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;    
+                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;
+                    $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
                     
 
@@ -895,13 +901,15 @@ function convertirFechaATexto($fecha) {
                     $datos->gasoiltotal=$descripcion->l131total;
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
-                        
+
                         $datos->prompax=0;
                         $datos->promservicios=0;
+                        $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
-                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;    
+                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;
+                    $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
 
                 }
@@ -941,13 +949,15 @@ function convertirFechaATexto($fecha) {
                     $datos->gasoiltotal=$descripcion->l10total;
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
-                        
+
                         $datos->prompax=0;
                         $datos->promservicios=0;
+                        $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
-                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;    
+                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;
+                    $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
                 }
             }
@@ -983,13 +993,15 @@ function convertirFechaATexto($fecha) {
                     $datos->gasoiltotal=$descripcion->l110total;
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
-                        
+
                         $datos->prompax=0;
                         $datos->promservicios=0;
+                        $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
-                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;    
+                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;
+                    $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
                 }
             }
@@ -1021,13 +1033,15 @@ function convertirFechaATexto($fecha) {
                     $datos->gasoiltotal=$descripcion->l142total;
                      if($datos->gasoiltotal==0 || $datos->gasoiltotal==null)
                     {
-                        
+
                         $datos->prompax=0;
                         $datos->promservicios=0;
+                        $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->pasajestotal/$datos->gasoiltotal;
-                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;   
+                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    $datos->promservicios=$datos->gasoiltotal/$datos->ids;
+                    $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
 
                 }

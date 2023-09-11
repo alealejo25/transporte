@@ -30,7 +30,8 @@
 					<th>horaT</th>
 					<th>horaS</th>
 					<th>HoraA</th>
-					<th>GasoilT</th>
+					<th>Cambio</th>
+					
 
 					<th>Opciones</th>
 				</thead>
@@ -38,19 +39,20 @@
 				<tr>
 					<td>{{ $dato->num}}</td>
 					<td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
-					<td>{{ $dato->nombrechofer}}, {{$dato->apellido}}</td>
-					<td>{{ $dato->linea->numero}}</td>
-					<td>{{ $dato->interno}}</td>
-					<td>{{ $dato->numero}}</td>
-					<td>{{ $dato->nombre}}</td>
-					<td align="right">{{ $dato->pasajestotal}}</td>
-					<td align="right">$ {{number_format($dato->recaudaciontotal,2,",",".")}}</td>
+					<td style="width:230px;">{{ $dato->nombrechofer}}, {{$dato->apellido}}</td>
+					<td style="width:50px;">{{ $dato->linea->numero}}</td>
+					<td style="width:50px;">{{ $dato->interno}}</td>
+					<td style="width:50px;">{{ $dato->numero}}</td>
+					<td style="width:135px;">{{ $dato->nombre}}</td>
+					<td align="right">{{ $dato->cantpasajes}}</td>
+					<td style="width:105px;" align="right">$ {{number_format($dato->recaudacion,2,",",".")}}</td>
 					<!--<td align="right">{{ $dato->horainicio}}</td>
 					<td align="right">{{ $dato->horafin}}</td>-->
 					<td align="right">{{ $dato->horastotal}}</td>
 					<td align="right">{{ $dato->horassobrantes}}</td>
 						<td align="right">{{ $dato->horastotalalargue}}</td>
-						<td align="right">{{ $dato->gasoiltotal}}</td>
+						<td style="width:50px;">{{ $dato->motivo_cambio}}</td>
+					
 					
 
 					<td>

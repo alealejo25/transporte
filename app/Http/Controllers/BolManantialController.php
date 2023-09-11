@@ -51,6 +51,8 @@ class BolManantialController extends Controller
     {
  
         $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',1)->orderBy('num','DESC')->get();
+
+        //dd($datos);
         $datos->each(function($datos){
              $datos->linea;
              $datos->choferleagaslnf;
@@ -411,8 +413,20 @@ class BolManantialController extends Controller
 
        //return Redirect('bolmanantial/boletoslnf');
        }
+    }
 
-
+        public function modificarservicio($id){
+        $datos=BoletoLeagas::find($id);
+        // $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
+        // $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
+        // $linea=Linea::orderBy('numero','ASC')->pluck('numero','id');
+        // $ramal=Ramal::orderBy('nombre','ASC')->pluck('nombre','id');
+        // return view('bolmanantial.boletos.editarservicio')
+        //     ->with('servicios',$servicios)
+        //     ->with('turno',$turno)
+        //     ->with('ramal',$ramal)
+        //     ->with('empresa',$empresa)
+        //     ->with('linea',$linea);
         }
     public function informeboletoleagas($id){
 
@@ -884,7 +898,9 @@ function convertirFechaATexto($fecha) {
                 $i=$i+1;
             }
         }
-        $datos131=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(pasajestotal) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.coche_id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',131)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+      /*  $datos131=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(pasajestotal) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.coche_id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',131)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();*/
+
+    $datos131=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(cochesboletos.cantpasajes) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.coche_id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',131)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
 
         $cantidad=count($datos131);
         $i=0;

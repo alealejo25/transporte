@@ -26,38 +26,36 @@
 					<th>Serv.</th>
 					<th>Turno</th>
 					<th>Pax</th>
-					<th>Rec.</th>
-					<th>HoraT</th>
-					<th>HoraS</th>
-					<th>HAlargue</th>
-					<th>GasoilT</th>
+					<th>Recaudacion</th>
+					<th>horaT</th>
+					<th>horaS</th>
+					<th>HoraA</th>
+					<th>Cambio</th>
+					
+
 					<th>Opciones</th>
 				</thead>
                @foreach ($datos as $dato)
 				<tr>
-					<td align="right">{{ $dato->num }}</td>
+					<td>{{ $dato->num}}</td>
 					<td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
-					<td>{{ $dato->nombrechofer}}, {{$dato->apellido}}</td>
-					<td>{{ $dato->linea->numero}}</td>
-					<td>{{ $dato->interno}}</td>
-					<td>{{ $dato->numero}}</td>
-					<td>{{ $dato->nombre}}</td>
-					<td align="right">{{ $dato->pasajestotal}}</td>
-					<td align="right">$ {{number_format($dato->recaudaciontotal,2,",",".")}}</td>
+					<td style="width:230px;">{{ $dato->nombrechofer}}, {{$dato->apellido}}</td>
+					<td style="width:50px;">{{ $dato->linea->numero}}</td>
+					<td style="width:50px;">{{ $dato->interno}}</td>
+					<td style="width:50px;">{{ $dato->numero}}</td>
+					<td style="width:135px;">{{ $dato->nombre}}</td>
+					<td align="right">{{ $dato->cantpasajes}}</td>
+					<td style="width:105px;" align="right">$ {{number_format($dato->recaudacion,2,",",".")}}</td>
 					<!--<td align="right">{{ $dato->horainicio}}</td>
 					<td align="right">{{ $dato->horafin}}</td>-->
 					<td align="right">{{ $dato->horastotal}}</td>
 					<td align="right">{{ $dato->horassobrantes}}</td>
-					<td align="right">{{ $dato->horastotalalargue}}</td>
-					<td align="right">{{ $dato->gasoiltotal}}</td>
-					<!--<td align="right">{{ $dato->toquesanden}}</td>
-					<td align="right">{{ $dato->valortoquesanden}}</td>-->
-					
-					<td>
-
-						@can('editarservicio')
+						<td align="right">{{ $dato->horastotalalargue}}</td>
+						<td style="width:50px;">{{ $dato->motivo_cambio}}</td>
+<td>
+						
 						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id_boleto.'/modificarservicio')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a>
-						@endcan
+						
 						<a href="{{url('bolmanantial/boletos/'.$dato->id_boleto.'/cargargasoil')}}"><button class="btn btn-success"><i class="fa fa-bus" aria-hidden="true" title="Cargar Gasoil"></i></button></a>
 						@can('borrarservicio')
 						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id_boleto.'/modificarservicio')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a>

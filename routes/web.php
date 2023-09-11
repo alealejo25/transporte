@@ -203,6 +203,10 @@ Route::get('bolmanantial/boletoslnf','BolManantialController@indexlnf')->name('b
 Route::get('bolmanantial/boletosleagas/create','BolManantialController@create')->name('bolmanantial.boletosleagas.create')->middleware('permission:bolmanantial');
 Route::get('bolmanantial/boletosleagas/createlnf','BolManantialController@createlnf')->name('bolmanantial.boletosleagas.createlnf')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/boletosleagas/store','BolManantialController@store')->name('store')->middleware('permission:bolmanantial');
+
+Route::get('bolmanantial/boletoleagas/{id}/modificarservicio', 'BolManantialController@modificarservicio')->name('modificarservicio')->middleware('permission:bolmanantial');
+
+
 Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialController@informeboletoleagas')->name('informeboletoleagas')->middleware('permission:bolmanantial');
 
 Route::get('bolmanantial/reportes/boletosleagas','BolManantialController@boletosleagas')->name('boletoslegas')->middleware('permission:bolmanantial');

@@ -39,7 +39,7 @@
 				<tr>
 					<td>{{ $dato->num}}</td>
 					<td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
-					<td style="width:230px;">{{ $dato->nombrechofer}}, {{$dato->apellido}}</td>
+					<td style="width:230px;">{{$dato->apellido}}, {{ $dato->nombrechofer}} </td>
 					<td style="width:50px;">{{ $dato->linea->numero}}</td>
 					<td style="width:50px;">{{ $dato->interno}}</td>
 					<td style="width:50px;">{{ $dato->numero}}</td>

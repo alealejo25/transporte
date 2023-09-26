@@ -34,10 +34,17 @@
                             <div>
 		                        <div class="col-sm-12 col-md-2 col-lg-2"> 
                                     <div class="form-group">      
-                                        <button type="submit" class="btn btn-info mt-4 mobile-only">Ver</button>
+                                        <button type="submit" class="btn btn-info mt-4 mobile-only">Ver PDF</button>
                                     </div>
 		                        </div>
             		        </div>
+                            <div>
+                                <div class="col-sm-12 col-md-2 col-lg-2"> 
+                                    <div class="form-group">      
+                                        <button type="button" class="btn btn-info mt-4 mobile-only"><a href="{{route('reportegasoilexcel')}}" >Exportar Excel </a></button>
+                                    </div>
+                                </div>
+                            </div>
 
 			                 {!!Form::close()!!}
 

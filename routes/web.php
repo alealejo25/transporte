@@ -221,8 +221,13 @@ Route::post('bolmanantial/reportes/reportehstrabajadas','BolManantialController@
 
 Route::get('bolmanantial/reportes/reportechofereslnf','BolManantialController@reportechofereslnf')->name('reportechofereslnf')->middleware('permission:bolmanantial');
 
+
+
 Route::get('bolmanantial/reportes/gasoil','BolManantialController@gasoil')->name('gasoil')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/reportes/reportegasoil','BolManantialController@reportegasoil')->name('reportegasoil')->middleware('permission:bolmanantial');
+Route::post('bolmanantial/reportes/reportegasoilexcel','BolManantialController@reportegasoilexcel')->name('reportegasoilexcel')->middleware('permission:bolmanantial');
+
+
 Route::get('bolmanantial/reportes/asistencia','BolManantialController@asistencia')->name('asistencia')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/reportes/reporteasistencia','BolManantialController@reporteasistencia')->name('reporteasistencia')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/boletosleagas/buscarservicios', 'BolManantialController@buscarservicios')->name('buscarservicios')->middleware('auth');

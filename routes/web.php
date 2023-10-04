@@ -222,7 +222,7 @@ Route::post('bolmanantial/reportes/reportehstrabajadas','BolManantialController@
 Route::get('bolmanantial/reportes/reportechofereslnf','BolManantialController@reportechofereslnf')->name('reportechofereslnf')->middleware('permission:bolmanantial');
 
 
-
+//REPORTE GASOIL
 Route::get('bolmanantial/reportes/gasoil','BolManantialController@gasoil')->name('gasoil')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/reportes/reportegasoil','BolManantialController@reportegasoil')->name('reportegasoil')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/reportes/reportegasoilexcel','BolManantialController@reportegasoilexcel')->name('reportegasoilexcel')->middleware('permission:bolmanantial');
@@ -273,6 +273,16 @@ Route::get('bolmanantial/boletos/monitoreo','BolManantialController@monitoreo')-
 //-------------- FIN BOLETERIA MANANTIAL -----------------------
 //--------------------------------------------------------------
 
+//**************************************************************
+//*** BOLETERIA MANANTIAL EXPORTACION A EXCEL*******************
+//**************************************************************
+
+Route::get('bolmanantial/excel/gasoilexcel','ExportarExcelController@gasoilexcel')->name('gasoilexcel')->middleware('permission:bolmanantial');
+Route::post('bolmanantial/excel/exportargasoilexcel','ExportarExcelController@exportargasoilexcel')->name('exportargasoilexcel')->middleware('permission:bolmanantial');
+
+//**************************************************************
+//************** FIN EXPORTACION EXCEL *************************
+//**************************************************************
 
 //**************************************************************
 //***BOLETERIA TAFI VIEJO***************************************

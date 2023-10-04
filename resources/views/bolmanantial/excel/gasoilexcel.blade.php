@@ -13,7 +13,7 @@
                         <div class="widget-one">
                             <!--TITULO-->
                             <h4 class="text-center mb-5">Reporte de Gasoil. </h4>
-                            {!!Form::open(['route' => 'reportegasoil','method'=>'POST'])!!}
+                            {!!Form::open(['route' => 'exportargasoilexcel','method'=>'POST'])!!}
     						{{Form::token()}}
                             <!--ENCABEZADO-->
                             <div class="row">
@@ -31,13 +31,13 @@
                                 </div>
                                
                             </div>
-                            <div>
-		                        <div class="col-sm-12 col-md-2 col-lg-2"> 
+                             <div>
+                                <div class="col-sm-12 col-md-2 col-lg-2"> 
                                     <div class="form-group">      
                                         <button type="submit" class="btn btn-info mt-4 mobile-only">Ver PDF</button>
                                     </div>
-		                        </div>
-            		        </div>
+                                </div>
+                            </div>
                             {!!Form::close()!!}
                         </div>
                     </div>
@@ -48,4 +48,3 @@
     </div>
 <!--  END CONTENT AREA  -->
 @endsection
-

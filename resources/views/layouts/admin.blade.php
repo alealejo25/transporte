@@ -412,18 +412,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('boletoslnf')
                 <li><a href="/bolmanantial/boletosleagas"><i class="fa fa-circle-o"></i> Boletos Leagas</a></li>
                 @endcan
-                @can('boletoslnf')
-                <li><a href="/bolmanantial/reportes/boletosleagas"><i class="fa fa-circle-o"></i> Reporte Servicios</a></li>
-                @endcan
-                @can('boletoslnf')
-                <li><a href="/bolmanantial/reportes/gasoil"><i class="fa fa-circle-o"></i> Reporte Gasoil</a></li>
-                @endcan
-                @can('boletoslnf')
-                <li><a href="/bolmanantial/reportes/gasoildiario"><i class="fa fa-circle-o"></i> Reporte Gasoil Diario</a></li>
-                @endcan
-                 @can('boletoslnf')
-                <li><a href="/bolmanantial/reportes/asistencia"><i class="fa fa-circle-o"></i> Reporte Asistencia</a></li>
-                @endcan
+                
                 @can('boletoslnf')
                 <li><a href="/bolmanantial/boletos/cargargasoilleagas"><i class="fa fa-circle-o"></i> Cargar Gasoil Leagas</a></li>
                 @endcan
@@ -448,9 +437,53 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                  @can('boletoslnf')
                 <li><a href="/bolmanantial/reportes/reportechoferesleagas"><i class="fa fa-circle-o"></i> Choferes Leagas</a></li>
                 @endcan
-                @can('boletoslnf')
-                <li><a href="/bolmanantial/reportes/hstrabajadas"><i class="fa fa-circle-o"></i> Reporte de Hs trabajadas</a></li>
+                <li class="treeview">
+                    <a href="#">
+                      <i class="fa fa-folder"></i> <span>Reportes PDFs</span>
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                     <ul class="treeview-menu">
+                      @can('boletoslnf')
+                      <li><a href="/bolmanantial/reportes/boletosleagas"><i class="fa fa-circle-o"></i> Servicios</a></li>
+                      @endcan
+                      @can('boletoslnf')
+                      <li><a href="/bolmanantial/reportes/gasoil"><i class="fa fa-circle-o"></i> Gasoil</a></li>
+                      @endcan
+                      @can('boletoslnf')
+                      <li><a href="/bolmanantial/reportes/gasoildiario"><i class="fa fa-circle-o"></i> Gasoil Diario</a></li>
+                      @endcan
+                       @can('boletoslnf')
+                      <li><a href="/bolmanantial/reportes/asistencia"><i class="fa fa-circle-o"></i> Asistencia</a></li>
+                      @endcan
+                      @can('boletoslnf')
+                <li><a href="/bolmanantial/reportes/hstrabajadas"><i class="fa fa-circle-o"></i> Hs trabajadas</a></li>
                 @endcan
+                    </ul>
+                  </li>
+                  <li class="treeview">
+                    <a href="#">
+                      <i class="fa fa-folder"></i> <span>Exportar Excel</span>
+                      <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                     <ul class="treeview-menu">
+                      @can('boletoslnf')
+                      <li><a href="/bolmanantial/reportes/boletosleagas"><i class="fa fa-circle-o"></i> Servicios</a></li>
+                      @endcan
+                      @can('boletoslnf')
+                      <li><a href="/bolmanantial/excel/gasoilexcel"><i class="fa fa-circle-o"></i> Gasoil</a></li>
+                      @endcan
+                      @can('boletoslnf')
+                      <li><a href="/bolmanantial/reportes/gasoildiario"><i class="fa fa-circle-o"></i> Gasoil Diario</a></li>
+                      @endcan
+                       @can('boletoslnf')
+                      <li><a href="/bolmanantial/reportes/asistencia"><i class="fa fa-circle-o"></i> Asistencia</a></li>
+                      @endcan
+                       @can('boletoslnf')
+                      <li><a href="/bolmanantial/reportes/hstrabajadas"><i class="fa fa-circle-o"></i> Hs trabajadas</a></li>
+                     @endcan
+                    </ul>
+                  </li>
+
                </ul>
             </li>
             @endcan

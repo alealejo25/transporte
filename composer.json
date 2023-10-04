@@ -21,8 +21,10 @@
         "laravel/ui": "^2.0",
         "laravelcollective/html": "^6.1",
         "luecano/numero-a-letras": "^2.2",
+        "maatwebsite/excel": "^3.1",
         "mike42/escpos-php": "^4.0",
         "ndum/laravel-snmp": "^1.9",
+        "phpoffice/phpspreadsheet": "^1.25",
         "spatie/laravel-permission": "^4.1"
     },
     "require-dev": {

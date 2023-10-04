@@ -106,7 +106,7 @@
                     <th>Hs Sob</th>
                     <th>Hs Alargue</th>
                     <th>Serv. Normal</th>
-                    <th>Serv. Doble Negro</th>
+                    <th>Serv. Doble</th>
                     <th>Cant Pax</th>
                     <th>Rec.</th>
                     <th>Toques anden</th>

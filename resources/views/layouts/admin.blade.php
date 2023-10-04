@@ -479,7 +479,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                       <li><a href="/bolmanantial/reportes/asistencia"><i class="fa fa-circle-o"></i> Asistencia</a></li>
                       @endcan
                        @can('boletoslnf')
-                      <li><a href="/bolmanantial/reportes/hstrabajadas"><i class="fa fa-circle-o"></i> Hs trabajadas</a></li>
+                      <li><a href="/bolmanantial/excel/hstrabajadasexcel"><i class="fa fa-circle-o"></i> Hs trabajadas</a></li>
                      @endcan
                     </ul>
                   </li>

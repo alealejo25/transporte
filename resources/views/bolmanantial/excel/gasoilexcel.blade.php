@@ -12,7 +12,7 @@
                     <div class="widget-content-area">
                         <div class="widget-one">
                             <!--TITULO-->
-                            <h4 class="text-center mb-5">Reporte de Gasoil. </h4>
+                            <h4 class="text-center mb-5">Exportar a Excel - Gasoil. </h4>
                             {!!Form::open(['route' => 'exportargasoilexcel','method'=>'POST'])!!}
     						{{Form::token()}}
                             <!--ENCABEZADO-->

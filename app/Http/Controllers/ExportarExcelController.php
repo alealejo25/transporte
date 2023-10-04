@@ -59,7 +59,7 @@ class ExportarExcelController extends Controller
     $hojaactiva118->setCellValue('E1', 'COCHES');
     $hojaactiva118->setCellValue('F1', 'PROM X PASAJERO');
     $hojaactiva118->setCellValue('G1', 'PROM X SERVICIO');
-    $hojaactiva118->setCellValue('A1', 'PROM X COCHE');
+    $hojaactiva118->setCellValue('H1', 'PROM X COCHE');
 
     $hojaactiva121 = $spreadsheet->createSheet();
     $hojaactiva121->setTitle('121');
@@ -70,7 +70,7 @@ class ExportarExcelController extends Controller
     $hojaactiva121->setCellValue('E1', 'COCHES');
     $hojaactiva121->setCellValue('F1', 'PROM X PASAJERO');
     $hojaactiva121->setCellValue('G1', 'PROM X SERVICIO');
-    $hojaactiva121->setCellValue('A1', 'PROM X COCHE');
+    $hojaactiva121->setCellValue('H1', 'PROM X COCHE');
 
     $hojaactiva122 = $spreadsheet->createSheet();
     $hojaactiva122->setTitle('122');
@@ -81,7 +81,7 @@ class ExportarExcelController extends Controller
     $hojaactiva122->setCellValue('E1', 'COCHES');
     $hojaactiva122->setCellValue('F1', 'PROM X PASAJERO');
     $hojaactiva122->setCellValue('G1', 'PROM X SERVICIO');
-    $hojaactiva122->setCellValue('A1', 'PROM X COCHE');
+    $hojaactiva122->setCellValue('H1', 'PROM X COCHE');
 
     $hojaactiva131 = $spreadsheet->createSheet();
     $hojaactiva131->setTitle('131');
@@ -92,7 +92,7 @@ class ExportarExcelController extends Controller
     $hojaactiva131->setCellValue('E1', 'COCHES');
     $hojaactiva131->setCellValue('F1', 'PROM X PASAJERO');
     $hojaactiva131->setCellValue('G1', 'PROM X SERVICIO');
-    $hojaactiva131->setCellValue('A1', 'PROM X COCHE');
+    $hojaactiva131->setCellValue('H1', 'PROM X COCHE');
     
     $fila=2;
 
@@ -303,15 +303,15 @@ class ExportarExcelController extends Controller
                 $hojaactiva131->setCellValue('B'.$fila, $datos131[$i]->pasajestotal);
                 $hojaactiva131->getColumnDimension('C')->setWidth(10);
                 $hojaactiva131->setCellValue('C'.$fila, $datos131[$i]->gasoiltotal);
-                $hojaactiva131->getColumnDimension('D')->setWidth(10);
+                $hojaactiva131->getColumnDimension('D')->setWidth(13);
                 $hojaactiva131->setCellValue('D'.$fila, $datos131[$i]->ids);
                 $hojaactiva131->getColumnDimension('E')->setWidth(10);
                 $hojaactiva131->setCellValue('E'.$fila, $datos131[$i]->idcoches);
-                $hojaactiva131->getColumnDimension('F')->setWidth(10);
+                $hojaactiva131->getColumnDimension('F')->setWidth(17);
                 $hojaactiva131->setCellValue('F'.$fila, $datos131[$i]->prompax);
-                $hojaactiva131->getColumnDimension('G')->setWidth(10);
+                $hojaactiva131->getColumnDimension('G')->setWidth(17);
                 $hojaactiva131->setCellValue('G'.$fila, $datos131[$i]->promservicios);
-                $hojaactiva131->getColumnDimension('H')->setWidth(10);
+                $hojaactiva131->getColumnDimension('H')->setWidth(17);
                 $hojaactiva131->setCellValue('H'.$fila, $datos131[$i]->promcoches);
                 $fila++;
                 $i++;
@@ -331,5 +331,201 @@ class ExportarExcelController extends Controller
 
 
 
+    }
+
+
+    ///////////////////////////////////////////////////////////////
+
+
+    public function hstrabajadasexcel()
+    {
+        $choferleagaslnf=ChoferLeagaslnf::orderBy('legajo','ASC')->get();
+        $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
+        $linea=Linea::orderBy('numero','ASC')->pluck('numero','id');
+        return view('bolmanantial.excel.hstrabajadasexcel')
+            ->with('empresa',$empresa)
+            ->with('linea',$linea)
+            ->with('choferleagaslnf',$choferleagaslnf);
+       
+    }
+    public function exportarhstrabajadasexcel(Request $request)
+    {
+  /*VALIDACION -----------------------------------------*/
+            $campos=[
+            'fechai'=>'required',
+            'fechaf'=>'required',
+            'empresa_id'=>'required',
+            
+            'chofer_id'=>'required',
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+
+        /*--------------------------------------------------------*/
+
+        $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+        $i=0;
+        if($request->chofer_id=='TODOS'){
+            $datos=BoletoLeagas::select('turnos.nombre as nomturno','ramales.nombre as nomramal','serviciosleagaslnf.numero as numservicio','lineas.numero as numlinea','choferesleagaslnf.id as idchofer','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('ramales','serviciosleagaslnf.ramal_id','=','ramales.id')->where('choferesleagaslnf.empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido','ASC')->orderby('boletosleagas.fecha','ASC')->get();
+
+            $datos1=BoletoLeagas::select('choferesleagaslnf.id as idchofer1','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(boletosleagas.horassobrantes))) as sumhorassobrantes')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->orderby('boletosleagas.fecha','ASC')->groupby('choferesleagaslnf.id')->get();
+
+            $cantidad=count($datos);
+            
+            $spreadsheet = new Spreadsheet();
+            $hojaactiva = $spreadsheet->getActiveSheet();
+            $hojaactiva->setTitle('HS. Trabajadas');
+            $hojaactiva->setCellValue('A1', 'Apellido y Nombre');
+            $hojaactiva->setCellValue('B1', 'Legajo');
+            $hojaactiva->setCellValue('C1', 'FECHA');
+            $hojaactiva->setCellValue('D1', 'PLANILLA');
+            $hojaactiva->setCellValue('E1', 'LINEA');
+            $hojaactiva->setCellValue('F1', 'SERVICIO');
+            $hojaactiva->setCellValue('G1', 'TOTAL PAX');
+            $hojaactiva->setCellValue('H1', 'HS TRABAJADAS');
+            $hojaactiva->setCellValue('I1', 'N');
+            $hojaactiva->setCellValue('J1', 'C');
+            $hojaactiva->setCellValue('K1', 'D');
+            $hojaactiva->setCellValue('L1', 'A');
+            $hojaactiva->setCellValue('M1', 'HS ALARGUE');
+            $hojaactiva->setCellValue('N1', 'HS EXTRAS');
+
+             $spreadsheet = new Spreadsheet();
+            $hojaactiva = $spreadsheet->getActiveSheet();
+            $hojaactiva->setTitle('HS. Trabajadas');
+            $hojaactiva->setCellValue('A1', 'APELLIDO Y NOMBRE');
+            $hojaactiva->setCellValue('B1', 'LEGAJO');
+            $hojaactiva->setCellValue('C1', 'FECHA');
+            $hojaactiva->setCellValue('D1', 'PLANILLA');
+            $hojaactiva->setCellValue('E1', 'LINEA');
+            $hojaactiva->setCellValue('F1', 'SERVICIO');
+            $hojaactiva->setCellValue('G1', 'TOTAL PAX');
+            $hojaactiva->setCellValue('H1', 'HS TRABAJADAS');
+            $hojaactiva->setCellValue('I1', 'NORMAL');
+            $hojaactiva->setCellValue('J1', 'CORTADO');
+            $hojaactiva->setCellValue('K1', 'DOBLE');
+            $hojaactiva->setCellValue('L1', 'ALARGUE');
+            $hojaactiva->setCellValue('M1', 'HS ALARGUE');
+            $hojaactiva->setCellValue('N1', 'HS EXTRAS');
+//dd($datos);
+        $fila=2;
+        $cantidad=count($datos);
+        while($cantidad>$i){
+            $hojaactiva->getColumnDimension('A')->setWidth(35);
+            $hojaactiva->setCellValue('A'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombre);
+            $hojaactiva->getColumnDimension('B')->setWidth(7);
+            $hojaactiva->setCellValue('B'.$fila, $datos[$i]->legajo);
+            $hojaactiva->getColumnDimension('C')->setWidth(18);
+            $hojaactiva->setCellValue('C'.$fila, $datos[$i]->fecha);
+            $hojaactiva->getColumnDimension('D')->setWidth(10);
+            $hojaactiva->setCellValue('D'.$fila, $datos[$i]->numero);
+            $hojaactiva->getColumnDimension('E')->setWidth(10);
+            $hojaactiva->setCellValue('E'.$fila, $datos[$i]->numlinea);
+            $hojaactiva->getColumnDimension('F')->setWidth(35);
+            $hojaactiva->setCellValue('F'.$fila, $datos[$i]->numservicio.'-'.$datos[$i]->nomramal.'-'.$datos[$i]->nomturno);
+            $hojaactiva->getColumnDimension('G')->setWidth(13);
+            $hojaactiva->setCellValue('G'.$fila, $datos[$i]->pasajestotal);
+            $hojaactiva->getColumnDimension('H')->setWidth(15);
+            $hojaactiva->setCellValue('H'.$fila, $datos[$i]->horastotal);
+            $hojaactiva->getColumnDimension('I')->setWidth(9);
+            $hojaactiva->setCellValue('I'.$fila, $datos[$i]->normal);
+            $hojaactiva->getColumnDimension('J')->setWidth(9);
+            $hojaactiva->setCellValue('J'.$fila, $datos[$i]->cortado);
+            $hojaactiva->getColumnDimension('K')->setWidth(9);
+            $hojaactiva->setCellValue('K'.$fila, $datos[$i]->doblenegro);
+            $hojaactiva->getColumnDimension('L')->setWidth(9);
+            $hojaactiva->setCellValue('L'.$fila, $datos[$i]->alargue);
+            $hojaactiva->getColumnDimension('M')->setWidth(12);
+            $hojaactiva->setCellValue('M'.$fila, $datos[$i]->horastotalalargue);
+            $hojaactiva->getColumnDimension('N')->setWidth(12);
+            $hojaactiva->setCellValue('N'.$fila, $datos[$i]->horassobrantes);
+            $fila++;
+            $i++;
+        }
+
+
+             $writer = new Xlsx($spreadsheet);
+
+            // redirect output to client browser
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="HsTrabajadas.xlsx"');
+            header('Cache-Control: max-age=0');
+
+            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+            $writer->save('php://output');
+        }
+        else
+        {
+        $datos=BoletoLeagas::select('turnos.nombre as nomturno','ramales.nombre as nomramal','serviciosleagaslnf.numero as numservicio','lineas.numero as numlinea','choferesleagaslnf.id as idchofer','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('ramales','serviciosleagaslnf.ramal_id','=','ramales.id')->where('boletosleagas.chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido','ASC')->orderby('boletosleagas.fecha','ASC')->get();
+
+
+
+            $datos1=BoletoLeagas::select('choferesleagaslnf.id as idchofer1','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(boletosleagas.horassobrantes))) as sumhorassobrantes')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->orderby('boletosleagas.fecha','ASC')->get();
+
+
+
+            $spreadsheet = new Spreadsheet();
+            $hojaactiva = $spreadsheet->getActiveSheet();
+            $hojaactiva->setTitle('HS. Trabajadas');
+            $hojaactiva->setCellValue('A1', 'APELLIDO Y NOMBRE');
+            $hojaactiva->setCellValue('B1', 'LEGAJO');
+            $hojaactiva->setCellValue('C1', 'FECHA');
+            $hojaactiva->setCellValue('D1', 'PLANILLA');
+            $hojaactiva->setCellValue('E1', 'LINEA');
+            $hojaactiva->setCellValue('F1', 'SERVICIO');
+            $hojaactiva->setCellValue('G1', 'TOTAL PAX');
+            $hojaactiva->setCellValue('H1', 'HS TRABAJADAS');
+            $hojaactiva->setCellValue('I1', 'NORMAL');
+            $hojaactiva->setCellValue('J1', 'CORTADO');
+            $hojaactiva->setCellValue('K1', 'DOBLE');
+            $hojaactiva->setCellValue('L1', 'ALARGUE');
+            $hojaactiva->setCellValue('M1', 'HS ALARGUE');
+            $hojaactiva->setCellValue('N1', 'HS EXTRAS');
+//dd($datos);
+        $fila=2;
+        $cantidad=count($datos);
+        while($cantidad>$i){
+            $hojaactiva->getColumnDimension('A')->setWidth(35);
+            $hojaactiva->setCellValue('A'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombre);
+            $hojaactiva->getColumnDimension('B')->setWidth(7);
+            $hojaactiva->setCellValue('B'.$fila, $datos[$i]->legajo);
+            $hojaactiva->getColumnDimension('C')->setWidth(18);
+            $hojaactiva->setCellValue('C'.$fila, $datos[$i]->fecha);
+            $hojaactiva->getColumnDimension('D')->setWidth(10);
+            $hojaactiva->setCellValue('D'.$fila, $datos[$i]->numero);
+            $hojaactiva->getColumnDimension('E')->setWidth(10);
+            $hojaactiva->setCellValue('E'.$fila, $datos[$i]->numlinea);
+            $hojaactiva->getColumnDimension('F')->setWidth(28);
+            $hojaactiva->setCellValue('F'.$fila, $datos[$i]->numservicio.'-'.$datos[$i]->nomramal.'-'.$datos[$i]->nomturno);
+            $hojaactiva->getColumnDimension('G')->setWidth(13);
+            $hojaactiva->setCellValue('G'.$fila, $datos[$i]->pasajestotal);
+            $hojaactiva->getColumnDimension('H')->setWidth(15);
+            $hojaactiva->setCellValue('H'.$fila, $datos[$i]->horastotal);
+            $hojaactiva->getColumnDimension('I')->setWidth(9);
+            $hojaactiva->setCellValue('I'.$fila, $datos[$i]->normal);
+            $hojaactiva->getColumnDimension('J')->setWidth(9);
+            $hojaactiva->setCellValue('J'.$fila, $datos[$i]->cortado);
+            $hojaactiva->getColumnDimension('K')->setWidth(9);
+            $hojaactiva->setCellValue('K'.$fila, $datos[$i]->doblenegro);
+            $hojaactiva->getColumnDimension('L')->setWidth(9);
+            $hojaactiva->setCellValue('L'.$fila, $datos[$i]->alargue);
+            $hojaactiva->getColumnDimension('M')->setWidth(12);
+            $hojaactiva->setCellValue('M'.$fila, $datos[$i]->horassobrantes);
+            $hojaactiva->getColumnDimension('N')->setWidth(12);
+            $hojaactiva->setCellValue('N'.$fila, $datos[$i]->horastotalalargue);
+            $fila++;
+            $i++;
+        }
+         $writer = new Xlsx($spreadsheet);
+
+        // redirect output to client browser
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="HsTrabajadas.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        }
     }
 }

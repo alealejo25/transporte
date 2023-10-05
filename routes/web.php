@@ -280,6 +280,9 @@ Route::get('bolmanantial/boletos/monitoreo','BolManantialController@monitoreo')-
 Route::get('bolmanantial/excel/gasoilexcel','ExportarExcelController@gasoilexcel')->name('gasoilexcel')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/excel/exportargasoilexcel','ExportarExcelController@exportargasoilexcel')->name('exportargasoilexcel')->middleware('permission:bolmanantial');
 
+Route::get('bolmanantial/excel/serviciosexcel','ExportarExcelController@serviciosexcel')->name('serviciosexcel')->middleware('permission:bolmanantial');
+Route::post('bolmanantial/excel/exportarserviciosexcel','ExportarExcelController@exportarserviciosexcel')->name('exportarserviciosexcel')->middleware('permission:bolmanantial');
+
 Route::get('bolmanantial/excel/hstrabajadasexcel','ExportarExcelController@hstrabajadasexcel')->name('hstrabajadasexcel')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/excel/exportarhstrabajadasexcel','ExportarExcelController@exportarhstrabajadasexcel')->name('exportarhstrabajadasexcel')->middleware('permission:bolmanantial');
 

@@ -467,7 +467,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                     </a>
                      <ul class="treeview-menu">
                       @can('boletoslnf')
-                      <li><a href="/bolmanantial/reportes/boletosleagas"><i class="fa fa-circle-o"></i> Servicios</a></li>
+                      <li><a href="/bolmanantial/excel/serviciosexcel"><i class="fa fa-circle-o"></i> Servicios</a></li>
                       @endcan
                       @can('boletoslnf')
                       <li><a href="/bolmanantial/excel/gasoilexcel"><i class="fa fa-circle-o"></i> Gasoil</a></li>

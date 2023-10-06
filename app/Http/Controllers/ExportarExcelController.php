@@ -889,7 +889,7 @@ public function exportarserviciosexcel(Request $request)
         $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',2)->whereBetween('fecha',[$fi, $ff])->orderBy('num','DESC')->get();
 
           dd($datos);
-          
+
             $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
             
         }
@@ -1062,7 +1062,7 @@ function convertirFechaATextoDia($fecha) {
             $i=$i+1;
         }
     }
-$spreadsheet = new Spreadsheet();
+        $spreadsheet = new Spreadsheet();
         $hojaactiva = $spreadsheet->getActiveSheet();
         $hojaactiva->setTitle('Asistencia');
         $hojaactiva->setCellValue('A1', 'DIA');
@@ -1076,7 +1076,7 @@ $spreadsheet = new Spreadsheet();
             $hojaactiva->getColumnDimension('A')->setWidth(10);
             $hojaactiva->setCellValue('A'.$fila, $datos[$i]->fechadia);
             $hojaactiva->getColumnDimension('B')->setWidth(10);
-            $hojaactiva->setCellValue('B'.$fila, $datos[$i]->fecha);
+            $hojaactiva->setCellValue('B'.$fila, date("d/m/Y",strtotime($datos[$i]->fecha)));
 
             $hojaactiva->getColumnDimension('C')->setWidth(10);
             $hojaactiva->setCellValue('C'.$fila, $datos[$i]->legajo);

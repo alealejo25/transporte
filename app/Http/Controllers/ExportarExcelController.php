@@ -137,7 +137,7 @@ class ExportarExcelController extends Controller
         else{
             while($cantidad>$i){
                 $hojaactiva118->getColumnDimension('A')->setWidth(18);
-                $hojaactiva118->setCellValue('A'.$fila, $datos118[$i]->fecha);
+                $hojaactiva118->setCellValue('A'.$fila, date("d/m/Y",strtotime($datos118[$i]->fecha)));
                 $hojaactiva118->getColumnDimension('B')->setWidth(10);
                 $hojaactiva118->setCellValue('B'.$fila, $datos118[$i]->pasajestotal);
                 $hojaactiva118->getColumnDimension('C')->setWidth(10);
@@ -190,7 +190,7 @@ class ExportarExcelController extends Controller
         else{
             while($cantidad>$i){
                 $hojaactiva121->getColumnDimension('A')->setWidth(18);
-                $hojaactiva121->setCellValue('A'.$fila, $datos121[$i]->fecha);
+                $hojaactiva121->setCellValue('A'.$fila, date("d/m/Y",strtotime($datos121[$i]->fecha)));
                 $hojaactiva121->getColumnDimension('B')->setWidth(10);
                 $hojaactiva121->setCellValue('B'.$fila, $datos121[$i]->pasajestotal);
                 $hojaactiva121->getColumnDimension('C')->setWidth(10);
@@ -245,7 +245,7 @@ class ExportarExcelController extends Controller
         else{
             while($cantidad>$i){
                 $hojaactiva122->getColumnDimension('A')->setWidth(18);
-                $hojaactiva122->setCellValue('A'.$fila, $datos122[$i]->fecha);
+                $hojaactiva122->setCellValue('A'.$fila, date("d/m/Y",strtotime($datos122[$i]->fecha)));
                 $hojaactiva122->getColumnDimension('B')->setWidth(10);
                 $hojaactiva122->setCellValue('B'.$fila, $datos122[$i]->pasajestotal);
                 $hojaactiva122->getColumnDimension('C')->setWidth(10);
@@ -300,7 +300,7 @@ class ExportarExcelController extends Controller
         else{
             while($cantidad>$i){
                 $hojaactiva131->getColumnDimension('A')->setWidth(18);
-                $hojaactiva131->setCellValue('A'.$fila, $datos131[$i]->fecha);
+                $hojaactiva131->setCellValue('A'.$fila, $date("d/m/Y",strtotime($datos131[$i]->fecha)));
                 $hojaactiva131->getColumnDimension('B')->setWidth(10);
                 $hojaactiva131->setCellValue('B'.$fila, $datos131[$i]->pasajestotal);
                 $hojaactiva131->getColumnDimension('C')->setWidth(10);
@@ -393,7 +393,7 @@ class ExportarExcelController extends Controller
         else{
             while($cantidad>$i){
                 $hojaactiva10->getColumnDimension('A')->setWidth(18);
-                $hojaactiva10->setCellValue('A'.$fila, $datos10[$i]->fecha);
+                $hojaactiva10->setCellValue('A'.$fila, date("d/m/Y",strtotime($datos10[$i]->fecha)));
                 $hojaactiva10->getColumnDimension('B')->setWidth(10);
                 $hojaactiva10->setCellValue('B'.$fila, $datos10[$i]->pasajestotal);
                 $hojaactiva10->getColumnDimension('C')->setWidth(10);
@@ -447,7 +447,7 @@ class ExportarExcelController extends Controller
         else{
             while($cantidad>$i){
                 $hojaactiva110->getColumnDimension('A')->setWidth(18);
-                $hojaactiva110->setCellValue('A'.$fila, $datos110[$i]->fecha);
+                $hojaactiva110->setCellValue('A'.$fila, date("d/m/Y",strtotime($datos110[$i]->fecha)));
                 $hojaactiva110->getColumnDimension('B')->setWidth(10);
                 $hojaactiva110->setCellValue('B'.$fila, $datos110[$i]->pasajestotal);
                 $hojaactiva110->getColumnDimension('C')->setWidth(10);
@@ -499,7 +499,7 @@ class ExportarExcelController extends Controller
         else{
             while($cantidad>$i){
                 $hojaactiva142->getColumnDimension('A')->setWidth(18);
-                $hojaactiva142->setCellValue('A'.$fila, $datos142[$i]->fecha);
+                $hojaactiva142->setCellValue('A'.$fila, date("d/m/Y",strtotime($datos142[$i]->fecha)));
                 $hojaactiva142->getColumnDimension('B')->setWidth(10);
                 $hojaactiva142->setCellValue('B'.$fila, $datos142[$i]->pasajestotal);
                 $hojaactiva142->getColumnDimension('C')->setWidth(10);

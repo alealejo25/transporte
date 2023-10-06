@@ -12,8 +12,8 @@
                     <div class="widget-content-area">
                         <div class="widget-one">
                             <!--TITULO-->
-                            <h4 class="text-center mb-5">Exportar Servicios. </h4>
-                            {!!Form::open(['route' => 'exportarserviciosexcel','method'=>'POST'])!!}
+                            <h4 class="text-center mb-5">Exportar Asistencia de Choferes. </h4>
+                            {!!Form::open(['route' => 'exportarasistenciaexcel','method'=>'POST'])!!}
     						{{Form::token()}}
                             <!--ENCABEZADO-->
                             <div class="row">
@@ -29,26 +29,7 @@
                                  	   {!!Form::select('empresa_id',$empresa,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion'])!!}
                                        {!! $errors->first('empresa_id','<div class="invalid-feedback">:message</div>')!!}
                                 </div>
-                                
-                                <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Linea
-                                       <select name="linea_id" id="linea" class="form-control" required>
-                                     <option value="">Seleccione un Linea</option>
-                                      <option value="TODAS">Todas</option>
-                                    @foreach ($linea as $datos)
-                                        <option value="{{$datos->id}}" >Numero: {{$datos->numero}}</option>                    
-            
-                                    @endforeach
-                                    </select>
-                                </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Chofer
-                                     <select name="chofer_id" id="chofer" class="form-control">
-                                     <option value="">Seleccione un Chofer</option>
-                                    @foreach ($choferleagaslnf as $datos)
-                                        <option value="{{$datos->id}}" >Legajo: {{$datos->legajo}} - {{$datos->apellido}}, {{$datos->nombre}}</option>                    
-            
-                                    @endforeach
-                                    </select>
-                                </div>
+                               
                             </div>
                             <div>
 		                        <div class="col-sm-12 col-md-2 col-lg-2"> 
@@ -69,4 +50,3 @@
     </div>
 <!--  END CONTENT AREA  -->
 @endsection
-

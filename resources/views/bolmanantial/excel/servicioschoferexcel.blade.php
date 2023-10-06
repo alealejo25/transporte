@@ -12,8 +12,8 @@
                     <div class="widget-content-area">
                         <div class="widget-one">
                             <!--TITULO-->
-                            <h4 class="text-center mb-5">Exportar Servicios. </h4>
-                            {!!Form::open(['route' => 'exportarserviciosexcel','method'=>'POST'])!!}
+                            <h4 class="text-center mb-5">Exportar Servicios x Choferes. </h4>
+                            {!!Form::open(['route' => 'exportarservicioschoferexcel','method'=>'POST'])!!}
     						{{Form::token()}}
                             <!--ENCABEZADO-->
                             <div class="row">

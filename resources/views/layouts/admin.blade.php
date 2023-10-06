@@ -467,6 +467,9 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                     </a>
                      <ul class="treeview-menu">
                       @can('boletoslnf')
+                      <li><a href="/bolmanantial/excel/servicioschoferexcel"><i class="fa fa-circle-o"></i> Servicios x chofer</a></li>
+                      @endcan
+                      @can('boletoslnf')
                       <li><a href="/bolmanantial/excel/serviciosexcel"><i class="fa fa-circle-o"></i> Servicios</a></li>
                       @endcan
                       @can('boletoslnf')
@@ -476,7 +479,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                       <li><a href="/bolmanantial/reportes/gasoildiario"><i class="fa fa-circle-o"></i> Gasoil Diario</a></li>
                       @endcan
                        @can('boletoslnf')
-                      <li><a href="/bolmanantial/reportes/asistencia"><i class="fa fa-circle-o"></i> Asistencia</a></li>
+                      <li><a href="/bolmanantial/excel/asistenciaexcel"><i class="fa fa-circle-o"></i> Asistencia</a></li>
                       @endcan
                        @can('boletoslnf')
                       <li><a href="/bolmanantial/excel/hstrabajadasexcel"><i class="fa fa-circle-o"></i> Hs trabajadas</a></li>

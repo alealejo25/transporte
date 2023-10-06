@@ -48,6 +48,16 @@ class ExportarExcelController extends Controller
     public function exportargasoilexcel(Request $request)
     {
 
+    
+
+    $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+    $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+
+
+    //empresa LA NUEVA FOURNIER 118 121 122 131
+    if($request->empresa_id==1){
+        $empresa=$request->empresa_id;
+
     $spreadsheet = new Spreadsheet();
     $hojaactiva118 = $spreadsheet->getActiveSheet();
 
@@ -95,14 +105,6 @@ class ExportarExcelController extends Controller
     $hojaactiva131->setCellValue('H1', 'PROM X COCHE');
     
     $fila=2;
-
-    $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
-    $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
-
-
-    //empresa LA NUEVA FOURNIER 118 121 122 131
-    if($request->empresa_id==1){
-        $empresa=$request->empresa_id;
     //LINEA118 
         $datos118=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(cochesboletos.cantpasajes) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.coche_id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',118)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
              $cantidad=count($datos118);
@@ -318,7 +320,205 @@ class ExportarExcelController extends Controller
             }
         }        
 
- }   
+ }  
+ else{
+
+    $empresa=$request->empresa_id;
+
+    $spreadsheet = new Spreadsheet();
+    $hojaactiva10 = $spreadsheet->getActiveSheet();
+
+    $hojaactiva10->setTitle('10');
+    $hojaactiva10->setCellValue('A1', 'FECHA');
+    $hojaactiva10->setCellValue('B1', 'BOLETOS');
+    $hojaactiva10->setCellValue('C1', 'GASOIL');
+    $hojaactiva10->setCellValue('D1', 'CANT DE SERV');
+    $hojaactiva10->setCellValue('E1', 'COCHES');
+    $hojaactiva10->setCellValue('F1', 'PROM X PASAJERO');
+    $hojaactiva10->setCellValue('G1', 'PROM X SERVICIO');
+    $hojaactiva10->setCellValue('H1', 'PROM X COCHE');
+
+    $hojaactiva110 = $spreadsheet->createSheet();
+    $hojaactiva110->setTitle('110');
+    $hojaactiva110->setCellValue('A1', 'FECHA');
+    $hojaactiva110->setCellValue('B1', 'BOLETOS');
+    $hojaactiva110->setCellValue('C1', 'GASOIL');
+    $hojaactiva110->setCellValue('D1', 'CANT DE SERV');
+    $hojaactiva110->setCellValue('E1', 'COCHES');
+    $hojaactiva110->setCellValue('F1', 'PROM X PASAJERO');
+    $hojaactiva110->setCellValue('G1', 'PROM X SERVICIO');
+    $hojaactiva110->setCellValue('H1', 'PROM X COCHE');
+
+    $hojaactiva142 = $spreadsheet->createSheet();
+    $hojaactiva142->setTitle('142');
+    $hojaactiva142->setCellValue('A1', 'FECHA');
+    $hojaactiva142->setCellValue('B1', 'BOLETOS');
+    $hojaactiva142->setCellValue('C1', 'GASOIL');
+    $hojaactiva142->setCellValue('D1', 'CANT DE SERV');
+    $hojaactiva142->setCellValue('E1', 'COCHES');
+    $hojaactiva142->setCellValue('F1', 'PROM X PASAJERO');
+    $hojaactiva142->setCellValue('G1', 'PROM X SERVICIO');
+    $hojaactiva142->setCellValue('H1', 'PROM X COCHE');
+
+    $fila=2;
+    //LINEA10 
+        $datos10=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(cochesboletos.cantpasajes) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.coche_id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',10)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+             $cantidad=count($datos10);
+            $i=0;
+        // para llenar el gasoil en la tabla 118
+       $gasoil10=Gasoil::select('gasoil.l10total','gasoil.fecha')->where('empresa_id',2)->whereBetween('fecha',[$fi, $ff])->get(); 
+       //dd($gasoil118);
+       foreach($gasoil10 as $indice => $descripcion)
+        {
+            foreach($datos10 as $indice10 => $datos){
+                if($descripcion->fecha==$datos->fecha){
+                    $datos->gasoiltotal=$descripcion->l10total;
+                    if($datos->gasoiltotal==0 || $datos->gasoiltotal==null){
+                        $datos->prompax=0;
+                        $datos->promservicios=0;
+                        $datos->promcoches=0;
+                    }
+                    else{
+                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        $datos->promservicios=$datos->gasoiltotal/$datos->ids;
+                        $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;
+                    }
+                }
+            }
+        }
+      //////////////////// termina de poner el gasoil en la tabla
+        if($cantidad==0){
+            $datos10=0;
+        }
+        else{
+            while($cantidad>$i){
+                $hojaactiva10->getColumnDimension('A')->setWidth(18);
+                $hojaactiva10->setCellValue('A'.$fila, $datos10[$i]->fecha);
+                $hojaactiva10->getColumnDimension('B')->setWidth(10);
+                $hojaactiva10->setCellValue('B'.$fila, $datos10[$i]->pasajestotal);
+                $hojaactiva10->getColumnDimension('C')->setWidth(10);
+                $hojaactiva10->setCellValue('C'.$fila, $datos10[$i]->gasoiltotal);
+                $hojaactiva10->getColumnDimension('D')->setWidth(10);
+                $hojaactiva10->setCellValue('D'.$fila, $datos10[$i]->ids);
+                $hojaactiva10->getColumnDimension('E')->setWidth(10);
+                $hojaactiva10->setCellValue('E'.$fila, $datos10[$i]->idcoches);
+                $hojaactiva10->getColumnDimension('F')->setWidth(10);
+                $hojaactiva10->setCellValue('F'.$fila, $datos10[$i]->prompax);
+                $hojaactiva10->getColumnDimension('G')->setWidth(10);
+                $hojaactiva10->setCellValue('G'.$fila, $datos10[$i]->promservicios);
+                $hojaactiva10->getColumnDimension('H')->setWidth(10);
+                $hojaactiva10->setCellValue('H'.$fila, $datos10[$i]->promcoches);
+                $fila++;
+                $i++;
+            }
+        }
+
+
+    //LINEA110 
+        $fila=2;
+        $datos110=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(cochesboletos.cantpasajes) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.coche_id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',110)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+             $cantidad=count($datos110);
+            $i=0;
+        // para llenar el gasoil en la tabla 118
+       $gasoil110=Gasoil::select('gasoil.l110total','gasoil.fecha')->where('empresa_id',2)->whereBetween('fecha',[$fi, $ff])->get(); 
+       //dd($gasoil118);
+       foreach($gasoil110 as $indice => $descripcion)
+        {
+            foreach($datos110 as $indice110 => $datos){
+                if($descripcion->fecha==$datos->fecha){
+                    $datos->gasoiltotal=$descripcion->l110total;
+                    if($datos->gasoiltotal==0 || $datos->gasoiltotal==null){
+                        $datos->prompax=0;
+                        $datos->promservicios=0;
+                        $datos->promcoches=0;
+                    }
+                    else{
+                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        $datos->promservicios=$datos->gasoiltotal/$datos->ids;
+                        $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;
+                    }
+                }
+            }
+        }
+      //////////////////// termina de poner el gasoil en la tabla
+        if($cantidad==0){
+            $datos10=0;
+        }
+        else{
+            while($cantidad>$i){
+                $hojaactiva110->getColumnDimension('A')->setWidth(18);
+                $hojaactiva110->setCellValue('A'.$fila, $datos110[$i]->fecha);
+                $hojaactiva110->getColumnDimension('B')->setWidth(10);
+                $hojaactiva110->setCellValue('B'.$fila, $datos110[$i]->pasajestotal);
+                $hojaactiva110->getColumnDimension('C')->setWidth(10);
+                $hojaactiva110->setCellValue('C'.$fila, $datos110[$i]->gasoiltotal);
+                $hojaactiva110->getColumnDimension('D')->setWidth(10);
+                $hojaactiva110->setCellValue('D'.$fila, $datos110[$i]->ids);
+                $hojaactiva110->getColumnDimension('E')->setWidth(10);
+                $hojaactiva110->setCellValue('E'.$fila, $datos110[$i]->idcoches);
+                $hojaactiva110->getColumnDimension('F')->setWidth(10);
+                $hojaactiva110->setCellValue('F'.$fila, $datos110[$i]->prompax);
+                $hojaactiva110->getColumnDimension('G')->setWidth(10);
+                $hojaactiva110->setCellValue('G'.$fila, $datos110[$i]->promservicios);
+                $hojaactiva110->getColumnDimension('H')->setWidth(10);
+                $hojaactiva110->setCellValue('H'.$fila, $datos110[$i]->promcoches);
+                $fila++;
+                $i++;
+            }
+        }
+//LINEA142 
+        $fila=2;
+        $datos142=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(cochesboletos.cantpasajes) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.coche_id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',142)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+             $cantidad=count($datos142);
+            $i=0;
+        // para llenar el gasoil en la tabla 118
+       $gasoil142=Gasoil::select('gasoil.l142total','gasoil.fecha')->where('empresa_id',2)->whereBetween('fecha',[$fi, $ff])->get(); 
+       //dd($gasoil118);
+       foreach($gasoil142 as $indice => $descripcion)
+        {
+            foreach($datos142 as $indice142 => $datos){
+                if($descripcion->fecha==$datos->fecha){
+                    $datos->gasoiltotal=$descripcion->l142total;
+                    if($datos->gasoiltotal==0 || $datos->gasoiltotal==null){
+                        $datos->prompax=0;
+                        $datos->promservicios=0;
+                        $datos->promcoches=0;
+                    }
+                    else{
+                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        $datos->promservicios=$datos->gasoiltotal/$datos->ids;
+                        $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;
+                    }
+                }
+            }
+        }
+      //////////////////// termina de poner el gasoil en la tabla
+        if($cantidad==0){
+            $datos142=0;
+        }
+        else{
+            while($cantidad>$i){
+                $hojaactiva142->getColumnDimension('A')->setWidth(18);
+                $hojaactiva142->setCellValue('A'.$fila, $datos142[$i]->fecha);
+                $hojaactiva142->getColumnDimension('B')->setWidth(10);
+                $hojaactiva142->setCellValue('B'.$fila, $datos142[$i]->pasajestotal);
+                $hojaactiva142->getColumnDimension('C')->setWidth(10);
+                $hojaactiva142->setCellValue('C'.$fila, $datos142[$i]->gasoiltotal);
+                $hojaactiva142->getColumnDimension('D')->setWidth(10);
+                $hojaactiva142->setCellValue('D'.$fila, $datos142[$i]->ids);
+                $hojaactiva142->getColumnDimension('E')->setWidth(10);
+                $hojaactiva142->setCellValue('E'.$fila, $datos142[$i]->idcoches);
+                $hojaactiva142->getColumnDimension('F')->setWidth(10);
+                $hojaactiva142->setCellValue('F'.$fila, $datos142[$i]->prompax);
+                $hojaactiva142->getColumnDimension('G')->setWidth(10);
+                $hojaactiva142->setCellValue('G'.$fila, $datos142[$i]->promservicios);
+                $hojaactiva142->getColumnDimension('H')->setWidth(10);
+                $hojaactiva142->setCellValue('H'.$fila, $datos142[$i]->promcoches);
+                $fila++;
+                $i++;
+            }
+        }
+ } 
     $writer = new Xlsx($spreadsheet);
 
     // redirect output to client browser
@@ -528,17 +728,17 @@ class ExportarExcelController extends Controller
         $writer->save('php://output');
         }
     }
-    public function serviciosexcel()
+    public function servicioschoferexcel()
     {   $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
         $linea=Linea::orderBy('numero','ASC')->get();
         $choferleagaslnf=ChoferLeagaslnf::orderBy('legajo','ASC')->get();
-        return view('bolmanantial.excel.serviciosexcel')
+        return view('bolmanantial.excel.servicioschoferexcel')
             ->with('linea',$linea)
             ->with('choferleagaslnf',$choferleagaslnf)
              ->with('empresa',$empresa);
     }
 
-    public function exportarserviciosexcel(Request $request)
+    public function exportarservicioschoferexcel(Request $request)
     {
        /*VALIDACION -----------------------------------------*/
             $campos=[
@@ -643,7 +843,7 @@ class ExportarExcelController extends Controller
 
             // redirect output to client browser
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="Servicios.xlsx"');
+            header('Content-Disposition: attachment;filename="ServiciosXChofer.xlsx"');
             header('Cache-Control: max-age=0');
 
             $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
@@ -651,4 +851,253 @@ class ExportarExcelController extends Controller
 
 
     }
+
+    public function serviciosexcel()
+    {   $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
+        $linea=Linea::orderBy('numero','ASC')->get();
+        $choferleagaslnf=ChoferLeagaslnf::orderBy('legajo','ASC')->get();
+        return view('bolmanantial.excel.serviciosexcel')
+            ->with('linea',$linea)
+            ->with('choferleagaslnf',$choferleagaslnf)
+             ->with('empresa',$empresa);
+    }
+public function exportarserviciosexcel(Request $request)
+    {
+       /*VALIDACION -----------------------------------------*/
+            $campos=[
+            'fechai'=>'required',
+            'fechaf'=>'required',
+            'empresa_id'=>'required',
+            'linea_id'=>'required',
+            
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+
+        /*--------------------------------------------------------*/
+          
+
+        $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+      
+      if($request->linea_id == "TODAS"){
+        if($request->chofer_id==NULL){
+            $datos=BoletoLeagas::select('boletosleagas.*','choferesleagaslnf.apellido','choferesleagaslnf.nombre','lineas.numero','lineas.numero')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->get();
+          
+
+
+        $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',2)->whereBetween('fecha',[$fi, $ff])->orderBy('num','DESC')->get();
+
+          dd($datos);
+          
+            $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
+            
+        }
+        else{
+            $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->where('chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
+
+        }
+        }
+        else{
+            if($request->chofer_id==NULL){
+           $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->where('linea_id',$request->linea_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
+       }
+       else{
+         $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->where('chofer_id',$request->chofer_id)->where('linea_id',$request->linea_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
+       }
+   }
+       
+       
+
+            $datos->each(function($datos){
+            $datos->linea;
+            $datos->choferleagaslnf;
+            $datos->servicioleagaslnf;
+            $datos->turno; 
+            $datos->coche;
+            $datos->user;
+       });
+//dd($datos);
+        $spreadsheet = new Spreadsheet();
+        $hojaactiva = $spreadsheet->getActiveSheet();
+        $hojaactiva->setTitle('Servicios');
+        $hojaactiva->setCellValue('A1', 'LEGAJO');
+        $hojaactiva->setCellValue('B1', 'CHOFER');
+        $hojaactiva->setCellValue('C1', 'CANT. SERV');
+        $hojaactiva->setCellValue('D1', 'HS TRABAJADAS');
+        $hojaactiva->setCellValue('E1', 'HS SOBRANTES');
+        $hojaactiva->setCellValue('F1', 'HS ALARGUE');
+        $hojaactiva->setCellValue('G1', 'SERV. NORMAL');
+        $hojaactiva->setCellValue('H1', 'SERV. DOBLE');
+        $hojaactiva->setCellValue('I1', 'CANT. PAX');
+        $hojaactiva->setCellValue('J1', 'RECAUDACION');
+        $hojaactiva->setCellValue('K1', 'TOQUES DE ANDEN');
+        $hojaactiva->setCellValue('L1', 'VALOR DE TOQUES');
+        
+
+        $fila=2;
+        $i=0;
+        $cantidad=count($datos);
+        while($cantidad>$i){
+            $hojaactiva->getColumnDimension('A')->setWidth(7);
+            $hojaactiva->setCellValue('A'.$fila, $datos[$i]->choferleagaslnf->legajo);
+            $hojaactiva->getColumnDimension('B')->setWidth(35);
+            $hojaactiva->setCellValue('B'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombre);
+
+            $hojaactiva->getColumnDimension('C')->setWidth(10);
+            $hojaactiva->setCellValue('C'.$fila, $datos[$i]->cantidaddeservicios);
+            $hojaactiva->getColumnDimension('D')->setWidth(14);
+            $hojaactiva->setCellValue('D'.$fila, $datos[$i]->horastotal);
+            $hojaactiva->getColumnDimension('E')->setWidth(14);
+            $hojaactiva->setCellValue('E'.$fila, $datos[$i]->horassobrantes);
+            $hojaactiva->getColumnDimension('F')->setWidth(14);
+            $hojaactiva->setCellValue('F'.$fila, $datos[$i]->horastotalalargue);
+            $hojaactiva->getColumnDimension('G')->setWidth(14);
+            $hojaactiva->setCellValue('G'.$fila, $datos[$i]->normal);
+            $hojaactiva->getColumnDimension('H')->setWidth(14);
+            $hojaactiva->setCellValue('H'.$fila, $datos[$i]->doblenegro);
+            $hojaactiva->getColumnDimension('I')->setWidth(10);
+            $hojaactiva->setCellValue('I'.$fila, $datos[$i]->pasajes);
+            $hojaactiva->getColumnDimension('J')->setWidth(14);
+            $hojaactiva->setCellValue('J'.$fila, $datos[$i]->recaudacion);
+            $hojaactiva->getColumnDimension('K')->setWidth(17);
+            $hojaactiva->setCellValue('K'.$fila, $datos[$i]->toquesanden);
+            $hojaactiva->getColumnDimension('L')->setWidth(17);
+            $hojaactiva->setCellValue('L'.$fila, $datos[$i]->valortoquesanden);
+
+            $fila++;
+            $i++;
+        }
+
+
+             $writer = new Xlsx($spreadsheet);
+
+            // redirect output to client browser
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="ServiciosXChofer.xlsx"');
+            header('Cache-Control: max-age=0');
+
+            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+            $writer->save('php://output');
+
+
+    }
+
+public function asistenciaexcel()
+{
+    $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
+    return view('bolmanantial.excel.asistenciaexcel')
+    ->with('empresa',$empresa);
+}
+
+public function exportarasistenciaexcel(Request $request)
+{   
+
+function convertirFechaATextoDia($fecha) {
+    //dd($fecha);
+    $fecha_actual = strtotime($fecha);
+    $dia_semana = date('l', $fecha_actual);
+    $dia = date('d', $fecha_actual);
+    $mes = date('F', $fecha_actual);
+    $anio = date('Y', $fecha_actual);
+
+    // Obtener el día de la semana en español
+    $dias_semana = array(
+        'Monday' => 'Lunes',
+        'Tuesday' => 'Martes',
+        'Wednesday' => 'Miércoles',
+        'Thursday' => 'Jueves',
+        'Friday' => 'Viernes',
+        'Saturday' => 'Sábado',
+        'Sunday' => 'Domingo'
+    );
+    $dia_semana_espanol = $dias_semana[$dia_semana];
+
+    // Obtener el mes en español
+    $meses = array(
+        'January' => 'enero',
+        'February' => 'febrero',
+        'March' => 'marzo',
+        'April' => 'abril',
+        'May' => 'mayo',
+        'June' => 'junio',
+        'July' => 'julio',
+        'August' => 'agosto',
+        'September' => 'septiembre',
+        'October' => 'octubre',
+        'November' => 'noviembre',
+        'December' => 'diciembre'
+    );
+    $mes_espanol = $meses[$mes];
+
+    // Construir el texto de la fecha
+    $texto_fecha = $dia_semana_espanol;
+    return $texto_fecha;
+}
+/*VALIDACION -----------------------------------------*/
+    $campos=[
+            'fechai'=>'required',
+            'fechaf'=>'required',
+            'empresa_id'=>'required',
+            ];
+    $Mensaje=["required"=>'El :attribute es requerido'];
+    $this->validate($request,$campos,$Mensaje);
+
+/*--------------------------------------------------------*/
+    $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+    $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+    $empresa=$request->empresa_id;
+    $datos=BoletoLeagas::select('choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.chofer_id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.chofer_id','boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
+    $cantidad=count($datos);
+    $i=0;
+    if($cantidad==0){
+        $datos=0;
+    }
+    else
+    {
+        while($cantidad>$i){
+            $fecha=$datos[$i]->fecha;
+            //$datos[$i]->fechaconvertida=convertirFechaATexto($fecha);
+            $datos[$i]->fechadia=convertirFechaATextoDia($fecha);
+            $i=$i+1;
+        }
+    }
+$spreadsheet = new Spreadsheet();
+        $hojaactiva = $spreadsheet->getActiveSheet();
+        $hojaactiva->setTitle('Asistencia');
+        $hojaactiva->setCellValue('A1', 'DIA');
+        $hojaactiva->setCellValue('B1', 'FECHA');
+        $hojaactiva->setCellValue('C1', 'LEGAJO');
+        $hojaactiva->setCellValue('D1', 'CHOFER');
+         $fila=2;
+        $i=0;
+        $cantidad=count($datos);
+        while($cantidad>$i){
+            $hojaactiva->getColumnDimension('A')->setWidth(10);
+            $hojaactiva->setCellValue('A'.$fila, $datos[$i]->fechadia);
+            $hojaactiva->getColumnDimension('B')->setWidth(10);
+            $hojaactiva->setCellValue('B'.$fila, $datos[$i]->fecha);
+
+            $hojaactiva->getColumnDimension('C')->setWidth(10);
+            $hojaactiva->setCellValue('C'.$fila, $datos[$i]->legajo);
+            $hojaactiva->getColumnDimension('D')->setWidth(50);
+            $hojaactiva->setCellValue('D'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombre);
+            $fila++;
+            $i++;
+        }
+
+
+             $writer = new Xlsx($spreadsheet);
+
+            // redirect output to client browser
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="AsistenciaChofer.xlsx"');
+            header('Cache-Control: max-age=0');
+
+            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+            $writer->save('php://output');
+
+
+}
+
 }

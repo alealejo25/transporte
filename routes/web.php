@@ -280,8 +280,14 @@ Route::get('bolmanantial/boletos/monitoreo','BolManantialController@monitoreo')-
 Route::get('bolmanantial/excel/gasoilexcel','ExportarExcelController@gasoilexcel')->name('gasoilexcel')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/excel/exportargasoilexcel','ExportarExcelController@exportargasoilexcel')->name('exportargasoilexcel')->middleware('permission:bolmanantial');
 
+Route::get('bolmanantial/excel/servicioschoferexcel','ExportarExcelController@servicioschoferexcel')->name('servicioschoferexcel')->middleware('permission:bolmanantial');
+Route::post('bolmanantial/excel/exportarservicioschoferexcel','ExportarExcelController@exportarservicioschoferexcel')->name('exportarservicioschoferexcel')->middleware('permission:bolmanantial');
+
 Route::get('bolmanantial/excel/serviciosexcel','ExportarExcelController@serviciosexcel')->name('serviciosexcel')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/excel/exportarserviciosexcel','ExportarExcelController@exportarserviciosexcel')->name('exportarserviciosexcel')->middleware('permission:bolmanantial');
+
+Route::get('bolmanantial/excel/asistenciaexcel','ExportarExcelController@asistenciaexcel')->name('asistenciaexcel')->middleware('permission:bolmanantial');
+Route::post('bolmanantial/excel/exportarasistenciaexcel','ExportarExcelController@exportarasistenciaexcel')->name('exportarasistenciaexcel')->middleware('permission:bolmanantial');
 
 Route::get('bolmanantial/excel/hstrabajadasexcel','ExportarExcelController@hstrabajadasexcel')->name('hstrabajadasexcel')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/excel/exportarhstrabajadasexcel','ExportarExcelController@exportarhstrabajadasexcel')->name('exportarhstrabajadasexcel')->middleware('permission:bolmanantial');

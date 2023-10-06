@@ -1110,48 +1110,6 @@ public function asistencia()
 
     public function reporteasistencia(Request $request)
     {   
-//dd($request);
-function convertirFechaATexto($fecha) {
-    //dd($fecha);
-    $fecha_actual = strtotime($fecha);
-    $dia_semana = date('l', $fecha_actual);
-    $dia = date('d', $fecha_actual);
-    $mes = date('F', $fecha_actual);
-    $anio = date('Y', $fecha_actual);
-
-    // Obtener el día de la semana en español
-    $dias_semana = array(
-        'Monday' => 'Lunes',
-        'Tuesday' => 'Martes',
-        'Wednesday' => 'Miércoles',
-        'Thursday' => 'Jueves',
-        'Friday' => 'Viernes',
-        'Saturday' => 'Sábado',
-        'Sunday' => 'Domingo'
-    );
-    $dia_semana_espanol = $dias_semana[$dia_semana];
-
-    // Obtener el mes en español
-    $meses = array(
-        'January' => 'enero',
-        'February' => 'febrero',
-        'March' => 'marzo',
-        'April' => 'abril',
-        'May' => 'mayo',
-        'June' => 'junio',
-        'July' => 'julio',
-        'August' => 'agosto',
-        'September' => 'septiembre',
-        'October' => 'octubre',
-        'November' => 'noviembre',
-        'December' => 'diciembre'
-    );
-    $mes_espanol = $meses[$mes];
-
-    // Construir el texto de la fecha
-    $texto_fecha = $dia_semana_espanol . ', ' . $dia . ' de ' . $mes_espanol . ' de ' . $anio;
-    return $texto_fecha;
-}
 
 function convertirFechaATextoDia($fecha) {
     //dd($fecha);

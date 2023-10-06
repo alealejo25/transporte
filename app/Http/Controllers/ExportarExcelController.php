@@ -617,7 +617,7 @@ class ExportarExcelController extends Controller
             $hojaactiva->getColumnDimension('B')->setWidth(7);
             $hojaactiva->setCellValue('B'.$fila, $datos[$i]->legajo);
             $hojaactiva->getColumnDimension('C')->setWidth(18);
-            $hojaactiva->setCellValue('C'.$fila, $datos[$i]->fecha);
+            $hojaactiva->setCellValue('C'.$fila, date("d/m/Y",strtotime($datos[$i]->fecha)));
             $hojaactiva->getColumnDimension('D')->setWidth(10);
             $hojaactiva->setCellValue('D'.$fila, $datos[$i]->numero);
             $hojaactiva->getColumnDimension('E')->setWidth(10);
@@ -691,7 +691,7 @@ class ExportarExcelController extends Controller
             $hojaactiva->getColumnDimension('B')->setWidth(7);
             $hojaactiva->setCellValue('B'.$fila, $datos[$i]->legajo);
             $hojaactiva->getColumnDimension('C')->setWidth(18);
-            $hojaactiva->setCellValue('C'.$fila, $datos[$i]->fecha);
+            $hojaactiva->setCellValue('C'.$fila, date("d/m/Y",strtotime($datos[$i]->fecha)));
             $hojaactiva->getColumnDimension('D')->setWidth(10);
             $hojaactiva->setCellValue('D'.$fila, $datos[$i]->numero);
             $hojaactiva->getColumnDimension('E')->setWidth(10);

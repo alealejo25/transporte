@@ -107,7 +107,7 @@ class CajaTafiController extends Controller
     $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
 
     if($request->abonado_id===null){
-       $consulta=VentaTafi::whereBetween('fecha',[$fi, $ff])->get();
+       $consulta=VentaTafi::whereBetween('fecha',[$fi, $ff])->orderBy('numero','ASC')->get();
        $consultasuma=VentaTafi::whereBetween('fecha',[$fi, $ff])->sum("montototal");
        $formatter = new NumeroALetras();
         $montoenletras=$formatter->toMoney($consultasuma, 2, 'PESOS','CENTAVOS');
@@ -122,7 +122,7 @@ class CajaTafiController extends Controller
         return $pdf->download('reporteventasdiarias.pdf');
      }
      else{
-        $consulta=VentaTafi::whereBetween('fecha',[$fi, $ff])->where('abonado_id',$request->abonado_id)->get();
+        $consulta=VentaTafi::whereBetween('fecha',[$fi, $ff])->where('abonado_id',$request->abonado_id)->orderBy('numero','ASC')->get();
         $abonado=Abonado::where('id',$request->abonado_id)->orderBy('apellido','ASC')->get();
          $consultasuma=VentaTafi::whereBetween('fecha',[$fi, $ff])->sum("montototal");
          $formatter = new NumeroALetras();

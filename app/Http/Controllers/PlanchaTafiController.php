@@ -199,7 +199,8 @@ $impresora->close();*/
     public function index(Request $request)
     {
     
-        $datos=PlanchaTafi::search($request->name)->orderBy('numero','ASC')->paginate(200);
+    //$datos=PlanchaTafi::search($request->name)->orderBy('numero','ASC')->paginate(200);
+    $datos=PlanchaTafi::search($request->name)->orderBy('numero','ASC')->get();
 
         return view('boltafi.planchas.index')
             ->with('datos',$datos);

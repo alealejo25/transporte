@@ -68,7 +68,7 @@
 				@endforeach
 			</table>
 		</div>
-		{{$datos->render()}}
+		
 	</div>
 
 </div>

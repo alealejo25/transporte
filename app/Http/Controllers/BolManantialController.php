@@ -803,7 +803,13 @@ function convertirFechaATexto($fecha) {
                         $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        if($datos->pasajestotal==0)//CUANDO NO SE COBRO BOLETOS POR EJEMPLO ELECCIONES
+                        {   $datos->prompax=0;
+                        }
+                        else
+                        {
+                            $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        }
                     $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                     $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
@@ -844,7 +850,13 @@ function convertirFechaATexto($fecha) {
                         $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    if($datos->pasajestotal==0)//CUANDO NO SE COBRO BOLETOS POR EJEMPLO ELECCIONES
+                        {   $datos->prompax=0;
+                        }
+                        else
+                        {
+                            $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        }
                     $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                     $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
@@ -886,7 +898,13 @@ function convertirFechaATexto($fecha) {
                         $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    if($datos->pasajestotal==0)//CUANDO NO SE COBRO BOLETOS POR EJEMPLO ELECCIONES
+                        {   $datos->prompax=0;
+                        }
+                        else
+                        {
+                            $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        }
                     $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                     $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
@@ -932,7 +950,13 @@ function convertirFechaATexto($fecha) {
                         $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    if($datos->pasajestotal==0)//CUANDO NO SE COBRO BOLETOS POR EJEMPLO ELECCIONES
+                        {   $datos->prompax=0;
+                        }
+                        else
+                        {
+                            $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        }
                     $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                     $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
@@ -980,7 +1004,13 @@ function convertirFechaATexto($fecha) {
                         $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    if($datos->pasajestotal==0)//CUANDO NO SE COBRO BOLETOS POR EJEMPLO ELECCIONES
+                        {   $datos->prompax=0;
+                        }
+                        else
+                        {
+                            $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        }
                     $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                     $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
@@ -1024,7 +1054,13 @@ function convertirFechaATexto($fecha) {
                         $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    if($datos->pasajestotal==0)//CUANDO NO SE COBRO BOLETOS POR EJEMPLO ELECCIONES
+                        {   $datos->prompax=0;
+                        }
+                        else
+                        {
+                            $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        }
                     $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                     $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
@@ -1064,7 +1100,13 @@ function convertirFechaATexto($fecha) {
                         $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                    if($datos->pasajestotal==0)//CUANDO NO SE COBRO BOLETOS POR EJEMPLO ELECCIONES
+                        {   $datos->prompax=0;
+                        }
+                        else
+                        {
+                            $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        }
                     $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                     $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }

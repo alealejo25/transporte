@@ -863,8 +863,8 @@ class ExportarExcelController extends Controller
     }
 public function exportarserviciosexcel(Request $request)
     {
-        
-        dd($request);
+
+       
        /*VALIDACION -----------------------------------------*/
             $campos=[
             'fechai'=>'required',

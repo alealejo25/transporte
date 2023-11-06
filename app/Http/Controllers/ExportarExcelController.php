@@ -928,6 +928,7 @@ public function exportarserviciosexcel(Request $request)
         $hojaactiva->setCellValue('L1', 'HORASS');
         $hojaactiva->setCellValue('M1', 'HORASA');
         $hojaactiva->setCellValue('N1', 'CAMBIO');
+        $hojaactiva->setCellValue('O1', 'USUARIO');
         
 
         $fila=2;

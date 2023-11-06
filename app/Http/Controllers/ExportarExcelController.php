@@ -941,7 +941,7 @@ public function exportarserviciosexcel(Request $request)
             $hojaactiva->getColumnDimension('C')->setWidth(12);
             $hojaactiva->setCellValue('C'.$fila, $datos[$i]->choferleagaslnf->legajo);
             $hojaactiva->getColumnDimension('D')->setWidth(30);
-            $hojaactiva->setCellValue('D'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombre);
+            $hojaactiva->setCellValue('D'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombrechofer);
             $hojaactiva->getColumnDimension('E')->setWidth(10);
             $hojaactiva->setCellValue('E'.$fila, $datos[$i]->linea->numero);
             $hojaactiva->getColumnDimension('F')->setWidth(10);

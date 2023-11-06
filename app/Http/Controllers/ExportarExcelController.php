@@ -882,7 +882,7 @@ public function exportarserviciosexcel(Request $request)
       
       if($request->linea_id == "TODAS"){
         if($request->chofer_id==NULL){
-        $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num','ramales.nombre as nombreramal')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->join('ramales','serviciosleagaslnf.ramal_id','=','ramales.id')->where('serviciosleagaslnf.empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderBy('num','DESC')->get();
+        $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechoferes','boletosleagas.id as id_boleto','boletosleagas.numero as num','ramales.nombre as nombreramal')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->join('ramales','serviciosleagaslnf.ramal_id','=','ramales.id')->where('serviciosleagaslnf.empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderBy('num','DESC')->get();
 
           //dd($datos);
 
@@ -941,7 +941,7 @@ public function exportarserviciosexcel(Request $request)
             $hojaactiva->getColumnDimension('C')->setWidth(12);
             $hojaactiva->setCellValue('C'.$fila, $datos[$i]->choferleagaslnf->legajo);
             $hojaactiva->getColumnDimension('D')->setWidth(30);
-            $hojaactiva->setCellValue('D'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombrechofer);
+            $hojaactiva->setCellValue('D'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombrechoferes);
             $hojaactiva->getColumnDimension('E')->setWidth(10);
             $hojaactiva->setCellValue('E'.$fila, $datos[$i]->linea->numero);
             $hojaactiva->getColumnDimension('F')->setWidth(10);

@@ -962,6 +962,8 @@ public function exportarserviciosexcel(Request $request)
             $hojaactiva->setCellValue('M'.$fila, $datos[$i]->horastotalalargue);
             $hojaactiva->getColumnDimension('N')->setWidth(50);
             $hojaactiva->setCellValue('N'.$fila, $datos[$i]->motivo_cambio);
+            $hojaactiva->getColumnDimension('O')->setWidth(50);
+            $hojaactiva->setCellValue('O'.$fila, $datos[$i]->user->name);
 
             $fila++;
             $i++;
@@ -972,7 +974,7 @@ public function exportarserviciosexcel(Request $request)
 
             // redirect output to client browser
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header('Content-Disposition: attachment;filename="ServiciosXChofer.xlsx"');
+            header('Content-Disposition: attachment;filename="Servicios.xlsx"');
             header('Cache-Control: max-age=0');
 
             $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');

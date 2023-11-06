@@ -882,15 +882,11 @@ public function exportarserviciosexcel(Request $request)
       
       if($request->linea_id == "TODAS"){
         if($request->chofer_id==NULL){
-            $datos=BoletoLeagas::select('boletosleagas.*','choferesleagaslnf.apellido','choferesleagaslnf.nombre','lineas.numero','lineas.numero')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->get();
-          
+        $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num','ramales.nombre as nombreramal')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->join('ramales','serviciosleagaslnf.ramal_id','=','ramales.id')->where('serviciosleagaslnf.empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderBy('num','DESC')->get();
 
+          //dd($datos);
 
-        $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',2)->whereBetween('fecha',[$fi, $ff])->orderBy('num','DESC')->get();
-
-          dd($datos);
-
-            $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
+          /*  $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();*/
             
         }
         else{
@@ -906,9 +902,6 @@ public function exportarserviciosexcel(Request $request)
          $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->where('chofer_id',$request->chofer_id)->where('linea_id',$request->linea_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
        }
    }
-       
-       
-
             $datos->each(function($datos){
             $datos->linea;
             $datos->choferleagaslnf;
@@ -921,49 +914,54 @@ public function exportarserviciosexcel(Request $request)
         $spreadsheet = new Spreadsheet();
         $hojaactiva = $spreadsheet->getActiveSheet();
         $hojaactiva->setTitle('Servicios');
-        $hojaactiva->setCellValue('A1', 'LEGAJO');
-        $hojaactiva->setCellValue('B1', 'CHOFER');
-        $hojaactiva->setCellValue('C1', 'CANT. SERV');
-        $hojaactiva->setCellValue('D1', 'HS TRABAJADAS');
-        $hojaactiva->setCellValue('E1', 'HS SOBRANTES');
-        $hojaactiva->setCellValue('F1', 'HS ALARGUE');
-        $hojaactiva->setCellValue('G1', 'SERV. NORMAL');
-        $hojaactiva->setCellValue('H1', 'SERV. DOBLE');
+        $hojaactiva->setCellValue('A1', 'N° PLANILLA');
+        $hojaactiva->setCellValue('B1', 'FECHA');
+        $hojaactiva->setCellValue('C1', 'LEGAJO');
+        $hojaactiva->setCellValue('D1', 'CHOFER');
+        $hojaactiva->setCellValue('E1', 'LINEA');
+        $hojaactiva->setCellValue('F1', 'INTERNO');
+        $hojaactiva->setCellValue('G1', 'SERVICIO');
+        $hojaactiva->setCellValue('H1', 'TURNO');
         $hojaactiva->setCellValue('I1', 'CANT. PAX');
         $hojaactiva->setCellValue('J1', 'RECAUDACION');
-        $hojaactiva->setCellValue('K1', 'TOQUES DE ANDEN');
-        $hojaactiva->setCellValue('L1', 'VALOR DE TOQUES');
+        $hojaactiva->setCellValue('K1', 'HORAST');
+        $hojaactiva->setCellValue('L1', 'HORASS');
+        $hojaactiva->setCellValue('M1', 'HORASA');
+        $hojaactiva->setCellValue('N1', 'CAMBIO');
         
 
         $fila=2;
         $i=0;
         $cantidad=count($datos);
         while($cantidad>$i){
-            $hojaactiva->getColumnDimension('A')->setWidth(7);
-            $hojaactiva->setCellValue('A'.$fila, $datos[$i]->choferleagaslnf->legajo);
-            $hojaactiva->getColumnDimension('B')->setWidth(35);
-            $hojaactiva->setCellValue('B'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombre);
-
-            $hojaactiva->getColumnDimension('C')->setWidth(10);
-            $hojaactiva->setCellValue('C'.$fila, $datos[$i]->cantidaddeservicios);
-            $hojaactiva->getColumnDimension('D')->setWidth(14);
-            $hojaactiva->setCellValue('D'.$fila, $datos[$i]->horastotal);
-            $hojaactiva->getColumnDimension('E')->setWidth(14);
-            $hojaactiva->setCellValue('E'.$fila, $datos[$i]->horassobrantes);
-            $hojaactiva->getColumnDimension('F')->setWidth(14);
-            $hojaactiva->setCellValue('F'.$fila, $datos[$i]->horastotalalargue);
-            $hojaactiva->getColumnDimension('G')->setWidth(14);
-            $hojaactiva->setCellValue('G'.$fila, $datos[$i]->normal);
-            $hojaactiva->getColumnDimension('H')->setWidth(14);
-            $hojaactiva->setCellValue('H'.$fila, $datos[$i]->doblenegro);
-            $hojaactiva->getColumnDimension('I')->setWidth(10);
-            $hojaactiva->setCellValue('I'.$fila, $datos[$i]->pasajes);
+            $hojaactiva->getColumnDimension('A')->setWidth(12);
+            $hojaactiva->setCellValue('A'.$fila, $datos[$i]->num);
+            $hojaactiva->getColumnDimension('B')->setWidth(15);
+            $hojaactiva->setCellValue('B'.$fila, date("d/m/Y",strtotime($datos[$i]->fecha)));
+            $hojaactiva->getColumnDimension('C')->setWidth(12);
+            $hojaactiva->setCellValue('C'.$fila, $datos[$i]->choferleagaslnf->legajo);
+            $hojaactiva->getColumnDimension('D')->setWidth(30);
+            $hojaactiva->setCellValue('D'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombre);
+            $hojaactiva->getColumnDimension('E')->setWidth(10);
+            $hojaactiva->setCellValue('E'.$fila, $datos[$i]->linea->numero);
+            $hojaactiva->getColumnDimension('F')->setWidth(10);
+            $hojaactiva->setCellValue('F'.$fila, $datos[$i]->interno);
+            $hojaactiva->getColumnDimension('G')->setWidth(12);
+            $hojaactiva->setCellValue('G'.$fila, $datos[$i]->servicioleagaslnf->numero);
+            $hojaactiva->getColumnDimension('H')->setWidth(18);
+            $hojaactiva->setCellValue('H'.$fila, $datos[$i]->nombreramal);
+            $hojaactiva->getColumnDimension('I')->setWidth(13);
+            $hojaactiva->setCellValue('I'.$fila, $datos[$i]->cantpasajes);
             $hojaactiva->getColumnDimension('J')->setWidth(14);
             $hojaactiva->setCellValue('J'.$fila, $datos[$i]->recaudacion);
-            $hojaactiva->getColumnDimension('K')->setWidth(17);
-            $hojaactiva->setCellValue('K'.$fila, $datos[$i]->toquesanden);
-            $hojaactiva->getColumnDimension('L')->setWidth(17);
-            $hojaactiva->setCellValue('L'.$fila, $datos[$i]->valortoquesanden);
+             $hojaactiva->getColumnDimension('K')->setWidth(14);
+            $hojaactiva->setCellValue('K'.$fila, $datos[$i]->horastotal);
+            $hojaactiva->getColumnDimension('L')->setWidth(14);
+            $hojaactiva->setCellValue('L'.$fila, $datos[$i]->horassobrantes);
+            $hojaactiva->getColumnDimension('M')->setWidth(14);
+            $hojaactiva->setCellValue('M'.$fila, $datos[$i]->horastotalalargue);
+            $hojaactiva->getColumnDimension('N')->setWidth(50);
+            $hojaactiva->setCellValue('N'.$fila, $datos[$i]->motivo_cambio);
 
             $fila++;
             $i++;

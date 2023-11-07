@@ -882,28 +882,14 @@ public function exportarserviciosexcel(Request $request)
         $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
         $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
       
-      if($request->linea_id == "TODAS"){
-        if($request->chofer_id==NULL){
-        $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechoferes','boletosleagas.id as id_boleto','boletosleagas.numero as num','ramales.nombre as nombreramal')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->join('ramales','serviciosleagaslnf.ramal_id','=','ramales.id')->where('serviciosleagaslnf.empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderBy('num','DESC')->get();
-
-          //dd($datos);
-
-          /*  $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();*/
-            
+        if($request->linea_id == "TODAS")
+        {
+            $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechoferes','boletosleagas.id as id_boleto','boletosleagas.numero as num','ramales.nombre as nombreramal')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->join('ramales','serviciosleagaslnf.ramal_id','=','ramales.id')->where('serviciosleagaslnf.empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->orderBy('num','DESC')->get();
         }
         else{
-            $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->where('chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
+            $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechoferes','boletosleagas.id as id_boleto','boletosleagas.numero as num','ramales.nombre as nombreramal')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->join('ramales','serviciosleagaslnf.ramal_id','=','ramales.id')->where('serviciosleagaslnf.empresa_id',$request->empresa_id)->where('serviciosleagaslnf.linea_id',$request->linea_id)->whereBetween('fecha',[$fi, $ff])->orderBy('num','DESC')->get();
+       }
 
-        }
-        }
-        else{
-            if($request->chofer_id==NULL){
-           $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->where('linea_id',$request->linea_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
-       }
-       else{
-         $datos=BoletoLeagas::select('boletosleagas.chofer_id','choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotalalargue))) as horastotalalargue')->selectRaw('SUM(pasajestotal) as pasajes')->selectRaw('SUM(recaudaciontotal) as recaudacion')->selectRaw('SUM(normal) as normal')->selectRaw('SUM(doblenegro) as doblenegro')->selectRaw('SUM(toquesanden) as toquesanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoiltotal) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->where('chofer_id',$request->chofer_id)->where('linea_id',$request->linea_id)->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->orderby('choferesleagaslnf.apellido')->get();
-       }
-   }
             $datos->each(function($datos){
             $datos->linea;
             $datos->choferleagaslnf;
@@ -923,7 +909,7 @@ public function exportarserviciosexcel(Request $request)
         $hojaactiva->setCellValue('E1', 'LINEA');
         $hojaactiva->setCellValue('F1', 'INTERNO');
         $hojaactiva->setCellValue('G1', 'SERVICIO');
-        $hojaactiva->setCellValue('H1', 'TURNO');
+        $hojaactiva->setCellValue('H1', 'RAMAL');
         $hojaactiva->setCellValue('I1', 'CANT. PAX');
         $hojaactiva->setCellValue('J1', 'RECAUDACION');
         $hojaactiva->setCellValue('K1', 'HORAST');

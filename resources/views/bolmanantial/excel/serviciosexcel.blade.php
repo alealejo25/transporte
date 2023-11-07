@@ -40,20 +40,12 @@
                                     @endforeach
                                     </select>
                                 </div>
-                                <div class="col-sm-12 col-md-2 col-lg-2">Seleccione Chofer
-                                     <select name="chofer_id" id="chofer" class="form-control">
-                                     <option value="">Seleccione un Chofer</option>
-                                    @foreach ($choferleagaslnf as $datos)
-                                        <option value="{{$datos->id}}" >Legajo: {{$datos->legajo}} - {{$datos->apellido}}, {{$datos->nombre}}</option>                    
-            
-                                    @endforeach
-                                    </select>
-                                </div>
+
                             </div>
                             <div>
 		                        <div class="col-sm-12 col-md-2 col-lg-2"> 
                                     <div class="form-group">      
-                                        <button type="submit" class="btn btn-info mt-4 mobile-only">Ver</button>
+                                        <button type="submit" class="btn btn-info mt-4 mobile-only">Exportar Excel</button>
                                     </div>
 		                        </div>
             		        </div>

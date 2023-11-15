@@ -35,7 +35,7 @@
 				</div>
 				<div class="form-group col-lg-3 col-md-3 col-sm-12">
 					<label for="fecha">Fecha</label>
-					<input type="date" step=0.01 name="fecha" class="form-control" value="{{$fecha}}" required> 
+					<input type="date" name="fecha" class="form-control" min="2023-11-01" max="2024-12-31" required> 
 					
 				</div>
 				<div class="form-group col-lg-3 col-md-3 col-sm-12">

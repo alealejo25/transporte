@@ -217,6 +217,8 @@ class ExportarExcelController extends Controller
              $cantidad=count($datos122);
         $i=0;
 
+        //dd($datos122);
+
         // para llenar el gasoil en la tabla
        $gasoil122=Gasoil::select('gasoil.l122total','gasoil.fecha')->where('empresa_id',1)->whereBetween('fecha',[$fi, $ff])->get(); 
         foreach($gasoil122 as $indice => $descripcion)
@@ -271,9 +273,10 @@ class ExportarExcelController extends Controller
         $datos131=BoletoLeagas::select('boletosleagas.fecha','cochesboletos.id','lineas.empresa_id')->selectRaw('SUM(cochesboletos.cantpasajes) as pasajestotal')->selectRaw('SUM(gasoiltotal) as gasoiltotal')->selectRaw('count(DISTINCT boletosleagas.id) as ids')->selectRaw('count(DISTINCT cochesboletos.coche_id) as idcoches')->join('cochesboletos','boletosleagas.id','=','cochesboletos.boletosleagas_id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->where('lineas.numero',131)->whereBetween('fecha',[$fi, $ff])->groupBy('boletosleagas.fecha')->orderby('boletosleagas.fecha')->get();
              $cantidad=count($datos131);
         $i=0;
-
+        
         // para llenar el gasoil en la tabla
-       $gasoil131=Gasoil::select('gasoil.l131total','gasoil.fecha')->where('empresa_id',1)->whereBetween('fecha',[$fi, $ff])->get(); 
+       $gasoil131=Gasoil::select('gasoil.l131total','gasoil.fecha')->where('empresa_id',1)->whereBetween('fecha',[$fi, $ff])->get();
+       
         foreach($gasoil131 as $indice => $descripcion)
         {
             foreach($datos131 as $indice131 => $datos)
@@ -293,6 +296,7 @@ class ExportarExcelController extends Controller
                 }
             }
         }
+ $i=0;
         //////////////////// termina de poner el gasoil en la tabla
         if($cantidad==0){
             $datos131=0;
@@ -300,7 +304,7 @@ class ExportarExcelController extends Controller
         else{
             while($cantidad>$i){
                 $hojaactiva131->getColumnDimension('A')->setWidth(18);
-                $hojaactiva131->setCellValue('A'.$fila, $date("d/m/Y",strtotime($datos131[$i]->fecha)));
+                $hojaactiva131->setCellValue('A'.$fila, date("d/m/Y",strtotime($datos131[$i]->fecha)));
                 $hojaactiva131->getColumnDimension('B')->setWidth(10);
                 $hojaactiva131->setCellValue('B'.$fila, $datos131[$i]->pasajestotal);
                 $hojaactiva131->getColumnDimension('C')->setWidth(10);

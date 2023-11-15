@@ -91,11 +91,11 @@ class BolManantialController extends Controller
        // $servicioleagaslnf=ServicioLeagasLnf::orderBy('nombre','ASC')->pluck('nombre','id');
         $coche=Coche::where('empresa_id',2)->orderBy('interno','ASC')->get();
         $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
-              $fecha=null;
+        //      $fecha=null;
 
         return view('bolmanantial.boletos.create')
                ->with('linea',$linea)
-                ->with('fecha',$fecha)
+        //        ->with('fecha',$fecha)
                ->with('choferleagaslnf',$choferleagaslnf)
                ->with('servicioleagaslnf',$servicioleagaslnf)
                ->with('empresa',2)
@@ -107,7 +107,6 @@ class BolManantialController extends Controller
         //--------- ESTO ES PARA LOS SERVICIOS DE LA NUEVA FOUNUIER ------------//
         $linea=Linea::where('empresa_id',1)->orderBy('numero','ASC')->get();
 
-        //$choferleagaslnf=ChoferLeagaslnf::orderBy('nombre','ASC')->pluck('nombre','id');
         $choferleagaslnf=ChoferLeagaslnf::where('empresa_id',1)->orderBy('legajo','ASC')->get();
         $servicioleagaslnf=ServicioLeagasLnf::where('empresa_id',1)->orderBy('numero','ASC')->get();
         $servicioleagaslnf->each(function($servicioleagaslnf){
@@ -115,15 +114,14 @@ class BolManantialController extends Controller
             $servicioleagaslnf->ramal;
             $servicioleagaslnf->empresa;
        });
-       // $servicioleagaslnf=ServicioLeagasLnf::orderBy('nombre','ASC')->pluck('nombre','id');
         $coche=Coche::where('empresa_id',1)->orderBy('interno','ASC')->get();
         $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
        
-       $fecha=null;
+       //$fecha=null;
 
         return view('bolmanantial.boletos.create')
                ->with('linea',$linea)
-               ->with('fecha',$fecha)
+         //      ->with('fecha',$fecha)
                ->with('choferleagaslnf',$choferleagaslnf)
                ->with('servicioleagaslnf',$servicioleagaslnf)
                 ->with('empresa',1)

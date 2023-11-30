@@ -123,7 +123,14 @@ class ExportarExcelController extends Controller
                         $datos->promcoches=0;
                     }
                     else{
-                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        if($datos->pasajestotal==0 || $datos->pasajestotal==null)
+                        {
+                            $datos->prompax=0;
+                        }
+                        else
+                        {
+                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;         
+                        }
                         $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                         $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;
                     }
@@ -176,7 +183,14 @@ class ExportarExcelController extends Controller
                         $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        if($datos->pasajestotal==0 || $datos->pasajestotal==null)
+                        {
+                            $datos->prompax=0;
+                        }
+                        else
+                        {
+                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;         
+                        }
                     $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                     $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
@@ -233,7 +247,14 @@ class ExportarExcelController extends Controller
                         $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        if($datos->pasajestotal==0 || $datos->pasajestotal==null)
+                        {
+                            $datos->prompax=0;
+                        }
+                        else
+                        {
+                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;         
+                        }
                     $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                     $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
@@ -289,7 +310,14 @@ class ExportarExcelController extends Controller
                         $datos->promcoches=0;
                     }
                     else{
-                    $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        if($datos->pasajestotal==0 || $datos->pasajestotal==null)
+                        {
+                            $datos->prompax=0;
+                        }
+                        else
+                        {
+                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;         
+                        }
                     $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                     $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;    
                     }
@@ -383,7 +411,14 @@ class ExportarExcelController extends Controller
                         $datos->promcoches=0;
                     }
                     else{
-                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        if($datos->pasajestotal==0 || $datos->pasajestotal==null)
+                        {
+                            $datos->prompax=0;
+                        }
+                        else
+                        {
+                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;         
+                        }
                         $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                         $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;
                     }
@@ -437,7 +472,15 @@ class ExportarExcelController extends Controller
                         $datos->promcoches=0;
                     }
                     else{
-                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        if($datos->pasajestotal==0 || $datos->pasajestotal==null)
+                        {
+                            $datos->prompax=0;
+                        }
+                        else
+                        {
+                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;         
+                        }
+
                         $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                         $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;
                     }
@@ -489,7 +532,15 @@ class ExportarExcelController extends Controller
                         $datos->promcoches=0;
                     }
                     else{
-                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;
+                        if($datos->pasajestotal==0 || $datos->pasajestotal==null)
+                        {
+                            $datos->prompax=0;
+                        }
+                        else
+                        {
+                        $datos->prompax=$datos->gasoiltotal/$datos->pasajestotal;         
+                        }
+
                         $datos->promservicios=$datos->gasoiltotal/$datos->ids;
                         $datos->promcoches=$datos->gasoiltotal/$datos->idcoches;
                     }

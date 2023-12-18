@@ -43,7 +43,7 @@ class BolManantialController extends Controller
     {
 
 
-        $datos=DB::table('vistaserviciosleagas')->select('*')->orderBy('fecha','DESC')->get();
+        $datos=DB::table('vistaserviciosleagas')->select('*')->orderBy('fecha','asc')->get();
         return view('bolmanantial.boletos.index')
             ->with('datos',$datos);
 

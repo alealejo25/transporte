@@ -28,6 +28,8 @@ Route::get('/afip/react', function () {
 Route::get('/afip/prueba','ReporteController@prueba')->name('prueba');
 Route::get('/afip/indexafip','ReporteController@indexafip')->name('indexafip');
 
+Route::get('/json','ReporteController@json')->name('json');
+
 //para inicio del login
 Auth::routes(['register'=>false,'reset'=>false]);
 

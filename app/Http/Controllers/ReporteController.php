@@ -23,7 +23,7 @@ use App\Boleteria122;
 use App\Boleteria122Detalle;
 use  DB;
 use Afip;
-
+use Illuminate\Support\Facades\Http;
 
 use Dompdf\Dompdf;
 
@@ -39,57 +39,24 @@ class ReporteController extends Controller
 
 //reporte de ctas ctes por fecha de clientes
 
-public function indexafip(Request $request)
+public function json(Request $request)
     {
+$jsonContents = file_get_contents(storage_path('app/db.json'));
+
+$products = json_decode($jsonContents, true);
 
  
-    $data = array(
-    'CantReg'       => 1, // Cantidad de comprobantes a registrar
-    'PtoVta'        => 4, // Punto de venta
-    'CbteTipo'      => 11, // Tipo de comprobante (ver tipos disponibles) 
-    'Concepto'      => 2, // Concepto del Comprobante: (1)Productos, (2)Servicios, (3)Productos y Servicios
-    'DocTipo'       => 96, // Tipo de documento del comprador (ver tipos disponibles)
-    'DocNro'        => 8082703, // Numero de documento del comprador
-    'CbteDesde'     => 3, // Numero de comprobante o numero del primer comprobante en caso de ser mas de uno
-    'CbteHasta'     => 3, // Numero de comprobante o numero del ultimo comprobante en caso de ser mas de uno
-    'CbteFch'       => intval(date('Ymd')), // (Opcional) Fecha del comprobante (yyyymmdd) o fecha actual si es nulo
-    'ImpTotal'      => 2, // Importe total del comprobante
-    'ImpTotConc'    => 0, // Importe neto no gravado
-    'ImpNeto'       => 2, // Importe neto gravado
-    'ImpOpEx'       => 0, // Importe exento de IVA
-    'ImpIVA'        => 0, //Importe total de IVA
-    'ImpTrib'       => 0, //Importe total de tributos
-    'FchServDesde'  => 20220501, // (Opcional) Fecha de inicio del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-    'FchServHasta'  => 20220510, // (Opcional) Fecha de fin del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-    'FchVtoPago'    => 20230810, // (Opcional) Fecha de vencimiento del servicio (yyyymmdd), obligatorio para Concepto 2 y 3
-    'MonId'         => 'PES', //Tipo de moneda usada en el comprobante (ver tipos disponibles)('PES' para pesos argentinos) 
-    'MonCotiz'      => 1, // Cotización de la moneda usada (1 para pesos argentinos)  
-   
-  /*  'Tributos'      => array( // (Opcional) Tributos asociados al comprobante
-        array(
-            'Id'        =>  99, // Id del tipo de tributo (ver tipos disponibles) 
-            'Desc'      => 'Ingresos Brutos', // (Opcional) Descripcion
-            'BaseImp'   => 150, // Base imponible para el tributo
-            'Alic'      => 5.2, // Alícuota
-            'Importe'   => 0 // Importe del tributo
-        )
-    ), 
-    
-    'Opcionales'    => array( // (Opcional) Campos auxiliares
-        array(
-            'Id'        => 17, // Codigo de tipo de opcion (ver tipos disponibles) 
-            'Valor'     => 2 // Valor 
-        )
-    ), */
-    
-);
-//dd($data);
-$afip = new Afip([
-'CUIT'=> '23273645039', //<-- ojo ahi!
-'production' => true
-]);
 
-$res = $afip->ElectronicBilling->CreateNextVoucher($data);
+foreach ($products as $product) {
+
+    echo '<pre>';
+
+    print_r($product);
+
+    echo '</pre>';
+
+}
+
 
 }
 

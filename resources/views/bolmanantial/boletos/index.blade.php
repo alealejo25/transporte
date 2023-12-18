@@ -37,31 +37,30 @@
 				</thead>
                @foreach ($datos as $dato)
 				<tr>
-					<td>{{ $dato->num}}</td>
+					<td>{{ $dato->numeroboletosleagas}}</td>
 					<td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
-					<td style="width:230px;">{{$dato->apellido}}, {{ $dato->nombrechofer}} </td>
-					<td style="width:50px;">{{ $dato->linea->numero}}</td>
+					<td style="width:230px;">{{$dato->chofer}}</td>
+					<td style="width:50px;">{{ $dato->linea}}</td>
 					<td style="width:50px;">{{ $dato->interno}}</td>
-					<td style="width:50px;">{{ $dato->numero}}</td>
-					<td style="width:135px;">{{ $dato->nombre}}</td>
-					<td align="right">{{ $dato->cantpasajes}}</td>
+					<td style="width:50px;">{{ $dato->servicio}}</td>
+					<td style="width:135px;">{{ $dato->turno}}</td>
+					<td align="right">{{ $dato->pax}}</td>
 					<td style="width:105px;" align="right">$ {{number_format($dato->recaudacion,2,",",".")}}</td>
-					<!--<td align="right">{{ $dato->horainicio}}</td>
-					<td align="right">{{ $dato->horafin}}</td>-->
+					
 					<td align="right">{{ $dato->horastotal}}</td>
 					<td align="right">{{ $dato->horassobrantes}}</td>
 						<td align="right">{{ $dato->horastotalalargue}}</td>
 						<td style="width:50px;">{{ $dato->motivo_cambio}}</td>
 <td>
 						
-						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id_boleto.'/modificarservicio')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a>
+						<a href="{{url('bolmanantial/boletoleagas/'.$dato->idboletosleagas.'/modificarservicio')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a>
 						
-						<a href="{{url('bolmanantial/boletos/'.$dato->id_boleto.'/cargargasoil')}}"><button class="btn btn-success"><i class="fa fa-bus" aria-hidden="true" title="Cargar Gasoil"></i></button></a>
+						<a href="{{url('bolmanantial/boletos/'.$dato->idboletosleagas.'/cargargasoil')}}"><button class="btn btn-success"><i class="fa fa-bus" aria-hidden="true" title="Cargar Gasoil"></i></button></a>
 						@can('borrarservicio')
-						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id_boleto.'/modificarservicio')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a>
+						<a href="{{url('bolmanantial/boletoleagas/'.$dato->idboletosleagas.'/modificarservicio')}}"><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a>
 						@endcan
-						<!-- <a href="{{url('bolmanantial/boletos/'.$dato->id_boleto.'/cargargasoil')}}"><button class="btn btn-success"><i class="fa fa-bus" aria-hidden="true" title="Cargar Gasoil"></i></button></a> -->
-						<a href="{{url('bolmanantial/boletoleagas/'.$dato->id_boleto.'/informeboletoleagas')}}"><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a>
+						<!-- <a href="{{url('bolmanantial/boletos/'.$dato->idboletosleagas.'/cargargasoil')}}"><button class="btn btn-success"><i class="fa fa-bus" aria-hidden="true" title="Cargar Gasoil"></i></button></a> -->
+						<a href="{{url('bolmanantial/boletoleagas/'.$dato->idboletosleagas.'/informeboletoleagas')}}"><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a>
 					</td>
 						
 					</td>

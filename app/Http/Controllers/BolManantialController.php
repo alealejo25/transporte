@@ -42,18 +42,21 @@ class BolManantialController extends Controller
  public function index(Request $request)
     {
  
-        $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',2)->orderBy('num','DESC')->get();
-        $datos->each(function($datos){
-             $datos->linea;
-             $datos->choferleagaslnf;
-             $datos->servicioleagaslnf;
+        // $datos=BoletoLeagas::select('coches.interno','choferesleagaslnf.apellido as apellido','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.fecha as fecha','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',2)->orderBy('num','DESC')->get();
+        // $datos->each(function($datos){
+        //      $datos->linea;
+        //      $datos->choferleagaslnf;
+        //      $datos->servicioleagaslnf;
 
-        });
+        // });
 
-
-
+        $datos=DB::table('vistaserviciosleagas')->select('*')->get();
         return view('bolmanantial.boletos.index')
             ->with('datos',$datos);
+
+
+
+          /*  $datos=BoletoLeagas::select('coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',2)->orderBy('num','DESC')->get();*/
     }
 
     public function indexlnf(Request $request)

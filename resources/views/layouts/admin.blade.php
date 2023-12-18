@@ -717,6 +717,14 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
   $(document).ready(function () {
     $('#tabla').DataTable({
       "pageLength": 50,
+       "paging": true,
+    "lengthChange": false,
+    "searching": true,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false,
+    "serverSide": true, // Habilita el modo servidor
+    "ajax": "/url/to/server-side-script", // URL del script de servidor para procesar las solicitudes DataTables
       "language":{
         "decimal": "",
         "search": "Buscar", 

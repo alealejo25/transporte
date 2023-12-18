@@ -724,7 +724,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
     "info": true,
     "autoWidth": false,
     "serverSide": true, // Habilita el modo servidor
-    "ajax": "/url/to/server-side-script", // URL del script de servidor para procesar las solicitudes DataTables
+   /* "ajax": "/url/to/server-side-script", // URL del script de servidor para procesar las solicitudes DataTables*/
       "language":{
         "decimal": "",
         "search": "Buscar", 

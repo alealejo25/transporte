@@ -18,8 +18,8 @@
 		<div class="table-responsive ">
 			<table id="tabla" class="table table-striped table-bordered table-condensed table-hover">
 				<thead>
-					<th>Num Planilla</th>
 					<th>Fecha</th>
+					<th>Num Planilla</th>
 					<th>Chofer</th>
 					<th>Linea</th>
 					<th>Interno</th>
@@ -37,8 +37,8 @@
 				</thead>
                @foreach ($datos as $dato)
 				<tr>
-					<td>{{ $dato->numeroboletosleagas}}</td>
 					<td>{{date('d-m-Y', strtotime($dato->fecha))}}</td>
+					<td>{{ $dato->numeroboletosleagas}}</td>
 					<td style="width:230px;">{{$dato->chofer}}</td>
 					<td style="width:50px;">{{ $dato->linea}}</td>
 					<td style="width:50px;">{{ $dato->interno}}</td>

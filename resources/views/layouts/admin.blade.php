@@ -720,7 +720,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
        "paging": true,
     "lengthChange": false,
     "searching": true,
-    "ordering": true,
+    /*"ordering": true,*/
     "info": true,
     "autoWidth": false,
    /* "serverSide": true, // Habilita el modo servidor

@@ -719,7 +719,6 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
     $('#miTabla').DataTable({
         "processing": true,
         "serverSide": true,
-        //"ajax": "{{ route('data.get') }}",
         "ajax": {
             "url": "{{ route('data.get') }}",
             "type": "GET",
@@ -742,18 +741,8 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
             { "data": "horastotal" },
             { "data": "horassobrantes" },
             { "data": "horastotalalargue" },
-            { "data": "motivo_cambio" },
-            //{ "data": "action", "orderable": false, "searchable": false } // Columna de acción
-            // Agrega más columnas según sea necesario
-            { 
-                "data": "id",
-                "render": function (data, type, row, meta) {
-                    // Utiliza el ID para crear el botón de acción
-                    return '<a href=/bolmanantial/boletos/'+data+'/cargargasoil><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a>';
-                },
-                "orderable": false,
-                "searchable": false
-            }
+            { "data": "motivo_cambio" }
+            
         ]
     });
 

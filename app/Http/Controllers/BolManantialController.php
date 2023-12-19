@@ -41,8 +41,6 @@ class BolManantialController extends Controller
 
  public function index(Request $request)
     {
-
-
         $datos=DB::table('vistaserviciosleagas')->select('*')->orderBy('id','desc')->get();
         return view('bolmanantial.boletos.index')
             ->with('datos',$datos);
@@ -55,7 +53,11 @@ class BolManantialController extends Controller
     public function indexlnf(Request $request)
     {
  
-        $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',1)->orderBy('num','DESC')->get();
+         $datos=DB::table('vistaservicioslnf')->select('*')->orderBy('id','desc')->get();
+        return view('bolmanantial.boletos.index')
+            ->with('datos',$datos);
+
+     /*   $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',1)->orderBy('num','DESC')->get();
 
         //dd($datos);
         $datos->each(function($datos){
@@ -64,7 +66,7 @@ class BolManantialController extends Controller
              $datos->servicioleagaslnf;
 
         });
-        //dd($datos);
+        //dd($datos);*/
 
         return view('bolmanantial.boletos.indexlnf')
             ->with('datos',$datos);

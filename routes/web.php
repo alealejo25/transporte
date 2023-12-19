@@ -22,6 +22,10 @@ use Illuminate\Support\Facades\Route;
 //     return view('index');
 // });
 
+/* probando mejorar el DATATABLE*/
+Route::get('data', 'BolManantialController@getData')->name('data.get');
+/*-------------------------------------------*/
+
 Route::get('/afip/react', function () {
      return view('/afip/react');
  });

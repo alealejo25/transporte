@@ -715,6 +715,51 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
   $(document).ready(function () {
+    
+    $('#miTabla').DataTable({
+        "processing": true,
+        "serverSide": true,
+        //"ajax": "{{ route('data.get') }}",
+        "ajax": {
+            "url": "{{ route('data.get') }}",
+            "type": "GET",
+            "data": function (d) {
+                // Agregar datos adicionales a la solicitud
+                d.myCustomParam = 'valor'; // Puedes agregar más parámetros según sea necesario
+            }
+        },
+        "columns": [
+            { "data": "id" },
+            { "data": "fecha" },
+            { "data": "numeroboletosleagas" },
+            { "data": "chofer" },
+            { "data": "linea" },
+            { "data": "interno" },
+            { "data": "servicio" },
+            { "data": "turno" },
+            { "data": "pax" },
+            { "data": "recaudacion" },
+            { "data": "horastotal" },
+            { "data": "horassobrantes" },
+            { "data": "horastotalalargue" },
+            { "data": "motivo_cambio" },
+            //{ "data": "action", "orderable": false, "searchable": false } // Columna de acción
+            // Agrega más columnas según sea necesario
+            { 
+                "data": "id",
+                "render": function (data, type, row, meta) {
+                    // Utiliza el ID para crear el botón de acción
+                    return '<a href=/bolmanantial/boletos/'+data+'/cargargasoil><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a>';
+                },
+                "orderable": false,
+                "searchable": false
+            }
+        ]
+    });
+
+
+
+
     $('#tabla').DataTable({
       "order":[[0,"desc"]],
      "pageLength": 100,

@@ -31,12 +31,25 @@ use App\Exports\GasOilExport;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-
+use Yajra\DataTables\DataTables;
 
 class BolManantialController extends Controller
 {
 
+public function getData()
+{
+    //$users = User::select(['id', 'name', 'email', 'created_at']);
+    $datos=DB::table('vistaserviciosleagas')->select('*');
 
+    return Datatables::of($datos)
+    ->addColumn('action', function ($user) {
+          
+            // Puedes agregar botones de acción aquí, como editar o eliminar
+            return '<button class="btn btn-sm btn-info">Editar</button>';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+}
 
 
  public function index(Request $request)
@@ -54,7 +67,7 @@ class BolManantialController extends Controller
     {
  
          $datos=DB::table('vistaservicioslnf')->select('*')->orderBy('id','desc')->get();
-        return view('bolmanantial.boletos.index')
+        return view('bolmanantial.boletos.indexlnf')
             ->with('datos',$datos);
 
      /*   $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',1)->orderBy('num','DESC')->get();

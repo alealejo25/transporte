@@ -717,7 +717,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
   $(document).ready(function () {
     $('#tabla').DataTable({
       "order":[[0,"desc"]],
-     "pageLength": 10,
+     "pageLength": 100,
        "paging": true,
     "lengthChange": false,
     "searching": true,

@@ -783,7 +783,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 "data": "id",
                 "render": function (data, type, row, meta) {
                     // Utiliza el ID para crear el botón de acción
-                    return '<a href=/bolmanantial/boletos/'+data+'/cargargasoil><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a> <a href=/bolmanantial/boletos/'+data+'/modificarservicio><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a>';
+                    return '<a href=/bolmanantial/boletos/'+data+'/modificarservicio><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a> <a href=/bolmanantial/boletos/'+data+'/informeboletoleagas><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a>';
                 },
                 "orderable": false,
                 "searchable": false

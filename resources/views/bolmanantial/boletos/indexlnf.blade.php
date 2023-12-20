@@ -19,23 +19,21 @@
 			<table id="miTabla" class="table table-striped table-bordered table-condensed table-hover">
 			  <thead>
         <tr>
-            	<th>ID</th>
-						<th>Fecha</th>
-					<th>Num Planilla</th>
+          <th>ID</th>
+					<th style="width: 70px;">Fecha</th>
+					<th>Planilla</th>
 					<th>Chofer</th>
 					<th>Linea</th>
 					<th>Interno</th>
 					<th>Serv.</th>
 					<th>Turno</th>
 					<th>Pax</th>
-					<th>Recaudacion</th>
+					<th>Rec.</th>
 					<th>horaT</th>
 					<th>horaS</th>
 					<th>HoraA</th>
 					<th>Cambio</th>
-					
-
-					<th>Opciones</th>
+					<th style="width: 100px;">Operaciones</th>
         </tr>
     </thead>
     <tbody>

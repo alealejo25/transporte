@@ -711,25 +711,62 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
     <!-- Select2 -->
     <script src="{{asset('assets/lte/select2/dist/js/select2.min.js')}}"></script>
     <!--<script src="{{asset('js/alertify.js')}}"></script>-->
-    
+    <!-- para las fechas de ajax -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
   $(document).ready(function () {
     
     $('#miTabla').DataTable({
-        "processing": true,
-        "serverSide": true,
-        "ajax": {
-            "url": "{{ route('data.get') }}",
-            "type": "GET",
-            "data": function (d) {
-                // Agregar datos adicionales a la solicitud
-                d.myCustomParam = 'valor'; // Puedes agregar más parámetros según sea necesario
+       "order":[[0,"desc"]],
+       "pageLength": 100,
+       "paging": true,
+       "lengthChange": false,
+       "searching": true,
+       "ordering": true,
+        "info": true,
+       "autoWidth": false,
+       "processing": true,
+        "language":{
+            "decimal": "",
+            "search": "Buscar", 
+            "emptyTable": "No hay información",
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 de 0 de 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "processing": "Procesando...",
+            "loadingRecords": "Cargando...",
+            "zeroRecords": "Sin resultados encontrados",
+            "infoPostFix": "",
+            "thousands": ",",
+            "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente",
+                    "first": "Primero",
+                    "last": "Ultimo"
+
             }
-        },
+          },
+       "serverSide": true,
+       "ajax": {
+                "url": "{{ route('data.get') }}",
+                "type": "GET",
+                  "data": function (d) {
+                  // Agregar datos adicionales a la solicitud
+                  d.myCustomParam = 'valor'; // Puedes agregar más parámetros según sea necesario
+                 } 
+              },
+
+
         "columns": [
             { "data": "id" },
-            { "data": "fecha" },
+            { "data": "fecha",
+              "render": function (data, type, row) {
+              // Formatea la fecha utilizando la librería moment.js
+                    return moment(data).format('DD-MM-YYYY');
+              }
+            },
             { "data": "numeroboletosleagas" },
             { "data": "chofer" },
             { "data": "linea" },
@@ -746,12 +783,40 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 "data": "id",
                 "render": function (data, type, row, meta) {
                     // Utiliza el ID para crear el botón de acción
-                    return '<a href=/bolmanantial/boletos/'+data+'/cargargasoil><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a>';
+                    return '<a href=/bolmanantial/boletos/'+data+'/cargargasoil><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a> <a href=/bolmanantial/boletos/'+data+'/modificarservicio><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a>';
                 },
                 "orderable": false,
                 "searchable": false
             }
-        ]
+        ],
+        "columnDefs": [
+            {
+                "targets": 2, // Alinear la primera columna PLANILLA
+                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+            },
+            {
+                "targets": 4, // Alinear la primera columna LINEA
+                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+            },
+                        {
+                "targets": 5, // Alinear la primera columna INTERNO
+                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+            },
+                        {
+                "targets": 6, // Alinear la primera columna sERV
+                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+            },
+                        {
+                "targets": 8, // Alinear la primera columna PAX
+                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+            },
+                        {
+                "targets": 9, // Alinear la primera columna RECAUDACION
+                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+            },
+            ]
+        
+
     });
 
 

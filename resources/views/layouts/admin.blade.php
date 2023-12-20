@@ -774,7 +774,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
             { "data": "servicio" },
             { "data": "turno" },
             { "data": "pax" },
-            { "data": "recaudacion" },
+            { "data": "recaudacion"},
             { "data": "horastotal" },
             { "data": "horassobrantes" },
             { "data": "horastotalalargue" },
@@ -812,8 +812,24 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
             },
                         {
                 "targets": 9, // Alinear la primera columna RECAUDACION
-                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+                //"className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+                "render": function (data, type, row) {
+                    // Formatea el contenido como moneda
+                    return '$' + parseFloat(data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');}
             },
+
+            {
+                "targets": 13, // Índice de la columna "estado"
+                "render": function (data, type, row) {
+                    // Aplica un formato condicional basado en el valor de "estado"
+                    if (data === null) {
+                        return '<span style="color: green;">SIN CAMBIO</span>';
+                    } else {
+                        return '<span style="color: red;">' + data + '</span>';
+                        
+                    }
+                }
+            }
             ]
         
 

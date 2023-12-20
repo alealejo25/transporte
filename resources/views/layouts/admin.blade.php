@@ -810,7 +810,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 "targets": 8, // Alinear la primera columna PAX
                 "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
             },
-                        {
+              {
                 "targets": 9, // Alinear la primera columna RECAUDACION
                 //"className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
                 "render": function (data, type, row) {
@@ -819,18 +819,24 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
             },
 
             {
-                "targets": 13, // Índice de la columna "estado"
+                "targets": 13, // Índice de la columna "CAMBIO"
                 "render": function (data, type, row) {
-                    // Aplica un formato condicional basado en el valor de "estado"
+                    // Aplica un formato condicional basado en el valor de "CAMBIO"
                     if (data === null) {
                         return '<span style="color: green;">SIN CAMBIO</span>';
                     } else {
                         return '<span style="color: red;">' + data + '</span>';
-                        
                     }
                 }
             }
-            ]
+            ],
+        "createdRow": function (row, data, dataIndex) {
+            // Aplica un formato condicional a la fila basándote en el valor de "estado"
+            if (data.motivo_cambio != null) {
+                $(row).css('background-color', 'lightgreen');
+            }
+            // Puedes agregar más condiciones y colores según tus necesidades
+        }
         
 
     });

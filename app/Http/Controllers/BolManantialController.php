@@ -39,7 +39,7 @@ class BolManantialController extends Controller
 public function getData()
 {
     //$users = User::select(['id', 'name', 'email', 'created_at']);
-    $datos=DB::table('vistaserviciosleagas')->select('*');
+    $datos=DB::table('vistaservicioslnf')->select('*');
 
     return Datatables::of($datos)
     ->addColumn('action', function ($user) {
@@ -53,7 +53,7 @@ public function getData()
 public function getDataLeagas()
 {
     //$users = User::select(['id', 'name', 'email', 'created_at']);
-    $datos=DB::table('vistaservicioslnf')->select('*');
+    $datos=DB::table('vistaserviciosleagas')->select('*');
 
     return Datatables::of($datos)
     ->addColumn('action', function ($user) {

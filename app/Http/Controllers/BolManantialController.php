@@ -50,6 +50,20 @@ public function getData()
         ->rawColumns(['action'])
         ->make(true);
 }
+public function getDataLeagas()
+{
+    //$users = User::select(['id', 'name', 'email', 'created_at']);
+    $datos=DB::table('vistaservicioslnf')->select('*');
+
+    return Datatables::of($datos)
+    ->addColumn('action', function ($user) {
+          
+            // Puedes agregar botones de acción aquí, como editar o eliminar
+            return '<button class="btn btn-sm btn-info">Editar</button>';
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+}
 
 
  public function index(Request $request)

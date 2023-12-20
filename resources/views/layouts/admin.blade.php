@@ -841,6 +841,134 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
 
     });
 
+ $('#miTablaLeagas').DataTable({
+       "order":[[0,"desc"]],
+       "pageLength": 100,
+       "paging": true,
+       "lengthChange": false,
+       "searching": true,
+       "ordering": true,
+        "info": true,
+       "autoWidth": false,
+       "processing": true,
+        "language":{
+            "decimal": "",
+            "search": "Buscar", 
+            "emptyTable": "No hay información",
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "info": "Mostrando _START_ a _END_ de _TOTAL_ Entradas",
+            "infoEmpty": "Mostrando 0 de 0 de 0 Entradas",
+            "infoFiltered": "(Filtrado de _MAX_ total entradas)",
+            "processing": "Procesando...",
+            "loadingRecords": "Cargando...",
+            "zeroRecords": "Sin resultados encontrados",
+            "infoPostFix": "",
+            "thousands": ",",
+            "paginate": {
+                    "previous": "Anterior",
+                    "next": "Siguiente",
+                    "first": "Primero",
+                    "last": "Ultimo"
+
+            }
+          },
+       "serverSide": true,
+       "ajax": {
+                "url": "{{ route('dataleagas.get') }}",
+                "type": "GET",
+                  "data": function (d) {
+                  // Agregar datos adicionales a la solicitud
+                  d.myCustomParam = 'valor'; // Puedes agregar más parámetros según sea necesario
+                 } 
+              },
+
+
+        "columns": [
+            { "data": "id" },
+            { "data": "fecha",
+              "render": function (data, type, row) {
+              // Formatea la fecha utilizando la librería moment.js
+                    return moment(data).format('DD-MM-YYYY');
+              }
+            },
+            { "data": "numeroboletosleagas" },
+            { "data": "chofer" },
+            { "data": "linea" },
+            { "data": "interno" },
+            { "data": "servicio" },
+            { "data": "turno" },
+            { "data": "pax" },
+            { "data": "recaudacion"},
+            { "data": "horastotal" },
+            { "data": "horassobrantes" },
+            { "data": "horastotalalargue" },
+            { "data": "motivo_cambio" },
+            { 
+                "data": "id",
+                "render": function (data, type, row, meta) {
+                    // Utiliza el ID para crear el botón de acción
+                    return '<a href=/bolmanantial/boletos/'+data+'/modificarservicio><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a> <a href=/bolmanantial/boletos/'+data+'/informeboletoleagas><button class="btn btn-danger"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a>';
+                },
+                "orderable": false,
+                "searchable": false
+            }
+        ],
+        "columnDefs": [
+            {
+                "targets": 2, // Alinear la primera columna PLANILLA
+                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+            },
+            {
+                "targets": 4, // Alinear la primera columna LINEA
+                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+            },
+                        {
+                "targets": 5, // Alinear la primera columna INTERNO
+                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+            },
+                        {
+                "targets": 6, // Alinear la primera columna sERV
+                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+            },
+                        {
+                "targets": 8, // Alinear la primera columna PAX
+                "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+            },
+              {
+                "targets": 9, // Alinear la primera columna RECAUDACION
+                //"className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
+                "render": function (data, type, row) {
+                    // Formatea el contenido como moneda
+                    return '$' + parseFloat(data).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');}
+            },
+
+            {
+                "targets": 13, // Índice de la columna "CAMBIO"
+                "render": function (data, type, row) {
+                    // Aplica un formato condicional basado en el valor de "CAMBIO"
+                    if (data === null) {
+                        return '<span style="color: green;">SIN CAMBIO</span>';
+                    } else {
+                        return '<span style="color: red;">' + data + '</span>';
+                    }
+                }
+            }
+            ],
+        "createdRow": function (row, data, dataIndex) {
+            // Aplica un formato condicional a la fila basándote en el valor de "estado"
+            if (data.motivo_cambio != null) {
+                $(row).css('background-color', 'lightgreen');
+            }
+            // Puedes agregar más condiciones y colores según tus necesidades
+        }
+        
+
+    });
+
+
+
+
+
 
 
 

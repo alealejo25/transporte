@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 /* probando mejorar el DATATABLE*/
 Route::get('data', 'BolManantialController@getData')->name('data.get');
+Route::get('dataleagas', 'BolManantialController@getDataLeagas')->name('dataleagas.get');
 /*-------------------------------------------*/
 
 Route::get('/afip/react', function () {

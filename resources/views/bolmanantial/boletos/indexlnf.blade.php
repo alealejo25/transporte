@@ -21,7 +21,7 @@
         <tr>
           <th>ID</th>
 					<th style="width: 70px;">Fecha</th>
-					<th>Planilla</th>
+					<th align="left">Planilla</th>
 					<th>Chofer</th>
 					<th>Linea</th>
 					<th>Interno</th>
@@ -35,6 +35,7 @@
 					<th>Cambio</th>
 					<th style="width: 100px;">Operaciones</th>
         </tr>
+        
     </thead>
     <tbody>
         <!-- Los datos se cargarán dinámicamente mediante DataTables -->

@@ -49,6 +49,9 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
 <!-- bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
@@ -481,8 +484,11 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                        @can('boletoslnf')
                       <li><a href="/bolmanantial/excel/asistenciaexcel"><i class="fa fa-circle-o"></i> Asistencia</a></li>
                       @endcan
-                       @can('boletoslnf')
+                      @can('boletoslnf')
                       <li><a href="/bolmanantial/excel/hstrabajadasexcel"><i class="fa fa-circle-o"></i> Hs trabajadas</a></li>
+                     @endcan
+                     @can('boletoslnf')
+                      <li><a href="/bolmanantial/excel/hsextrastrabajadasexcel"><i class="fa fa-circle-o"></i> Hs Extras trabajadas</a></li>
                      @endcan
                     </ul>
                   </li>

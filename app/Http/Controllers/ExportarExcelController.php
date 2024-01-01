@@ -603,7 +603,7 @@ class ExportarExcelController extends Controller
             ->with('choferleagaslnf',$choferleagaslnf);
        
     }
-    public function exportarhstrabajadasexcel(Request $request)
+ public function exportarhstrabajadasexcel(Request $request)
     {
   /*VALIDACION -----------------------------------------*/
             $campos=[
@@ -777,6 +777,144 @@ class ExportarExcelController extends Controller
         // redirect output to client browser
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="HsTrabajadas.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        }
+    }
+
+ public function hsextrastrabajadasexcel()
+    {
+        $choferleagaslnf=ChoferLeagaslnf::orderBy('legajo','ASC')->get();
+        $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
+        $linea=Linea::orderBy('numero','ASC')->pluck('numero','id');
+        return view('bolmanantial.excel.hsextrastrabajadasexcel')
+            ->with('empresa',$empresa)
+            ->with('linea',$linea)
+            ->with('choferleagaslnf',$choferleagaslnf);
+       
+    }
+     public function exportarhsextrastrabajadasexcel(Request $request)
+    {
+  /*VALIDACION -----------------------------------------*/
+            $campos=[
+            'fechai'=>'required',
+            'fechaf'=>'required',
+            'empresa_id'=>'required',
+            
+            'chofer_id'=>'required',
+        ];
+        $Mensaje=["required"=>'El :attribute es requerido'];
+        $this->validate($request,$campos,$Mensaje);
+
+        /*--------------------------------------------------------*/
+
+        $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
+        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
+        $i=0;
+        if($request->chofer_id=='TODOS'){
+         
+            $datos= BoletoLeagas::select('choferesleagaslnf.id as idchofer','choferesleagaslnf.legajo as legajo', 'choferesleagaslnf.apellido','choferesleagaslnf.nombre')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(boletosleagas.horassobrantes))) as sumhorassobrantes')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('empresa_id',$request->empresa_id)->whereBetween('fecha',[$fi, $ff])->groupby('choferesleagaslnf.id')->get();
+            $cantidad=count($datos);
+            
+            $spreadsheet = new Spreadsheet();
+            $hojaactiva = $spreadsheet->getActiveSheet();
+            $hojaactiva->setTitle('HS. Trabajadas');
+            $hojaactiva->setCellValue('A1', 'APELLIDO Y NOMBRE');
+            $hojaactiva->setCellValue('B1', 'LEGAJO');
+            $hojaactiva->setCellValue('C1', 'HS EXTRAS');
+
+        $fila=2;
+        $cantidad=count($datos);
+        while($cantidad>$i){
+            $hojaactiva->getColumnDimension('A')->setWidth(35);
+            $hojaactiva->setCellValue('A'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombre);
+            $hojaactiva->getColumnDimension('B')->setWidth(7);
+            $hojaactiva->setCellValue('B'.$fila, $datos[$i]->legajo);
+            $hojaactiva->setCellValue('C'.$fila, $datos[$i]->sumhorassobrantes);
+            $fila++;
+            $i++;
+        }
+
+
+             $writer = new Xlsx($spreadsheet);
+
+            // redirect output to client browser
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Content-Disposition: attachment;filename="HsExtrasTrabajadas.xlsx"');
+            header('Cache-Control: max-age=0');
+
+            $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+            $writer->save('php://output');
+        }
+        else
+        {
+        $datos=BoletoLeagas::select('turnos.nombre as nomturno','ramales.nombre as nomramal','serviciosleagaslnf.numero as numservicio','lineas.numero as numlinea','choferesleagaslnf.id as idchofer','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('lineas','boletosleagas.linea_id','=','lineas.id')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('ramales','serviciosleagaslnf.ramal_id','=','ramales.id')->where('boletosleagas.chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido','ASC')->orderby('boletosleagas.fecha','ASC')->get();
+
+
+
+            $datos1=BoletoLeagas::select('choferesleagaslnf.id as idchofer1','choferesleagaslnf.apellido','choferesleagaslnf.nombre','choferesleagaslnf.legajo','boletosleagas.fecha','boletosleagas.numero','boletosleagas.pasajestotal','boletosleagas.horastotal','boletosleagas.horassobrantes','boletosleagas.horastotalalargue','boletosleagas.alargue','boletosleagas.cortado','boletosleagas.doblenegro','boletosleagas.normal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(boletosleagas.horassobrantes))) as sumhorassobrantes')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->where('chofer_id',$request->chofer_id)->whereBetween('fecha',[$fi, $ff])->orderby('choferesleagaslnf.apellido')->orderby('boletosleagas.fecha','ASC')->get();
+
+
+
+            $spreadsheet = new Spreadsheet();
+            $hojaactiva = $spreadsheet->getActiveSheet();
+            $hojaactiva->setTitle('HS. Trabajadas');
+            $hojaactiva->setCellValue('A1', 'APELLIDO Y NOMBRE');
+            $hojaactiva->setCellValue('B1', 'LEGAJO');
+            $hojaactiva->setCellValue('C1', 'FECHA');
+            $hojaactiva->setCellValue('D1', 'PLANILLA');
+            $hojaactiva->setCellValue('E1', 'LINEA');
+            $hojaactiva->setCellValue('F1', 'SERVICIO');
+            $hojaactiva->setCellValue('G1', 'TOTAL PAX');
+            $hojaactiva->setCellValue('H1', 'HS TRABAJADAS');
+            $hojaactiva->setCellValue('I1', 'NORMAL');
+            $hojaactiva->setCellValue('J1', 'CORTADO');
+            $hojaactiva->setCellValue('K1', 'DOBLE');
+            $hojaactiva->setCellValue('L1', 'ALARGUE');
+            $hojaactiva->setCellValue('M1', 'HS ALARGUE');
+            $hojaactiva->setCellValue('N1', 'HS EXTRAS');
+//dd($datos);
+        $fila=2;
+        $cantidad=count($datos);
+        while($cantidad>$i){
+            $hojaactiva->getColumnDimension('A')->setWidth(35);
+            $hojaactiva->setCellValue('A'.$fila, $datos[$i]->apellido.','.$datos[$i]->nombre);
+            $hojaactiva->getColumnDimension('B')->setWidth(7);
+            $hojaactiva->setCellValue('B'.$fila, $datos[$i]->legajo);
+            $hojaactiva->getColumnDimension('C')->setWidth(18);
+            $hojaactiva->setCellValue('C'.$fila, date("d/m/Y",strtotime($datos[$i]->fecha)));
+            $hojaactiva->getColumnDimension('D')->setWidth(10);
+            $hojaactiva->setCellValue('D'.$fila, $datos[$i]->numero);
+            $hojaactiva->getColumnDimension('E')->setWidth(10);
+            $hojaactiva->setCellValue('E'.$fila, $datos[$i]->numlinea);
+            $hojaactiva->getColumnDimension('F')->setWidth(28);
+            $hojaactiva->setCellValue('F'.$fila, $datos[$i]->numservicio.'-'.$datos[$i]->nomramal.'-'.$datos[$i]->nomturno);
+            $hojaactiva->getColumnDimension('G')->setWidth(13);
+            $hojaactiva->setCellValue('G'.$fila, $datos[$i]->pasajestotal);
+            $hojaactiva->getColumnDimension('H')->setWidth(15);
+            $hojaactiva->setCellValue('H'.$fila, $datos[$i]->horastotal);
+            $hojaactiva->getColumnDimension('I')->setWidth(9);
+            $hojaactiva->setCellValue('I'.$fila, $datos[$i]->normal);
+            $hojaactiva->getColumnDimension('J')->setWidth(9);
+            $hojaactiva->setCellValue('J'.$fila, $datos[$i]->cortado);
+            $hojaactiva->getColumnDimension('K')->setWidth(9);
+            $hojaactiva->setCellValue('K'.$fila, $datos[$i]->doblenegro);
+            $hojaactiva->getColumnDimension('L')->setWidth(9);
+            $hojaactiva->setCellValue('L'.$fila, $datos[$i]->alargue);
+            $hojaactiva->getColumnDimension('M')->setWidth(12);
+            $hojaactiva->setCellValue('M'.$fila, $datos[$i]->horassobrantes);
+            $hojaactiva->getColumnDimension('N')->setWidth(12);
+            $hojaactiva->setCellValue('N'.$fila, $datos[$i]->horastotalalargue);
+            $fila++;
+            $i++;
+        }
+         $writer = new Xlsx($spreadsheet);
+
+        // redirect output to client browser
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="HsextrasTrabajadas.xlsx"');
         header('Cache-Control: max-age=0');
 
         $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');

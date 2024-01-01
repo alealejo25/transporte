@@ -299,6 +299,10 @@ Route::post('bolmanantial/excel/exportarasistenciaexcel','ExportarExcelControlle
 Route::get('bolmanantial/excel/hstrabajadasexcel','ExportarExcelController@hstrabajadasexcel')->name('hstrabajadasexcel')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/excel/exportarhstrabajadasexcel','ExportarExcelController@exportarhstrabajadasexcel')->name('exportarhstrabajadasexcel')->middleware('permission:bolmanantial');
 
+
+Route::get('bolmanantial/excel/hsextrastrabajadasexcel','ExportarExcelController@hsextrastrabajadasexcel')->name('hsextrastrabajadasexcel')->middleware('permission:bolmanantial');
+Route::post('bolmanantial/excel/exportarhsextrastrabajadasexcel','ExportarExcelController@exportarhsextrastrabajadasexcel')->name('exportarhsextrastrabajadasexcel')->middleware('permission:bolmanantial');
+
 //**************************************************************
 //************** FIN EXPORTACION EXCEL *************************
 //**************************************************************

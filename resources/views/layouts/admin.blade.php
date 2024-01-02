@@ -766,25 +766,27 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
 
 
         "columns": [
-            { "data": "id" },
-            { "data": "fecha",
+            { "data": "id" }, //0
+            { "data": "fecha", // 1
               "render": function (data, type, row) {
               // Formatea la fecha utilizando la librería moment.js
                     return moment(data).format('DD-MM-YYYY');
               }
             },
-            { "data": "numeroboletosleagas" },
-            { "data": "chofer" },
-            { "data": "linea" },
-            { "data": "interno" },
-            { "data": "servicio" },
-            { "data": "turno" },
-            { "data": "pax" },
-            { "data": "recaudacion"},
-            { "data": "horastotal" },
-            { "data": "horassobrantes" },
-            { "data": "horastotalalargue" },
-            { "data": "motivo_cambio" },
+            { "data": "numeroboletosleagas" },// 2
+            { "data": "chofer" },// 3
+            { "data": "linea" },// 4
+            { "data": "interno" },// 5
+            { "data": "servicio" },// 6            
+            { "data": "turno" }, // 7
+            { "data": "pax" }, // 8
+            { "data": "iniciotarjeta" }, // 9
+            { "data": "fintarjeta" }, // 10
+            { "data": "recaudacion"}, // 11
+            { "data": "horastotal" }, // 12
+            { "data": "horassobrantes" }, // 13
+            { "data": "horastotalalargue" }, // 14
+            { "data": "motivo_cambio" }, // 15
             { 
                 "data": "id",
                 "render": function (data, type, row, meta) {
@@ -817,7 +819,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 "className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
             },
               {
-                "targets": 9, // Alinear la primera columna RECAUDACION
+                "targets": 11, // Alinear la primera columna RECAUDACION
                 //"className": "text-right" // Puedes usar "text-left", "text-center", o "text-right"
                 "render": function (data, type, row) {
                     // Formatea el contenido como moneda
@@ -825,7 +827,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
             },
 
             {
-                "targets": 13, // Índice de la columna "CAMBIO"
+                "targets": 15, // Índice de la columna "CAMBIO"
                 "render": function (data, type, row) {
                     // Aplica un formato condicional basado en el valor de "CAMBIO"
                     if (data === null) {

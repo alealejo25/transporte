@@ -72,9 +72,6 @@ public function getDataLeagas()
         return view('bolmanantial.boletos.index')
             ->with('datos',$datos);
 
-
-
-          /*  $datos=BoletoLeagas::select('coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',2)->orderBy('num','DESC')->get();*/
     }
 
     public function indexlnf(Request $request)
@@ -84,17 +81,7 @@ public function getDataLeagas()
         return view('bolmanantial.boletos.indexlnf')
             ->with('datos',$datos);
 
-     /*   $datos=BoletoLeagas::select('*','coches.interno','choferesleagaslnf.nombre as nombrechofer','boletosleagas.id as id_boleto','boletosleagas.numero as num')->join('serviciosleagaslnf','boletosleagas.servicio_id','=','serviciosleagaslnf.id')->join('choferesleagaslnf','boletosleagas.chofer_id','=','choferesleagaslnf.id')->join('turnos','serviciosleagaslnf.turno_id','=','turnos.id')->join('cochesboletos','cochesboletos.boletosleagas_id','=','boletosleagas.id')->join('coches','cochesboletos.coche_id','=','coches.id')->where('serviciosleagaslnf.empresa_id',1)->orderBy('num','DESC')->get();
-
-        //dd($datos);
-        $datos->each(function($datos){
-             $datos->linea;
-             $datos->choferleagaslnf;
-             $datos->servicioleagaslnf;
-
-        });
-        //dd($datos);*/
-
+  
         return view('bolmanantial.boletos.indexlnf')
             ->with('datos',$datos);
     }
@@ -116,11 +103,11 @@ public function getDataLeagas()
        // $servicioleagaslnf=ServicioLeagasLnf::orderBy('nombre','ASC')->pluck('nombre','id');
         $coche=Coche::where('empresa_id',2)->orderBy('interno','ASC')->get();
         $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
-        //      $fecha=null;
+              $fecha=null;
 
         return view('bolmanantial.boletos.create')
                ->with('linea',$linea)
-        //        ->with('fecha',$fecha)
+                ->with('fecha',$fecha)
                ->with('choferleagaslnf',$choferleagaslnf)
                ->with('servicioleagaslnf',$servicioleagaslnf)
                ->with('empresa',2)
@@ -142,11 +129,11 @@ public function getDataLeagas()
         $coche=Coche::where('empresa_id',1)->orderBy('interno','ASC')->get();
         $turno=Turno::orderBy('nombre','ASC')->pluck('nombre','id');
        
-       //$fecha=null;
+       $fecha=null;
 
         return view('bolmanantial.boletos.create')
                ->with('linea',$linea)
-         //      ->with('fecha',$fecha)
+             ->with('fecha',$fecha)
                ->with('choferleagaslnf',$choferleagaslnf)
                ->with('servicioleagaslnf',$servicioleagaslnf)
                 ->with('empresa',1)

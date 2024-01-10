@@ -22,6 +22,13 @@ use Illuminate\Support\Facades\Route;
 //     return view('index');
 // });
 
+
+
+// para buscar con pistoila codigo de barras
+Route::get('/buscar-producto/{codigo_barras}', 'PrestamoController@buscarPorCodigoBarras');
+Route::get('/mostrar-vista', 'PrestamoController@mostrarVista');
+//**********************************************
+
 /* probando mejorar el DATATABLE*/
 Route::get('data', 'BolManantialController@getData')->name('data.get');
 Route::get('dataleagas', 'BolManantialController@getDataLeagas')->name('dataleagas.get');

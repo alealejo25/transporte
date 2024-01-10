@@ -992,14 +992,9 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
             }
             // Puedes agregar más condiciones y colores según tus necesidades
         }
-        
+      
 
     });
-
-
-
-
-
 
 
 

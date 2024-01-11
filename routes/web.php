@@ -284,8 +284,8 @@ Route::patch('bolmanantial/boletos/guardarcargagasoilleagas','BolManantialContro
 
 Route::get('bolmanantial/boletos/monitoreo','BolManantialController@monitoreo')->name('monitoreo')->middleware('permission:boletoslnf');
 
-Route::get('bolmanantial/boletos/{id}/borrarservicioleagas','BolManantialController@borrarservicioleagas')->name('borrarservicioleagas');
-Route::get('bolmanantial/boletos/{id}/borrarserviciolnf','BolManantialController@borrarserviciolnf')->name('borrarserviciolnf');
+Route::get('bolmanantial/boletos/{id}/borrarservicioleagas','BolManantialController@borrarservicioleagas')->name('borrarservicioleagas')->middleware('permission:ramales');
+Route::get('bolmanantial/boletos/{id}/borrarserviciolnf','BolManantialController@borrarserviciolnf')->name('borrarserviciolnf')->middleware('permission:ramales');
 //--------------------------------------------------------------
 //-------------- FIN BOLETERIA MANANTIAL -----------------------
 //--------------------------------------------------------------

@@ -35,7 +35,7 @@
 					<th>horaS</th>
 					<th>HoraA</th>
 					<th>Cambio</th>
-					<th style="width: 100px;">Operaciones</th>
+					<th style="width: 110px;">Operaciones</th>
         </tr>
     </thead>
     <tbody>

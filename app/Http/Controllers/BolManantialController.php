@@ -1779,6 +1779,45 @@ $server->listen();
 $server->getOptions(); # to get the options
 $server->setOptions($options); # to set the options
     }
- 
 
+    public function borrarservicioleagas($id)
+    {
+        try {
+        $servicios=BoletoLeagas::find($id);
+        DB::table('cochesboletos')->where('boletosleagas_id',$servicios->id)->delete();
+        DB::table('boletosleagas')->where('id',$id)->delete();
+       
+        }
+        catch(\Exception $e) {
+            $mensaje='Servicio Numero '.$servicios->numero.', NO FUE ELIMINADO';
+            Flash::danger($mensaje);
+            return view('bolmanantial.boletos.index');
+        }
+        finally {
+            $mensaje='Servicio Numero '.$servicios->numero.', ELIMINADO satisfactoriamente';
+            Flash::success($mensaje);
+            return Redirect('bolmanantial/boletosleagas/')->with('Mensaje','Obra Social agregada con éxito');
+        }
+    }
+ 
+public function borrarserviciolnf($id)
+    {
+        try {
+        $servicios=BoletoLeagas::find($id);
+        DB::table('cochesboletos')->where('boletosleagas_id',$servicios->id)->delete();
+        DB::table('boletosleagas')->where('id',$id)->delete();
+       
+        }
+        catch(\Exception $e) {
+            $mensaje='Servicio Numero '.$servicios->numero.', NO FUE ELIMINADO';
+            Flash::danger($mensaje);
+            return view('bolmanantial.boletos.index');
+        }
+        finally {
+            $mensaje='Servicio Numero '.$servicios->numero.', ELIMINADO satisfactoriamente';
+            Flash::success($mensaje);
+            return Redirect('bolmanantial/boletoslnf/')->with('Mensaje','Obra Social agregada con éxito');
+        }
+    }
+ 
 }

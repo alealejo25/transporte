@@ -283,6 +283,9 @@ Route::get('bolmanantial/gasoil/gasoillnf','BolManantialController@gasoillnf')->
 Route::patch('bolmanantial/boletos/guardarcargagasoilleagas','BolManantialController@guardarcargagasoilleagas')->name('guardarcargagasoilleagas')->middleware('permission:boletoslnf');
 
 Route::get('bolmanantial/boletos/monitoreo','BolManantialController@monitoreo')->name('monitoreo')->middleware('permission:boletoslnf');
+
+Route::get('bolmanantial/boletos/{id}/borrarservicioleagas','BolManantialController@borrarservicioleagas')->name('borrarservicioleagas');
+Route::get('bolmanantial/boletos/{id}/borrarserviciolnf','BolManantialController@borrarserviciolnf')->name('borrarserviciolnf');
 //--------------------------------------------------------------
 //-------------- FIN BOLETERIA MANANTIAL -----------------------
 //--------------------------------------------------------------

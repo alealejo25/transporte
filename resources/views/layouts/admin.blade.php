@@ -812,7 +812,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 "data": "id",
                 "render": function (data, type, row, meta) {
                     // Utiliza el ID para crear el botón de acción
-                    return '<a href=/bolmanantial/boletos/'+data+'/modificarservicio><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a> <a href=/bolmanantial/boletos/'+data+'/informeboletoleagas><button class="btn btn-primary"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a><a href=/bolmanantial/boletos/'+data+'/borrarserviciolnf><button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" title="Borrar servicio"></i></button></a>';
+                    return '<a href=/bolmanantial/boletos/'+data+'/modificarservicio><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a> <a href=/bolmanantial/boletos/'+data+'/informeboletoleagas><button class="btn btn-primary"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a><a href=/bolmanantial/boletos/'+data+'/borrarserviciolnf><button onclick="confirmarBorrado()" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" title="Borrar servicio"></i></button></a>';
                 },
                 "orderable": false,
                 "searchable": false
@@ -938,7 +938,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 "data": "id",
                 "render": function (data, type, row, meta) {
                     // Utiliza el ID para crear el botón de acción
-                    return '<a href=/bolmanantial/boletos/'+data+'/modificarservicio><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a> <a href=/bolmanantial/boletos/'+data+'/informeboletoleagas><button class="btn btn-primary"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a><a href=/bolmanantial/boletos/'+data+'/borrarservicioleagas><button class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" title="Borrar servicio"></i></button></a>';
+                    return '<a href=/bolmanantial/boletos/'+data+'/modificarservicio><button class="btn btn-success"><i class="fa fa-pencil" aria-hidden="true" title="Modificar Servicio"></i></button></a> <a href=/bolmanantial/boletos/'+data+'/informeboletoleagas><button class="btn btn-primary"><i class="fa fa-print" aria-hidden="true" title="Imprimir servicio"></i></button></a><a href=/bolmanantial/boletos/'+data+'/borrarservicioleagas><button onclick="confirmarBorrado()" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true" title="Borrar servicio"></i></button></a>';
                 },
                 "orderable": false,
                 "searchable": false
@@ -1045,12 +1045,12 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
      });
   
     </script>
-
-
-
-  
-
-
+<script>
+function confirmarBorrado() {
+  // Mostrar cuadro de diálogo de confirmación
+  var confirmacion = confirm("¿Estás seguro de que deseas borrar este registro?");
+}
+</script>
     @yield("script")
 
   </body>

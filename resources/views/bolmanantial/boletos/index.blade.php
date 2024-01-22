@@ -27,9 +27,9 @@
 					<th>Interno</th>
 					<th>Serv.</th>
 					<th>Turno</th>
+					<th>Pax</th>
 					<th>Inicio</th>
 					<th>Fin</th>
-					<th>Pax</th>
 					<th>Rec.</th>
 					<th>horaT</th>
 					<th>horaS</th>

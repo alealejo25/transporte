@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Venta de Abono</title>
+    <title>Reporte de Flete</title>
     <style>
         @page {
             margin: 0cm 0cm;
@@ -75,26 +75,9 @@
   <td style="width:128px" align="center">COD. <strong>{{$codigo}}</strong></td>
   <td style="width:128px" align="center">COD. <strong>{{$codigo}}</strong></td>
 </tr>
-
- <tr>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
+	<tr >
+  <br></br>
 </tr>
-<tr>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-</tr>
-
 <tr >
   <td style="width:128px" align="center">{{$fecha}}</td>
   <td style="width:128px" align="center">{{$fecha}}</td>
@@ -104,6 +87,9 @@
   <td style="width:128px" align="center">{{$fecha}}</td>
 </tr>
 
+	<tr>
+		<br></br>
+	</tr>
 <tr >
   <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
   <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
@@ -168,25 +154,9 @@
   <td style="width:128px" align="center">COD. <strong>{{$codigo}}</strong></td>
   <td style="width:128px" align="center">COD. <strong>{{$codigo}}</strong></td>
 </tr>
-
- <tr>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-</tr>
-<tr>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-</tr>
+	<tr>
+		<br></br>
+	</tr>
 <tr >
   <td style="width:128px" align="center">{{$fecha}}</td>
   <td style="width:128px" align="center">{{$fecha}}</td>
@@ -196,7 +166,9 @@
   <td style="width:128px" align="center">{{$fecha}}</td>
 </tr>
 
-
+	<tr>
+		<br></br>
+	</tr>
 <tr >
   <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
   <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
@@ -232,10 +204,10 @@
 <tr>
 
   <td style="width:128px" align="center"><strong>{{$tipo}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$tipo}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$tipo}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$tipo}}</strong></td>
-  <td style="width:128px" align="center"><strong>{{$tipo}}</strong></td>
+  <td style="width:128px" align="right"><strong>{{$tipo}}</strong></td>
+  <td style="width:128px" align="right"><strong>{{$tipo}}</strong></td>
+  <td style="width:128px" align="right"><strong>{{$tipo}}</strong></td>
+  <td style="width:128px" align="right"><strong>{{$tipo}}</strong></td>
   <td style="width:128px" align="center"><strong>{{$tipo}}</strong></td>
   <!--<td style="width:128px" align="center"><strong>{{$tipo}}</strong></td>
   <td style="width:128px" align="center"><strong>{{$tipo}}</strong></td>
@@ -259,24 +231,9 @@
   <td style="width:128px" align="center">COD. <strong>{{$codigo}}</strong></td>
   <td style="width:128px" align="center">COD. <strong>{{$codigo}}</strong></td>
 </tr>
-<tr>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-  <td style="width:128px; font-size:10px" align="center">DNI.{{$dni}}</td>
-</tr>
-<tr>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-  <td style="width:128px; font-size:10px" align="center">{{$nomape}}</td>
-</tr>
+	<tr>
+		<br></br>
+	</tr>
 <tr >
   <td style="width:128px" align="center">{{$fecha}}</td>
   <td style="width:128px" align="center">{{$fecha}}</td>
@@ -286,7 +243,9 @@
   <td style="width:128px" align="center">{{$fecha}}</td>
 </tr>
 
-
+	<tr>
+		<br></br>
+	</tr>
 <tr >
   <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
   <td style="width:128px" align="center"><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
@@ -405,13 +364,13 @@
 
 <tr>
 
-  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><p style="font-size:10px; ">DNI:{{$dni}}</p><p style="font-size:10px; ">{{$nomape}}</p>{{$fecha}}<br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
-  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><p style="font-size:10px; ">DNI:{{$dni}}</p><p style="font-size:10px; ">{{$nomape}}</p>{{$fecha}}<br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
-  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><p style="font-size:10px; ">DNI:{{$dni}}</p><p style="font-size:10px; ">{{$nomape}}</p>{{$fecha}}<br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
-  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><p style="font-size:10px; ">DNI:{{$dni}}</p><p style="font-size:10px; ">{{$nomape}}</p>{{$fecha}}<br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:128px" align="center"><br><br><br><br><br><br><br><strong>{{$tipo}}</strong><br>Nro. {{$numero}}<br>COD. <strong>{{$codigo}}</strong><br><br><br>{{$fecha}}<br><br><strong>{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
 
-  <td style="width:126px" align="center"><br><br><br><h3 align="center"><strong>{{$numero}}&nbsp;&nbsp;</strong></h3><br><strong>{{$tipo}}</strong><br>{{$nomape}}<br>Precio.$ {{number_format($monto,2,",",".")}}<br>COD. <strong>{{$codigo}}</strong><br>Emi.{{$fecha}}<br><br><strong>Venc.{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
-  <td style="width:126px" align="center"><br><br><br><h3 align="center"><strong>{{$numero}}&nbsp;&nbsp;&nbsp;</strong></h3><br><strong>{{$tipo}}</strong><br>{{$nomape}}<br>$ {{number_format($monto,2,",",".")}}<br>COD. <strong>{{$codigo}}</strong><br>E.{{$fecha}}<br><br><strong>V.{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:126px" align="center"><br><br><br><h3 align="right"><strong>{{$numero}}&nbsp;&nbsp;&nbsp;</strong></h3><br><strong>{{$tipo}}</strong><br>{{$nomape}}<br>Precio.$ {{number_format($monto,2,",",".")}}<br>COD. <strong>{{$codigo}}</strong><br>Emi.{{$fecha}}<br><br><strong>Venc.{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
+  <td style="width:126px" align="center"><br><br><br><h3 align="right"><strong>{{$numero}}&nbsp;&nbsp;&nbsp;</strong></h3><br><strong>{{$tipo}}</strong><br>{{$nomape}}<br>$ {{number_format($monto,2,",",".")}}<br>COD. <strong>{{$codigo}}</strong><br>E.{{$fecha}}<br><br><strong>V.{{$dia}}-{{$mes}}-{{$anio}}</strong></td>
 
 </tr>
 

@@ -137,7 +137,7 @@ $impresora->close();*/
         $datos=PlanchaTafi::where('numero',$request->numero)->get();
         if(count($datos)==0){
             Flash::warning('No existe la plancha para anular ');
-            return Redirect('boltafi/planchastafi/mostraranularplancha')->with('Mensaje','Se existe el numero de plancha para anular!!!!');
+            return Redirect('boltafi/planchastafi/mostraranularplancha')->with('Mensaje','NO existe el numero de plancha para anular!!!!');
 
         }
         else{
@@ -168,9 +168,9 @@ $impresora->close();*/
                                 'user_anulacion'=>$request->user_anulacion,
                                  ]);        
                     
-                    $datos=VentaTafi::where('numero',$request->numero)->get();
+                    $datos=VentaTafi::where('numero',$request->numero)->orderBy('id','DESC')->limit(1)->get();
                     $monto=$datos[0]->montototal;
-                    $actualizarplancha=VentaTafi::where('numero',$request->numero)
+                    $actualizarplancha=VentaTafi::where('numero',$request->numero)->orderBy('id','DESC')->limit(1)
                         ->update([
                                 'montototal'=>0,
                                 'anulado'=>1,
@@ -286,6 +286,7 @@ $impresora->close();*/
 
        $abonado=Abonado::where('dni',$request->dni)->limit(1)->get();
        $nomape=$abonado[0]->apellido;
+       $dni=$abonado[0]->dni;
        $tipoabono=TipoAbono::where('id',$abonado[0]->tipo_abono_id)->get();
        $tipo=$tipoabono[0]->tipo;
        if($abonado[0]->boleto=='103')
@@ -343,7 +344,7 @@ $impresora->close();*/
         $movimientocaja->save();
 
  
-        $pdf=\PDF::loadView('boltafi.pdf.abono',['numero'=>$request->numero,'fecha'=>$fecha,'codigo'=>$codigo,'fechavencimiento'=>$fechavencimiento,'monto'=>$monto,'nomape'=>$nomape,'tipo'=>$tipo,'dia'=>$dia,'mes'=>$mes,'anio'=>$anio])
+        $pdf=\PDF::loadView('boltafi.pdf.abono',['numero'=>$request->numero,'fecha'=>$fecha,'codigo'=>$codigo,'fechavencimiento'=>$fechavencimiento,'monto'=>$monto,'nomape'=>$nomape,'dni'=>$dni,'tipo'=>$tipo,'dia'=>$dia,'mes'=>$mes,'anio'=>$anio])
         ->setPaper('a4');
         
         flash::success('SE REALIZO LA VENTA'); 

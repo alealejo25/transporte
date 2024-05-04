@@ -289,6 +289,7 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @can('bancos_index')
                 <li><a href="/abms/puntos"><i class="fa fa-circle-o"></i> Puntos</a></li>
                 @endcan
+                <li><a href="/abms/repuestos"><i class="fa fa-circle-o"></i> Repuestos</a></li>
                 @can('bancos_index')
                 <li><a href="/abms/servicios"><i class="fa fa-circle-o"></i> Servicios </a></li>
                 @endcan

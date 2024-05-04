@@ -19,6 +19,7 @@ class Repuestos extends Migration
             $table->string('nombre',50);
             $table->integer('cantidad');
             $table->string('marca',60);
+            
             $table->integer('condicion')->unsigned()->default(0);
             $table->timestamps();
         });

@@ -158,6 +158,9 @@
                 	<th>Doscientos</th>
                 	<th>Quinientos</th>
                 	<th>Mil</th>
+                    <th>DosMil</th>
+                    <th>DiezMil</th>
+                    <th>VeinteMil</th>
                 </tr>
             </thead>
             <tbody>
@@ -171,6 +174,9 @@
                   <td align="right">{{$dato->doscientos}}</td>
                   <td align="right">{{$dato->quinientos}}</td>
                   <td align="right">{{$dato->mil}}</td>
+                  <td align="right">{{$dato->dosmil}}</td>
+                  <td align="right">{{$dato->diezmil}}</td>
+                  <td align="right">{{$dato->veintemil}}</td>
                   
                 </tr>
             @endforeach            
@@ -187,6 +193,9 @@
                   <td align="right">$ {{number_format($doscientos,2,",",".")}}</td>
                   <td align="right">$ {{number_format($quinientos,2,",",".")}}</td>
                   <td align="right">$ {{number_format($mil,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($dosmil,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($diezmil,2,",",".")}}</td>
+                  <td align="right">$ {{number_format($veintemil,2,",",".")}}</td>
                 </tr>
             
                           

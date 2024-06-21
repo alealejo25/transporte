@@ -320,6 +320,9 @@ class CajaTafiController extends Controller
         $datos->doscientos=$request->doscientos;
         $datos->quinientos=$request->quinientos;
         $datos->mil=$request->mil;
+        $datos->dosmil=$request->dosmil;
+        $datos->diezmil=$request->diezmil;
+        $datos->veintemil=$request->veintemil;
         $datos->fisico=$request->dinerofisico;
         $datos->planchasvendidas=$consultasumaplanchasvendidas;
         $datos->planchasanuladas=$consultasumaplanchasanuladas;
@@ -372,8 +375,12 @@ class CajaTafiController extends Controller
         $doscientos=$datos[0]->doscientos*200;
         $quinientos=$datos[0]->quinientos*500;
         $mil=$datos[0]->mil*1000;
+        $dosmil=$datos[0]->dosmil*2000;
+        $diezmil=$datos[0]->diezmil*10000;
+        $veintemil=$datos[0]->veintemil*20000;
 
-        $pdf=\PDF::loadView('boltafi.pdf.reporterecaudaciontafi',['consultacierretafi'=>$consultacierretafi,'datos'=>$datos,'montonetoenletras'=>$montonetoenletras,'montofisicoenletras'=>$montofisicoenletras,'diez'=>$diez,'veinte'=>$veinte,'cincuenta'=>$cincuenta,'cien'=>$cien,'doscientos'=>$doscientos,'quinientos'=>$quinientos,'mil'=>$mil])
+
+        $pdf=\PDF::loadView('boltafi.pdf.reporterecaudaciontafi',['consultacierretafi'=>$consultacierretafi,'datos'=>$datos,'montonetoenletras'=>$montonetoenletras,'montofisicoenletras'=>$montofisicoenletras,'diez'=>$diez,'veinte'=>$veinte,'cincuenta'=>$cincuenta,'cien'=>$cien,'doscientos'=>$doscientos,'quinientos'=>$quinientos,'mil'=>$mil,'dosmil'=>$dosmil,'diezmil'=>$diezmil,'veintemil'=>$veintemil])
         ->setPaper('a4','landscape');
         return $pdf->download('reporterecaudaciontafi.pdf');
     }

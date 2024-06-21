@@ -75,9 +75,24 @@
 				{!! $errors->first('quinientos','<div class="invalid-feedback">:message</div>')!!}
 			</div>
 			<div class="col-lg-2">
-				<label for="mil">Cant $1000</label>
+				<label for="mil">Cant $1.000</label>
 				<input type="text" name="mil" id="mil" class="form-control {{$errors->has('mil')?'is-invalid':''}}" placeholder="Cantidad" value="0">
 				{!! $errors->first('mil','<div class="invalid-feedback">:message</div>')!!}
+			</div>
+			<div class="col-lg-2">
+				<label for="dosmil">Cant $2.000</label>
+				<input type="text" name="dosmil" id="dosmil" class="form-control {{$errors->has('dosmil')?'is-invalid':''}}" placeholder="Cantidad" value="0">
+				{!! $errors->first('dosmil','<div class="invalid-feedback">:message</div>')!!}
+			</div>
+			<div class="col-lg-2">
+				<label for="diezmil">Cant $10.000</label>
+				<input type="text" name="diezmil" id="diezmil" class="form-control {{$errors->has('diezmil')?'is-invalid':''}}" placeholder="Cantidad" value="0">
+				{!! $errors->first('diezmil','<div class="invalid-feedback">:message</div>')!!}
+			</div>
+			<div class="col-lg-2">
+				<label for="veintemil">Cant $20.000</label>
+				<input type="text" name="veintemil" id="veintemil" class="form-control {{$errors->has('veintemil')?'is-invalid':''}}" placeholder="Cantidad" value="0">
+				{!! $errors->first('veintemil','<div class="invalid-feedback">:message</div>')!!}
 			</div>
 
 
@@ -106,7 +121,7 @@
 <script>
 	$(document).ready(function(){
 		$("#descripcion").focus();
-		$("#mil").blur(function(){
+		$("#veintemil").blur(function(){
 			diez=parseFloat($("#diez").val())*10;
 			veinte=parseFloat($("#veinte").val())*20;
 			cincuenta=parseFloat($("#cincuenta").val())*50;
@@ -114,7 +129,10 @@
 			doscientos=parseFloat($("#doscientos").val())*200;
 			quinientos=parseFloat($("#quinientos").val())*500;
 			mil=parseFloat($("#mil").val())*1000;
-			montototal=diez+veinte+cincuenta+cien+doscientos+quinientos+mil;
+			dosmil=parseFloat($("#dosmil").val())*2000;
+			diezmil=parseFloat($("#diezmil").val())*10000;
+			veintemil=parseFloat($("#veintemil").val())*20000;
+			montototal=diez+veinte+cincuenta+cien+doscientos+quinientos+mil+dosmil+diezmil+veintemil;
 			$("#dinerofisico").val(montototal.toFixed(2));
 		});
 	});

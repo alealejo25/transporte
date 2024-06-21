@@ -34,6 +34,9 @@ class Recaudaciones extends Migration
             $table->integer('doscientos')->unsigned();
             $table->integer('quinientos')->unsigned();
             $table->integer('mil')->unsigned();
+            $table->integer('dosmil')->unsigned();
+            $table->integer('diezmil')->unsigned();
+            $table->integer('veintemil')->unsigned();
             $table->decimal('fisico',10,2);
             $table->decimal('diferencia',10,2);
             $table->string('observacion',100);

@@ -215,7 +215,7 @@ dd('llego aca');*/
         $this->validate($request,$campos,$Mensaje);
     
         $inicial=$request->inicio;
-        for($i=0;$i<50;$i++){
+        for($i=0;$i<40;$i++){
             $datos=new StockBoleto();    
             $datos->inicio=$inicial;     
             $numero_con_ceros_inicio = str_pad($datos->inicio, 5, '0', STR_PAD_LEFT);
@@ -246,32 +246,7 @@ dd('llego aca');*/
                 ->with('datos1',$datos1);
         }
         }
-   /*     $datos=new StockBoleto(request()->except('_token'));
-       $datos->fin=$request->inicio+499;
-       $numero_con_ceros_inicio = str_pad($datos->inicio, 5, '0', STR_PAD_LEFT); // Rellena con ceros hasta tener 6 caracteres (000045)
-       $numero_con_ceros_fin = str_pad($datos->fin, 5, '0', STR_PAD_LEFT); // Rellena con ceros hasta tener 6 caracteres (000045)
-
-       $inicio = $datos->serie . $numero_con_ceros_inicio; // Concatena el serie al principio
-       $fin = $datos->serie . $numero_con_ceros_fin; // Concatena el serie al principio
-
-        $consulta=StockBoleto::where('codigo',$request->codigo)->where('serie',$request->serie)->where('inicio',$inicio)->get();
-        if(count($consulta)==0){
-            $datos->fecha=$date = new \DateTime();
-            $datos->inicio= $inicio;
-            $datos->fin= $fin;
-            $datos->actual= $inicio;
-       
-            $datos->activo=0; //esta activo 0 no activo 1
-            $datos->save();
-            Flash::success('Stock agregado correctamente');
-            return view('bolterminal.recaudacion.cargarboletos');
-        }
-        else{
-            $datos1=CodigoServicio::orderBy('cod_servicio','ASC')->get();
-            Flash::warning('Boleto REPETIDO, NO FUE AGREGADO!!!');
-            return view('bolterminal.recaudacion.cargarboletos')
-                ->with('datos1',$datos1);
-        }*/
+   
         $datos1=CodigoServicio::orderBy('cod_servicio','ASC')->get();
             Flash::success('Stock agregado correctamente!!!');
             return view('bolterminal.recaudacion.cargarboletos')
@@ -439,7 +414,7 @@ public function guardarasignarboletos(Request $request)
         }
         //dd($request->fechaservicio);
         //dd($request->codservicio_id);
-        $servicios=Servicio::where('fechaservicio',$request->fechaservicio)->where('codservicio_id',$request->codservicio_id)->get();
+        $servicios=Servicio::where('fechaservicio',$request->fechaservicio)->where('codigoservicio_id',$request->codservicio_id)->get();
         
         $cantidad=count($servicios);
   
@@ -754,7 +729,7 @@ public function guardarasignarboletos(Request $request)
 
 $servicio->save();
 
-$servicios=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servicios.id as idserv')->orderBy('idserv','ASC')->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')->limit(1)->get();
+$servicios=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servicios.id as idserv')->orderBy('idserv','ASC')->join('codigoservicios','servicios.codigoservicio_id','=','codigoservicios.id')->limit(1)->get();
 $fechaserv=$servicios[0]->fechaservicio;
 $codigoserv=$servicios[0]->cservicio;
 

@@ -414,7 +414,7 @@ public function guardarasignarboletos(Request $request)
         }
         //dd($request->fechaservicio);
         //dd($request->codservicio_id);
-        $servicios=Servicio::where('fechaservicio',$request->fechaservicio)->where('codigoservicio_id',$request->codservicio_id)->get();
+        $servicios=Servicio::where('fechaservicio',$request->fechaservicio)->where('codservicio_id',$request->codservicio_id)->get();
         
         $cantidad=count($servicios);
   
@@ -729,7 +729,7 @@ public function guardarasignarboletos(Request $request)
 
 $servicio->save();
 
-$servicios=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servicios.id as idserv')->orderBy('idserv','ASC')->join('codigoservicios','servicios.codigoservicio_id','=','codigoservicios.id')->limit(1)->get();
+$servicios=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servicios.id as idserv')->orderBy('idserv','ASC')->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')->limit(1)->get();
 $fechaserv=$servicios[0]->fechaservicio;
 $codigoserv=$servicios[0]->cservicio;
 

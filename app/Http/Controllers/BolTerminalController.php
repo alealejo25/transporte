@@ -11,7 +11,7 @@ use App\StockBoleto;
 use App\Coche;
 use App\PrecioBoleto;
 use App\Servicio;
-use App\ChoferLeagaslnf;
+use App\ChoferLeagasLnf;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Laracasts\Flash\Flash;

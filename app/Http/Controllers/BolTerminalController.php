@@ -15,7 +15,6 @@ use App\ChoferLeagaslnf;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Laracasts\Flash\Flash;
-use App\ChoferLeagaslnf;
 use Dompdf\Dompdf;
 
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;

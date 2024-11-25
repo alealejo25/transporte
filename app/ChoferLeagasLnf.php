@@ -70,7 +70,6 @@ class ChoferLeagasLnf extends Model
     {
         return $this->hasMany('App\StockBoleto');
     }
-
     public function scopeSearch($query,$name)
     {
         return $query->where('nombre','LIKE',"%$name%");

@@ -223,8 +223,8 @@ dd('llego aca');*/
             $numero_con_ceros_fin = str_pad($datos->fin, 5, '0', STR_PAD_LEFT); // 
             $inicial=$datos->fin+1;     
 
-            $inicio = $datos->serie . $numero_con_ceros_inicio; // Concatena el serie al principio
-            $fin = $datos->serie . $numero_con_ceros_fin; // Concatena el serie al principio
+            $inicio = $request->serie . $numero_con_ceros_inicio; // Concatena el serie al principio
+            $fin = $request->serie . $numero_con_ceros_fin; // Concatena el serie al principio
 
             $consulta=StockBoleto::where('codigo',$request->codigo)->where('serie',$request->serie)->where('inicio',$inicio)->get();
         if(count($consulta)==0){

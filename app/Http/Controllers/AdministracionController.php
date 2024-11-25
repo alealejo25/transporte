@@ -32,7 +32,7 @@ class AdministracionController extends Controller
         //dd($request);
         
         //para reasiganar un rol hacerlo desde la tabla model_has_roles, cambiar en la columna role_id
-        $user = User::find(1);
+        $user = User::find(17);
         $user->assignRole($request->rol);
        // Role::create(['name' => $request->rol]);
         return view('/');

@@ -66,10 +66,18 @@ class ChoferLeagasLnf extends Model
     {
         return $this->hasMany('App\BoletoLeagas');
     }
+    public function StockBoleto()
+    {
+        return $this->hasMany('App\StockBoleto');
+    }
 
     public function scopeSearch($query,$name)
     {
         return $query->where('nombre','LIKE',"%$name%");
+    }
+    public function Servicio()
+    {
+        return $this->hasMany('App\Servicio');
     }
 
 }

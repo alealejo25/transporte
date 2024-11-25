@@ -471,19 +471,7 @@ public function getDataLeagas()
 
     public function boletosleagas()
     {
-      /*  $fi = Carbon::parse($request->fechai)->format('Y-m-d').' 00:00:00';
-        $ff = Carbon::parse($request->fechaf)->format('Y-m-d').' 23:59:59';
-        //$datos=BoletoLeagas::select('id')->groupBy('chofer_id')->get();
-        $datos=BoletoLeagas::select('chofer_id')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horastotal))) as horastotal')->selectRaw('SEC_TO_TIME(SUM(TIME_TO_SEC(horassobrantes))) as horassobrantes')->selectRaw('SUM(cantpasajes) as pasajes')->selectRaw('SUM(toquesanden) as toqueanden')->selectRaw('SUM(valortoquesanden) as valortoquesanden')->selectRaw('SUM(gasoil) as gasoil')->selectRaw('count(*) as cantidaddeservicios')->whereBetween('fecha',[$fi, $ff])->groupBy('chofer_id')->get();
-        $datos->each(function($datos){
-            $datos->linea;
-            $datos->choferleagaslnf;
-            $datos->servicioleagaslnf;
-            $datos->turno; 
-            $datos->coche;
-            $datos->user;
-       });
-*/
+      
         $empresa=Empresa::orderBy('denominacion','ASC')->pluck('denominacion','id');
         //$linea=Linea::orderBy('numero','ASC')->pluck('numero','id');
         //$linea=Linea::where('empresa_id',1)->orderBy('numero','ASC')->get();
@@ -1227,9 +1215,9 @@ function convertirFechaATextoDia($fecha) {
 }
  public function buscarservicios(Request $request)
     {
-        $linea=Linea::where('id',$request->linea)->get();
+       $linea=Linea::where('id',$request->linea)->get();
 
-        $datos=ServicioLeagasLnf::where('linea_id',$linea[0]->id)->orderBy('numero','ASC')->get();
+        $datos=ServicioLeagasLnf::where('linea_id',$linea[0]->id)->orderBy('numero','ASC')->get(); 
         $datos->each(function($datos){
             $datos->linea;
             $datos->ramal;

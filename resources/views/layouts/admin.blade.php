@@ -26,6 +26,7 @@
     <link rel="apple-touch-icon" href="{{asset('img/apple-touch-icon.png')}}">
     <link rel="shortcut icon" href="{{asset('img/favicon.ico')}}">
     <link rel="stylesheet" href="{{asset('assets/lte/select2/dist/css/select2.min.css')}}">
+    
 
 
 
@@ -110,6 +111,14 @@ a:hover { color:#802727; }
 p { padding:0 0 5px 0; }
 
 input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radius:4px; -web-kit-border-radius:4px; -khtml-border-radius:4px; }
+
+input[readonly] {
+    background-color: #f0f0f0; /* Color de fondo para los campos readonly */
+    color: #555;             /* Color del texto */
+    cursor: not-allowed;     /* Cambia el cursor a uno que denote no editable */
+    pointer-events: none;     /* Evita interacción con el mouse */
+    
+}
 
 
     </style>
@@ -548,6 +557,36 @@ input { padding:5px; border:1px solid #999; border-radius:4px; -moz-border-radiu
                 @endcan
                 @can('boltafi')
                 <li><a href="/boltafi/cajas/verrecaudaciontafi"><i class="fa fa-circle-o"></i> Reporte Recaudaciones </a></li>
+                @endcan
+
+               </ul>
+            </li>
+            @endcan
+            @can('boltafi')
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-users"></i> <span>Boleteria Terminal</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                @can('abonadostafi')
+                <li><a href="/bolterminal/idavuelta/venta"><i class="fa fa-circle-o"></i> Venta Ida Vuelta</a></li>
+                @endcan
+                @can('abonadostafi')
+                <li><a href="/bolterminal/idavuelta/anularventa"><i class="fa fa-circle-o"></i> Anular Venta</a></li>
+                @endcan
+                @can('abonadostafi')
+                <li><a href="/bolterminal/cargarboletos"><i class="fa fa-circle-o"></i> Cargar Boletos</a></li>
+                @endcan
+                @can('abonadostafi')
+                <li><a href="/bolterminal/asignarboletos"><i class="fa fa-circle-o"></i> Asignar Boletos</a></li>
+                @endcan
+                @can('abonadostafi')
+                <li><a href="/bolterminal/recaudar"><i class="fa fa-circle-o"></i> Recaudar</a></li>
+                @endcan
+                
+                @can('abonadostafi')
+                <li><a href="/bolterminal/asignarservicio"><i class="fa fa-circle-o"></i> Asignar Servicio</a></li>
                 @endcan
 
                </ul>

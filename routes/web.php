@@ -22,7 +22,23 @@ use Illuminate\Support\Facades\Route;
 //     return view('index');
 // });
 
+//ida y vuelta boleteria terminal
+Route::get('bolterminal/idavuelta/venta','BolTerminalController@venta')->name('venta');
+Route::post('bolterminal/idavuelta/guardarventa','BolTerminalController@guardarventa')->name('guardarventa');
 
+Route::get('bolterminal/cargarboletos','BolTerminalController@cargarboletos')->name('cargarboletos');
+Route::post('bolterminal/guardarcargarboletos','BolTerminalController@guardarcargarboletos')->name('guardarcargarboletos');
+
+Route::get('bolterminal/asignarboletos','BolTerminalController@asignarboletos')->name('asignarboletos');
+Route::post('bolterminal/guardarasignarboletos','BolTerminalController@guardarasignarboletos')->name('guardarasignarboletos');
+
+Route::get('bolterminal/asignarservicio','BolTerminalController@asignarservicio')->name('asignarservicio');
+Route::post('bolterminal/guardarasignarservicios','BolTerminalController@guardarasignarservicios')->name('guardarasignarservicios');
+
+Route::get('bolterminal/recaudar','BolTerminalController@recaudar')->name('recaudar');
+Route::get('bolterminal/recaudar/{idserv?}/recaudarservicio','BolTerminalController@recaudarservicio')->name('recaudarservicio');
+Route::post('bolterminal/guardarrecaudacionchofer','BolTerminalController@guardarrecaudacionchofer')->name('guardarrecaudacionchofer');
+//----------------------------------------------
 
 // para buscar con pistoila codigo de barras
 Route::get('/buscar-producto/{codigo_barras}', 'PrestamoController@buscarPorCodigoBarras');

@@ -59,6 +59,10 @@ class Coche extends Model
     {
         return $this->hasMany('App\CargarGasoil');
     }
+    public function Servicio()
+    {
+        return $this->hasMany('App\Servicio');
+    }
       
     public function scopeSearch($query,$name)
     {

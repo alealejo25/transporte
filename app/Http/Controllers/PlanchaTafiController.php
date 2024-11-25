@@ -27,34 +27,24 @@ class PlanchaTafiController extends Controller
 //CREAR LOS ROLES 
     public function impresion(Request $request)
     {
-        Permission::Create(['name' =>'nuevo']);
+        /*Permission::Create(['name' =>'nuevo']);
         Role::Create(['analista' =>'analista']);
         $admin = Role::find(9);
         $admin->givePermissionTo([
             'nuevo',
-                    ]);
-/*$nombreImpresora = "POS58";
+                    ]);*/
+$nombreImpresora = "TERMICA";
 $connector = new WindowsPrintConnector($nombreImpresora);
 $impresora = new Printer($connector);
 $impresora->setJustification(Printer::JUSTIFY_CENTER);
 $impresora->setTextSize(2, 2);
-$impresora->text("Imprimiendo\n");
+$impresora->text("vamo lo deca\n");
 
 $impresora->setTextSize(1, 1);
 $impresora->text("https://parzibyte.me");
 $impresora->feed(5);
-$impresora->close();*/
-    
-   /* error_reporting(0);
-    if ($handle = printer_open('\\\192.168.101.254\hp1020')){
-        printer_set_option($handle, PRINTER_MODE, 'RAW');
-    }
-    else{
-        echo "no se encotnro imprsora";
-    }*/
-
-
-    //return view('boltafi.impresion');
+$impresora->close();
+dd('llego aca');
 }
 
     public function create(Request $request)

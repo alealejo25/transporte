@@ -215,7 +215,7 @@ dd('llego aca');*/
         $this->validate($request,$campos,$Mensaje);
     
         $inicial=$request->inicio;
-        for($i=0;$i<40;$i++){
+        for($i=0;$i<50;$i++){
             $datos=new StockBoleto();    
             $datos->inicio=$inicial;     
             $numero_con_ceros_inicio = str_pad($datos->inicio, 5, '0', STR_PAD_LEFT);

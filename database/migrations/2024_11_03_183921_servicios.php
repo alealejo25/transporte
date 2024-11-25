@@ -109,7 +109,7 @@ class Servicios extends Migration
             $table->decimal('cod32b',10,2);
 
             $table->biginteger('user_id')->unsigned()->nullable();
-            $table->integer('codigoservicio_id')->nullable()->unsigned();
+            $table->integer('codservicio_id')->nullable()->unsigned();
             $table->integer('coche_id')->unsigned()->nullable();
             $table->integer('choferesleagaslnf_id')->unsigned()->nullable();
             $table->timestamps();
@@ -118,7 +118,7 @@ class Servicios extends Migration
  
             $table->foreign('coche_id')->references('id')->on('coches');
             $table->foreign('choferesleagaslnf_id')->references('id')->on('choferesleagaslnf');
-            $table->foreign('codigoservicio_id')->references('id')->on('codigoservicios');
+            $table->foreign('codservicio_id')->references('id')->on('codigoservicios');
             
         });
     }

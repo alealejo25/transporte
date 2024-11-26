@@ -1498,6 +1498,7 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                                  ]);
 
 
+
 }
 
 

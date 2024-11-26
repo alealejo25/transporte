@@ -562,7 +562,7 @@ input[readonly] {
                </ul>
             </li>
             @endcan
-            @can('boltafi')
+            @can('bolterminal')
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i> <span>Boleteria Terminal</span>
@@ -575,17 +575,17 @@ input[readonly] {
                 @can('abonadostafi')
                 <li><a href="/bolterminal/idavuelta/anularventa"><i class="fa fa-circle-o"></i> Anular Venta</a></li>
                 @endcan
-                @can('abonadostafi')
+                @can('cargar_boletos_terminal')
                 <li><a href="/bolterminal/cargarboletos"><i class="fa fa-circle-o"></i> Cargar Boletos</a></li>
                 @endcan
-                @can('abonadostafi')
+                @can('asignar_boletos_terminal')
                 <li><a href="/bolterminal/asignarboletos"><i class="fa fa-circle-o"></i> Asignar Boletos</a></li>
                 @endcan
-                @can('abonadostafi')
+                @can('recaudar_chofer_terminal')
                 <li><a href="/bolterminal/recaudar"><i class="fa fa-circle-o"></i> Recaudar</a></li>
                 @endcan
                 
-                @can('abonadostafi')
+                @can('asignar_servicio_terminal')
                 <li><a href="/bolterminal/asignarservicio"><i class="fa fa-circle-o"></i> Asignar Servicio</a></li>
                 @endcan
 

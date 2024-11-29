@@ -213,9 +213,9 @@ dd('llego aca');*/
             ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-        
+        $velas=$request->vela*10;
         $inicial=$request->inicio;
-        for($i=0;$i<$request->vela;$i++){
+        for($i=0;$i<$velas;$i++){
             $datos=new StockBoleto();    
             $datos->inicio=$inicial;     
             $numero_con_ceros_inicio = str_pad($datos->inicio, 5, '0', STR_PAD_LEFT);

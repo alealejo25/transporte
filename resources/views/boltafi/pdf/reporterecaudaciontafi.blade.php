@@ -78,6 +78,7 @@
         .derecha{
             float:right;
         }
+        
     </style>
 </head>
 <body>

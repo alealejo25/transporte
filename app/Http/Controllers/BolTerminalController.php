@@ -213,9 +213,9 @@ dd('llego aca');*/
             ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-    
+        
         $inicial=$request->inicio;
-        for($i=0;$i<20;$i++){
+        for($i=0;$i<$request->vela;$i++){
             $datos=new StockBoleto();    
             $datos->inicio=$inicial;     
             $numero_con_ceros_inicio = str_pad($datos->inicio, 5, '0', STR_PAD_LEFT);
@@ -370,6 +370,7 @@ public function guardarasignarboletos(Request $request)
     }
     public function asignarservicio()
     {
+
         $choferes=ChoferLeagasLnf::where('activo','2')->orderBy('apellido','ASC')->get(); // 2 son los choferes que recaudan para jorge
         //activo = a 0 inactivo 1activo 2 recaudan jorge 3 recaudan comun
         $codservicio=CodigoServicio::orderby('cod_servicio')->get();
@@ -414,6 +415,15 @@ public function guardarasignarboletos(Request $request)
         }
         //dd($request->fechaservicio);
         //dd($request->codservicio_id);
+        $cantidadservicios=Servicio::orderby('id','DESC')->limit(1)->get();
+        if(count($cantidadservicios)==0){
+            $nroplanilla=100001;
+        }
+        else
+        {
+            $nroplanilla=$cantidadservicios[0]->nroplanilla+1;
+        }
+
         $servicios=Servicio::where('fechaservicio',$request->fechaservicio)->where('codservicio_id',$request->codservicio_id)->get();
         
         $cantidad=count($servicios);
@@ -433,6 +443,7 @@ public function guardarasignarboletos(Request $request)
         {
             $servicio=new Servicio(request()->except('_token'));
             $servicio->estado="ASIGNADO";
+            $servicio->nroplanilla=$nroplanilla;
             $servicio->fechaasignacion=$date = new \DateTime();
             $servicio->save();
             $servicioid=Servicio::orderBy('id','DESC')->limit(1)->get();
@@ -729,12 +740,37 @@ public function guardarasignarboletos(Request $request)
 
 $servicio->save();
 
-$servicios=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servicios.id as idserv')->orderBy('idserv','DESC')->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')->limit(1)->get();
+
+
+
+$servicios=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','users.name as usuarionombre','coches.interno as cocheinterno','coches.patente as cochepatente')
+    ->orderBy('idserv','DESC')
+    ->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')
+    ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')
+    ->join('users','servicios.user_id','=','users.id')
+    ->join('coches','servicios.coche_id','=','coches.id')
+    ->limit(1)->get();
+
+$usuario=$servicios[0]->usuarionombre;
 $fechaserv=$servicios[0]->fechaservicio;
 $codigoserv=$servicios[0]->cservicio;
+$chofernombre=$servicios[0]->chofernombre;
+$cocheinterno=$servicios[0]->cocheinterno;
+$cochepatente=$servicios[0]->cochepatente;
+$choferapellido=$servicios[0]->choferapellido;
+$choferlegajo=$servicios[0]->choferlegajo;
+$nroplanilla=$servicios[0]->nroplanilla;
+$empresa1='MA.LE.BO. S.A.S. U.T.E.';
+$empresa2='MA.LE.BO. S.A.S.';
+
+if($codigoserv==1 && $request->dia='L/V'){
+    $pdf=\PDF::loadView('bolterminal.planillas.aperturaH1',['servicios'=>$servicios,'fechaserv'=>$fechaserv,'codigoserv'=>$codigoserv,'chofernombre'=>$chofernombre,'choferapellido'=>$choferapellido,'empresa1'=>$empresa1,'empresa2'=>$empresa2,'choferlegajo'=>$choferlegajo,'cocheinterno'=>$cocheinterno,'cochepatente'=>$cochepatente,'nroplanilla'=>$nroplanilla,'usuario'=>$usuario])
+        ->setPaper('legal','landscape');
+        return $pdf->download('aperturaH1.pdf'); 
+}
 
  $pdf=\PDF::loadView('bolterminal.reportes.apertura',['servicios'=>$servicios,'fechaserv'=>$fechaserv,'codigoserv'=>$codigoserv])
-        ->setPaper('a4','landscape');
+        ->setPaper('legal','landscape');
         return $pdf->download('apertura.pdf');
 
 
@@ -1498,7 +1534,18 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                                  ]);
 
 
+Flash::success('Se recaudo correctamente');
+ $servicios=Servicio::select('servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','codigoservicios.cod_servicio as codigoservicio','servicios.fechaservicio as fechaservicio','users.name as usuarionombre')
+            ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')
+            ->join('coches','servicios.coche_id','=','coches.id')
+            ->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')
+            ->join('users','servicios.user_id','=','users.id')
+            ->where('servicios.estado','ASIGNADO')
+            ->whereNotNull('servicios.choferesleagaslnf_id')
+            ->get();
 
+       return view('bolterminal.recaudacion.recaudar')
+                ->with('servicios',$servicios);
 }
 
 

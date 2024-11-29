@@ -17,6 +17,7 @@ class Servicio extends Model
 'dia',
 'observacion',
 'estado',
+'nroplanilla',
 'inicialcod6a',
 'inicialcod6b',
 'inicialcod7a',

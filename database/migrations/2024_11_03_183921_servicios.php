@@ -20,6 +20,7 @@ class Servicios extends Migration
             $table->string('dia',15)->nullable();
             $table->string('observacion',30);
             $table->string('estado',15)->nullable();
+            $table->integer('nroplanilla')->unsigned()->default(0);
             $table->integer('inicialcod6a')->unsigned()->default(0);
             $table->integer('inicialcod6b')->unsigned()->default(0);
             $table->integer('inicialcod7a')->unsigned()->default(0);

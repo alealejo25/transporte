@@ -18,7 +18,7 @@
 			@endif	
 
 			<div>
-				<h3>Carga de Boletos</h3>
+				<h3>Recaudar Servicio</h3>
 			</div>
  			{!!Form::open(array('url'=>'bolterminal/guardarrecaudacionchofer','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data','onsubmit'=>'return checkSubmit();'))!!} 
 			{{Form::token()}}
@@ -427,7 +427,7 @@
                         <input name="inicialabonoa" class="inicial" style="text-align:right" type="text" value="{{$dato->inicialabonoa}}" readonly tabindex="-1" size="4">
                         <input name="finabonoa" class="final" placeholder="Final Codigo abonosa" style="text-align:right" type="text" size="4" required>
                         <input name="cantidadabonoa" class="resultado" placeholder="Cantidad de Boletos" style="text-align:right" type="text" readonly tabindex="-1" size="4">
-                        <input name="abonosa" class="pesos" placeholder="Total Recaudado" style="text-align:right" type="text" readonly tabindex="-1" size="4">
+                        <input name="cod32b" class="pesos" placeholder="Total Recaudado" style="text-align:right" type="text" readonly tabindex="-1" size="4">
                         <input name="precioabono" class="precio" type="text" value="{{$precioabono}}"  style="display: none">
                     </div>
                 </div>
@@ -559,6 +559,7 @@
                 else{
                     const resto = final-inicial;
                     const total = resto*precio;
+                    
                     // Escribir el resultado en el campo correspondiente
                     contenedor.find('.resultado').val(resto);
                     contenedor.find('.pesos').val(total);

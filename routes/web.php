@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ExcelToPdfController;
+
 
 
 /*
@@ -21,6 +23,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('index');
 // });
+
+
+Route::get('excel_to_pdf','BolTerminalController@excel_to_pdf')->name('excel_to_pdf');
 
 //ida y vuelta boleteria terminal
 Route::get('bolterminal/idavuelta/venta','BolTerminalController@venta')->name('venta');

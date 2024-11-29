@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('contenido')
 	<div class="row">
-		<div class="col-lg-4 col-lg-4 col-lg-4 col-xs-12">
+
 			
 
 			@if(count($errors)>0)
@@ -21,7 +21,7 @@
  			{!!Form::open(array('url'=>'bolterminal/guardarcargarboletos','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data','onsubmit'=>'return checkSubmit();'))!!} 
 			{{Form::token()}}
 
-			<div class="col-lg-6">
+			<div class="form-group col-lg-6 col-md-6 col-sm-12">
 				<label for="codigo"> Codigo</label>
 				<select name="codigo" id="codigo" class="form-control">
 					<option value="">Selecccione un Codigo</option>
@@ -41,13 +41,18 @@
 					<option value="abono">Abono</option>
 				</select>
 			</div>
-			<div class="col-lg-12">
-				<label for="serie"> Serie</label>
+			<div class="form-group col-lg-12 col-md-12 col-sm-12">
+				{{Form::label('vela', 'Cantidad de velas')}}
+				<input type="number" min="1" max="10" placeholder="Cantidad de velas"  name="vela" id="vela"  value="{{old('vela')}}" >
+				{!! $errors->first('vela','<div class="invalid-feedback">:message</div>')!!}
+			</div>
+			<div class="form-group col-lg-12 col-md-12 col-sm-12">
+				{{Form::label('serie', 'Serie')}}
 				<input type="number" min="1" max="99" placeholder="Cantidad..."  name="serie" id="serie"  value="{{old('serie')}}" >
 				{!! $errors->first('serie','<div class="invalid-feedback">:message</div>')!!}
 			</div>
 
-			<div class="col-lg-6">
+			<div class="form-group col-lg-6 col-md-6 col-sm-12">
 				{{Form::label('inicio', 'Inicio')}}
 				<input type="number" class="form-control {{$errors->has('inicio')?'is-invalid':''}}" placeholder="Cantidad..." name="inicio" id="inicio"  value="{{old('inicio')}}" min="1" max="99999">
 				{!! $errors->first('inicio','<div class="invalid-feedback">:message</div>')!!}
@@ -76,7 +81,7 @@
 				<a href="/finanzas/chequespropios"><button class="btn btn-success">Regresar</button></a>
 			</div>
 
-		</div>
+
 	</div> 
 
 <script>

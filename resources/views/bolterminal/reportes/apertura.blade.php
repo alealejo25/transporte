@@ -140,6 +140,8 @@
 <br>
 <br>
 <br>
+<br>
+<br>
 
 
 
@@ -241,87 +243,87 @@
 
                 <tr style="height: 100px;">
                 @if($dato->inicialcod6a!=0)
-                 <td>. </td> 
+                 <td></td> 
                 @endif
                 @if($dato->inicialcod6b!=0)
-                 <td>. </td> 
+                 <td></td> 
 
                 @endif
                 @if($dato->inicialcod7a!=0)
-               <td>. </td> 
+               <td></td> 
 
                 @endif
                 @if($dato->inicialcod7b!=0)
-                <td>. </td> 
+                <td></td> 
                 @endif
                 @if($dato->inicialcod8a!=0)
-               <td>. </td> 
+               <td></td> 
                 @endif
                 @if($dato->inicialcod8b!=0)
-               <td>. </td> 
+               <td></td> 
                 @endif
                 @if($dato->inicialcod10a!=0)
-                <td>. </td> 
+                <td> </td> 
                 @endif
                 @if($dato->inicialcod10b!=0)
-              <td>. </td> 
+              <td> </td> 
                 @endif
                 @if($dato->inicialcod12a!=0)
-           <td>. </td> 
+           <td> </td> 
                 @endif
                 @if($dato->inicialcod12b!=0)
-                <td>. </td> 
+                <td> </td> 
                 @endif
                 @if($dato->inicialcod14a!=0)
-               <td>. </td> 
+               <td> </td> 
                 @endif
                 @if($dato->inicialcod14b!=0)
-                <td>. </td> 
+                <td> </td> 
                 @endif
                 @if($dato->inicialcod15a!=0)
-                 <td>. </td> 
+                 <td> </td> 
                 @endif
                 @if($dato->inicialcod15b!=0)
-                 <td>. </td> 
+                 <td> </td> 
                 @endif
                 @if($dato->inicialcod18a!=0)
-                 <td>. </td> 
+                 <td> </td> 
                 @endif
                 @if($dato->inicialcod18b!=0)
-                 <td>. </td>  
+                 <td> </td>  
                 @endif
                 @if($dato->inicialcod21a!=0)
-                 <td>. </td> 
+                 <td> </td> 
                 @endif
                 @if($dato->inicialcod21b!=0)
-                 <td>. </td>  
+                 <td> </td>  
                 @endif
                 @if($dato->inicialcod23a!=0)
-                 <td>. </td>  
+                 <td> </td>  
                 @endif
                 @if($dato->inicialcod23b!=0)
                  <td> </td>  
                 @endif
                 @if($dato->inicialcod27a!=0)
-                 <td>. </td> 
+                 <td></td> 
                 @endif
                 @if($dato->inicialcod27b!=0)
-                 <td>. </td> 
+                 <td> </td> 
                 @endif
                 @if($dato->inicialcod30a!=0)
-                 <td>. </td>  
+                 <td> </td>  
                 @endif
                 @if($dato->inicialcod30b!=0)
-                 <td>. </td> 
+                 <td> </td> 
                 @endif
                 @if($dato->inicialcod32a!=0)
-                 <td>. </td> 
+                 <td> </td> 
                 @endif
                 @if($dato->inicialcod32b!=0)
-                 <td>. </td> 
+                 <td> </td> 
                 @endif
                 @if($dato->inicialabonoa!=0)
-                 <td>. </td> 
+                 <td> </td> 
                 @endif
                 @if($dato->inicialabonob!=0)
                  <td>. </td> 

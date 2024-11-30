@@ -978,7 +978,7 @@ $nroplanilla=$servicios[0]->nroplanilla;
 $empresa1='MA.LE.BO. S.A.S. U.T.E.';
 $empresa2='MA.LE.BO. S.A.S.';
 
-if($codigoserv==1 && $request->dia='L/V'){
+if($codigoserv==1 && $request->dia=='L/V'){
     $pdf=\PDF::loadView('bolterminal.planillas.aperturaH1',['servicios'=>$servicios,'fechaserv'=>$fechaserv,'codigoserv'=>$codigoserv,'chofernombre'=>$chofernombre,'choferapellido'=>$choferapellido,'empresa1'=>$empresa1,'empresa2'=>$empresa2,'choferlegajo'=>$choferlegajo,'cocheinterno'=>$cocheinterno,'cochepatente'=>$cochepatente,'nroplanilla'=>$nroplanilla,'usuario'=>$usuario])
         ->setPaper('legal','landscape');
         return $pdf->download('aperturaH1.pdf'); 

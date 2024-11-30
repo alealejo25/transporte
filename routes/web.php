@@ -25,24 +25,34 @@ use App\Http\Controllers\ExcelToPdfController;
 // });
 
 
-Route::get('excel_to_pdf','BolTerminalController@excel_to_pdf')->name('excel_to_pdf');
-
 //ida y vuelta boleteria terminal
 Route::get('bolterminal/idavuelta/venta','BolTerminalController@venta')->name('venta');
 Route::post('bolterminal/idavuelta/guardarventa','BolTerminalController@guardarventa')->name('guardarventa');
 
-Route::get('bolterminal/cargarboletos','BolTerminalController@cargarboletos')->name('cargarboletos');
-Route::post('bolterminal/guardarcargarboletos','BolTerminalController@guardarcargarboletos')->name('guardarcargarboletos');
 
-Route::get('bolterminal/asignarboletos','BolTerminalController@asignarboletos')->name('asignarboletos');
-Route::post('bolterminal/guardarasignarboletos','BolTerminalController@guardarasignarboletos')->name('guardarasignarboletos');
+// recaudacion de choferes y boletos TERMINAL
 
-Route::get('bolterminal/asignarservicio','BolTerminalController@asignarservicio')->name('asignarservicio');
-Route::post('bolterminal/guardarasignarservicios','BolTerminalController@guardarasignarservicios')->name('guardarasignarservicios');
 
-Route::get('bolterminal/recaudar','BolTerminalController@recaudar')->name('recaudar');
-Route::get('bolterminal/recaudar/{idserv?}/recaudarservicio','BolTerminalController@recaudarservicio')->name('recaudarservicio');
-Route::post('bolterminal/guardarrecaudacionchofer','BolTerminalController@guardarrecaudacionchofer')->name('guardarrecaudacionchofer');
+
+Route::middleware('auth')->group(function () {
+   //CARGAR BOLETOS
+   Route::get('bolterminal/cargarboletos','BolTerminalController@cargarboletos')->name('cargarboletos')->middleware('permission:cargar_boletos_terminal');
+   Route::post('bolterminal/guardarcargarboletos','BolTerminalController@guardarcargarboletos')->name('guardarcargarboletos')->middleware('permission:cargar_boletos_terminal');
+   //------------------
+   //ASIGNAR BOLETOS
+   Route::get('bolterminal/asignarboletos','BolTerminalController@asignarboletos')->name('asignarboletos')->middleware('permission:asignar_boletos_terminal');
+   Route::post('bolterminal/guardarasignarboletos','BolTerminalController@guardarasignarboletos')->name('guardarasignarboletos')->middleware('permission:asignar_boletos_terminal');
+   //------------------
+   //ASIGNAR SERVICIOS
+   Route::get('bolterminal/asignarservicio','BolTerminalController@asignarservicio')->name('asignarservicio')->middleware('permission:asignar_servicio_terminal');
+   Route::post('bolterminal/guardarasignarservicios','BolTerminalController@guardarasignarservicios')->name('guardarasignarservicios')->middleware('permission:asignar_servicio_terminal');
+   //------------------
+   //RECAUDAR CHOFER
+   Route::get('bolterminal/recaudar','BolTerminalController@recaudar')->name('recaudar')->middleware('permission:recaudar_chofer_terminal');
+   Route::get('bolterminal/recaudar/{idserv?}/recaudarservicio','BolTerminalController@recaudarservicio')->name('recaudarservicio')->middleware('permission:recaudar_chofer_terminal');
+   Route::post('bolterminal/guardarrecaudacionchofer','BolTerminalController@guardarrecaudacionchofer')->name('guardarrecaudacionchofer')->middleware('permission:recaudar_chofer_terminal');
+   //------------------
+});
 //----------------------------------------------
 
 // para buscar con pistoila codigo de barras

@@ -298,67 +298,282 @@ public function guardarasignarboletos(Request $request)
         ];
         $Mensaje=["required"=>'El :attribute es requerido'];
         $this->validate($request,$campos,$Mensaje);
-      
-      $posicion=StockBoleto::where('id',$request->boleto_id)->get();
-      $codigo=$posicion[0]->codigo;
-      
-      $boletoschofer=Stockboleto::where('codigo',$codigo)->where('chofer_id',$request->chofer_id)->where('activo',1)->get();
-      //dd($boletoschofer);
+        
 
-      $contador=count($boletoschofer);
-     // dd($contador);
-      if($contador==NULL){
-        $boletoasignado=Stockboleto::where('chofer_id',$request->chofer_id)->where('activo',2)->get();
-        if(count($boletoasignado)==NULL){
+        //para sacar cual codigo selecciono
+        $codigo=StockBoleto::where('id',$request->boleto_id)->get();
+        $cod=$codigo[0]->codigo;
+
+        $boletoschofer = StockBoleto::where('codigo',$cod)
+             ->where('chofer_id',$request->chofer_id)
+            ->where(function ($query) {
+            $query->where('activo', 1)
+              ->orWhere('activo', 2);
+             })
+             ->get();
+        $cantcodigo=count($boletoschofer);
+
+        if($cantcodigo==0){// quiere decir que no tiene ninguno del codigo
             $actualizarstockboletos=StockBoleto::where('id',$request->boleto_id)
             ->update([
                     'chofer_id'=>$request->chofer_id,
                     'posicion'=>1,
                     'activo'=>1
                      ]);
+
         }
         else{
-            dd('no puede asignar boletos, porque tiene un servicio por recaudar');
-        }
-      }
-      if($contador==1){
-        //$posicion=StockBoleto::where('id',$request->boleto_id)->get();
-        //dd($boletoschofer[0]->posicion);
-        if($boletoschofer[0]->posicion==1){
-            $actualizarstockboletos=StockBoleto::where('id',$request->boleto_id)
-            ->update([
+            if($cantcodigo==1){ //quiere decir que tiene un codigo
+                if($boletoschofer[0]->posicion==1){
+               $actualizarstockboletos=StockBoleto::where('id',$request->boleto_id)
+                ->update([
                         'chofer_id'=>$request->chofer_id,
                         'posicion'=>2,
                         'activo'=>1
                      ]);
-        }
-        if($boletoschofer[0]->posicion==2){
-            $actualizarstockboletos=StockBoleto::where('id',$request->boleto_id)
-            ->update([
-                        'chofer_id'=>$request->chofer_id,
-                        'posicion'=>1,
-                        'activo'=>1
-                     ]);
-        }
-      }
-
-      if($contador==2){
-        $choferes=ChoferLeagasLnf::where('activo','2')->orderBy('apellido','ASC')->get(); // 2 son los choferes que recaudan para jorge
+                }
+                if($boletoschofer[0]->posicion==2){
+                    $actualizarstockboletos=StockBoleto::where('id',$request->boleto_id)
+                    ->update([
+                                'chofer_id'=>$request->chofer_id,
+                                'posicion'=>1,
+                                'activo'=>1
+                             ]);
+                }
+            }
+            else{ // entonces tiene 2 rollitos no se guardara
+                $choferes=ChoferLeagasLnf::where('activo','2')->orderBy('apellido','ASC')->get(); // 2 son los choferes que recaudan para jorge
         //activo = a 0 inactivo 1activo 2 recaudan jorge 3 recaudan comun
-        $stockboletos=StockBoleto::where('activo','0')->where('chofer_id','=',null)->get();
-       Flash::warning('NO SE ASIGNO NINGUN BOLETO, YA TIENE 2 BOLETOS ASIGNADO');
-        return view('bolterminal.recaudacion.asignarboletos')
+                $stockboletos=StockBoleto::where('activo','0')->where('chofer_id','=',null)->get();
+                Flash::warning('NO SE ASIGNO NINGUN BOLETO, YA TIENE 2 BOLETOS ASIGNADO');
+                return view('bolterminal.recaudacion.asignarboletos')
                 ->with('stockboletos',$stockboletos)
                 ->with('choferes',$choferes);
-      }
+            }
+        }
 
-      
-      /*$actualizarstockboletos=StockBoleto::where('id',$request->boleto_id)
-                        ->update([
-                                'chofer_id'=>$request->chofer_id,
-                                'activo'=>1
+
+
+        $boletoschofer = StockBoleto::where('chofer_id',$request->chofer_id)
+             ->where('activo', 2)->limit(1)
+            ->get();
+        $servasignado=count($boletoschofer);//para saber si tiene un serv asignado
+
+        if($servasignado!=null){ //ingresar el boleto al servicio
+            $servicio=$boletoschofer[0]->servicio_id;
+            $boleto=StockBoleto::where('id',$request->boleto_id)->get();
+            $posicion=$boleto[0]->posicion;
+            $cantbolactual=$boleto[0]->actual;
+            $actualizarstockbol=StockBoleto::where('id',$request->boleto_id)
+                    ->update([
+                              
+                                'servicio_id'=>$servicio,
+                                'activo'=>2
+                             ]);
+
+                switch($cod){
+                     case 'cod6':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod6a'=>$cantbolactual
                                  ]);
-*/
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod6b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod7':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod7a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod7b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod88':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod8a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod8b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod10':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod10a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod10b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod12':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod12a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod12b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod14':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod14a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod14b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod15':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod15a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod15b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod18':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod18a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod18b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod21':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod21a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod21b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod23':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod23a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod23b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod27':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod27a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod27b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod30':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod30a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod30b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'cod32':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod32a'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialcod32b'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+                    case 'abono':
+                        if($posicion==1){
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialabonoa'=>$cantbolactual
+                                 ]);
+                    }
+                        else{
+                            $actualizaservicio=Servicio::where('id',$servicio)
+                            ->update([
+                                'inicialabonob'=>$cantbolactual
+                             ]);
+                    }
+                    break;
+
+                }
+        }
+
+
+
     $choferes=ChoferLeagasLnf::where('activo','2')->orderBy('apellido','ASC')->get(); // 2 son los choferes que recaudan para jorge
         //activo = a 0 inactivo 1activo 2 recaudan jorge 3 recaudan comun
         $stockboletos=StockBoleto::where('activo','0')->where('chofer_id','=',null)->get();

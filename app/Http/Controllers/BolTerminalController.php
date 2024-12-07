@@ -1755,8 +1755,35 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                                  ]);
 
 
-Flash::success('Se recaudo correctamente');
- $servicios=Servicio::select('servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','codigoservicios.cod_servicio as codigoservicio','servicios.fechaservicio as fechaservicio','users.name as usuarionombre')
+
+
+$datos=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','codigoservicios.cod_servicio as codigoservicio','servicios.fechaservicio as fechaservicio','users.name as usuarionombre','coches.patente as cochepatente')
+            ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')
+            ->join('coches','servicios.coche_id','=','coches.id')
+            ->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')
+            ->join('users','servicios.user_id','=','users.id')
+            ->where('servicios.id',$request->id)
+            ->get();
+
+
+$usuario=$datos[0]->usuarionombre;
+$fechaserv=$datos[0]->fechaservicio;
+$fechaasignacion=$datos[0]->fechaasignacion;
+$codigoserv=$datos[0]->cservicio;
+$chofernombre=$datos[0]->chofernombre;
+$cocheinterno=$datos[0]->cocheinterno;
+$cochepatente=$datos[0]->cochepatente;
+$choferapellido=$datos[0]->choferapellido;
+$choferlegajo=$datos[0]->choferlegajo;
+$nroplanilla=$datos[0]->nroplanilla;
+$empresa1='MA.LE.BO. S.A.S. U.T.E.';
+$empresa2='MA.LE.BO. S.A.S.';
+
+$pdf=\PDF::loadView('bolterminal.reportes.recaudacionchofer',['datos'=>$datos,'usuario'=>$usuario,'fechaserv'=>$fechaserv,'fechaasignacion'=>$fechaasignacion,'codigoserv'=>$codigoserv,'chofernombre'=>$chofernombre,'cocheinterno'=>$cocheinterno,'cochepatente'=>$cochepatente,'choferapellido'=>$choferapellido,'choferlegajo'=>$choferlegajo,'nroplanilla'=>$nroplanilla,'empresa1'=>$empresa1,'empresa2'=>$empresa2])
+        ->setPaper('legal','landscape');
+        return $pdf->download('recaudacionchofer.pdf');
+
+$servicios=Servicio::select('servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','codigoservicios.cod_servicio as codigoservicio','servicios.fechaservicio as fechaservicio','users.name as usuarionombre')
             ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')
             ->join('coches','servicios.coche_id','=','coches.id')
             ->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')
@@ -1764,7 +1791,8 @@ Flash::success('Se recaudo correctamente');
             ->where('servicios.estado','ASIGNADO')
             ->whereNotNull('servicios.choferesleagaslnf_id')
             ->get();
-
+Flash::success('Se recaudo correctamente');
+ 
        return view('bolterminal.recaudacion.recaudar')
                 ->with('servicios',$servicios);
 }

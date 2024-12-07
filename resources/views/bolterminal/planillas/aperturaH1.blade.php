@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Excel Table</title>
+    <title>PLANILLA H1</title>
  <style>
  		@page {
             margin: 4mm; /* Configura márgenes a cero */

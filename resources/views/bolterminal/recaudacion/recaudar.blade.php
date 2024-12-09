@@ -49,7 +49,7 @@
 						<a href="{{url('bolterminal/recaudar/'.$datos->idserv.'/descargarrecaudacion')}}"><button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></a>
 						@endif
 
-						<a href="{{url('abms/choferesleagaslnf/'.$datos->id.'/desactivar')}}"><button class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
+						<a href="{{url('bolterminal/recaudar/'.$datos->idserv.'/descargarplanilla')}}"><button class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
 						{{csrf_field()}}
 					</td>
 				</tr>

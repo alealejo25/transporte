@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLANILLA H1</title>
+    <title>PLANILLA H2</title>
  <style>
  		@page {
             margin: 4mm; /* Configura márgenes a cero */
@@ -666,7 +666,7 @@
 </div>
 <div class="content">
     <div class="inline">
-        <h3>HOJA DE RUTA  - {{$empresa1}} / {{$empresa2}} || Serv: {{$codigoserv}} - H1 - Linea: GAR/TUC V3-2 - Turno:M - FEC SERV: {{date('d-m-Y', strtotime($fechaserv))}}</h3>
+        <h3>HOJA DE RUTA  - {{$empresa1}} / {{$empresa2}} || Serv: {{$codigoserv}} - H2 - Linea: GAR/TUC V3-2 - Turno:M - FEC SERV: {{date('d-m-Y', strtotime($fechaserv))}}</h3>
         <h4> CHOFER: <strong>{{$choferapellido}}, {{$chofernombre}}</strong> - Legajo: <strong>{{$choferlegajo}}</strong> || INTERNO: <strong>{{$cocheinterno}}</strong> - PATENTE: <strong>{{$cochepatente}}</strong><span class="derecha">Fecha de Emision {{now()->format('d-m-Y')}} || Usuario: {{$usuario}} || Planilla Nro: <strong>{{$nroplanilla}}</strong> || HOJA: <strong>4</strong></span></h4>
         
 

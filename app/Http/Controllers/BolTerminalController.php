@@ -1898,4 +1898,49 @@ $pdf=\PDF::loadView('bolterminal.reportes.recaudacionchofer',['datos'=>$datos,'u
 
 
 }
+public function descargarplanilla($idserv)
+    {
+
+
+
+$servicios=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','users.name as usuarionombre','coches.interno as cocheinterno','coches.patente as cochepatente','servicios.dia as dia')
+    ->orderBy('idserv','DESC')
+    ->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')
+    ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')
+    ->join('users','servicios.user_id','=','users.id')
+    ->join('coches','servicios.coche_id','=','coches.id')
+    ->where('servicios.id',$idserv)
+    ->get();
+
+$usuario=$servicios[0]->usuarionombre;
+$fechaserv=$servicios[0]->fechaservicio;
+$codigoserv=$servicios[0]->cservicio;
+$chofernombre=$servicios[0]->chofernombre;
+$cocheinterno=$servicios[0]->cocheinterno;
+$cochepatente=$servicios[0]->cochepatente;
+$choferapellido=$servicios[0]->choferapellido;
+$choferlegajo=$servicios[0]->choferlegajo;
+$nroplanilla=$servicios[0]->nroplanilla;
+$empresa1='MA.LE.BO. S.A.S. U.T.E.';
+$empresa2='MA.LE.BO. S.A.S.';
+$dia=$servicios[0]->dia;
+
+if($codigoserv==1 && $dia=='L/V'){
+    $pdf=\PDF::loadView('bolterminal.planillas.aperturaH1',['servicios'=>$servicios,'fechaserv'=>$fechaserv,'codigoserv'=>$codigoserv,'chofernombre'=>$chofernombre,'choferapellido'=>$choferapellido,'empresa1'=>$empresa1,'empresa2'=>$empresa2,'choferlegajo'=>$choferlegajo,'cocheinterno'=>$cocheinterno,'cochepatente'=>$cochepatente,'nroplanilla'=>$nroplanilla,'usuario'=>$usuario])
+        ->setPaper('legal','landscape');
+        return $pdf->download('aperturaH1.pdf'); 
+}
+if($codigoserv==1 && $dia=='S'){
+    $pdf=\PDF::loadView('bolterminal.planillas.aperturaS1',['servicios'=>$servicios,'fechaserv'=>$fechaserv,'codigoserv'=>$codigoserv,'chofernombre'=>$chofernombre,'choferapellido'=>$choferapellido,'empresa1'=>$empresa1,'empresa2'=>$empresa2,'choferlegajo'=>$choferlegajo,'cocheinterno'=>$cocheinterno,'cochepatente'=>$cochepatente,'nroplanilla'=>$nroplanilla,'usuario'=>$usuario])
+        ->setPaper('legal','landscape');
+        return $pdf->download('aperturaS1.pdf'); 
+}
+if($codigoserv==2 && $dia=='L/V'){
+    $pdf=\PDF::loadView('bolterminal.planillas.aperturaH2',['servicios'=>$servicios,'fechaserv'=>$fechaserv,'codigoserv'=>$codigoserv,'chofernombre'=>$chofernombre,'choferapellido'=>$choferapellido,'empresa1'=>$empresa1,'empresa2'=>$empresa2,'choferlegajo'=>$choferlegajo,'cocheinterno'=>$cocheinterno,'cochepatente'=>$cochepatente,'nroplanilla'=>$nroplanilla,'usuario'=>$usuario])
+        ->setPaper('legal','landscape');
+        return $pdf->download('aperturaH2.pdf'); 
+}
+
+
+}
 }

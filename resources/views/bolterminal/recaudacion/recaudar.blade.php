@@ -25,24 +25,28 @@
 					<th>Legajo Chofer</th>
 					<th>Chofer</th>
 					<th>Usuario</th>
-									
+					<th>Estado</th>
 					<th>Opciones</th>
 				</thead>
                @foreach ($servicios as $datos)
 				<tr>
 					<td >{{ $datos->idserv}}</td>
-					<td>{{ date("d/m/Y",strtotime($datos->fechaservicio))}}
+					<td>{{ date("d/m/Y",strtotime($datos->fechaservicio))}}</td>
 					<td>{{ $datos->codigoservicio}}</td>
 					<td>{{ $datos->choferlegajo}}</td>
 					<td>{{ $datos->choferapellido}},{{ $datos->chofernombre}}</td>
 					<td>{{ $datos->usuarionombre}}</td>
-					
-</td>
-
-
+					@if($datos->estado=='RECAUDADO')
+						<td  style="background-color:Silver">RECAUDADO</td>
+					@else
+						<td>ASIGNADO</td>
+					@endif
 					<td>
 						<a href="{{url('bolterminal/recaudar/'.$datos->idserv.'/recaudarservicio')}}"><button class="btn btn-success"><i class="fa fa-usd" aria-hidden="true"></i></button></a>
-						<a href="{{url('abms/choferesleagaslnf/'.$datos->id.'/edit')}}"><button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></a>
+						@if($datos->estado=='RECAUDADO')
+						<a href="{{url('bolterminal/recaudar/'.$datos->idserv.'/descargarrecaudacion')}}"><button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></a>
+						@endif
+
 						<a href="{{url('abms/choferesleagaslnf/'.$datos->id.'/desactivar')}}"><button class="btn btn-info"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
 						{{csrf_field()}}
 					</td>
@@ -55,5 +59,5 @@
 	</div>
 	 
 </div>
-
+   
 @endsection

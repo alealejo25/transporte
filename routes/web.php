@@ -32,8 +32,6 @@ Route::post('bolterminal/idavuelta/guardarventa','BolTerminalController@guardarv
 
 // recaudacion de choferes y boletos TERMINAL
 
-
-
 Route::middleware('auth')->group(function () {
    //CARGAR BOLETOS
    Route::get('bolterminal/cargarboletos','BolTerminalController@cargarboletos')->name('cargarboletos')->middleware('permission:cargar_boletos_terminal');
@@ -52,6 +50,8 @@ Route::middleware('auth')->group(function () {
    Route::get('bolterminal/recaudar/{idserv?}/recaudarservicio','BolTerminalController@recaudarservicio')->name('recaudarservicio')->middleware('permission:recaudar_chofer_terminal');
    Route::post('bolterminal/guardarrecaudacionchofer','BolTerminalController@guardarrecaudacionchofer')->name('guardarrecaudacionchofer')->middleware('permission:recaudar_chofer_terminal');
    //------------------
+   Route::get('bolterminal/recaudar/{idserv?}/descargarrecaudacion','BolTerminalController@descargarrecaudacion')->name('descargarrecaudacion')->middleware('permission:recaudar_chofer_terminal');
+
 });
 //----------------------------------------------
 

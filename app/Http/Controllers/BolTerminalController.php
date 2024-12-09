@@ -259,13 +259,13 @@ dd('llego aca');*/
         //activo = a 0 inactivo 1activo 2 recaudan jorge 3 recaudan comun
         
         //esto es para las relacion de la tabla acoplados con camion
-      $servicios=Servicio::select('servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','codigoservicios.cod_servicio as codigoservicio','servicios.fechaservicio as fechaservicio','users.name as usuarionombre')
+      $servicios=Servicio::select('servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','codigoservicios.cod_servicio as codigoservicio','servicios.fechaservicio as fechaservicio','users.name as usuarionombre','servicios.estado as estado')
             ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')
             ->join('coches','servicios.coche_id','=','coches.id')
             ->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')
             ->join('users','servicios.user_id','=','users.id')
-            ->where('servicios.estado','ASIGNADO')
-            ->whereNotNull('servicios.choferesleagaslnf_id')
+            /*->where('servicios.estado','ASIGNADO')
+            ->whereNotNull('servicios.choferesleagaslnf_id')*/
             ->get();
 
        return view('bolterminal.recaudacion.recaudar')
@@ -1846,6 +1846,21 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
 
 
 
+$servicios=Servicio::select('servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','codigoservicios.cod_servicio as codigoservicio','servicios.fechaservicio as fechaservicio','users.name as usuarionombre')
+            ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')
+            ->join('coches','servicios.coche_id','=','coches.id')
+            ->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')
+            ->join('users','servicios.user_id','=','users.id')
+ /*           ->where('servicios.estado','ASIGNADO')
+            ->whereNotNull('servicios.choferesleagaslnf_id')*/
+            ->get();
+        Flash::success('Se recaudo correctamente, puede imprimir la recaudación');
+ 
+       return view('bolterminal.recaudacion.recaudar')
+              ->with('servicios',$servicios);
+}
+public function descargarrecaudacion($idserv)
+    {
 
 $datos=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','codigoservicios.cod_servicio as codigoservicio','servicios.fechaservicio as fechaservicio','users.name as usuarionombre','coches.patente as cochepatente')
             ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')
@@ -1853,7 +1868,7 @@ $datos=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servici
             ->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')
             ->join('precioboletos','servicios.precioboletos_id','=','precioboletos.id')
             ->join('users','servicios.user_id','=','users.id')
-            ->where('servicios.id',$request->id)
+            ->where('servicios.id',$idserv)
             ->get();
 
 $usuario=$datos[0]->usuarionombre;
@@ -1873,20 +1888,7 @@ $pdf=\PDF::loadView('bolterminal.reportes.recaudacionchofer',['datos'=>$datos,'u
         ->setPaper('legal','landscape');
         return $pdf->download('recaudacionchofer.pdf');
 
-$servicios=Servicio::select('servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','codigoservicios.cod_servicio as codigoservicio','servicios.fechaservicio as fechaservicio','users.name as usuarionombre')
-            ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')
-            ->join('coches','servicios.coche_id','=','coches.id')
-            ->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')
-            ->join('users','servicios.user_id','=','users.id')
-            ->where('servicios.estado','ASIGNADO')
-            ->whereNotNull('servicios.choferesleagaslnf_id')
-            ->get();
-Flash::success('Se recaudo correctamente');
- 
-       return view('bolterminal.recaudacion.recaudar')
-                ->with('servicios',$servicios);
+
+
 }
-
-
-
 }

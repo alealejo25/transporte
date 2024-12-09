@@ -990,6 +990,11 @@ if($codigoserv==1 && $request->dia=='S'){
         ->setPaper('legal','landscape');
         return $pdf->download('aperturaS1.pdf'); 
 }
+if($codigoserv==2 && $request->dia=='L/V'){
+    $pdf=\PDF::loadView('bolterminal.planillas.aperturaH2',['servicios'=>$servicios,'fechaserv'=>$fechaserv,'codigoserv'=>$codigoserv,'chofernombre'=>$chofernombre,'choferapellido'=>$choferapellido,'empresa1'=>$empresa1,'empresa2'=>$empresa2,'choferlegajo'=>$choferlegajo,'cocheinterno'=>$cocheinterno,'cochepatente'=>$cochepatente,'nroplanilla'=>$nroplanilla,'usuario'=>$usuario])
+        ->setPaper('legal','landscape');
+        return $pdf->download('aperturaH2.pdf'); 
+}
 
 
  $pdf=\PDF::loadView('bolterminal.reportes.apertura',['servicios'=>$servicios,'fechaserv'=>$fechaserv,'codigoserv'=>$codigoserv])

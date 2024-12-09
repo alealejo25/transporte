@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLANILLA S1</title>
+    <title>Recaudacion Chofer</title>
  <style>
  		@page {
             margin: 4mm; /* Configura márgenes a cero */

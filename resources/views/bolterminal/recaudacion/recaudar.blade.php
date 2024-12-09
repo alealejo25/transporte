@@ -42,7 +42,9 @@
 						<td>ASIGNADO</td>
 					@endif
 					<td>
+						@if($datos->estado!='RECAUDADO')
 						<a href="{{url('bolterminal/recaudar/'.$datos->idserv.'/recaudarservicio')}}"><button class="btn btn-success"><i class="fa fa-usd" aria-hidden="true"></i></button></a>
+						@endif
 						@if($datos->estado=='RECAUDADO')
 						<a href="{{url('bolterminal/recaudar/'.$datos->idserv.'/descargarrecaudacion')}}"><button class="btn btn-primary"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button></a>
 						@endif

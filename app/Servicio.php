@@ -103,9 +103,38 @@ class Servicio extends Model
 'cod27b',
 'cod30b',
 'cod32b',
+'cantcod6a',
+'cantcod6b',
+'cantcod7a',
+'cantcod7b',
+'cantcod8a',
+'cantcod8b',
+'cantcod10a',
+'cantcod10b',
+'cantcod12a',
+'cantcod12b',
+'cantcod14a',
+'cantcod14b',
+'cantcod15a',
+'cantcod15b',
+'cantcod18a',
+'cantcod18b',
+'cantcod21a',
+'cantcod21b',
+'cantcod23a',
+'cantcod23b',
+'cantcod27a',
+'cantcod27b',
+'cantcod30a',
+'cantcod30b',
+'cantcod32a',
+'cantcod32b',
+'cantabonoa',
+'cantabonob',
 'user_id',
 'codservicio_id',
 'coche_id',
+'precioboletos_id',
 'choferesleagaslnf_id'
     ];
     public function StockBoleto()
@@ -124,6 +153,10 @@ class Servicio extends Model
     public function ChoferLeagasLnf()
     {
         return $this->belongsTo('App\ChoferLeagasLnf');
+    }
+    public function PrecioBoleto()
+    {
+        return $this->belongsTo('App\PrecioBoleto');
     }
     //------------
 }

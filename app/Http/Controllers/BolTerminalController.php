@@ -615,7 +615,7 @@ public function guardarasignarboletos(Request $request)
       
         $bolchofer=Servicio::where('estado','ASIGNADO')->where('choferesleagaslnf_id',$request->choferesleagaslnf_id)->get();
         //dd($bolchofer);
-
+        $preciobol=PrecioBoleto::where('estado',1)->get();
         if(count($bolchofer)==1)
         {
             Flash::error('El chofer ya tiene un sevicio asignado');
@@ -657,6 +657,7 @@ public function guardarasignarboletos(Request $request)
         else
         {
             $servicio=new Servicio(request()->except('_token'));
+            $servicio->precioboletos_id=$preciobol[0]->id;
             $servicio->estado="ASIGNADO";
             $servicio->nroplanilla=$nroplanilla;
             $servicio->fechaasignacion=$date = new \DateTime();
@@ -1095,6 +1096,38 @@ $recaudacioncod30b=0;
 $recaudacioncod32b=0;
 $recaudacionabonosb=0;
 
+$cantcod6a=0;
+$cantcod6b=0;
+$cantcod7a=0;
+$cantcod7b=0;
+$cantcod8a=0;
+$cantcod8b=0;
+$cantcod10a=0;
+$cantcod10b=0;
+$cantcod12a=0;
+$cantcod12b=0;
+$cantcod14a=0;
+$cantcod14b=0;
+$cantcod15a=0;
+$cantcod15b=0;
+$cantcod18a=0;
+$cantcod18b=0;
+$cantcod21a=0;
+$cantcod21b=0;
+$cantcod23a=0;
+$cantcod23b=0;
+$cantcod27a=0;
+$cantcod27b=0;
+$cantcod30a=0;
+$cantcod30b=0;
+$cantcod32a=0;
+$cantcod32b=0;
+$cantabonoa=0;
+$cantabonob=0;
+
+
+
+
 $precioboleto=PrecioBoleto::where('estado',1)->get();
     $boletosservicio=StockBoleto::where('servicio_id',$request->id)->get();
     foreach ($boletosservicio as $datos)
@@ -1104,16 +1137,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod6':
             if($datos->posicion==1){
                 if($request->fincod6a==0){
-                    $finalcod6a=500;
+                    $finalcod6a=$datos->fin;
                     $activo=3;
-                    $final=$datos->fin-$datos->actual+1;
-                    $recaudacioncod6a=$final*$precioboleto[0]->cod6;
+                    $cantcod6a=$request->cantidad6a;
+                    $recaudacioncod6a=$cantcod6a*$precioboleto[0]->cod6;
                 }
                 else
                 {
                     $finalcod6a=$request->fincod6a;
                     $recaudacioncod6a=$request->cod6a;
                     $activo=1;
+                    $cantcod6a=$request->fincod6a-$datos->actual;
                 }
 
                 $actualizastock=StockBoleto::where('id',$datos->id)
@@ -1125,16 +1159,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             }
             else{
                 if($request->fincod6b==0){
-                    $finalcod6b=500;
+                    $finalcod6b=$datos->fin;
                     $activo=3;
-                    $final=$datos->fin-$datos->actual+1;
-                    $recaudacioncod6b=$final*$precioboleto[0]->cod6;
+                    $cantcod6b=$request->cantidad6b;
+                    $recaudacioncod6b=$cantcod6b*$precioboleto[0]->cod6;
                 }
                 else
                 {
                     $finalcod6b=$request->fincod6b;
                     $recaudacioncod6b=$request->cod6b;
                     $activo=1;
+                    $cantcod6b=$request->cantidad6b;
                 }
                 $actualizastock=StockBoleto::where('id',$datos->id)
                     ->update([
@@ -1147,16 +1182,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod7':
                 if($datos->posicion==1){
                     if($request->fincod7a==0){
-                        $finalcod7a=500;
+                        $finalcod7a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod7a=$final*$precioboleto[0]->cod7;
+                        $cantcod7a=$request->cantidad7a;
+                        $recaudacioncod7a=$cantcod7a*$precioboleto[0]->cod7;
                     }
                     else
                     {
                         $finalcod7a=$request->fincod7a;
                         $recaudacioncod7a=$request->cod7a;
                         $activo=1;
+                        $cantcod7a=$request->fincod7a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                     ->update([
@@ -1167,16 +1203,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod7b==0){
-                        $finalcod7b=500;
+                        $finalcod7b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod7b=$final*$precioboleto[0]->cod7;
+                        $cantcod7b=$request->cantidad7b;
+                        $recaudacioncod7b=$cantcod7b*$precioboleto[0]->cod7;
                     }
                     else
                     {
                         $finalcod7b=$request->fincod7b;
                         $recaudacioncod7b=$request->cod7b;
                         $activo=1;
+                        $cantcod7b=$request->fincod7b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1189,16 +1226,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod8':
                 if($datos->posicion==1){
                     if($request->fincod8a==0){
-                        $finalcod8a=500;
+                        $finalcod8a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod8a=$final*$precioboleto[0]->cod8;
+                        $cantcod8a=$request->cantidad8a;
+                        $recaudacioncod8a=$cantcod8a*$precioboleto[0]->cod8;
                     }
                     else
                     {
                         $finalcod8a=$request->fincod8a;
                         $recaudacioncod8a=$request->cod8a;
                         $activo=1;
+                        $cantcod8a=$request->fincod8a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1209,16 +1247,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod8b==0){
-                        $finalcod8b=500;
+                        $finalcod8b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod8b=$final*$precioboleto[0]->cod8;
+                        $cantcod8b=$request->cantidad8b;
+                        $recaudacioncod8b=$cantcod8b*$precioboleto[0]->cod8;
                     }
                     else
                     {
                         $finalcod8b=$request->fincod8b;
                         $recaudacioncod8b=$request->cod8b;
                         $activo=1;
+                        $cantcod8b=$request->fincod8b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1231,16 +1270,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod10':
                 if($datos->posicion==1){
                     if($request->fincod10a==0){
-                        $finalcod10a=500;
+                        $finalcod10a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod10a=$final*$precioboleto[0]->cod10;
+                        $cantcod10a=$request->cantidad10a;
+                        $recaudacioncod10a=$cantcod10a*$precioboleto[0]->cod10;
                     }
                     else
                     {
                         $finalcod10a=$request->fincod10a;
                         $recaudacioncod10a=$request->cod10a;
                         $activo=1;
+                        $cantcod10a=$request->fincod10a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1251,16 +1291,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod10b==0){
-                        $finalcod10b=500;
+                        $finalcod10b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod10b=$final*$precioboleto[0]->cod10;
+                        $cantcod10b=$request->cantidad10b;
+                        $recaudacioncod10b=$cantcod10b*$precioboleto[0]->cod10;
                     }
                     else
                     {
                         $finalcod10b=$request->fincod10b;
                         $recaudacioncod10b=$request->cod10b;
                         $activo=1;
+                        $cantcod10b=$request->fincod10b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1273,16 +1314,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod12':
                 if($datos->posicion==1){
                     if($request->fincod12a==0){
-                        $finalcod12a=500;
+                        $finalcod12a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod12a=$final*$precioboleto[0]->cod12;
+                        $cantcod12a=$request->cantidad12a;
+                        $recaudacioncod12a=$cantcod12a*$precioboleto[0]->cod12;
                     }
                     else
                     {
                         $finalcod12a=$request->fincod12a;
                         $recaudacioncod12a=$request->cod12a;
                         $activo=1;
+                        $cantcod12a=$request->fincod12a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1293,16 +1335,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod12b==0){
-                        $finalcod12b=500;
+                        $finalcod12b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod12b=$final*$precioboleto[0]->cod12;
+                        $cantcod12b=$request->cantidad12b;
+                        $recaudacioncod12b=$cantcod12b*$precioboleto[0]->cod12;
                     }
                     else
                     {
                         $finalcod12b=$request->fincod12b;
                         $recaudacioncod12b=$request->cod12b;
                         $activo=1;
+                        $cantcod12b=$request->fincod12b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1315,16 +1358,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod14':
                 if($datos->posicion==1){
                     if($request->fincod14a==0){
-                        $finalcod14a=500;
+                        $finalcod14a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod14a=$final*$precioboleto[0]->cod14;
+                        $cantcod14a=$request->cantidad14a;
+                        $recaudacioncod14a=$cantcod14a*$precioboleto[0]->cod14;
                     }
                     else
                     {
                         $finalcod14a=$request->fincod14a;
                         $recaudacioncod14a=$request->cod14a;
                         $activo=1;
+                        $cantcod14a=$request->fincod14a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1335,16 +1379,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod14b==0){
-                        $finalcod14b=500;
+                        $finalcod14b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod14b=$final*$precioboleto[0]->cod14;
+                        $cantcod14b=$request->cantidad14b;
+                        $recaudacioncod14b=$cantcod14b*$precioboleto[0]->cod14;
                     }
                     else
                     {
                         $finalcod14b=$request->fincod14b;
                         $recaudacioncod14b=$request->cod14b;
                         $activo=1;
+                        $cantcod14b=$request->fincod14b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1357,16 +1402,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod15':
                 if($datos->posicion==1){
                     if($request->fincod15a==0){
-                        $finalcod15a=500;
+                        $finalcod15a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod15a=$final*$precioboleto[0]->cod15;
+                        $cantcod15a=$request->cantidad15a;
+                        $recaudacioncod15a=$cantcod15a*$precioboleto[0]->cod15;
                     }
                     else
                     {
                         $finalcod15a=$request->fincod15a;
                         $recaudacioncod15a=$request->cod15a;
                         $activo=1;
+                        $cantcod15a=$request->fincod15a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1377,16 +1423,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod15b==0){
-                        $finalcod15b=500;
+                        $finalcod15b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod15b=$final*$precioboleto[0]->cod15;
+                        $cantcod15b=$request->cantidad15a;
+                        $recaudacioncod15b=$cantcod15b*$precioboleto[0]->cod15;
                     }
                     else
                     {
                         $finalcod15b=$request->fincod15b;
                         $recaudacioncod15b=$request->cod15b;
                         $activo=1;
+                        $cantcod15b=$request->fincod15b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1399,16 +1446,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod18':
                 if($datos->posicion==1){
                     if($request->fincod18a==0){
-                        $finalcod18a=500;
+                        $finalcod18a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod18a=$final*$precioboleto[0]->cod18;
+                        $cantcod18a=$request->cantidad18a;
+                        $recaudacioncod18a=$cantcod18a*$precioboleto[0]->cod18;
                     }
                     else
                     {
                         $finalcod18a=$request->fincod18a;
                         $recaudacioncod18a=$request->cod18a;
                         $activo=1;
+                        $cantcod18a=$request->fincod18a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1419,16 +1467,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod18b==0){
-                        $finalcod18b=500;
+                        $finalcod18b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod18b=$final*$precioboleto[0]->cod18;
+                        $cantcod18b=$request->cantidad18b;
+                        $recaudacioncod18b=$cantcod18b*$precioboleto[0]->cod18;
                     }
                     else
                     {
                         $finalcod18b=$request->fincod18b;
                         $recaudacioncod18b=$request->cod18b;
                         $activo=1;
+                        $cantcod18b=$request->fincod18b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1441,16 +1490,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod21':
                 if($datos->posicion==1){
                     if($request->fincod21a==0){
-                        $finalcod21a=500;
+                        $finalcod21a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod21a=$final*$precioboleto[0]->cod21;
+                        $cantcod21a=$request->cantidad21a;
+                        $recaudacioncod21a=$cantcod21a*$precioboleto[0]->cod21;
                     }
                     else
                     {
                         $finalcod21a=$request->fincod21a;
                         $recaudacioncod21a=$request->cod21a;
                         $activo=1;
+                        $cantcod21a=$request->fincod21a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1461,16 +1511,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod21b==0){
-                        $finalcod21b=500;
+                        $finalcod21b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod21b=$final*$precioboleto[0]->cod21;
+                        $cantcod21b=$request->cantidad21b;
+                        $recaudacioncod21b=$cantcod21b*$precioboleto[0]->cod21;
                     }
                     else
                     {
                         $finalcod21b=$request->fincod21b;
                         $recaudacioncod21b=$request->cod21b;
                         $activo=1;
+                        $cantcod21b=$request->fincod21b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1483,16 +1534,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod23':
                 if($datos->posicion==1){
                     if($request->fincod23a==0){
-                        $finalcod23a=500;
+                        $finalcod23a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod23a=$final*$precioboleto[0]->cod23;
+                       $cantcod23a=$request->cantidad23a;
+                        $recaudacioncod23a=$cantcod23a*$precioboleto[0]->cod23;
                     }
                     else
                     {
                         $finalcod23a=$request->fincod23a;
                         $recaudacioncod23a=$request->cod23a;
                         $activo=1;
+                        $cantcod23a=$request->fincod23a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1503,16 +1555,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod23b==0){
-                        $finalcod23b=500;
+                        $finalcod23b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod23b=$final*$precioboleto[0]->cod23;
+                        $cantcod23b=$request->cantidad23b;
+                        $recaudacioncod23b=$cantcod23b*$precioboleto[0]->cod23;
                     }
                     else
                     {
                         $finalcod23b=$request->fincod23b;
                         $recaudacioncod23b=$request->cod23b;
                         $activo=1;
+                        $cantcod23b=$request->fincod23b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1525,16 +1578,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod27':
                 if($datos->posicion==1){
                     if($request->fincod27a==0){
-                        $finalcod27a=500;
+                        $finalcod27a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod27a=$final*$precioboleto[0]->cod27;
+                        $cantcod27a=$request->cantidad27a;
+                        $recaudacioncod27a=$cantcod27a*$precioboleto[0]->cod27;
                     }
                     else
                     {
                         $finalcod27a=$request->fincod27a;
                         $recaudacioncod27a=$request->cod27a;
                         $activo=1;
+                         $cantcod27a=$request->fincod27a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1545,16 +1599,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod27b==0){
-                        $finalcod27b=500;
+                        $finalcod27b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod27b=$final*$precioboleto[0]->cod27;
+                         $cantcod27b=$request->cantidad27b;
+                        $recaudacioncod27b=$cantcod27b*$precioboleto[0]->cod27;
                     }
                     else
                     {
                         $finalcod27b=$request->fincod27b;
                         $recaudacioncod27b=$request->cod27b;
                         $activo=1;
+                        $cantcod27b=$request->fincod27b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1567,16 +1622,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod30':
                 if($datos->posicion==1){
                     if($request->fincod30a==0){
-                        $finalcod30a=500;
+                        $finalcod30a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod30a=$final*$precioboleto[0]->cod30;
+                        $cantcod30a=$request->cantidad30a;
+                        $recaudacioncod30a=$cantcod30a*$precioboleto[0]->cod30;
                     }
                     else
                     {
                         $finalcod30a=$request->fincod30a;
                         $recaudacioncod30a=$request->cod30a;
                         $activo=1;
+                        $cantcod30a=$request->fincod30a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1587,16 +1643,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod30b==0){
-                        $finalcod30b=500;
+                        $finalcod30b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod30b=$final*$precioboleto[0]->cod30;
+                         $cantcod30b=$request->cantidad30b;
+                        $recaudacioncod30b=$cantcod30b*$precioboleto[0]->cod30;
                     }
                     else
                     {
                         $finalcod30b=$request->fincod30b;
                         $recaudacioncod30b=$request->cod30b;
                         $activo=1;
+                        $cantcod30b=$request->fincod30b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1609,16 +1666,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'cod32':
                 if($datos->posicion==1){
                     if($request->fincod32a==0){
-                        $finalcod32a=500;
+                        $finalcod32a=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod32a=$final*$precioboleto[0]->cod32;
+                        $cantcod32a=$request->cantidad12b;
+                        $recaudacioncod32a=$cantcod32a*$precioboleto[0]->cod32;
                     }
                     else
                     {
                         $finalcod32a=$request->fincod32a;
                         $recaudacioncod32a=$request->cod32a;
                         $activo=1;
+                        $cantcod32a=$request->fincod32a-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1629,16 +1687,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->fincod32b==0){
-                        $finalcod32b=500;
+                        $finalcod32b=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacioncod32b=$final*$precioboleto[0]->cod32;
+                        $cantcod32b=$request->cantidad32b;
+                        $recaudacioncod32b=$cantcod32b*$precioboleto[0]->cod32;
                     }
                     else
                     {
                         $finalcod32b=$request->fincod32b;
                         $recaudacioncod32b=$request->cod32b;
                         $activo=1;
+                        $cantcod32b=$request->fincod32b-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1651,16 +1710,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             case 'abono':
                 if($datos->posicion==1){
                     if($request->finabonoa==0){
-                        $finalabonoa=500;
+                        $finalabonoa=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacionabonosa=$final*$precioboleto[0]->abonos;
+                        $cantabonoa=$request->cantidadabonoa;
+                        $recaudacionabonosa=$cantabonoa*$precioboleto[0]->abonos;
                     }
                     else
                     {
                         $finalabonoa=$request->finabonoa;
                         $recaudacionabonosa=$request->abonosa;
                         $activo=1;
+                        $cantabonoa=$request->finabonoa-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1671,16 +1731,17 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                 }
                 else{
                     if($request->finabonob==0){
-                        $finalabonob=500;
+                        $finalabonob=$datos->fin;
                         $activo=3;
-                        $final=$datos->fin-$datos->actual+1;
-                        $recaudacionabonosb=$final*$precioboleto[0]->abonos;
+                        $cantabonob=$request->cantidadabonob;
+                        $recaudacionabonosb=$cantabonob*$precioboleto[0]->abonos;
                     }
                     else
                     {
                         $finalabonob=$request->finabonob;
                         $recaudacionabonosb=$request->abonosb;
                         $activo=1;
+                        $cantabonob=$request->finabonob-$datos->actual;
                     }
                     $actualizastock=StockBoleto::where('id',$datos->id)
                         ->update([
@@ -1692,7 +1753,7 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
             break;
         }
     }
-       
+
     $servicioactualizar=Servicio::where('id',$request->id)
         ->update([
                                 'fincod6a'=>$finalcod6a,
@@ -1751,6 +1812,35 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                                 'cod30b'=>$recaudacioncod30b,
                                 'cod32b'=>$recaudacioncod32b,
                                 'abonosb'=>$recaudacionabonosb,
+                                'cantcod6a'=>$cantcod6a,
+                                'cantcod6b'=>$cantcod6b,
+                                'cantcod7a'=>$cantcod7a,
+                                'cantcod7b'=>$cantcod7b,
+                                'cantcod8a'=>$cantcod8a,
+                                'cantcod8b'=>$cantcod8b,
+                                'cantcod10a'=>$cantcod10a,
+                                'cantcod10b'=>$cantcod10b,
+                                'cantcod12a'=>$cantcod12a,
+                                'cantcod12b'=>$cantcod12b,
+                                'cantcod14a'=>$cantcod14a,
+                                'cantcod14b'=>$cantcod14b,
+                                'cantcod15a'=>$cantcod15a,
+                                'cantcod15b'=>$cantcod15b,
+                                'cantcod18a'=>$cantcod18a,
+                                'cantcod18b'=>$cantcod18b,
+                                'cantcod21a'=>$cantcod21a,
+                                'cantcod21b'=>$cantcod21b,
+                                'cantcod23a'=>$cantcod23a,
+                                'cantcod23b'=>$cantcod23b,
+                                'cantcod27a'=>$cantcod27a,
+                                'cantcod27b'=>$cantcod27b,
+                                'cantcod30a'=>$cantcod30a,
+                                'cantcod30b'=>$cantcod30b,
+                                'cantcod32a'=>$cantcod32a,
+                                'cantcod32b'=>$cantcod32b,
+                                'cantabonoa'=>$cantabonoa,
+                                'cantabonob'=>$cantabonob,
+
                                 'estado'=>'RECAUDADO'
                                  ]);
 
@@ -1761,10 +1851,10 @@ $datos=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servici
             ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')
             ->join('coches','servicios.coche_id','=','coches.id')
             ->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')
+            ->join('precioboletos','servicios.precioboletos_id','=','precioboletos.id')
             ->join('users','servicios.user_id','=','users.id')
             ->where('servicios.id',$request->id)
             ->get();
-
 
 $usuario=$datos[0]->usuarionombre;
 $fechaserv=$datos[0]->fechaservicio;

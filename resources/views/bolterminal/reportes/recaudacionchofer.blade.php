@@ -39,7 +39,10 @@
             background-color: #f2f2f2;
         }
         .titulo {
-            width: 150px;
+            font-size: 13px; /* Tamaño base */
+        }
+        .recaudacion {
+            font-size: 16px; /* Tamaño base */
         }
         .cabecera {
             width: 300px;
@@ -78,7 +81,7 @@
 
     </div>
     <br>
-    <table>
+    <table class="titulo">
         <thead>
             <tr>
 
@@ -102,13 +105,9 @@
                  	<td>Codigo 6_A </td>
                  	<td>{{$dato->inicialcod6a}}</td>
                  	<td>{{$dato->fincod6a}}</td>
-                 	<td>{{$dato->fincod6a-$dato->inicialcod6a}}</td>
-                 	@if(($dato->fincod6a-$dato->inicialcod6a)!=0)
-                 	 <td align="right">$ {{number_format($dato->cod6a/($dato->fincod6a-$dato->inicialcod6a),2,",",".")}}</td>
+                  	<td>{{$dato->cantcod6a}}</td>
+                 	<td align="right">$ {{number_format($dato->cod6,2,",",".")}}</td>
                  	</td>
-                 	@else
-                 		<td></td>
-                 	@endif
                  	<td align="right">$ {{number_format($dato->cod6a,2,",",".")}}
                  	@if($dato->fincod6a%500===0)
                  	<td>SI</td>
@@ -122,13 +121,8 @@
                  	<td>Codigo 6_B </td>
                  	<td>{{$dato->inicialcod6b}}</td>
                  	<td>{{$dato->fincod6b}}</td>
-                 	<td>{{$dato->fincod6b-$dato->inicialcod6b}}</td>
-                 	@if(($dato->fincod6b-$dato->inicialcod6b)!=0)
-                 	 <td align="right">$ {{number_format($dato->cod6b/($dato->fincod6b-$dato->inicialcod6b),2,",",".")}}</td>
-					</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod6b}}</td>
+                 	<td align="right">$ {{number_format($dato->cod6,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod6b,2,",",".")}}</td>
                  	@if($dato->fincod6b%500===0)
                  	<td>SI</td>
@@ -142,12 +136,8 @@
                  	<td>Codigo 7_A </td>
                  	<td>{{$dato->inicialcod7a}}</td>
                  	<td>{{$dato->fincod7a}}</td>
-                 	<td>{{$dato->fincod7a-$dato->inicialcod7a}}</td>
-                 	@if(($dato->fincod7a-$dato->inicialcod7a)!=0)
-                 	<td>$ {{number_format($dato->cod7a/($dato->fincod7a-$dato->inicialcod7a),2,",",".")}}</td>
-                 	 @else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod7a}}</td>
+                 	<td>$ {{number_format($dato->cod7,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod7a,2,",",".")}}</td>
                  	@if($dato->fincod7a%500===0)
                  	<td>SI</td>
@@ -161,12 +151,8 @@
                  	<td>Codigo 7_B </td>
                  	<td>{{$dato->inicialcod7b}}</td>
                  	<td>{{$dato->fincod7b}}</td>
-                 	<td>{{$dato->fincod7b-$dato->inicialcod7b}}</td>
-                 	@if(($dato->fincod7b-$dato->inicialcod7b)!=0)
-                 	<td>$ {{number_format($dato->cod7b/($dato->fincod7b-$dato->inicialcod7b),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod7b}}</td>
+                 	<td>$ {{number_format($dato->cod7,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod7b,2,",",".")}}</td>
                  	@if($dato->fincod7b%500===0)
                  	<td>SI</td>
@@ -180,12 +166,8 @@
                  	<td>Codigo 8_A </td>
                  	<td>{{$dato->inicialcod8a}}</td>
                  	<td>{{$dato->fincod8a}}</td>
-                 	<td>{{$dato->fincod8a-$dato->inicialcod8a}}</td>
-                 	@if(($dato->fincod8a-$dato->inicialcod8a)!=0)
-                 	<td>$ {{number_format($dato->cod8a/($dato->fincod8a-$dato->inicialcod8a),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod8a}}</td>
+                 	<td>$ {{number_format($dato->cod8,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod8a,2,",",".")}}</td>
                  	@if($dato->fincod8a%500===0)
                  	<td>SI</td>
@@ -199,12 +181,8 @@
                  	<td>Codigo 8_B </td>
                  	<td>{{$dato->inicialcod8b}}</td>
                  	<td>{{$dato->fincod8b}}</td>
-                 	<td>{{$dato->fincod8b-$dato->inicialcod8b}}</td>
-                 	@if(($dato->fincod8b-$dato->inicialcod8b)!=0)
-                 	<td>$ {{number_format($dato->cod8b/($dato->fincod8b-$dato->inicialcod8b),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod8b}}</td>
+                 	<td>$ {{number_format($dato->cod8,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod8b,2,",",".")}}</td>
                  	@if($dato->fincod8b%500===0)
                  	<td>SI</td>
@@ -218,12 +196,8 @@
                  	<td>Codigo 10_A </td>
                  	<td>{{$dato->inicialcod10a}}</td>
                  	<td>{{$dato->fincod10a}}</td>
-                 	<td>{{$dato->fincod10a-$dato->inicialcod10a}}</td>
-                 	@if(($dato->fincod10a-$dato->inicialcod10a)!=0)
-                 	<td>$ {{number_format($dato->cod10a/($dato->fincod10a-$dato->inicialcod10a),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod10a}}</td>
+                 	<td>$ {{number_format($dato->cod10,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod10a,2,",",".")}}</td>
                  	@if($dato->fincod10a%500===0)
                  	<td>SI</td>
@@ -237,12 +211,8 @@
                  	<td>Codigo 10_B </td>
                  	<td>{{$dato->inicialcod10b}}</td>
                  	<td>{{$dato->fincod10b}}</td>
-                 	<td>{{$dato->fincod10b-$dato->inicialcod10b}}</td>
-                 	@if(($dato->fincod10b-$dato->inicialcod10b)!=0)
-                 	<td>$ {{number_format($dato->cod10b/($dato->fincod10b-$dato->inicialcod10b),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod10b}}</td>
+                 	<td>$ {{number_format($dato->cod10,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod10b,2,",",".")}}</td>
                  	@if($dato->fincod10b%500===0)
                  	<td>SI</td>
@@ -256,12 +226,8 @@
                  	<td>Codigo 12_A </td>
                  	<td>{{$dato->inicialcod12a}}</td>
                  	<td>{{$dato->fincod12a}}</td>
-                 	<td>{{$dato->fincod12a-$dato->inicialcod12a}}</td>
-                 	@if(($dato->fincod12a-$dato->inicialcod12a)!=0)
-                 	<td>$ {{number_format($dato->cod12a/($dato->fincod12a-$dato->inicialcod12a),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod12a}}</td>
+                 	<td>$ {{number_format($dato->cod12,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod12a,2,",",".")}}</td>
                  	@if($dato->fincod12a%500===0)
                  	<td>SI</td>
@@ -275,12 +241,8 @@
                  	<td>Codigo 12_B </td>
                  	<td>{{$dato->inicialcod12b}}</td>
                  	<td>{{$dato->fincod12b}}</td>
-                 	<td>{{$dato->fincod12b-$dato->inicialcod12b}}</td>
-                 	@if(($dato->fincod12b-$dato->inicialcod12b)!=0)
-                 	<td>$ {{number_format($dato->cod12b/($dato->fincod12b-$dato->inicialcod12b),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod12b}}</td>
+                 	<td>$ {{number_format($dato->cod12,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod12b,2,",",".")}}</td>
                  	@if($dato->fincod12b%500===0)
                  	<td>SI</td>
@@ -294,12 +256,8 @@
                  	<td>Codigo 14_A </td>
                  	<td>{{$dato->inicialcod14a}}</td>
                  	<td>{{$dato->fincod14a}}</td>
-                 	<td>{{$dato->fincod14a-$dato->inicialcod14a}}</td>
-                 	@if(($dato->fincod14a-$dato->inicialcod14a)!=0)
-                 	<td>$ {{number_format($dato->cod14a/($dato->fincod14a-$dato->inicialcod14a),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod14a}}</td>
+                 	<td>$ {{number_format($dato->cod14,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod14a,2,",",".")}}</td>
                  	@if($dato->fincod14a%500===0)
                  	<td>SI</td>
@@ -313,12 +271,8 @@
                  	<td>Codigo 14_B </td>
                  	<td>{{$dato->inicialcod14b}}</td>
                  	<td>{{$dato->fincod14b}}</td>
-                 	<td>{{$dato->fincod14b-$dato->inicialcod14b}}</td>
-                 	@if(($dato->fincod14b-$dato->inicialcod14b)!=0)
-                 	<td>$ {{number_format($dato->cod14b/($dato->fincod14b-$dato->inicialcod14b),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod14b}}</td>
+                 	<td>$ {{number_format($dato->cod14,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod14b,2,",",".")}}</td>
                  	@if($dato->fincod14b%500===0)
                  	<td>SI</td>
@@ -332,12 +286,8 @@
                  	<td>Codigo 15_A </td>
                  	<td>{{$dato->inicialcod15a}}</td>
                  	<td>{{$dato->fincod15a}}</td>
-                 	<td>{{$dato->fincod15a-$dato->inicialcod15a}}</td>
-                 	@if(($dato->fincod15a-$dato->inicialcod15a)!=0)
-                 	<td>$ {{number_format($dato->cod15a/($dato->fincod15a-$dato->inicialcod15a),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod15a}}</td>
+                 <td>$ {{number_format($dato->cod15,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod15a,2,",",".")}}</td>
                  	@if($dato->fincod15a%500===0)
                  	<td>SI</td>
@@ -351,12 +301,8 @@
                  	<td>Codigo 15_B </td>
                  	<td>{{$dato->inicialcod15b}}</td>
                  	<td>{{$dato->fincod15b}}</td>
-                 	<td>{{$dato->fincod15b-$dato->inicialcod15b}}</td>
-                 	@if(($dato->fincod15b-$dato->inicialcod15b)!=0)
-                 	<td>$ {{number_format($dato->cod15b/($dato->fincod15b-$dato->inicialcod15b),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod15b}}</td>
+                 	 <td>$ {{number_format($dato->cod15,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod15b,2,",",".")}}</td>
                  	@if($dato->fincod15b%500===0)
                  	<td>SI</td>
@@ -370,12 +316,8 @@
                  	<td>Codigo 18_A </td>
                  	<td>{{$dato->inicialcod18a}}</td>
                  	<td>{{$dato->fincod18a}}</td>
-                 	<td>{{$dato->fincod18a-$dato->inicialcod18a}}</td>
-                 	@if(($dato->fincod18a-$dato->inicialcod18a)!=0)
-                 	<td>$ {{number_format($dato->cod18a/($dato->fincod18a-$dato->inicialcod18a),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod18a}}</td>
+                 	 <td>$ {{number_format($dato->cod18,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod18a,2,",",".")}}</td>
                  	@if($dato->fincod18a%500===0)
                  	<td>SI</td>
@@ -389,12 +331,8 @@
                  	<td>Codigo 18_B </td>
                  	<td>{{$dato->inicialcod18b}}</td>
                  	<td>{{$dato->fincod18b}}</td>
-                 	<td>{{$dato->fincod18b-$dato->inicialcod18b}}</td>
-                 	@if(($dato->fincod18b-$dato->inicialcod18b)!=0)
-                 	<td>$ {{number_format($dato->cod18b/($dato->fincod18b-$dato->inicialcod18b),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod18b}}</td>
+                 	<td>$ {{number_format($dato->cod18,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod18b,2,",",".")}}</td>
                  	@if($dato->fincod18b%500===0)
                  	<td>SI</td>
@@ -408,12 +346,8 @@
                  	<td>Codigo 21_A </td>
                  	<td>{{$dato->inicialcod21a}}</td>
                  	<td>{{$dato->fincod21a}}</td>
-                 	<td>{{$dato->fincod21a-$dato->inicialcod21a}}</td>
-                 	@if(($dato->fincod21a-$dato->inicialcod21a)!=0)
-                 	<td>$ {{number_format($dato->cod21a/($dato->fincod21a-$dato->inicialcod21a),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod21a}}</td>
+                 	<td>$ {{number_format($dato->cod21,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod21a,2,",",".")}}</td>
                  	@if($dato->fincod21a%500===0)
                  	<td>SI</td>
@@ -427,12 +361,8 @@
                  	<td>Codigo 21_B </td>
                  	<td>{{$dato->inicialcod21b}}</td>
                  	<td>{{$dato->fincod21b}}</td>
-                 	<td>{{$dato->fincod21b-$dato->inicialcod21b}}</td>
-                 	@if(($dato->fincod21b-$dato->inicialcod21b)!=0)
-                 	<td>$ {{number_format($dato->cod21b/($dato->fincod21b-$dato->inicialcod21b),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod21b}}</td>
+                 	<td>$ {{number_format($dato->cod21,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod21b,2,",",".")}}</td>
                  	@if($dato->fincod21b%500===0)
                  	<td>SI</td>
@@ -446,12 +376,8 @@
                  	<td>Codigo 23_A </td>
                  	<td>{{$dato->inicialcod23a}}</td>
                  	<td>{{$dato->fincod23a}}</td>
-                 	<td>{{$dato->fincod23a-$dato->inicialcod23a}}</td>
-                 	@if(($dato->fincod23a-$dato->inicialcod23a)!=0)
-                 	<td>$ {{number_format($dato->cod23a/($dato->fincod23a-$dato->inicialcod23a),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod23a}}</td>
+                 	<td>$ {{number_format($dato->cod23,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod23a,2,",",".")}}</td>
                  	@if($dato->fincod23a%500===0)
                  	<td>SI</td>
@@ -465,12 +391,8 @@
                  	<td>Codigo 27_A </td>
                  	<td>{{$dato->inicialcod27a}}</td>
                  	<td>{{$dato->fincod27a}}</td>
-                 	<td>{{$dato->fincod27a-$dato->inicialcod27a}}</td>
-                 	@if(($dato->fincod27a-$dato->inicialcod27a)!=0)
-                 	<td>$ {{number_format($dato->cod27a/($dato->fincod27a-$dato->inicialcod27a),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod27a}}</td>
+                 	<td>$ {{number_format($dato->cod27,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod27a,2,",",".")}}</td>
                  	@if($dato->fincod27a%500===0)
                  	<td>SI</td>
@@ -484,12 +406,8 @@
                  	<td>Codigo 27_B </td>
                  	<td>{{$dato->inicialcod27b}}</td>
                  	<td>{{$dato->fincod27b}}</td>
-                 	<td>{{$dato->fincod27b-$dato->inicialcod27b}}</td>
-                 	@if(($dato->fincod27b-$dato->inicialcod27b)!=0)
-                 	<td>$ {{number_format($dato->cod27b/($dato->fincod27b-$dato->inicialcod27b),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod27b}}</td>
+                 	<td>$ {{number_format($dato->cod27,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod27b,2,",",".")}}</td>
                  	@if($dato->fincod27b%500===0)
                  	<td>SI</td>
@@ -503,12 +421,8 @@
                  	<td>Codigo 30_A </td>
                  	<td>{{$dato->inicialcod30a}}</td>
                  	<td>{{$dato->fincod30a}}</td>
-                 	<td>{{$dato->fincod30a-$dato->inicialcod30a}}</td>
-                 	@if(($dato->fincod30a-$dato->inicialcod30a)!=0)
-                 	<td>$ {{number_format($dato->cod30a/($dato->fincod30a-$dato->inicialcod30a),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod30a}}</td>
+                 	<td>$ {{number_format($dato->cod30,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod30a,2,",",".")}}</td>
                  	@if($dato->fincod30a%500===0)
                  	<td>SI</td>
@@ -522,12 +436,8 @@
                  	<td>Codigo 30_B </td>
                  	<td>{{$dato->inicialcod30b}}</td>
                  	<td>{{$dato->fincod30b}}</td>
-                 	<td>{{$dato->fincod30b-$dato->inicialcod30b}}</td>
-                 	@if(($dato->fincod30b-$dato->inicialcod30b)!=0)
-                 	<td>$ {{number_format($dato->cod30b/($dato->fincod30b-$dato->inicialcod30b),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod30b}}</td>
+                 	<td>$ {{number_format($dato->cod30,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod30b,2,",",".")}}</td>
                  	@if($dato->fincod30b%500===0)
                  	<td>SI</td>
@@ -541,12 +451,8 @@
                  	<td>Codigo 32_A </td>
                  	<td>{{$dato->inicialcod32a}}</td>
                  	<td>{{$dato->fincod32a}}</td>
-                 	<td>{{$dato->fincod32a-$dato->inicialcod32a}}</td>
-                 	@if(($dato->fincod32a-$dato->inicialcod32a)!=0)
-                 	<td>$ {{number_format($dato->cod32a/($dato->fincod32a-$dato->inicialcod32a),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod32a}}</td>
+                 	<td>$ {{number_format($dato->cod32,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod32a,2,",",".")}}</td>
                  	@if($dato->fincod32a%500===0)
                  	<td>SI</td>
@@ -560,12 +466,8 @@
                  	<td>Codigo 32_B </td>
                  	<td>{{$dato->inicialcod32b}}</td>
                  	<td>{{$dato->fincod32b}}</td>
-                 	<td>{{$dato->fincod32b-$dato->inicialcod32b}}</td>
-                 	@if(($dato->fincod32b-$dato->inicialcod32b)!=0)
-						<td>$ {{number_format($dato->cod32b/($dato->fincod32b-$dato->inicialcod32b),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantcod32b}}</td>
+                 	<td>$ {{number_format($dato->cod32,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->cod32b,2,",",".")}}</td>
                  	@if($dato->fincod32b%500===0)
                  	<td>SI</td>
@@ -579,12 +481,8 @@
                  	<td>Codigo ABONO_A </td>
                  	<td>{{$dato->inicialabonoa}}</td>
                  	<td>{{$dato->finabonoa}}</td>
-                 	<td>{{$dato->finabonoa-$dato->inicialabonoa}}</td>
-                 	@if(($dato->finabonoa-$dato->inicialabonoa)!=0)
-                 	<td>$ {{number_format($dato->abonosa/($dato->finabonoa-$dato->inicialabonoa),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantabonoa}}</td>
+                 	<td>$ {{number_format($dato->abono,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->abonoa,2,",",".")}}</td>
                  	@if($dato->finabonoa%500===0)
                  	<td>SI</td>
@@ -598,12 +496,8 @@
                  	<td>Codigo ABONO_B </td>
                  	<td>{{$dato->inicialabonob}}</td>
                  	<td>{{$dato->finabonob}}</td>
-                 	<td>{{$dato->finabonob-$dato->inicialabonob}}</td>
-                 	@if(($dato->finabonob-$dato->inicialabonob)!=0)
-                 	<td>$ {{number_format($dato->abonosb/($dato->finabonob-$dato->inicialabonob),2,",",".")}}</td>
-                 	@else
-                 		<td></td>
-                 	@endif
+                 	<td>{{$dato->cantabonob}}</td>
+                 	<td>$ {{number_format($dato->abono,2,",",".")}}</td>
                  	<td align="right">$ {{number_format($dato->abonob,2,",",".")}}</td>
                  	@if($dato->finabonob%500===0)
                  	<td>SI</td>
@@ -615,10 +509,10 @@
                  <tr>
                  	<td> </td>
                  	<td> </td>
-                 	<td>Total Boletos</td>
-                 	<td>{{$dato->fincod6a-$dato->inicialcod6a+$dato->fincod6b-$dato->inicialcod6b+$dato->fincod7a-$dato->inicialcod7a+$dato->fincod7b-$dato->inicialcod7b+$dato->fincod8a-$dato->inicialcod8a+$dato->fincod8b-$dato->inicialcod8b+$dato->fincod10a-$dato->inicialcod10a+$dato->fincod10b-$dato->inicialcod10b+$dato->fincod12a-$dato->inicialcod12a+$dato->fincod12b-$dato->inicialcod12b+$dato->fincod14a-$dato->inicialcod14a+$dato->fincod14b-$dato->inicialcod14b+$dato->fincod15a-$dato->inicialcod15a+$dato->fincod15b-$dato->inicialcod15b+$dato->fincod18a-$dato->inicialcod18a+$dato->fincod18b-$dato->inicialcod18b+$dato->fincod21a-$dato->inicialcod21a+$dato->fincod21b-$dato->inicialcod21b+$dato->fincod23a-$dato->inicialcod23a+$dato->fincod23b-$dato->inicialcod23b+$dato->fincod27a-$dato->inicialcod27a+$dato->fincod27b-$dato->inicialcod27b+$dato->fincod30a-$dato->inicialcod30a+$dato->fincod30b-$dato->inicialcod30b+$dato->fincod32a-$dato->inicialcod32a+$dato->fincod32b-$dato->inicialcod32b+$dato->finabonoa-$dato->inicialabonoa+$dato->finabonob-$dato->inicialabonob}}</td>
-                 	<td>TOTAL RECAUDADO</td>
-                 	<td>$ {{number_format($dato->cod6a+$dato->cod6b+$dato->cod7a+$dato->cod7b+$dato->cod8a+$dato->cod8b+$dato->cod10a+$dato->cod10b+$dato->cod12a+$dato->cod12b+$dato->cod14a+$dato->cod14b+$dato->cod15a+$dato->cod15b+$dato->cod18a+$dato->cod18b+$dato->cod21a+$dato->cod21b+$dato->cod23a+$dato->cod23b+$dato->cod27a+$dato->cod27b+$dato->cod30a+$dato->cod30b+$dato->cod32a+$dato->cod32b+$dato->abonoa+$dato->abonob,2,",",".")}}</td>
+                 	<td><strong>Total Boletos</strong></td>
+                 	<td class="recaudacion">{{$dato->cantcod6a+$dato->cantcod6b+$dato->cantcod7a+$dato->cantcod7b+$dato->cantcod8a+$dato->cantcod8b+$dato->cantcod10a+$dato->cantcod10b+$dato->cantcod12a+$dato->cantcod12b+$dato->cantcod14a+$dato->cantcod14b+$dato->cantcod15a+$dato->cantcod15b+$dato->cantcod18a+$dato->cant18b+$dato->cantcod21a+$dato->cantcod21b+$dato->cantcod23a+$dato->cantcod23b+$dato->cantcod27a+$dato->cantcod27b+$dato->cantcod30a+$dato->cantcod30b+$dato->cantcod32a+$dato->cantcod32b+$dato->cantabonoa+$dato->cantabonob}}</td>
+                 	<td ><strong>TOTAL RECAUDADO</strong></td>
+                 	<td class="recaudacion"><strong>$ {{number_format($dato->cod6a+$dato->cod6b+$dato->cod7a+$dato->cod7b+$dato->cod8a+$dato->cod8b+$dato->cod10a+$dato->cod10b+$dato->cod12a+$dato->cod12b+$dato->cod14a+$dato->cod14b+$dato->cod15a+$dato->cod15b+$dato->cod18a+$dato->cod18b+$dato->cod21a+$dato->cod21b+$dato->cod23a+$dato->cod23b+$dato->cod27a+$dato->cod27b+$dato->cod30a+$dato->cod30b+$dato->cod32a+$dato->cod32b+$dato->abonoa+$dato->abonob,2,",",".")}}</strong></td>
                  	<td></td>
                  	
                  </tr>

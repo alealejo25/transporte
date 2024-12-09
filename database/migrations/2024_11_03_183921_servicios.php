@@ -79,6 +79,35 @@ class Servicios extends Migration
             $table->integer('finabonoa')->unsigned()->default(0);
             $table->integer('finabonob')->unsigned()->default(0);
 
+            $table->integer('cantcod6a')->unsigned()->default(0);
+            $table->integer('cantcod6b')->unsigned()->default(0);
+            $table->integer('cantcod7a')->unsigned()->default(0);
+            $table->integer('cantcod7b')->unsigned()->default(0);
+            $table->integer('cantcod8a')->unsigned()->default(0);
+            $table->integer('cantcod8b')->unsigned()->default(0);
+            $table->integer('cantcod10a')->unsigned()->default(0);
+            $table->integer('cantcod10b')->unsigned()->default(0);
+            $table->integer('cantcod12a')->unsigned()->default(0);
+            $table->integer('cantcod12b')->unsigned()->default(0);
+            $table->integer('cantcod14a')->unsigned()->default(0);
+            $table->integer('cantcod14b')->unsigned()->default(0);
+            $table->integer('cantcod15a')->unsigned()->default(0);
+            $table->integer('cantcod15b')->unsigned()->default(0);
+            $table->integer('cantcod18a')->unsigned()->default(0);
+            $table->integer('cantcod18b')->unsigned()->default(0);
+            $table->integer('cantcod21a')->unsigned()->default(0);
+            $table->integer('cantcod21b')->unsigned()->default(0);
+            $table->integer('cantcod23a')->unsigned()->default(0);
+            $table->integer('cantcod23b')->unsigned()->default(0);
+            $table->integer('cantcod27a')->unsigned()->default(0);
+            $table->integer('cantcod27b')->unsigned()->default(0);
+            $table->integer('cantcod30a')->unsigned()->default(0);
+            $table->integer('cantcod30b')->unsigned()->default(0);
+            $table->integer('cantcod32a')->unsigned()->default(0);
+            $table->integer('cantcod32b')->unsigned()->default(0);
+            $table->integer('cantabonoa')->unsigned()->default(0);
+            $table->integer('cantabonob')->unsigned()->default(0);
+
             $table->decimal('abonosa',10,2);
             $table->decimal('cod6a',10,2);
             $table->decimal('cod7a',10,2);
@@ -113,13 +142,14 @@ class Servicios extends Migration
             $table->integer('codservicio_id')->nullable()->unsigned();
             $table->integer('coche_id')->unsigned()->nullable();
             $table->integer('choferesleagaslnf_id')->unsigned()->nullable();
+            $table->integer('precioboletos_id')->unsigned()->nullable();
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
- 
             $table->foreign('coche_id')->references('id')->on('coches');
             $table->foreign('choferesleagaslnf_id')->references('id')->on('choferesleagaslnf');
             $table->foreign('codservicio_id')->references('id')->on('codigoservicios');
+            $table->foreign('precioboletos_id')->references('id')->on('precioboletos');
             
         });
     }

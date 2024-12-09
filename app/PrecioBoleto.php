@@ -31,5 +31,8 @@ class PrecioBoleto extends Model
         'cod32',
         'estado'
     ];
-
+    public function Servicio()
+    {
+        return $this->hasMany('App\Servicio');
+    }
 }

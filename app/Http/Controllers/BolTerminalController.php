@@ -1006,7 +1006,30 @@ if($codigoserv==2 && $request->dia=='L/V'){
 
 public function recaudarservicio($idserv)
     {
-        
+    $datos=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','codigoservicios.cod_servicio as codigoservicio','servicios.fechaservicio as fechaservicio','users.name as usuarionombre','coches.patente as cochepatente')
+            ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')
+            ->join('coches','servicios.coche_id','=','coches.id')
+            ->join('codigoservicios','servicios.codservicio_id','=','codigoservicios.id')
+            ->join('precioboletos','servicios.precioboletos_id','=','precioboletos.id')
+            ->join('users','servicios.user_id','=','users.id')
+            ->where('servicios.id',$idserv)
+            ->get();
+
+$usuario=$datos[0]->usuarionombre;
+$fechaserv=$datos[0]->fechaservicio;
+$fechaasignacion=$datos[0]->fechaasignacion;
+$codigoserv=$datos[0]->cservicio;
+$dia=$datos[0]->dia;
+$chofernombre=$datos[0]->chofernombre;
+$cocheinterno=$datos[0]->cocheinterno;
+$cochepatente=$datos[0]->cochepatente;
+$choferapellido=$datos[0]->choferapellido;
+$choferlegajo=$datos[0]->choferlegajo;
+$nroplanilla=$datos[0]->nroplanilla;
+$empresa1='MA.LE.BO. S.A.S. U.T.E.';
+$empresa2='MA.LE.BO. S.A.S.';
+
+
         $servicios=Servicio::where('id',$idserv)->get();
         $precioboleto=PrecioBoleto::where('estado',1)->get();
         $preciocod6=$precioboleto[0]->cod6;
@@ -1026,6 +1049,12 @@ public function recaudarservicio($idserv)
 
 
         return view('bolterminal.recaudacion.recaudarservicio')
+                ->with('fechaserv',$fechaserv)
+                ->with('codigoserv',$codigoserv)
+                ->with('chofernombre',$chofernombre)
+                ->with('choferapellido',$choferapellido)
+                ->with('choferlegajo',$choferlegajo)
+                ->with('dia',$dia)
                 ->with('preciocod6',$preciocod6)
                 ->with('preciocod7',$preciocod7)
                 ->with('preciocod8',$preciocod8)
@@ -1674,7 +1703,7 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                     if($request->fincod32a==0){
                         $finalcod32a=$datos->fin;
                         $activo=3;
-                        $cantcod32a=$request->cantidad12b;
+                        $cantcod32a=$request->cantidad32a;
                         $recaudacioncod32a=$cantcod32a*$precioboleto[0]->cod32;
                     }
                     else
@@ -1898,10 +1927,22 @@ $pdf=\PDF::loadView('bolterminal.reportes.recaudacionchofer',['datos'=>$datos,'u
 
 
 }
+public function planillarecaudacion()
+{
+    $codservicios=CodigoServicio::orderby('cod_servicio','ASC')->get();
+    $choferleagaslnf=ChoferLeagaslnf::where('activo','2')->orderBy('apellido','ASC')->get();
+    return view('bolterminal.recaudacion.planillarecaudacion')
+              ->with('choferleagaslnf',$choferleagaslnf)
+              ->with('codservicios',$codservicios);
+}
+
+
+public function reporteplanillarecaudacion(Request $request)
+{
+    dd($request);
+}
 public function descargarplanilla($idserv)
     {
-
-
 
 $servicios=Servicio::select('*','codigoservicios.cod_servicio as cservicio','servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','users.name as usuarionombre','coches.interno as cocheinterno','coches.patente as cochepatente','servicios.dia as dia')
     ->orderBy('idserv','DESC')

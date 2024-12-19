@@ -10,9 +10,12 @@
 
 
 
+
+
+
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap.min.css">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
+    <!-- <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"> -->
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('css/font-awesome.css')}}">
     <!-- Theme style -->
@@ -43,9 +46,7 @@
 <!--<script type="text/javascript" src="js/script.js"></script>  -->
 
 <!-- datatables --> 
-<script src=
-"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-    </script>
+
 <!---------------->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -57,7 +58,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 
 
@@ -584,7 +585,9 @@ input[readonly] {
                 @can('recaudar_chofer_terminal')
                 <li><a href="/bolterminal/recaudar"><i class="fa fa-circle-o"></i> Recaudar</a></li>
                 @endcan
-                
+                @can('recaudar_chofer_terminal')
+                <li><a href="/bolterminal/planillarecaudacion"><i class="fa fa-circle-o"></i> Planilla Recaudación</a></li>
+                @endcan
                 @can('asignar_servicio_terminal')
                 <li><a href="/bolterminal/asignarservicio"><i class="fa fa-circle-o"></i> Asignar Servicio</a></li>
                 @endcan

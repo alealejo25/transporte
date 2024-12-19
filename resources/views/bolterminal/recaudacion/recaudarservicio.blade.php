@@ -2,6 +2,7 @@
 
 
 @section('contenido')
+
 	<div class="row">
 		<div class="col-lg-4 col-lg-4 col-lg-4 col-xs-12">
 			
@@ -15,12 +16,22 @@
 					@endforeach
 				</ul>
 			</div>
-			@endif	
-
-			<div>
-				<h3>Recaudar Servicio</h3>
+			@endif
+        </div>	
+        <div class="col-lg-12">
+			<div class="col-lg-12">
+				<h4>Recaudar Servicio N°: {{$codigoserv}} - Día: {{$dia}} - Fecha: {{$fechaserv}}</h4>
+                <h4>Chofer: {{$choferapellido}}, {{$chofernombre}} - Legajo: {{$choferlegajo}}</h4>
 			</div>
- 			{!!Form::open(array('url'=>'bolterminal/guardarrecaudacionchofer','method'=>'POST','autocomplete'=>'off','enctype'=>'multipart/form-data','onsubmit'=>'return checkSubmit();'))!!} 
+        
+ 			{!!Form::open(array(
+            'url'=>'bolterminal/guardarrecaudacionchofer',
+            'method'=>'POST',
+            'autocomplete'=>'off',
+            'enctype'=>'multipart/form-data',
+            
+            'id'=> 'miFormulario'
+            ))!!} 
 			{{Form::token()}}
 @foreach ($servicios as $dato)
 <input name="id" type="text" value="{{$dato->id}}"  style="display: none">
@@ -396,6 +407,7 @@
                     <div class="contenedor">
                         <input name="inicialcod32a" class="inicial" style="text-align:right" type="text" value="{{$dato->inicialcod32a}}" readonly tabindex="-1" size="4"> 
                         <input name="fincod32a" class="final" placeholder="Final Codigo 32a" style="text-align:right" type="text" size="4" required>
+                        
                         <input name="cantidad32a" class="resultado" placeholder="Cantidad de Boletos" style="text-align:right" type="text" readonly tabindex="-1" size="4">
                         <input name="cod32a" class="pesos" placeholder="Total Recaudado" style="text-align:right" type="text" readonly tabindex="-1" size="4">
                         <input name="preciocod32" class="precio" type="text" value="{{$preciocod32}}"  style="display: none">
@@ -441,6 +453,7 @@
                     <div class="contenedor">
                         <input name="inicialabonob" class="inicial" style="text-align:right" type="text" value="{{$dato->inicialabonob}}" readonly tabindex="-1" size="4">
                         <input name="finabonob" class="final" placeholder="Final Codigo abonosb" style="text-align:right" type="text" size="4" required>
+
                         <input name="cantidadabonob" class="resultado" placeholder="Cantidad de Boletos" style="text-align:right" type="text" readonly tabindex="-1" size="4">
                         <input name="abonosb" class="pesos" placeholder="Total Recaudado" style="text-align:right" type="text" readonly tabindex="-1" size="4">
                         <input name="precioabono" class="precio" type="text" value="{{$precioabono}}"  style="display: none">
@@ -460,7 +473,10 @@
             <h3 id="resultado"> </h3>
                         <hr/>
 			<div >
-                <button class="btn btn-primary" type="submit" id="guardar">Guardar</button>
+ <!-- Botón para abrir el modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmModal"id="guardar">
+    Guardar
+</button>
 				<button class="btn btn-danger" type="reset">Cancelar</button>
 
 			</div>
@@ -476,9 +492,66 @@
 		</div>
 	</div> 
 
-<script>
-        $(document).ready(function () {
 
+<!-- Modal de Confirmación -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="confirmModalLabel">Confirmación</h4>
+            </div>
+            <div class="modal-body">
+                ¿Estás seguro de que deseas guardar los cambios?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="confirmSave" class="btn btn-primary">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!---------------------------------------------->
+<script>
+
+     // Validación de los campos
+    function checkSubmit() {
+        const fields = document.querySelectorAll('.final');
+        let isValid = true;
+
+        fields.forEach(field => {
+            const errorMsg = field.nextElementSibling; // Busca el siguiente elemento después del campo
+            if (field.value.trim() === '') {
+                isValid = false;
+                field.style.borderColor = 'red';
+                if (errorMsg && errorMsg.classList.contains('error-msg')) {
+                    errorMsg.textContent = 'Obligatorio.';
+                }
+            } else {
+                field.style.borderColor = '';
+                if (errorMsg && errorMsg.classList.contains('error-msg')) {
+                    errorMsg.textContent = '';
+                }
+            }
+        });
+
+        if (!isValid) {
+            alert('Por favor, completa todos los campos obligatorios.');
+        }
+
+        return isValid;
+    }
+
+    // Enviar formulario desde el botón del modal
+    document.getElementById('confirmSave').addEventListener('click', function () {
+        if (checkSubmit()) {
+            document.getElementById('miFormulario').submit(); // Enviar el formulario si es válido
+        }
+    });
+        $(document).ready(function () {
             function getLastThreeDigits(number) {
            // Convertimos el número a cadena para asegurarnos de poder manipularlo
             let numStr = number.toString();

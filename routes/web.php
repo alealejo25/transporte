@@ -50,6 +50,11 @@ Route::middleware('auth')->group(function () {
    Route::get('bolterminal/recaudar/{idserv?}/recaudarservicio','BolTerminalController@recaudarservicio')->name('recaudarservicio')->middleware('permission:recaudar_chofer_terminal');
    Route::post('bolterminal/guardarrecaudacionchofer','BolTerminalController@guardarrecaudacionchofer')->name('guardarrecaudacionchofer')->middleware('permission:recaudar_chofer_terminal');
    //------------------
+
+   //INFORME DE RECAUDACION
+   Route::get('bolterminal/planillarecaudacion','BolTerminalController@planillarecaudacion')->name('planillarecaudacion')->middleware('permission:recaudar_chofer_terminal');
+   Route::post('bolterminal/reporteplanillarecaudacion','BolTerminalController@reporteplanillarecaudacion')->name('reporteplanillarecaudacion')->middleware('permission:recaudar_chofer_terminal');
+   
    // imprimir recaudacion PDF
    Route::get('bolterminal/recaudar/{idserv?}/descargarrecaudacion','BolTerminalController@descargarrecaudacion')->name('descargarrecaudacion')->middleware('permission:recaudar_chofer_terminal');
    

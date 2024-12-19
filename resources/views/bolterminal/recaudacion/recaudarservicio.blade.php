@@ -18,7 +18,7 @@
 			</div>
 			@endif
         </div>	
-        <div class="col-lg-12">
+        <div>
 			<div class="col-lg-12">
 				<h4>Recaudar Servicio N°: {{$codigoserv}} - Día: {{$dia}} - Fecha: {{$fechaserv}}</h4>
                 <h4>Chofer: {{$choferapellido}}, {{$chofernombre}} - Legajo: {{$choferlegajo}}</h4>

@@ -53,12 +53,14 @@ class AdministracionController extends Controller
         $permissions=Permission::get();
         $role=Role::get();
         
+
         return view('administracion.asignarpermiso')
         ->with('permissions',$permissions)
         ->with('role',$role);
     }
     public function guardarasignarpermiso(Request $request)
     {
+
         // para eliminar un permiso a un rol primero  eliminar el permiso asignado al rol en la table y luego ejecutar esto
        // $user=User::find(7);
        //$user->revokePermissionTo('abms');
@@ -74,7 +76,7 @@ class AdministracionController extends Controller
         
 
         //asignacion de multiples permisos funciona
-       $role = Role::find(9);//id del rol
+       $role = Role::find($request->permisos_id);//id del rol
        $role->syncPermissions(request()->input('permissions',[]));
        $role->permissions()->sync($request->get('permissions'));
 

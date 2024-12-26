@@ -18,16 +18,13 @@
 			<!-- {!!Form::model(['method'=>'POST','route'=>['camiones.store']])!!}-->
 			{{Form::token()}}
 
-			<div class="Form-group">
-				<label for="rol">ROL</label>
-				<input type="text" name="rol" class="form-control {{$errors->has('rol')?'is-invalid':''}}" placeholder="Ingrese la descripcion de la mano de obra ..." value="{{old('rol')}}">
-				{!! $errors->first('rol','<div class="invalid-feedback">:message</div>')!!}
-			</div>
+			<select name="permisos_id" id="permiso" class="form-control" required>
+                <option value="">SELECCIONE PERMISO</option>
+                @foreach ($role as $datos)
+         	       <option value="{{$datos->id}}" > {{$datos->name}}</option>                    
+                @endforeach
+                </select>
 
-			<div class="Form-group">
-				<label for="role_id"> ROL </label>
-				{!!Form::select('role_id',$role,null,['class' => 'form-control','placeholder'=>'Seleccione una opcion','requerid' ])!!}
-			</div>
 					<h3>Lista de Permisos</h3>
 	<div class="form-group">
 		<ul class="list-unstyled">

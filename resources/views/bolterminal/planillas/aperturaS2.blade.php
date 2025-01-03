@@ -5,73 +5,73 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PLANILLA H2</title>
- <style>
- 		@page {
-            margin: 4mm; /* Configura márgenes a cero */
-        }
-        body {
-            margin: 0;
-            padding: 0;
-        }
-        .content {
-            width: 100%;
-            height: 100%;
-            
-        }
-        table {
-            border-collapse: collapse;
-            width: 100%; /* La tabla ocupa el 100% del ancho disponible */
+    <style>
+     @page {
+        margin: 4mm; /* Configura márgenes a cero */
+    }
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    .content {
+        width: 100%;
+        height: 100%;
+        
+    }
+    table {
+        border-collapse: collapse;
+        width: 100%; /* La tabla ocupa el 100% del ancho disponible */
 
-        }
-        th, td {
-            border: 1px solid black;
-            text-align: center;
-            padding: 1px;
-            height: 18px; /* Alto fijo */
-            width: 72px;
-            font-size: 11px; /* Tamaño base */
-            word-wrap: break-word; /* Ajusta texto largo */
-        }
-        td.dynamic {
-            width: calc(100% / auto); /* Ajusta dinámicamente el ancho */
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .titulo {
-            width: 150px;
-        }
-        .cabecera {
-            width: 300px;
-            height: 15px; /* Alto fijo */
-            font-size: 12px; /* Tamaño base */
-            background-color: lightgray; /* Ejemplo de fondo para verificar bordes */
-        }
-        .coche {
-            width: 150px;
-            height: 15px; /* Alto fijo */
-            font-size: 12px; /* Tamaño base */
-        }
+    }
+    th, td {
+        border: 1px solid black;
+        text-align: center;
+        padding: 1px;
+        height: 18px; /* Alto fijo */
+        width: 72px;
+        font-size: 11px; /* Tamaño base */
+        word-wrap: break-word; /* Ajusta texto largo */
+    }
+    td.dynamic {
+        width: calc(100% / auto); /* Ajusta dinámicamente el ancho */
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .titulo {
+        width: 150px;
+    }
+    .cabecera {
+        width: 300px;
+        height: 15px; /* Alto fijo */
+        font-size: 12px; /* Tamaño base */
+        background-color: lightgray; /* Ejemplo de fondo para verificar bordes */
+    }
+    .coche {
+        width: 150px;
+        height: 15px; /* Alto fijo */
+        font-size: 12px; /* Tamaño base */
+    }
 
-        .inline {
-            display: flex; /* Coloca los elementos en línea */
-            align-items: center; /* Alinea verticalmente los textos */
-        }
-        .inline h3, .inline h4 {
-            margin: 0; /* Elimina márgenes por defecto */
-        }
-        h4 {
-            margin-left: 10px; /* Espacio entre el h1 y h4 */
-            font-weight: normal; /* Opcional: cambia el grosor de h4 para diferenciarlos */
-        }
-        .derecha{
-            float:right;
-        }
-    </style>
+    .inline {
+        display: flex; /* Coloca los elementos en línea */
+        align-items: center; /* Alinea verticalmente los textos */
+    }
+    .inline h3, .inline h4 {
+        margin: 0; /* Elimina márgenes por defecto */
+    }
+    h4 {
+        margin-left: 10px; /* Espacio entre el h1 y h4 */
+        font-weight: normal; /* Opcional: cambia el grosor de h4 para diferenciarlos */
+    }
+    .derecha{
+        float:right;
+    }
+</style>
 </head>
 <body>
-<div class="content">
-	<div class="inline">
+    <div class="content">
+       <div class="inline">
         <h3>HOJA DE RUTA  - {{$empresa1}} / {{$empresa2}} || Serv: {{$codigoserv}} - S2 - Linea: TUC/LAG ROBLES - Turno:M- FEC SERV: {{date('d-m-Y', strtotime($fechaserv))}}</h3>
         <h4> CHOFER: <strong>{{$choferapellido}}, {{$chofernombre}}</strong> - Legajo: <strong>{{$choferlegajo}}</strong> || INTERNO: <strong>{{$cocheinterno}}</strong> - PATENTE: <strong>{{$cochepatente}}</strong><span class="derecha">Fecha de Emision {{now()->format('d-m-Y')}} || Usuario: {{$usuario}} || Planilla Nro: <strong>{{$nroplanilla}}</strong> || HOJA: <strong>1</strong></span></h4>
         
@@ -199,195 +199,195 @@
     </table>
 
 
-<br>
+    <br>
 
-	<div>
+    <div>
         <table class="table table-bordered table-striped table-sm">
 
-  			@foreach ($servicios as $dato)
-                <tr>
-                @if($dato->inicialcod6a!=0)
-                 <td class="dynamic">6A {{$dato->inicialcod6a}}</td>
-                @endif
-                @if($dato->inicialcod6b!=0)
-                 <td class="dynamic">6B {{$dato->inicialcod6b}}</td> 
+           @foreach ($servicios as $dato)
+           <tr>
+            @if($dato->inicialcod6a!=0)
+            <td class="dynamic">6A {{$dato->inicialcod6a}}</td>
+            @endif
+            @if($dato->inicialcod6b!=0)
+            <td class="dynamic">6B {{$dato->inicialcod6b}}</td> 
 
-                @endif
-                @if($dato->inicialcod7a!=0)
-                 <td class="dynamic">7A {{$dato->inicialcod7a}}</td> 
+            @endif
+            @if($dato->inicialcod7a!=0)
+            <td class="dynamic">7A {{$dato->inicialcod7a}}</td> 
 
-                @endif
-                @if($dato->inicialcod7b!=0)
-                 <td class="dynamic">7B {{$dato->inicialcod7b}}</td> 
-                @endif
-                @if($dato->inicialcod8a!=0)
-                 <td class="dynamic">8A {{$dato->inicialcod8a}}</td> 
-                @endif
-                @if($dato->inicialcod8b!=0)
-                 <td class="dynamic">8B {{$dato->inicialcod8b}}</td> 
-                @endif
-                @if($dato->inicialcod10a!=0)
-                 <td class="dynamic">10A {{$dato->inicialcod10a}}</td> 
-                @endif
-                @if($dato->inicialcod10b!=0)
-                 <td class="dynamic">10B {{$dato->inicialcod10b}}</td> 
-                @endif
-                @if($dato->inicialcod12a!=0)
-                 <td class="dynamic">12A {{$dato->inicialcod12a}}</td> 
-                @endif
-                @if($dato->inicialcod12b!=0)
-                 <td class="dynamic">12B {{$dato->inicialcod12b}}</td> 
-                @endif
-                @if($dato->inicialcod14a!=0)
-                 <td class="dynamic">14A {{$dato->inicialcod14a}}</td> 
-                @endif
-                @if($dato->inicialcod14b!=0)
-                 <td class="dynamic">14B {{$dato->inicialcod14b}}</td> 
-                @endif
-                @if($dato->inicialcod15a!=0)
-                 <td class="dynamic">15A {{$dato->inicialcod15a}}</td> 
-                @endif
-                @if($dato->inicialcod15b!=0)
-                 <td class="dynamic">15B {{$dato->inicialcod15b}}</td> 
-                @endif
-                @if($dato->inicialcod18a!=0)
-                 <td class="dynamic">18A {{$dato->inicialcod18a}}</td> 
-                @endif
-                @if($dato->inicialcod18b!=0)
-                 <td class="dynamic">18B {{$dato->inicialcod18b}}</td> 
-                @endif
-                @if($dato->inicialcod21a!=0)
-                 <td class="dynamic">21A {{$dato->inicialcod21a}}</td> 
-                @endif
-                @if($dato->inicialcod21b!=0)
-                 <td class="dynamic">21B {{$dato->inicialcod21b}}</td> 
-                @endif
-                @if($dato->inicialcod23a!=0)
-                 <td class="dynamic">23A {{$dato->inicialcod23a}}</td> 
-                @endif
-                @if($dato->inicialcod23b!=0)
-                 <td class="dynamic">23B {{$dato->inicialcod23b}}</td> 
-                @endif
-                @if($dato->inicialcod27a!=0)
-                 <td class="dynamic">27A {{$dato->inicialcod27a}}</td> 
-                @endif
-                @if($dato->inicialcod27b!=0)
-                 <td class="dynamic">27B {{$dato->inicialcod27b}}</td> 
-                @endif
-                @if($dato->inicialcod30a!=0)
-                 <td class="dynamic">30A {{$dato->inicialcod30a}}</td> 
-                @endif
-                @if($dato->inicialcod30b!=0)
-                 <td class="dynamic">30B {{$dato->inicialcod30b}}</td> 
-                @endif
-                @if($dato->inicialcod32a!=0)
-                 <td class="dynamic">32A {{$dato->inicialcod32a}}</td> 
-                @endif
-                @if($dato->inicialcod32b!=0)
-                 <td class="dynamic">32B {{$dato->inicialcod32b}}</td> 
-                @endif
-                @if($dato->inicialabonoa!=0)
-                 <td class="dynamic">AboA {{$dato->inicialabonoa}}</td> 
-                @endif
-                @if($dato->inicialabonob!=0)
-                 <td class="dynamic">AboB {{$dato->inicialabonob}}</td> 
-                @endif
-			 </tr>
+            @endif
+            @if($dato->inicialcod7b!=0)
+            <td class="dynamic">7B {{$dato->inicialcod7b}}</td> 
+            @endif
+            @if($dato->inicialcod8a!=0)
+            <td class="dynamic">8A {{$dato->inicialcod8a}}</td> 
+            @endif
+            @if($dato->inicialcod8b!=0)
+            <td class="dynamic">8B {{$dato->inicialcod8b}}</td> 
+            @endif
+            @if($dato->inicialcod10a!=0)
+            <td class="dynamic">10A {{$dato->inicialcod10a}}</td> 
+            @endif
+            @if($dato->inicialcod10b!=0)
+            <td class="dynamic">10B {{$dato->inicialcod10b}}</td> 
+            @endif
+            @if($dato->inicialcod12a!=0)
+            <td class="dynamic">12A {{$dato->inicialcod12a}}</td> 
+            @endif
+            @if($dato->inicialcod12b!=0)
+            <td class="dynamic">12B {{$dato->inicialcod12b}}</td> 
+            @endif
+            @if($dato->inicialcod14a!=0)
+            <td class="dynamic">14A {{$dato->inicialcod14a}}</td> 
+            @endif
+            @if($dato->inicialcod14b!=0)
+            <td class="dynamic">14B {{$dato->inicialcod14b}}</td> 
+            @endif
+            @if($dato->inicialcod15a!=0)
+            <td class="dynamic">15A {{$dato->inicialcod15a}}</td> 
+            @endif
+            @if($dato->inicialcod15b!=0)
+            <td class="dynamic">15B {{$dato->inicialcod15b}}</td> 
+            @endif
+            @if($dato->inicialcod18a!=0)
+            <td class="dynamic">18A {{$dato->inicialcod18a}}</td> 
+            @endif
+            @if($dato->inicialcod18b!=0)
+            <td class="dynamic">18B {{$dato->inicialcod18b}}</td> 
+            @endif
+            @if($dato->inicialcod21a!=0)
+            <td class="dynamic">21A {{$dato->inicialcod21a}}</td> 
+            @endif
+            @if($dato->inicialcod21b!=0)
+            <td class="dynamic">21B {{$dato->inicialcod21b}}</td> 
+            @endif
+            @if($dato->inicialcod23a!=0)
+            <td class="dynamic">23A {{$dato->inicialcod23a}}</td> 
+            @endif
+            @if($dato->inicialcod23b!=0)
+            <td class="dynamic">23B {{$dato->inicialcod23b}}</td> 
+            @endif
+            @if($dato->inicialcod27a!=0)
+            <td class="dynamic">27A {{$dato->inicialcod27a}}</td> 
+            @endif
+            @if($dato->inicialcod27b!=0)
+            <td class="dynamic">27B {{$dato->inicialcod27b}}</td> 
+            @endif
+            @if($dato->inicialcod30a!=0)
+            <td class="dynamic">30A {{$dato->inicialcod30a}}</td> 
+            @endif
+            @if($dato->inicialcod30b!=0)
+            <td class="dynamic">30B {{$dato->inicialcod30b}}</td> 
+            @endif
+            @if($dato->inicialcod32a!=0)
+            <td class="dynamic">32A {{$dato->inicialcod32a}}</td> 
+            @endif
+            @if($dato->inicialcod32b!=0)
+            <td class="dynamic">32B {{$dato->inicialcod32b}}</td> 
+            @endif
+            @if($dato->inicialabonoa!=0)
+            <td class="dynamic">AboA {{$dato->inicialabonoa}}</td> 
+            @endif
+            @if($dato->inicialabonob!=0)
+            <td class="dynamic">AboB {{$dato->inicialabonob}}</td> 
+            @endif
+        </tr>
 
-                <tr>
-                @if($dato->inicialcod6a!=0)
-                 <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod6b!=0)
-                 <td class="dynamic"></td> 
+        <tr>
+            @if($dato->inicialcod6a!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod6b!=0)
+            <td class="dynamic"></td> 
 
-                @endif
-                @if($dato->inicialcod7a!=0)
-               <td class="dynamic"> </td> 
+            @endif
+            @if($dato->inicialcod7a!=0)
+            <td class="dynamic"> </td> 
 
-                @endif
-                @if($dato->inicialcod7b!=0)
-                <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod8a!=0)
-               <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod8b!=0)
-               <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod10a!=0)
-                <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod10b!=0)
-              <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod12a!=0)
-           <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod12b!=0)
-                <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod14a!=0)
-               <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod14b!=0)
-                <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod15a!=0)
-                 <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod15b!=0)
-                 <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod18a!=0)
-                 <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod18b!=0)
-                 <td class="dynamic"></td>  
-                @endif
-                @if($dato->inicialcod21a!=0)
-                 <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod21b!=0)
-                 <td class="dynamic"></td>  
-                @endif
-                @if($dato->inicialcod23a!=0)
-                 <td class="dynamic"></td>  
-                @endif
-                @if($dato->inicialcod23b!=0)
-                 <td class="dynamic"></td>  
-                @endif
-                @if($dato->inicialcod27a!=0)
-                 <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod27b!=0)
-                 <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod30a!=0)
-                 <td class="dynamic"></td>  
-                @endif
-                @if($dato->inicialcod30b!=0)
-                 <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod32a!=0)
-                 <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialcod32b!=0)
-                 <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialabonoa!=0)
-                 <td class="dynamic"></td> 
-                @endif
-                @if($dato->inicialabonob!=0)
-                 <td class="dynamic"></td> 
-                @endif
+            @endif
+            @if($dato->inicialcod7b!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod8a!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod8b!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod10a!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod10b!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod12a!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod12b!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod14a!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod14b!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod15a!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod15b!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod18a!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod18b!=0)
+            <td class="dynamic"></td>  
+            @endif
+            @if($dato->inicialcod21a!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod21b!=0)
+            <td class="dynamic"></td>  
+            @endif
+            @if($dato->inicialcod23a!=0)
+            <td class="dynamic"></td>  
+            @endif
+            @if($dato->inicialcod23b!=0)
+            <td class="dynamic"></td>  
+            @endif
+            @if($dato->inicialcod27a!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod27b!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod30a!=0)
+            <td class="dynamic"></td>  
+            @endif
+            @if($dato->inicialcod30b!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod32a!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialcod32b!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialabonoa!=0)
+            <td class="dynamic"></td> 
+            @endif
+            @if($dato->inicialabonob!=0)
+            <td class="dynamic"></td> 
+            @endif
 
-                 </tr>
-            @endforeach            
-                          
+        </tr>
+        @endforeach            
+        
 
-        </table>
-    </div>
+    </table>
+</div>
 
 </div>
 
@@ -504,16 +504,7 @@
             <tr>
                 <td>22:05 LLEGA TUCUMAN</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
-           
-            <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-                        <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
+            
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
@@ -523,12 +514,21 @@
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
-                        <tr>
+            <tr>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
         </tbody>
     </table>
-   
+    
 </div>
 <div class="content">
     <div class="inline">
@@ -602,7 +602,7 @@
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
-                        
+            
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
@@ -645,9 +645,6 @@
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
-                        <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
@@ -657,12 +654,15 @@
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
-                        <tr>
+            <tr>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
         </tbody>
     </table>
-   
+    
 </div>
 <div class="content">
     <div class="inline">
@@ -736,7 +736,7 @@
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
-                        
+            
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
@@ -779,9 +779,6 @@
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
-                        <tr>
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
@@ -791,12 +788,15 @@
             <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
-                        <tr>
+            <tr>
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr>
                 <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
             </tr>
         </tbody>
     </table>
-   
+    
 </div>
 </body>
 </html>

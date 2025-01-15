@@ -38,7 +38,7 @@ class BolTerminalController extends Controller
 
     public function guardarventa(Request $request)
     {
-     
+
 
 
         $fecha=new \DateTime();
@@ -266,7 +266,7 @@ dd('llego aca');*/
             ->join('users','servicios.user_id','=','users.id')
             /*->where('servicios.estado','ASIGNADO')
             ->whereNotNull('servicios.choferesleagaslnf_id')*/
-            ->limit(150)
+
             ->get();
 
        return view('bolterminal.recaudacion.recaudar')

@@ -24,6 +24,14 @@ use App\Http\Controllers\ExcelToPdfController;
 //     return view('index');
 // });
 
+// pañol //////////
+Route::get('panol/ingresarrepuestos','PanolController@ingresarrepuestos')->name('ingresarrepuestos');
+Route::get('panol/cargarrepuestos','PanolController@cargarrepuestos')->name('cargarrepuestos');
+Route::post('panol/guardarremito','PanolController@guardarremito')->name('guardarremito');
+Route::get('panol/repuestos/buscar','PanolController@buscar')->name('buscar');
+Route::view('panol/repuestos', '/panol/buscar_repuesto');
+Route::get('panol/repuestos/generarinformerepuestos','PanolController@generarinformerepuestos')->name('generarinformerepuestos');
+Route::view('panol/informerepuestos', '/panol/informerepuestos');
 
 //ida y vuelta boleteria terminal
 Route::get('bolterminal/idavuelta/venta','BolTerminalController@venta')->name('venta');

@@ -11,6 +11,7 @@ class Repuesto extends Model
     protected $primaryKeys='id';
 
     protected $fillable = [
+    'id',
     'codigo',
     'nombre',
     'cantidad',
@@ -18,15 +19,7 @@ class Repuesto extends Model
     'condicion',
     ];
 
-    // public function MantenimientoCRepuesto()
-    // {
-    //     return $this->hasMany('App\MantenimientoCRepuesto');
-    // }
 
-    // public function MantenimientoARepuesto()
-    // {
-    //     return $this->hasMany('App\MantenimientoARepuesto');
-    // }
 
         public function MantenimientoC()
     {
@@ -36,6 +29,10 @@ class Repuesto extends Model
     public function scopeSearch($query,$name)
     {
         return $query->where('nombre','LIKE',"%$name%");
+    }
+         public function MovimientoRemitoRepuesto()
+    {
+        return $this->hasMany('App\MovimientoRemitoRepuesto');
     }
     //------------
 }

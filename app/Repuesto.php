@@ -14,8 +14,11 @@ class Repuesto extends Model
     'id',
     'codigo',
     'nombre',
-    'cantidad',
-    'marca',
+    'cantidad_lnf',
+    'cantidad_leagas',
+    'cantidad_malebo',
+    'marca_id',
+    
     'condicion',
     ];
 
@@ -33,6 +36,17 @@ class Repuesto extends Model
          public function MovimientoRemitoRepuesto()
     {
         return $this->hasMany('App\MovimientoRemitoRepuesto');
+    }
+
+
+    public function marca()
+    {
+        return $this->belongsTo(MarcaRepuesto::class, 'marca_id');
+    }
+
+    public function movimientos()
+    {
+        return $this->hasMany(MovimientoRepuesto::class, 'repuesto_id');
     }
     //------------
 }

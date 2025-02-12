@@ -14,6 +14,7 @@
 
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap.min.css">
+
     <!-- Bootstrap 3.3.5 -->
     <!-- <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}"> -->
     <!-- Font Awesome -->
@@ -56,7 +57,16 @@
 
 <!-- bootstrap -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossorigin="anonymous"></script>
-<link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >
+
+
+<!-- ESTE SE ELIMINO PARA EL MODAL
+<link  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" >-->
+
+
+<!-- ESTE SE AGREO PARA LOS MODALES -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
@@ -71,7 +81,8 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+<!--- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script> --->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src=
 "https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
@@ -123,9 +134,11 @@ input[readonly] {
 
 
     </style>
-
-
-  <!--  ------->
+<!----- agregado para modales y lo nuevo del pañol 16/01/2025 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+   
+ ---> <!--  ------->
 
     <!-- mecorre el menu de la plantilla  AGREGADO PARA HACER VALIDACION -->
 <!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" /> -->
@@ -507,7 +520,33 @@ input[readonly] {
                </ul>
             </li>
             @endcan
-
+          @can('boltafi')
+            <li class="treeview">
+              <a href="#">
+                <i class="fa fa-users"></i> <span>PAÑOL</span>
+                <i class="fa fa-angle-left pull-right"></i>
+              </a>
+              <ul class="treeview-menu">
+                @can('abonadostafi')
+                <li><a href="/panol/comprobanterepuestos"><i class="fa fa-circle-o"></i> Ingreso Comprobante</a></li>
+                @endcan
+                @can('abonadostafi')
+                <li><a href="/panol/anularcomprobante"><i class="fa fa-circle-o"></i> Anular Comprobante</a></li>
+                @endcan
+                
+                @can('abonadostafi')
+                <li><a href="/repuestos/tipocomprobantes2"><i class="fa fa-circle-o"></i> ABM TipoCompr</a></li>
+                @endcan
+               @can('abonadostafi')
+                <li><a href="/panol/repuestos"><i class="fa fa-circle-o"></i> Buscar Repuestos</a></li>
+                @endcan
+                @can('abonadostafi')
+                <li><a href="/panol/informerepuestos"><i class="fa fa-circle-o"></i> Informe Repuestos</a></li>
+                @endcan
+                
+               </ul>
+            </li>
+            @endcan
             
             @can('boltafi')
             <li class="treeview">
@@ -746,7 +785,8 @@ input[readonly] {
       </footer>
       
 <!-- datatables --> 
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!--<script src="https://code.jquery.com/jquery-3.5.1.js"></script>-->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap.min.js"></script>
 
@@ -1077,6 +1117,10 @@ input[readonly] {
 
       
     });
+
+
+
+    
 
 });
 </script>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Repuestos extends Migration
+class CreateAnulacioncomprobanteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class Repuestos extends Migration
      */
     public function up()
     {
-        Schema::create('repuestos', function (Blueprint $table) {
+        Schema::create('anulacioncomprobante', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('codigo',40);
-            $table->string('nombre',50);
-            $table->integer('cantidad');
-            $table->string('marca',60);
             
-            $table->integer('condicion')->unsigned()->default(0);
+            $table->integer('comprobanterepuesto_id')->nullable()->unsigned();
+            $table->string('motivo');
+            $table->date('fecha');
             $table->timestamps();
+
+            $table->foreign('comprobanterepuesto_id')->references('id')->on('comprobanterepuestos');
         });
     }
 
@@ -32,6 +32,6 @@ class Repuestos extends Migration
      */
     public function down()
     {
-       Schema::dropIfExists('repuestos');//
+        Schema::dropIfExists('anulacioncomprobante');
     }
 }

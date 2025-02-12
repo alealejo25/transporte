@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Marcarepuestos extends Migration
+class CreateMarcarepuestosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,9 @@ class Marcarepuestos extends Migration
     {
         Schema::create('marcarepuestos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre',40);
+            $table->string('nombre');
             $table->timestamps();
+
         });
     }
 
@@ -27,6 +28,6 @@ class Marcarepuestos extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marcarepuestos');//
+        Schema::dropIfExists('marcarepuestos');
     }
 }

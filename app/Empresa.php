@@ -63,4 +63,6 @@ class Empresa extends Model
     {
         return $this->hasMany('App\Gasoil');
     }
+
+    
 }

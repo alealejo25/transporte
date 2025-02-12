@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Proveedor extends Model
 {
+    //use HasFactory;
     protected $table="proveedores";
 
     protected $primaryKeys='id';
@@ -24,6 +26,11 @@ class Proveedor extends Model
         'saldol',
 	    'condicion'
 	];
+
+    public function comprobantes()
+    {
+        return $this->hasMany(ComprobanteRepuesto::class, 'proveedor_id');
+    }
 
 	public function CuentaBancariaProveedor()
     {

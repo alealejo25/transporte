@@ -24,18 +24,67 @@ use App\Http\Controllers\ExcelToPdfController;
 //     return view('index');
 // });
 
+
+//Repuestos
+//Route::get('repuestos/tipocomprobantes2','PanolController@tipocomprobantes2')->name('tipocomprobantes2');
+//Route::get('repuestos/tipocomprobantes','PanolController@tipocomprobantes')->name('tipocomprobantes');
+
+/// ABM TIPOCOMPROBANTES -----
+Route::view('repuestos/tipocomprobantes2', '/repuestos/tipocomprobantes2');
+//Route::view('repuestos/tipocomprobantes', '/repuestos/tipocomprobantes');
+Route::get('/tipocomprobantes','TipoComprobanteController@index')->name('index');
+Route::post('/tipocomprobantes','TipoComprobanteController@store')->name('store');
+Route::get('/tipocomprobantes/{id?}','TipoComprobanteController@show')->name('show');
+Route::put('/tipocomprobantes/{id?}','TipoComprobanteController@update')->name('update');
+Route::delete('/tipocomprobantes/{id?}','TipoComprobanteController@destroy')->name('destroy');
+///--------------------------------------------------------
+
+
 // pañol //////////
 Route::get('panol/ingresarrepuestos','PanolController@ingresarrepuestos')->name('ingresarrepuestos');
-Route::get('panol/cargarrepuestos','PanolController@cargarrepuestos')->name('cargarrepuestos');
+
 Route::post('panol/guardarremito','PanolController@guardarremito')->name('guardarremito');
 Route::get('panol/repuestos/buscar','PanolController@buscar')->name('buscar');
 Route::view('panol/repuestos', '/panol/buscar_repuesto');
 Route::get('panol/repuestos/generarinformerepuestos','PanolController@generarinformerepuestos')->name('generarinformerepuestos');
 Route::view('panol/informerepuestos', '/panol/informerepuestos');
 
+//// lo ultimo y valido
+//Route::post('panol/comprobanterepuestos','PanolController@comprobanterepuestos')->name('comprobanterepuestos');
+Route::view('panol/comprobanterepuestos', '/panol/comprobanterepuestos');
+Route::post('panol/guardarcomprobante', 'PanolController@guardarcomprobante')->name('guardarcomprobante');
+
+//para traer los datos con el ajax
+Route::get('panol/cargartipocomprabante','PanolController@cargartipocomprabante')->name('cargartipocomprabante');
+Route::get('panol/cargarturnopañol','PanolController@cargarturnopañol')->name('cargarturnopañol');
+Route::get('panol/cargarproveedor','PanolController@cargarproveedor')->name('cargarproveedor');
+Route::get('panol/cargarrepuesto','PanolController@cargarrepuesto')->name('cargarrepuesto');
+Route::get('panol/obtenercomprobantes','PanolController@obtenerComprobantes')->name('obtenercomprobantes');
+Route::get('/panol/detallecomprobante/{id}','PanolController@detallecomprobante')->name('detallecomprobante');
+///////////////////////////////////
+
+/// anulacion de comprobante
+Route::view('panol/anularcomprobante', 'panol/anularcomprobante');
+Route::post('panol/anularcomprobante', 'PanolController@anularComprobante')->name('anularComprobante');
+
+
 //ida y vuelta boleteria terminal
 Route::get('bolterminal/idavuelta/venta','BolTerminalController@venta')->name('venta');
 Route::post('bolterminal/idavuelta/guardarventa','BolTerminalController@guardarventa')->name('guardarventa');
+
+// ABM REPUESTOS //////
+//Route::resource('abms/repuestos','RepuestoController');
+Route::view('abms/repuestos/abmrepuestos', 'abms/repuestos/abmrepuestos');
+Route::get('abms/repuestos/listar','RepuestoController@listar')->name('listar');
+Route::get('abms/repuestos/cargarmarcas','RepuestoController@cargarmarcas')->name('cargarmarcas');
+Route::post('abms/repuestos/store','RepuestoController@store')->name('store');
+Route::get('abms/repuestos/{id?}','RepuestoController@show')->name('show');
+Route::put('abms/repuestos/{id?}','RepuestoController@update')->name('update');
+Route::delete('abms/repuestos/{id?}','RepuestoController@destroy')->name('destroy');
+
+
+
+///
 
 
 // recaudacion de choferes y boletos TERMINAL
@@ -163,7 +212,7 @@ Route::resource('abms/estaciones','EstacionController');
 Route::resource('abms/articulos','ArticuloController')->middleware('permission:articulos_index');
 Route::resource('abms/clientes','ClienteController');
 Route::resource('abms/bancos','BancoController')->middleware('permission:bancos_index');
-Route::resource('abms/repuestos','RepuestoController');
+
 Route::resource('abms/cajas','CajaController');
 Route::resource('abms/proveedores','ProveedorController');
 Route::resource('abms/cuentasbancariasproveedores','CuentaBancariaProveedorController');

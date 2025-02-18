@@ -239,6 +239,11 @@
   }
 
 	 $(document).ready(function(){
+
+
+
+
+	 	
 	 	const csrfToken=document.head.querySelector("[name~=csrf-token][content]").content;
 		 	$('#linea_id').on('change', function() {
 				$.ajax({
@@ -366,7 +371,27 @@ $(".print").click(function() {
             alert(msg);
         });
 
+ // Inicializar select2 en todos los selects
+    $('select').select2({
+        width: '100%',
+        placeholder: "Seleccione una opción",
+        allowClear: true
+    });
 
+    // Forzar el foco en el campo de búsqueda de select2 al abrir
+    $(document).on('select2:open', () => {
+        setTimeout(() => {
+            let searchBox = $('.select2-container--open .select2-search__field');
+            if (searchBox.length) {
+                searchBox[0].focus();
+            }
+        }, 100);
+    });
+
+    // Detectar el tab en cualquier select2 y abrir el buscador automáticamente
+    $('select').on('focus', function() {
+        $(this).select2('open');
+    });
 
  
 

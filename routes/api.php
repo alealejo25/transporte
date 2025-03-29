@@ -19,4 +19,4 @@ use App\Http\Controllers\ServiceController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::apiResource('services', ServiceController::class);
+//Route::apiResource('services', ServiceController::class);

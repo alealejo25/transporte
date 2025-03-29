@@ -57,6 +57,24 @@
 					</select>
 				</div>
 			</div>
+				<!-------------------------------------------------------------->
+			<hr size="8px">
+			<!-------------------------------------------------------------->
+
+			<div class="row">
+
+					
+				
+				<div class="form-group col-lg-3 col-md-3 col-sm-12">
+					<label for="abonojubilado">Abonos Jubilados</label>
+					<input type="number" name="abonojubilado" id="abonojubilado" class="form-control" placeholder="Cant Abono Jubilados..." required>
+				</div>
+								<div class="form-group col-lg-3 col-md-3 col-sm-12">
+					<label for="abono">Abonos</label>
+					<input type="number" name="abono" id="abono" class="form-control" placeholder="Cant Abono..." required>
+				</div>
+				
+			</div>
 
 						<!-------------------------------------------------------------->
 			<hr size="8px">

@@ -63,6 +63,11 @@ class Coche extends Model
     {
         return $this->hasMany('App\Servicio');
     }
+    // Relación: Un coche puede tener muchos servicios
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'coche_id');
+    }
       
     public function scopeSearch($query,$name)
     {

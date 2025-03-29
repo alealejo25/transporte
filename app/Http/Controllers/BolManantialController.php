@@ -147,6 +147,8 @@ public function getDataLeagas()
   /*      VALIDACION -----------------------------------------*/
             $campos=[
             'numero'=>'required|max:8|unique:boletosleagas,numero',
+            'abono'=>'required',
+            'abonojubilado'=>'required',
             'chofer_id'=>'required',
             'linea_id'=>'required',
             'servicio_id'=>'required',
@@ -245,6 +247,8 @@ public function getDataLeagas()
         //$datos=new BoletoLeagas(request()->except('_token'));
         $datos=new BoletoLeagas();
         $datos->numero=$request->numero;
+        $datos->abonojubilado=$request->abonojubilado;
+        $datos->abono=$request->abono;
         $datos->valorhorasrestantes=0;
         $datos->valortoquesanden=$request->toquesanden*170;
         

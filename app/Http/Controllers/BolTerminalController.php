@@ -1080,6 +1080,7 @@ $empresa2='MA.LE.BO. S.A.S.';
     }
 public function guardarrecaudacionchofer(Request $request)
 {
+
 $finalcod6a=0;
 $finalcod6b=0;
 $finalcod7a=0;
@@ -1166,16 +1167,14 @@ $cantcod32b=0;
 $cantabonoa=0;
 $cantabonob=0;
 
-
-
-
 $precioboleto=PrecioBoleto::where('estado',1)->get();
-    $boletosservicio=StockBoleto::where('servicio_id',$request->id)->get();
-    foreach ($boletosservicio as $datos)
+$boletosservicio=StockBoleto::where('servicio_id',$request->id)->get();
+
+foreach ($boletosservicio as $datos)
+{
+    switch($datos->codigo)
     {
-        switch($datos->codigo)
-        {
-            case 'cod6':
+        case 'cod6':
             if($datos->posicion==1){
                 if($request->fincod6a==0){
                     $finalcod6a=$datos->fin;
@@ -1183,8 +1182,7 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                     $cantcod6a=$request->cantidad6a;
                     $recaudacioncod6a=$cantcod6a*$precioboleto[0]->cod6;
                 }
-                else
-                {
+                else{
                     $finalcod6a=$request->fincod6a;
                     $recaudacioncod6a=$request->cod6a;
                     $activo=1;
@@ -1197,6 +1195,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                     'servicio_id'=>null,
                     'activo'=>$activo
                      ]);
+                $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod6a'=>$finalcod6a,
+                                'cod6a'=>$recaudacioncod6a,
+                                'cantcod6a'=>$cantcod6a,
+                                'estado'=>'RECAUDADO'
+                                ]);
             }
             else{
                 if($request->fincod6b==0){
@@ -1218,6 +1223,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                     'servicio_id'=>null,
                     'activo'=>$activo
                      ]);
+                $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod6b'=>$finalcod6b,
+                                'cod6b'=>$recaudacioncod6b,
+                                'cantcod6b'=>$cantcod6b,
+                                'estado'=>'RECAUDADO'
+                                ]);
             }
             break;
             case 'cod7':
@@ -1241,6 +1253,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod7a'=>$finalcod7a,
+                                'cod7a'=>$recaudacioncod7a,
+                                'cantcod7a'=>$cantcod7a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod7b==0){
@@ -1262,6 +1281,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod7b'=>$finalcod7b,
+                                'cod7b'=>$recaudacioncod7b,
+                                'cantcod7b'=>$cantcod7b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'cod8':
@@ -1285,6 +1311,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod8a'=>$finalcod8a,
+                                'cod8a'=>$recaudacioncod8a,
+                                'cantcod8a'=>$cantcod8a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod8b==0){
@@ -1306,6 +1339,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod8b'=>$finalcod8b,
+                                'cod8b'=>$recaudacioncod8b,
+                                'cantcod8b'=>$cantcod8b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'cod10':
@@ -1329,6 +1369,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod10a'=>$finalcod10a,
+                                'cod10a'=>$recaudacioncod10a,
+                                'cantcod10a'=>$cantcod10a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod10b==0){
@@ -1350,6 +1397,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod10b'=>$finalcod10b,
+                                'cod10b'=>$recaudacioncod10b,
+                                'cantcod10b'=>$cantcod10b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'cod12':
@@ -1373,6 +1427,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod12a'=>$finalcod12a,
+                                'cod12a'=>$recaudacioncod12a,
+                                'cantcod12a'=>$cantcod12a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod12b==0){
@@ -1394,6 +1455,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod12b'=>$finalcod12b,
+                                'cod12b'=>$recaudacioncod12b,
+                                'cantcod12b'=>$cantcod12b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'cod14':
@@ -1417,6 +1485,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod14a'=>$finalcod14a,
+                                'cod14a'=>$recaudacioncod14a,
+                                'cantcod14a'=>$cantcod14a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod14b==0){
@@ -1438,6 +1513,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod14b'=>$finalcod14b,
+                                'cod14b'=>$recaudacioncod14b,
+                                'cantcod14b'=>$cantcod14b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'cod15':
@@ -1461,6 +1543,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod15a'=>$finalcod15a,
+                                'cod15a'=>$recaudacioncod15a,
+                                'cantcod15a'=>$cantcod15a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod15b==0){
@@ -1482,6 +1571,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod15b'=>$finalcod15b,
+                                'cod15b'=>$recaudacioncod15b,
+                                'cantcod15b'=>$cantcod15b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'cod18':
@@ -1505,6 +1601,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod18a'=>$finalcod18a,
+                                'cod18a'=>$recaudacioncod18a,
+                                'cantcod18a'=>$cantcod18a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod18b==0){
@@ -1526,6 +1629,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod18b'=>$finalcod18b,
+                                'cod18b'=>$recaudacioncod18b,
+                                'cantcod18b'=>$cantcod18b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'cod21':
@@ -1549,6 +1659,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod21a'=>$finalcod21a,
+                                'cod21a'=>$recaudacioncod21a,
+                                'cantcod21a'=>$cantcod21a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod21b==0){
@@ -1570,6 +1687,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod21b'=>$finalcod21b,
+                                'cod21b'=>$recaudacioncod21b,
+                                'cantcod21b'=>$cantcod21b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'cod23':
@@ -1593,6 +1717,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod23a'=>$finalcod23a,
+                                'cod23a'=>$recaudacioncod23a,
+                                'cantcod23a'=>$cantcod23a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod23b==0){
@@ -1614,6 +1745,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                     $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod23b'=>$finalcod23b,
+                                'cod23b'=>$recaudacioncod23b,
+                                'cantcod23b'=>$cantcod23b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'cod27':
@@ -1637,6 +1775,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod27a'=>$finalcod27a,
+                                'cod27a'=>$recaudacioncod27a,
+                                'cantcod27a'=>$cantcod27a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod27b==0){
@@ -1658,6 +1803,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod27b'=>$finalcod27b,
+                                'cod27b'=>$recaudacioncod27b,
+                                'cantcod27b'=>$cantcod27b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'cod30':
@@ -1681,6 +1833,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod30a'=>$finalcod30a,
+                                'cod30a'=>$recaudacioncod30a,
+                                'cantcod30a'=>$cantcod30a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod30b==0){
@@ -1702,6 +1861,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod30b'=>$finalcod30b,
+                                'cod30b'=>$recaudacioncod30b,
+                                'cantcod30b'=>$cantcod30b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'cod32':
@@ -1725,6 +1891,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod32a'=>$finalcod32a,
+                                'cod32a'=>$recaudacioncod32a,
+                                'cantcod32a'=>$cantcod32a,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->fincod32b==0){
@@ -1746,6 +1919,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'fincod32b'=>$finalcod32b,
+                                'cod32b'=>$recaudacioncod32b,
+                                'cantcod32b'=>$cantcod32b,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
             case 'abono':
@@ -1769,6 +1949,13 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'finabonoa'=>$finalabonoa,
+                                'abonosa'=>$recaudacionabonosa,
+                                'cantabonoa'=>$cantabonoa,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
                 else{
                     if($request->finabonob==0){
@@ -1790,12 +1977,19 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                             'servicio_id'=>null,
                             'activo'=>$activo
                              ]);
+                    $servicioactualizar=Servicio::where('id',$request->id)
+                    ->update([
+                                'finabonob'=>$finalabonob,
+                                'abonosb'=>$recaudacionabonosb,
+                                'cantabonob'=>$cantabonob,
+                                'estado'=>'RECAUDADO'
+                                ]);
                 }
             break;
         }
     }
 
-    $servicioactualizar=Servicio::where('id',$request->id)
+    /*$servicioactualizar=Servicio::where('id',$request->id)
         ->update([
                                 'fincod6a'=>$finalcod6a,
                                 'fincod6b'=>$finalcod6b,
@@ -1885,7 +2079,7 @@ $precioboleto=PrecioBoleto::where('estado',1)->get();
                                 'estado'=>'RECAUDADO'
                                  ]);
 
-
+*/
 
       $servicios=Servicio::select('servicios.id as idserv','choferesleagaslnf.nombre as chofernombre','choferesleagaslnf.apellido as choferapellido','choferesleagaslnf.legajo as choferlegajo','codigoservicios.cod_servicio as codigoservicio','servicios.fechaservicio as fechaservicio','users.name as usuarionombre','servicios.estado as estado')
             ->join('choferesleagaslnf','servicios.choferesleagaslnf_id','=','choferesleagaslnf.id')

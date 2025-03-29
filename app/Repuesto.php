@@ -48,5 +48,10 @@ class Repuesto extends Model
     {
         return $this->hasMany(MovimientoRepuesto::class, 'repuesto_id');
     }
+     // Relación: Un repuesto puede estar en muchos detalles de servicio
+    public function detalles()
+    {
+        return $this->hasMany(ServiceDetalle::class, 'repuesto_id');
+    }
     //------------
 }

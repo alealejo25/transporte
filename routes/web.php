@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ExcelToPdfController;
 
+use App\Http\Controllers\ServiceController;
 
 
 /*
@@ -28,6 +29,32 @@ use App\Http\Controllers\ExcelToPdfController;
 //Repuestos
 //Route::get('repuestos/tipocomprobantes2','PanolController@tipocomprobantes2')->name('tipocomprobantes2');
 //Route::get('repuestos/tipocomprobantes','PanolController@tipocomprobantes')->name('tipocomprobantes');
+
+//services
+/*Route::get('/services/create', [ServiceController::class, 'create'])->name('services.create');*/
+Route::get('/services/create','ServiceController@create')->name('create');
+Route::post('/services/store', [ServiceController::class, 'store'])->name('services.store');
+//Route::post('services/store','ServiceController@store')->name('store');
+Route::get('/services/', [ServiceController::class, 'index'])->name('services.index');
+// para el ajax //
+Route::post('/services/{id}/updateEstado','ServiceController@updateEstado')->name('updateEstado');
+
+//agergar repuestos al service
+Route::get('/services/{id}/agregar-repuestos', [ServiceController::class, 'agregarRepuestos'])->name('services.agregarRepuestos');
+Route::post('/services/{id}/store-repuestos', [ServiceController::class, 'storeRepuestos'])->name('services.storeRepuestos');
+///////**********************
+
+// eliminar repuestos de service
+Route::get('/services/{id}/eliminar-repuestos', [ServiceController::class, 'eliminarRepuestos'])->name('services.eliminarRepuestos');
+Route::post('/services/{id}/destroy-repuestos', [ServiceController::class, 'destroyRepuestos'])->name('services.destroyRepuestos');
+//------------------------
+
+// monitorero de services
+// Ruta para la vista de monitoreo
+Route::get('/services/monitoring', [ServiceController::class, 'monitoringView'])->name('services.monitoring.view');
+// Ruta para obtener los datos en tiempo real (AJAX)
+Route::get('/services/monitoring/data', [ServiceController::class, 'monitoringData'])->name('services.monitoring');
+//--------------------------------
 
 /// ABM TIPOCOMPROBANTES -----
 Route::view('repuestos/tipocomprobantes2', '/repuestos/tipocomprobantes2');

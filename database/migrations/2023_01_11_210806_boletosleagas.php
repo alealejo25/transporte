@@ -16,6 +16,9 @@ class Boletosleagas extends Migration
         Schema::create('boletosleagas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('numero');
+            $table->integer('abonojubilado');
+            $table->integer('abono');
+            $table->integer('numero');
             $table->date('fecha');
             $table->decimal('recaudaciontotal',10,2);
             $table->integer('pasajestotal');

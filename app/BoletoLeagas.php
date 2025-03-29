@@ -13,6 +13,8 @@ class BoletoLeagas extends Model
     protected $fillable = [
         'id',
         'numero',
+        'abonojubilado',
+        'abono',
         'fecha',
         'recaudaciontotal',
         'horainicio',

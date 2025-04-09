@@ -5,7 +5,7 @@ use App\Http\Controllers\ExcelToPdfController;
 
 use App\Http\Controllers\ServiceController;
 
-
+use App\Http\Controllers\BolManantialController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -347,17 +347,23 @@ Route::get('bolmanantial/boletoleagas/{id}/modificarservicio', 'BolManantialCont
 
 Route::get('bolmanantial/boletoleagas/{id}/informeboletoleagas','BolManantialController@informeboletoleagas')->name('informeboletoleagas')->middleware('permission:bolmanantial');
 
+
+//reportes
 Route::get('bolmanantial/reportes/boletosleagas','BolManantialController@boletosleagas')->name('boletoslegas')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/reportes/reporteboletosleagas','BolManantialController@reporteboletosleagas')->name('reporteboletosleagas')->middleware('permission:bolmanantial');
-
-
-
 
 Route::get('bolmanantial/reportes/hstrabajadas','BolManantialController@hstrabajadas')->name('hstrabajadas')->middleware('permission:bolmanantial');
 Route::post('bolmanantial/reportes/reportehstrabajadas','BolManantialController@reportehstrabajadas')->name('reportehstrabajadas')->middleware('permission:bolmanantial');
 
 
+
 Route::get('bolmanantial/reportes/reportechofereslnf','BolManantialController@reportechofereslnf')->name('reportechofereslnf')->middleware('permission:bolmanantial');
+
+Route::get('/bolmanantial/reportes/abonos', [BolManantialController::class, 'abonos'])->name('abonos');
+Route::post('/bolmanantial/reportes/abonos/reporteabonos', [BolManantialController::class, 'reporteabonos'])->name('bolmanantial.reportes.abonos.reporteabonos');
+//////////////////
+
+
 
 
 //REPORTE GASOIL

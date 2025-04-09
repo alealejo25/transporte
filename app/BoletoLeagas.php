@@ -69,4 +69,10 @@ class BoletoLeagas extends Model
     {
         return $query->where('fecha','LIKE',"%$name%");
     }
+    // Relación solo para el reporte
+    public function servicioReporte()
+    {
+        return $this->belongsTo('App\\ServicioLeagasLnf', 'servicio_id');
+    }
+
 }

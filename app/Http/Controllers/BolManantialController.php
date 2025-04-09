@@ -595,6 +595,68 @@ public function reportehstrabajadas(Request $request)
         }
 }
 
+public function abonos()
+    {
+        
+        return view('bolmanantial.reportes.abonos');
+    }
+    /*public function reporteabonos(Request $request)
+    {
+
+        $request->validate([
+            'fecha_desde' => 'required|date',
+            'fecha_hasta' => 'required|date|after_or_equal:fecha_desde',
+        ]);
+
+        $boletos = Boletoleagas::whereBetween('fecha', [$request->fecha_desde, $request->fecha_hasta])
+            ->orderBy('fecha')
+            ->get();
+
+        $agrupado = $boletos->groupBy('fecha');
+        $totales = [
+            'abonojubilado' => $boletos->sum('abonojubilado'),
+            'abono' => $boletos->sum('abono'),
+            'total' => $boletos->sum('abonojubilado') + $boletos->sum('abono')
+        ];
+
+        $pdf = Pdf::loadView('bolmanantial.reportes.reporteabonos', compact('agrupado', 'totales', 'request'));
+        return $pdf->download('reporte_abonos.pdf');
+    }*/
+    public function reporteabonos(Request $request)
+    {
+
+    $request->validate([
+        'fecha_desde' => 'required|date',
+        'fecha_hasta' => 'required|date|after_or_equal:fecha_desde',
+    ]);
+$boletos = BoletoLeagas::with([
+    'servicioReporte.empresaReporte',
+    'servicioReporte.lineaReporte',
+    'servicioReporte.ramalReporte',
+    'servicioReporte.turnoReporte'
+])
+->whereBetween('fecha', [$request->fecha_desde, $request->fecha_hasta])
+->get();
+
+// Agrupar por empresa → línea
+$agrupadoPorEmpresa = $boletos->groupBy(function ($item) {
+    return optional($item->servicioReporte->empresaReporte)->denominacion ?? 'Sin empresa';
+})->map(function ($boletosEmpresa) {
+    return $boletosEmpresa->groupBy(function ($item) {
+        return optional($item->servicioReporte->lineaReporte)->numero ?? 'Sin línea';
+    });
+});
+
+
+    $totalesGlobales = [
+        'abonojubilado' => $boletos->sum('abonojubilado'),
+        'abono' => $boletos->sum('abono'),
+        'total' => $boletos->sum('abonojubilado') + $boletos->sum('abono'),
+    ];
+
+    $pdf = Pdf::loadView('bolmanantial.reportes.reporteabonos', compact('agrupadoPorEmpresa', 'totalesGlobales', 'request'));
+    return $pdf->download('reporte_abonos_por_empresa.pdf');
+    }
 public function cargargasoil($id)
     {
 

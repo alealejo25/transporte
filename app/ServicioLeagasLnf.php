@@ -51,4 +51,22 @@ class ServicioLeagasLnf extends Model
     {
         return $query->where('numero','LIKE',"%$name%");
     }
+    // Alias de relación para el reporte
+    public function empresaReporte()
+    {
+        return $this->belongsTo('App\\Empresa', 'empresa_id');
+    }
+    public function lineaReporte()
+    {
+        return $this->belongsTo('App\\Linea', 'linea_id');
+    }
+    public function ramalReporte()
+    {
+        return $this->belongsTo('App\\Ramal', 'ramal_id');
+    }
+    public function turnoReporte()
+    {
+        return $this->belongsTo('App\\Turno', 'turno_id');
+    }
+
 }

@@ -459,6 +459,9 @@ input[readonly] {
                     </a>
                      <ul class="treeview-menu">
                       @can('boletoslnf')
+                      <li><a href="/bolmanantial/reportes/abonos"><i class="fa fa-circle-o"></i> Abonos</a></li>
+                      @endcan
+                      @can('boletoslnf')
                       <li><a href="/bolmanantial/reportes/boletosleagas"><i class="fa fa-circle-o"></i> Servicios</a></li>
                       @endcan
                       @can('boletoslnf')

@@ -361,6 +361,8 @@ Route::get('bolmanantial/reportes/reportechofereslnf','BolManantialController@re
 
 Route::get('/bolmanantial/reportes/abonos', [BolManantialController::class, 'abonos'])->name('abonos');
 Route::post('/bolmanantial/reportes/abonos/reporteabonos', [BolManantialController::class, 'reporteabonos'])->name('bolmanantial.reportes.abonos.reporteabonos');
+Route::get('/exportar-abonos', [BolManantialController::class, 'exportarExcelAbonos'])->name('bolmanantial.reportes.abonos.exportarexcelabonos');
+
 //////////////////
 
 

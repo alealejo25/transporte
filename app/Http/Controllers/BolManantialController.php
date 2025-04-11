@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\AbonosPorLineaExport;
 use Illuminate\Http\Request;
 use App\BoletoLeagas;
 use App\ChoferLeagasLnf;
@@ -714,7 +716,28 @@ public function reporteabonos(Request $request)
         ->setOptions(['dpi' => 120, 'defaultFont' => 'DejaVu Sans']);
     return $pdf->download('reporte_abonos_completo.pdf');
 }
-    
+
+public function exportarExcelAbonos(Request $request)
+{
+    $boletos = BoletoLeagas::with([
+        'servicioReporte.empresaReporte',
+        'servicioReporte.lineaReporte'
+    ])->whereBetween('fecha', [$request->fecha_desde, $request->fecha_hasta])->get();
+
+    $agrupado = $boletos->groupBy(function ($item) {
+        return optional($item->servicioReporte->empresaReporte)->denominacion ?? 'Sin empresa';
+    })->map(function ($empresaGroup) {
+        return $empresaGroup->groupBy(function ($item) {
+            return optional($item->servicioReporte->lineaReporte)->numero ?? 'Sin línea';
+        })->map(function ($lineaGroup) {
+            return $lineaGroup->groupBy('fecha');
+        });
+    });
+
+    return Excel::download(new AbonosPorLineaExport($agrupado), 'abonos_por_linea.xlsx');
+}
+
+
 /*
 public function reporteabonos(Request $request)
 {

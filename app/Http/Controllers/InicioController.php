@@ -63,18 +63,38 @@ class InicioController extends Controller
         $consultaplanchasanuladasdiatafi=MovimientoCajaTafi::where('tipo','ANULADO')->where('fecha',$date)->get();
         $planchasvendidasdiatafi=count($consultaplanchasvendidasdiatafi);
         $planchasanuladasdiatafi=count($consultaplanchasanuladasdiatafi);
-        return view('index')
-        ->with('consultamovimientos1',$consultamovimientos1)
-        ->with('consultamovimientos2',$consultamovimientos2)
-        ->with('totalventas',$totalventas)
-        ->with('planchasvendidasdiatafi',$planchasvendidasdiatafi)
-        ->with('consultagastosdiariostafi',$consultagastosdiariostafi)
-        ->with('mfecha',$mfecha)
-        ->with('planchasanuladasdiatafi',$planchasanuladasdiatafi)
-        ->with('chequespropioporvencer',$chequespropioporvencer)
-        ->with('consultacamion',$consultacamion)
-        ->with('cantidad',$cantidad)
-        ->with('cantidaddisponible',$cantidaddisponible);
+        
+$abonosPorMes = MovimientoCajaTafi::selectRaw("
+        DATE_FORMAT(fecha, '%Y-%m') as mes,
+        SUM(CASE WHEN tipo = 'VENTA' THEN importe ELSE 0 END) -
+        SUM(CASE WHEN tipo = 'ANULADO' THEN importe ELSE 0 END) as total
+    ")
+    ->whereBetween('fecha', [now()->subMonths(11)->startOfMonth(), now()->endOfMonth()])
+    ->groupBy('mes')
+    ->orderBy('mes')
+    ->get();
+
+$meses = $abonosPorMes->pluck('mes')->map(function ($mes) {
+    return \Carbon\Carbon::createFromFormat('Y-m', $mes)->format('M Y');
+});
+
+$totales = $abonosPorMes->pluck('total');
+
+return view('index')
+    ->with('consultamovimientos1',$consultamovimientos1)
+    ->with('consultamovimientos2',$consultamovimientos2)
+    ->with('totalventas',$totalventas)
+    ->with('planchasvendidasdiatafi',$planchasvendidasdiatafi)
+    ->with('consultagastosdiariostafi',$consultagastosdiariostafi)
+    ->with('mfecha',$mfecha)
+    ->with('planchasanuladasdiatafi',$planchasanuladasdiatafi)
+    ->with('chequespropioporvencer',$chequespropioporvencer)
+    ->with('consultacamion',$consultacamion)
+    ->with('cantidad',$cantidad)
+    ->with('cantidaddisponible',$cantidaddisponible)
+    ->with('meses', $meses)
+    ->with('totales', $totales);
+
 
     }
 

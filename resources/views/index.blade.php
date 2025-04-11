@@ -6,9 +6,22 @@
 }}
 @endif
 @can('administradores')
-<h4>Cajas</h4>
 <div class="row">
-	 @foreach ($consultamovimientos2 as $consultamovimiento2)
+  <div class="col-md-6">
+    <div class="card card-success">
+        <div class="card-header">
+            <h3 class="card-title">📊 Ventas de Abonos-Boleteria Tafi</h3>
+        </div>
+        <div class="card-body">
+            <canvas id="graficoAbonos" style="min-height: 180px; height: 180px;"></canvas>
+        </div>
+    </div>
+  </div>
+
+
+<div class="row">
+
+   @foreach ($consultamovimientos2 as $consultamovimiento2)
 
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
@@ -125,4 +138,35 @@
 
 @endcan
 
-  @endsection
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var ctx = document.getElementById('graficoAbonos').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode($meses) !!},
+            datasets: [{
+                label: 'Total $',
+                data: {!! json_encode($totales) !!},
+                backgroundColor: '#28a745'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return '$' + value.toLocaleString();
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+
+@endsection

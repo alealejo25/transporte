@@ -607,7 +607,7 @@ public function abonos()
 
 public function reporteabonos(Request $request)
 {
-$request->validate([
+  $request->validate([
         'fecha_desde' => 'required|date',
         'fecha_hasta' => 'required|date|after_or_equal:fecha_desde',
     ]);
@@ -616,7 +616,7 @@ $request->validate([
 
     $boletos = BoletoLeagas::with([
         'servicioReporte.empresaReporte',
-        'servicioReporte.lineaReporte',
+        'servicioReporte.lineaReporte'
     ])->whereBetween('fecha', [$request->fecha_desde, $request->fecha_hasta])->get();
 
     $totalesGlobales = [
@@ -636,8 +636,14 @@ $request->validate([
             });
         });
 
-        // Crear carpeta de imágenes si no existe
         Storage::makeDirectory('public/temp_charts');
+
+        $files = Storage::files('public/temp_charts');
+        foreach ($files as $file) {
+            if (Str::endsWith($file, '.png')) {
+                Storage::delete($file);
+            }
+        }
 
         foreach ($agrupadoPorEmpresa as $empresa => $lineas) {
             foreach ($lineas as $linea => $fechas) {
@@ -646,7 +652,7 @@ $request->validate([
                 $dataAbono = [];
 
                 foreach ($fechas as $fecha => $items) {
-                    $labels[] = $fecha;
+                    $labels[] = \Carbon\Carbon::parse($fecha)->format('d-m-y');
                     $dataJub[] = $items->sum('abonojubilado');
                     $dataAbono[] = $items->sum('abono');
                 }
@@ -660,14 +666,25 @@ $request->validate([
                     'data' => [
                         'labels' => $labels,
                         'datasets' => [
-                            ['label' => 'Jubilados', 'data' => $dataJub],
-                            ['label' => 'Comunes', 'data' => $dataAbono]
+                            [
+                                'label' => 'Jubilados',
+                                'data' => $dataJub,
+                                'backgroundColor' => '#42a5f5'
+                            ],
+                            [
+                                'label' => 'Comunes',
+                                'data' => $dataAbono,
+                                'backgroundColor' => '#66bb6a'
+                            ]
                         ]
                     ],
                     'options' => [
                         'title' => [
                             'display' => true,
                             'text' => "Abonos por Día - Línea $linea"
+                        ],
+                        'legend' => [
+                            'position' => 'top'
                         ]
                     ]
                 ];
@@ -679,11 +696,11 @@ $request->validate([
         }
 
         $view = 'bolmanantial.reportes.reporteresumenlinea';
-        $pdf = \PDF::loadView($view, compact('agrupadoPorEmpresa', 'totalesGlobales', 'request'));
+        $pdf = \PDF::loadView($view, compact('agrupadoPorEmpresa', 'totalesGlobales', 'request'))
+            ->setOptions(['dpi' => 120, 'defaultFont' => 'DejaVu Sans']);
         return $pdf->download('reporte_abonos_resumen.pdf');
     }
 
-    // Si no se agrupa por línea
     $agrupadoPorEmpresa = $boletos->groupBy(function ($item) {
         return optional($item->servicioReporte->empresaReporte)->denominacion ?? 'Sin empresa';
     })->map(function ($empresaGroup) {
@@ -693,7 +710,8 @@ $request->validate([
     });
 
     $view = 'bolmanantial.reportes.reporteabonos';
-    $pdf = \PDF::loadView($view, compact('agrupadoPorEmpresa', 'totalesGlobales', 'request'));
+    $pdf = \PDF::loadView($view, compact('agrupadoPorEmpresa', 'totalesGlobales', 'request'))
+        ->setOptions(['dpi' => 120, 'defaultFont' => 'DejaVu Sans']);
     return $pdf->download('reporte_abonos_completo.pdf');
 }
     

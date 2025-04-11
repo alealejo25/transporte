@@ -112,7 +112,7 @@
         @endphp
 
         @foreach($itemsPorFecha as $fecha => $boletosDelDia)
-            <h4>Fecha: {{ $fecha }}</h4>
+            <h4>Fecha: {{ \Carbon\Carbon::parse($fecha)->format('d-m-y') }}</h4>
             <table>
                 <thead>
                     <tr>

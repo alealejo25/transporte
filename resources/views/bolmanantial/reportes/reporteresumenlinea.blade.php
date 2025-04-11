@@ -144,7 +144,7 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>{{ $fecha }}</td>
+                        <td>{{ \Carbon\Carbon::parse($fecha)->format('d-m-y') }}</td>
                         <td>{{ $totalDiaJub }}</td>
                         <td>{{ $totalDiaAbono }}</td>
                         <td>{{ $totalDiaJub + $totalDiaAbono }}</td>

@@ -31,6 +31,10 @@ use App\Exports\GasOilExport;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+
 use Yajra\DataTables\DataTables;
 
 class BolManantialController extends Controller
@@ -600,6 +604,188 @@ public function abonos()
         
         return view('bolmanantial.reportes.abonos');
     }
+
+public function reporteabonos(Request $request)
+{
+$request->validate([
+        'fecha_desde' => 'required|date',
+        'fecha_hasta' => 'required|date|after_or_equal:fecha_desde',
+    ]);
+
+    $agruparPorLinea = $request->has('agrupar_linea');
+
+    $boletos = BoletoLeagas::with([
+        'servicioReporte.empresaReporte',
+        'servicioReporte.lineaReporte',
+    ])->whereBetween('fecha', [$request->fecha_desde, $request->fecha_hasta])->get();
+
+    $totalesGlobales = [
+        'abonojubilado' => $boletos->sum('abonojubilado'),
+        'abono' => $boletos->sum('abono'),
+        'total' => $boletos->sum('abonojubilado') + $boletos->sum('abono')
+    ];
+
+    if ($agruparPorLinea) {
+        $agrupadoPorEmpresa = $boletos->groupBy(function ($item) {
+            return optional($item->servicioReporte->empresaReporte)->denominacion ?? 'Sin empresa';
+        })->map(function ($empresaGroup) {
+            return $empresaGroup->groupBy(function ($item) {
+                return optional($item->servicioReporte->lineaReporte)->numero ?? 'Sin línea';
+            })->map(function ($lineaGroup) {
+                return $lineaGroup->groupBy('fecha');
+            });
+        });
+
+        // Crear carpeta de imágenes si no existe
+        Storage::makeDirectory('public/temp_charts');
+
+        foreach ($agrupadoPorEmpresa as $empresa => $lineas) {
+            foreach ($lineas as $linea => $fechas) {
+                $labels = [];
+                $dataJub = [];
+                $dataAbono = [];
+
+                foreach ($fechas as $fecha => $items) {
+                    $labels[] = $fecha;
+                    $dataJub[] = $items->sum('abonojubilado');
+                    $dataAbono[] = $items->sum('abono');
+                }
+
+                $empresaKey = Str::slug($empresa);
+                $lineaKey = Str::slug($linea);
+                $filename = "chart-{$empresaKey}-{$lineaKey}.png";
+
+                $chartConfig = [
+                    'type' => 'bar',
+                    'data' => [
+                        'labels' => $labels,
+                        'datasets' => [
+                            ['label' => 'Jubilados', 'data' => $dataJub],
+                            ['label' => 'Comunes', 'data' => $dataAbono]
+                        ]
+                    ],
+                    'options' => [
+                        'title' => [
+                            'display' => true,
+                            'text' => "Abonos por Día - Línea $linea"
+                        ]
+                    ]
+                ];
+
+                $url = 'https://quickchart.io/chart?c=' . urlencode(json_encode($chartConfig));
+                $image = Http::withoutVerifying()->get($url)->body();
+                Storage::put("public/temp_charts/$filename", $image);
+            }
+        }
+
+        $view = 'bolmanantial.reportes.reporteresumenlinea';
+        $pdf = \PDF::loadView($view, compact('agrupadoPorEmpresa', 'totalesGlobales', 'request'));
+        return $pdf->download('reporte_abonos_resumen.pdf');
+    }
+
+    // Si no se agrupa por línea
+    $agrupadoPorEmpresa = $boletos->groupBy(function ($item) {
+        return optional($item->servicioReporte->empresaReporte)->denominacion ?? 'Sin empresa';
+    })->map(function ($empresaGroup) {
+        return $empresaGroup->groupBy(function ($item) {
+            return optional($item->servicioReporte->lineaReporte)->numero ?? 'Sin línea';
+        });
+    });
+
+    $view = 'bolmanantial.reportes.reporteabonos';
+    $pdf = \PDF::loadView($view, compact('agrupadoPorEmpresa', 'totalesGlobales', 'request'));
+    return $pdf->download('reporte_abonos_completo.pdf');
+}
+    
+/*
+public function reporteabonos(Request $request)
+{
+    $request->validate([
+        'fecha_desde' => 'required|date',
+        'fecha_hasta' => 'required|date|after_or_equal:fecha_desde',
+    ]);
+
+    $agruparPorLinea = $request->has('agrupar_linea');
+
+    $boletos = BoletoLeagas::with([
+        'servicioReporte.empresaReporte',
+        'servicioReporte.lineaReporte'
+    ])->whereBetween('fecha', [$request->fecha_desde, $request->fecha_hasta])
+      ->get();
+
+    $totalesGlobales = [
+        'abonojubilado' => $boletos->sum('abonojubilado'),
+        'abono' => $boletos->sum('abono'),
+        'total' => $boletos->sum('abonojubilado') + $boletos->sum('abono')
+    ];
+
+    if ($agruparPorLinea) {
+        $agrupadoPorEmpresa = $boletos->groupBy(function ($item) {
+            return optional($item->servicioReporte->empresaReporte)->denominacion ?? 'Sin empresa';
+        })->map(function ($boletosEmpresa) {
+            return $boletosEmpresa->groupBy(function ($item) {
+                return optional($item->servicioReporte->lineaReporte)->numero ?? 'Sin línea';
+            })->map(function ($boletosLinea) {
+                return $boletosLinea->groupBy('fecha');
+            });
+        });
+
+        // 🎨 Generar gráficos por línea
+        $chartsPorLinea = [];
+        foreach ($agrupadoPorEmpresa as $empresa => $lineas) {
+            foreach ($lineas as $linea => $fechas) {
+                $labels = [];
+                $dataJub = [];
+                $dataAbono = [];
+
+                foreach ($fechas as $fecha => $items) {
+                    $labels[] = $fecha;
+                    $dataJub[] = $items->sum('abonojubilado');
+                    $dataAbono[] = $items->sum('abono');
+                }
+
+                $chartUrl = "https://quickchart.io/chart?c=" . urlencode(json_encode([
+                    'type' => 'bar',
+                    'data' => [
+                        'labels' => $labels,
+                        'datasets' => [
+                            [ 'label' => 'Jubilados', 'data' => $dataJub ],
+                            [ 'label' => 'Comunes', 'data' => $dataAbono ]
+                        ]
+                    ],
+                    'options' => [
+                        'title' => [
+                            'display' => true,
+                            'text' => "Abonos por día - Línea $linea"
+                        ]
+                    ]
+                ]));
+
+                $chartsPorLinea[$empresa][$linea] = $chartUrl;
+            }
+        }
+
+        $view = 'bolmanantial.reportes.reporteresumenlinea';
+        $pdf = \PDF::loadView($view, compact('agrupadoPorEmpresa', 'totalesGlobales', 'request', 'chartsPorLinea'));
+        return $pdf->download('reporte_abonos_resumen.pdf');
+    }
+
+    // si no es agrupado por línea
+    $agrupadoPorEmpresa = $boletos->groupBy(function ($item) {
+        return optional($item->servicioReporte->empresaReporte)->denominacion ?? 'Sin empresa';
+    })->map(function ($boletosEmpresa) {
+        return $boletosEmpresa->groupBy(function ($item) {
+            return optional($item->servicioReporte->lineaReporte)->numero ?? 'Sin línea';
+        });
+    });
+
+    $view = 'bolmanantial.reportes.reporteabonos';
+    $pdf = \PDF::loadView($view, compact('agrupadoPorEmpresa', 'totalesGlobales', 'request'));
+    return $pdf->download('reporte_abonos_completo.pdf');
+}
+
+*/
+
     /*public function reporteabonos(Request $request)
     {
 
@@ -622,7 +808,7 @@ public function abonos()
         $pdf = Pdf::loadView('bolmanantial.reportes.reporteabonos', compact('agrupado', 'totales', 'request'));
         return $pdf->download('reporte_abonos.pdf');
     }*/
-    public function reporteabonos(Request $request)
+/*    public function reporteabonos(Request $request)
     {
 
      $request->validate([
@@ -671,6 +857,7 @@ public function abonos()
      $pdf = Pdf::loadView($view, compact('agrupadoPorEmpresa', 'totalesGlobales', 'request'));
     return $pdf->download('reporte_abonos.pdf');
     }
+*/
 public function cargargasoil($id)
     {
 

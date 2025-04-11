@@ -1,3 +1,4 @@
+<?php use Illuminate\Support\Str; ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -92,7 +93,6 @@
 <body>
 
 <header>
-    
     <h1>Reporte de Abonos por Empresa</h1>
     <div class="info">
         Período: <strong>{{ $request->fecha_desde }}</strong> al <strong>{{ $request->fecha_hasta }}</strong>
@@ -104,6 +104,21 @@
 
     @foreach($lineas as $linea => $fechas)
         <h4>Línea: {{ $linea }}</h4>
+
+        @php
+            $empresaKey = Str::slug($empresa);
+            $lineaKey = Str::slug($linea);
+            $chartPath = storage_path("app/public/temp_charts/chart-{$empresaKey}-{$lineaKey}.png");
+        @endphp
+
+        @if(file_exists($chartPath))
+            @php
+                $chartData = base64_encode(file_get_contents($chartPath));
+            @endphp
+            <div style="text-align:center; margin: 20px 0;">
+                <img src="data:image/png;base64,{{ $chartData }}" style="width:100%; max-width:700px;">
+            </div>
+        @endif
 
         @php
             $totalLineaJub = 0;
@@ -188,7 +203,6 @@
 <footer>
     Generado automáticamente por el sistema - {{ \Carbon\Carbon::now()->format('d/m/Y H:i') }}
 </footer>
-
 
 </body>
 </html>

@@ -17,6 +17,11 @@ use App\Http\Controllers\BolManantialController;
 |
 */
 
+
+
+Route::get('/ticket', function () {
+    return view('bolterminal.idavuelta.ticket');
+});
 // Route::get('/', function () {
 //     return view('auth.login');
 // });
